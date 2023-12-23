@@ -15,6 +15,7 @@ padding: 1rem;
 
 .navlogo{
 margin: auto;
+cursor: pointer;
 }
 
 .navlinks{
@@ -88,8 +89,9 @@ letter-spacing: 1px;
 }
 
 .search-box{
-  margin: auto;
-  }
+margin: auto;
+padding: 10rem 0;
+}
 
 .heroform{
 display: flex;
@@ -361,15 +363,10 @@ color: #fff;
 letter-spacing: 1px;
 }
 
-.mortage-hero p{
-letter-spacing: 1px;
-margin-bottom: 30px;
-padding: 0 1rem;
 
-}
 
 .mortage-form{
-max-width: 600px;
+max-width: 40rem;
 margin: 0 auto;
 background-color: #fff;
 padding: 2rem;
@@ -377,10 +374,16 @@ border-radius: 5px;
 box-shadow: 0 2px 5px #0000001a;
 }
 
+.mortage-form p{
+letter-spacing: 1px;
+margin-bottom: 30px;
+padding: 0 1rem;
+text-align: center;
+}
+
 .mortage-form input{
 width: 100%;
 background-color: #f2f2f2;
-margin-bottom: 20px;
 outline: none;
 padding: 10px;
 border: none;
@@ -388,6 +391,9 @@ border-radius: 5px;
 }
 
 .mortage-form input:focus{
+border: solid 1px #17a2f6;
+}
+.mortage-form input:hover{
 border: solid 1px #17a2f6;
 }
 

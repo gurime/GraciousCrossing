@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import searchimg from '../img/white_search.png'
 import Link from 'next/link'
 import cardimg1 from '../img/home-card1.jpeg'
@@ -10,8 +10,67 @@ import card1 from "../img/card1-img.jpeg"
 import card2 from "../img/bg-card3.jpg"
 import card3 from "../img/bg-card2.jpg"
 import { useRouter } from 'next/navigation'
+import { getArticle } from './Navapi/api'
+import { doc, getDoc, getFirestore } from 'firebase/firestore'
 export default function HeroHome() {
+    const [isSignedIn, setIsSignedIn] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [isOverlayActive, setIsOverlayActive] = useState(false);
 const router = useRouter()
+
+useEffect(() => {
+    const handleDocumentClick = (e) => {
+        const isClickOutsideSearch = !e.target.closest('.search-container');
+        
+        if (isClickOutsideSearch) {
+            setIsOverlayActive(false);
+            setSearchResults([]);
+        }
+    };
+
+    document.body.addEventListener('click', handleDocumentClick);
+
+    const getUserData = async (userId) => {
+        try {
+            const db = getFirestore();
+            const userDocRef = doc(db, 'users', userId);
+            const userDocSnapshot = await getDoc(userDocRef);
+
+            if (userDocSnapshot.exists()) {
+                const userData = userDocSnapshot.data();
+                return userData;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error.message);
+            throw error;
+        }
+    };
+
+    // Assuming you have an unsubscribe function
+    return () => {
+        document.body.removeEventListener('click', handleDocumentClick);
+        // Make sure to define the unsubscribe function
+        // unsubscribe();
+    };
+}, [searchTerm, isOverlayActive]);
+
+const handleSearch = async () => {
+    // Assuming getArticle is a defined function
+    const results = await getArticle(searchTerm);
+    setSearchResults(results);
+};
+
+useEffect(() => {
+    handleSearch();
+}, [searchTerm]);
+
+            const getLink = (collection, id) => {
+                const route = collectionRoutes[collection];
+                return route ? `${route}/${id}` : '/';
+                };
 return (
 <>
 <div className="hero">
@@ -28,6 +87,17 @@ tabIndex={0}
 
 
 />
+{searchResults.length > 0 && searchTerm && !loading && (
+<div className="search-results-container">
+{searchResults.slice(0,10).map((result) => (
+<div key={result.id} className="search-result-item">
+<Link key={result.id} href={getLink(result.collection, result.id)}>
+<p>{result.title}</p>
+</Link>
+</div>
+))}
+</div>
+)}
 <button className="form-btn" type="submit" >
 <Image src={searchimg} width={20} alt='...'  />
 </button>
@@ -52,7 +122,15 @@ sign a lease and more.</p>
 <div className="tagline-header tagline-header-reverse">
 <h1>List your property</h1>
 <p>Reach millions of renters by listing your property.</p>
+
+
+{isSignedIn ? (
+
 <Link href='#!'>Add your listings</Link>
+) : (
+<p>Please sign in to add listings.</p>
+)}
+
 </div>
 </div>
 
