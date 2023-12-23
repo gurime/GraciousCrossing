@@ -1,0 +1,494 @@
+body,html {
+margin: 0;
+overflow-x: hidden;
+box-sizing: border-box;
+background-color: #eff3f8;
+letter-spacing: 1px;
+}
+
+.nav{
+display: flex;
+place-items: center;
+background-color: #2072ed;
+padding: 1rem;
+}
+
+.navlogo{
+margin: auto;
+}
+
+.navlinks{
+list-style: none;
+margin: auto;
+display: flex;
+place-items: center;
+}
+
+.navlinks a{
+color: #fff;
+padding: 1rem;
+text-decoration: none;
+}
+
+
+
+@media(max-width:968px){
+.nav{
+flex-wrap: wrap;
+padding: 0 1rem;
+}
+
+.navlinks{
+margin-bottom: 1rem;
+}
+      
+.nav img{      
+margin: auto;
+padding: 1rem 0;
+}
+        
+      
+
+    
+.navlinks a{
+padding: 10px;
+margin: auto;
+font-size: 13px;
+}
+    
+}
+/* navbar stops here */
+
+
+
+.hero {
+background-image: linear-gradient(to bottom, #0000004d, #0000004d), url("./img/bg-h.jpg");
+background-size: cover;
+background-position: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+place-items: center;
+text-align: center;
+color: #fff;
+padding: 1rem;
+}
+  
+  
+.hero h1 {
+font-size: 3rem;
+margin-bottom: 2rem;
+letter-spacing: 1px;
+}
+
+.hero p {
+font-size: 1.5rem;
+margin-bottom: 3rem;
+letter-spacing: 1px;
+}
+
+.search-box{
+  margin: auto;
+  }
+
+.heroform{
+display: flex;
+max-width: 55rem;
+place-content: center;
+margin: auto;   
+}
+    
+.heroform input{
+width:100%;
+height:38px;
+padding:1rem;
+outline:none;
+border:none;
+text-indent: 8px;
+font-size: 15px;
+line-height: 15px;
+direction: ltr;
+margin: auto;
+color: #111;
+}
+
+.form-btn{
+width: 10rem;
+background-color:#2072ed;
+color: #fff;
+outline: none;
+border-width: 0;
+cursor: pointer;
+transition: 0.5s;
+}
+
+.form-btn:hover{
+background-color: #2e43d8;
+}
+
+.card-block{
+display: flex;
+place-items: center;
+border-bottom: 1px solid #8b5cf6;
+padding: 1rem 0;
+}
+
+.card-block img{
+object-fit: cover;
+object-position: center;
+height: auto;
+width: 100%;
+}
+
+.tagline-header{
+background-color: #f5f5f5;
+height: auto;
+display: flex;
+flex-direction: column;
+}
+
+.tagline-header h1{
+font-weight: 300;
+padding: 0 50px;
+margin-bottom: 1rem;
+}
+
+.tagline-header p{
+font-size: 14px;
+line-height: 2;
+padding: 0 3rem;
+}
+
+.tagline-header a{
+text-transform: capitalize;
+padding: 0 50px;
+text-decoration: none;
+color: #6d6df8;
+font-size: 24px;
+}
+
+.cards{
+display: grid;
+place-items: center;
+place-content: center;
+grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+grid-gap: 1rem;
+gap: 1rem;
+padding: .8rem 0;
+}
+
+.card{
+overflow: hidden;
+border-radius: .5rem;
+max-width: 30rem;
+margin: 1rem 0;
+}
+
+.card img{
+width: 100%;
+height: auto;
+}
+
+.card h2{
+font-weight: 300;
+}
+
+.card p{
+line-height: 24px;
+}
+
+.card button{
+background-color: #17a2f6;
+color: #fff;
+padding: 10px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+ 
+}
+
+@media(max-width:968px){
+.card-block{
+flex-direction: column;
+}
+.card-block-reverse{
+flex-direction: column-reverse;
+}
+}
+/* herohome css stops here */
+
+
+
+.container h1 {
+margin-top: 0;
+margin-bottom: 1rem;
+}
+
+.form-container{
+
+place-items: center;
+width: 100%;
+display: grid;}
+
+
+.contactform {
+max-width: 700px;
+margin: 1rem auto;
+background-color: #fff;
+padding: 3rem;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.contactform label {
+display: block;
+margin-bottom: 1rem;
+}
+  
+.contactform input[type="text"],
+.contactform input[type="email"],
+.contactform textarea {
+width: 100%;
+padding: 10px;
+margin-bottom: 20px;
+border-radius: 5px;
+border: 1px solid #ccc;
+box-sizing: border-box;
+font-size: 16px;
+resize: none;
+letter-spacing: 1px;
+line-height: 25px;
+outline: none;
+}
+
+.contactform button {
+background-color: #4c60af;
+color: white;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+transition: 0.3s ease-in-out;
+}
+
+.contactform button:hover {
+background-color: #1d09d5;
+}
+
+.contactform h1 {
+text-align: center;
+margin-bottom: 1rem;
+}
+/* contact css stops here */
+
+
+/* faq css starts here */
+.faq-container {
+margin: 0 auto;
+max-width: 1000px;
+}
+
+/* Style the FAQ section header */
+.faq-container h2 {
+font-size: 2rem;
+}
+
+/* Style the accordion items */
+.accordion-item {
+border: 1px solid #ddd;
+border-radius: 5px;
+}
+
+/* Style the accordion headers */
+.accordion-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 20px;
+cursor: pointer;
+background-color: #f9f9f9;
+}
+
+/* Style the accordion header text */
+.accordion-header h3 {
+font-size: 1.2rem;
+font-weight: bold;
+}
+
+/* Style the accordion icon */
+.accordion-icon {
+width: 12px;
+height: 12px;
+border-right: 1px solid #888;
+border-bottom: 1px solid #888;
+transform: rotate(-45deg);
+}
+
+/* Style the accordion content */
+.accordion-content {
+padding: 20px;
+visibility: hidden;
+max-height: 0;
+transition: max-height 0.2s ease-in-out, visibility 0.2s ease-in-out;
+background-color: #fff;
+}
+
+.accordion-content p {
+line-height: 2;
+letter-spacing: 1px;
+}
+  
+/* Show the accordion content when the header is clicked */
+.accordion-item.active .accordion-content {
+visibility: visible;
+max-height: 1000px;
+}
+/* faq css stos here */
+.mortage-hero{
+background-image: linear-gradient(180deg,#0000004d,#0000004d),url('./img/bg-mortage.jpg');
+background-size: cover;
+background-position: 50%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+place-items: center;
+padding: 1rem;
+}
+
+.mortage-hero h1{
+margin-bottom: 0;
+color: #fff;
+letter-spacing: 1px;
+}
+
+.mortage-hero p{
+letter-spacing: 1px;
+margin-bottom: 30px;
+padding: 0 1rem;
+
+}
+
+.mortage-form{
+max-width: 600px;
+margin: 0 auto;
+background-color: #fff;
+padding: 2rem;
+border-radius: 5px;
+box-shadow: 0 2px 5px #0000001a;
+}
+
+.mortage-form input{
+width: 100%;
+background-color: #f2f2f2;
+margin-bottom: 20px;
+outline: none;
+padding: 10px;
+border: none;
+border-radius: 5px;
+}
+
+.mortage-form input:focus{
+border: solid 1px #17a2f6;
+}
+
+.mortage-form button {
+background-color: #4CAF50;
+color: #fff;
+border: none;
+border-radius: 5px;
+padding: 10px;
+cursor: pointer;
+transition: .3s;
+}
+
+.mortage-form button:hover {
+background-color: #3e8e41;
+}
+/* mortage calculator css stops here */
+
+footer{
+padding: 3px;
+background: #2072ed;
+text-transform: capitalize;
+text-align: center;}
+      
+      
+      
+      
+  
+          
+.flex-footer{
+display: flex;
+place-content: center;
+border-bottom: solid 1px #fff;
+}
+
+.footer-tablebox{
+width: 100%;
+border-right: solid 1px #fff;
+padding-bottom: 10px;
+padding-top: 10px;
+}
+  
+  
+   
+.footer-headline{
+color: #fff;
+font-size: 24px;
+font-weight: 600;
+letter-spacing: 2px;
+padding: 5px 0;
+  border-bottom: solid 1px #fff;
+}
+
+.footer-navlink{
+margin: auto;
+padding: 0;
+}
+
+.footer-navlink li{
+list-style-type: none;
+}
+
+.footer-navlink a{
+text-decoration: none;
+color: #fff;
+font-size: 18px;
+line-height: 2.5;
+cursor: pointer;
+}
+  
+.footer-logo-box{
+margin: auto;
+}
+
+.footer-logo-box img{
+cursor: pointer
+} 
+
+@media(max-width:768px){
+  .flex-footer{
+  display: flex;
+  place-content: center;
+  flex-direction: column;
+  }
+  
+.footer-tablebox{
+border-right: none;
+border-left: none !important;
+}
+}
+@media(max-width:500px){
+.foot-navlinks{
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+place-items: center;
+}
+
+.footnav img{
+height: 34px;
+}
+
+
+}
+/* footer css stops here */
