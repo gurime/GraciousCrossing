@@ -7,12 +7,13 @@ import Navlogo from '../img/gracious.png'
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import { auth } from '../Config/firebase'
 import { getArticle } from './Navapi/api'
+import Footer from './Footer'
 export default function Navbar() {
 const router = useRouter()
 const [searchTerm, setSearchTerm] = useState('');
 const [searchResults, setSearchResults] = useState([]);
 const [isOverlayActive, setIsOverlayActive] = useState(false);
-const [loading, setLoading] = useState(false);
+const [isFooterVisible, setIsFooterVisible] = useState(false);
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [names, setNames] = useState([]);
 const overlayStyle = {
@@ -91,17 +92,17 @@ useEffect(() => {
 handleSearch();
 }, [searchTerm]);
 
-// const toggleFooter = () => {
-// setIsFooterVisible(!isFooterVisible);
-// };
+const toggleFooter = () => {
+setIsFooterVisible(!isFooterVisible);
+};
 
 const handleLogout = async () => {
-    try {
-    await auth.signOut();
-    router.push('/pages/Login')
-    } catch (error) {
-    }
-    };
+try {
+await auth.signOut();
+router.push('/pages/Login')
+} catch (error) {
+}
+};
         
 return (
 <>
@@ -148,22 +149,29 @@ Register
 <li><Link href="/pages/About">About</Link></li>
 <li><Link href="/pages/Contact">Contact</Link></li>
 <li><Link href="/pages/Faq">Faq</Link></li>
+<Link href='#!' onClick={toggleFooter}>More:</Link>
 
 
 {isSignedIn ? (
-    <button
-
+<button
 type="submit"
 onClick={handleLogout}
 >
 Log out
 </button>  
-
-    ) : (
-        <div></div>
-    )}
+) : (
+<div></div>
+)}
 </ul>
 </nav>
+
+{/* footer dropdown */}
+<div style={{position:'relative',width:'100%'}}>
+<div style={{position:'absolute',width:'100%',zIndex:'1'}}>
+{isFooterVisible && <Footer />}
+</div>
+</div>
+{/* footer dropdown */}
 </>
 )
 }

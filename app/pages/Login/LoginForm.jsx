@@ -1,7 +1,6 @@
 'use client'
-import { auth, db } from '@/app/Config/firebase';
+import { auth} from '@/app/Config/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
@@ -33,12 +32,13 @@ export default function LoginForm() {
  }
         
 const validateInputs = () => {
-if (email === '' || password === '') {
+if (email.trim() === '' || password.trim() === '') {
 setIsInputValid(false);
 } else {
 setIsInputValid(true);
 }
 };
+
 return (
 <>
 <div className='registerwall'>
@@ -74,8 +74,13 @@ justifyContent: 'center'}}>
 </p>
 </div>
 <div className='error'>{errorState && <p>{errorState}</p>}</div>
-<button type='submit' disabled={!isInputValid || isLoading}>
-  {isLoading ? <BeatLoader color='blue' /> : 'Login'}
+<button type='submit' disabled={!isInputValid || isLoading}
+style={{
+cursor: !isInputValid || isLoading ? 'not-allowed' : 'pointer',
+backgroundColor: !isInputValid || isLoading ? '#d3d3d3' : '#007bff',
+color: !isInputValid || isLoading ? '#a9a9a9' : '#fff',
+}}>
+{isLoading ? <BeatLoader color='blue' /> : 'Login'}
 </button>
 </form>
  

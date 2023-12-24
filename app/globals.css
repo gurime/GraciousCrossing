@@ -32,17 +32,17 @@ text-decoration: none;
 }
 
 .navlinks button{
-  background-color: #b53434;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+background-color: #b53434;
+color: #fff;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
 }
 
 .sm-name{
-  padding: 0 5px;
+padding: 0 5px;
 color: #fff;  }
 
 @media(max-width:968px){
@@ -80,9 +80,7 @@ background-size: cover;
 background-position: center;
 display: flex;
 flex-direction: column;
-justify-content: center;
 place-items: center;
-text-align: center;
 color: #fff;
 padding: 1rem;
 }
@@ -100,42 +98,42 @@ margin-bottom: 3rem;
 letter-spacing: 1px;
 }
 
-.search-box{
-padding: 10rem 0;
-}
+
 
 .search-results-container{
-  background-color: #fff;
+background-color: #fff;
 z-index: 999;
 position : absolute ;
-width: 100%;
-top: 70px;
+width: 96%;
+top: 230px;
 }
 
 .search-results-container a{
-  color: #000;
-  text-decoration: none;
-  font-weight: bolder;
-  text-align: start;
+color: #000;
+text-decoration: none;
+font-weight: bolder;
+text-align: start;
 }
 
 .search-results-container a:hover{
-  color: #007bff;
+color: #007bff;
 }
 
 .search-results-container p{
-  font-size: 16px;
+font-size: 16px;
 }
 
 .search-result-item{
-  padding: 0 1rem;
+padding: 0 1rem;
 }
 
 
 .heroform{
-  position: relative;
+position: relative;
 display: flex;
- 
+place-items: center;
+width: 30%;
+padding: 10rem 0;
 }
     
 .heroform input{
@@ -144,11 +142,8 @@ height:38px;
 padding:1rem;
 outline:none;
 border:none;
-text-indent: 8px;
-font-size: 15px;
-line-height: 15px;
+font-size: 20px;
 direction: ltr;
-margin: auto;
 color: #111;
 }
 
@@ -244,7 +239,33 @@ padding: 10px;
 border: none;
 border-radius: 5px;
 cursor: pointer;
- 
+}
+
+
+
+@media(max-width:768px){
+.hero h1{
+font-size:24px;
+}
+.hero h2{
+font-size:15px;
+}
+}
+@media(max-width:1600px){
+.heroform{
+width: 50%;
+}
+}
+@media(max-width:900px){
+.heroform{
+width: 70%;
+}
+}
+
+@media(max-width:700px){
+.heroform{
+width: 100%;
+}
 }
 
 @media(max-width:968px){
@@ -452,33 +473,32 @@ background-color: #3e8e41;
 
 
 .registerwall{
-  background-image: linear-gradient(to bottom, #0000004d, #0000004d), url("./img/bg-register-wall.jpg");
+background-image: linear-gradient(to bottom, #0000004d, #0000004d), url("./img/bg-register-wall.jpg");
 background-size: cover;
 background-position: center;
 display: flex;
 flex-direction: column;
 justify-content: center;
 place-items: center;
-
 padding: 4rem;
 }
 
 .registerwall form{
-  max-width: 40rem;
+max-width: 40rem;
 margin: 0 auto;
 padding: 2rem;
 border-radius: 5px;
 background-color: #fff;}
 
 .registerwall label{
-  margin-bottom: 1rem;
-  letter-spacing: 1px;
-  text-transform: capitalize;
+margin-bottom: 1rem;
+letter-spacing: 1px;
+text-transform: capitalize;
 }
 
 .registerwall input{
-  margin: 1rem 0;
-  width: 100%;
+margin: 1rem 0;
+width: 100%;
 outline: none;
 padding: 1rem 0;
 border: solid 1px #1d09d5;
@@ -487,14 +507,14 @@ text-indent: 5px
 }
 
 .registerwall button{
-  background-color:#17a2f6;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    cursor: pointer;
-    outline: none;
-    padding: 20px;
-    width: 100%;
+background-color:#17a2f6;
+border: none;
+border-radius: 10px;
+color: #fff;
+cursor: pointer;
+outline: none;
+padding: 20px;
+width: 100%;
 }
 /* register css stops here */
 
@@ -559,11 +579,11 @@ cursor: pointer
 } 
 
 @media(max-width:768px){
-  .flex-footer{
-  display: flex;
-  place-content: center;
-  flex-direction: column;
-  }
+.flex-footer{
+display: flex;
+place-content: center;
+flex-direction: column;
+}
   
 .footer-tablebox{
 border-right: none;
@@ -586,7 +606,7 @@ height: 34px;
 /* footer css stops here */
 
 .error, .success{
-  line-height: 2;
-    text-align: center;
-    letter-spacing: 1px;
+line-height: 2;
+text-align: center;
+letter-spacing: 1px;
 }

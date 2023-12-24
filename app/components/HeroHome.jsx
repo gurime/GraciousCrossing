@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import searchimg from '../img/white_search.png'
+import searchimg from '../img/search_icon.png'
 import Link from 'next/link'
 import cardimg1 from '../img/home-card1.jpeg'
 import cardimg2 from '../img/home-card2.jpg'
@@ -97,7 +97,6 @@ return (
 <>
 <div className="hero">
 <h1>Welcome to Gracious Crossing </h1>
-<div className="search-box">
 <h2 style={{color:'#fff'}}>We will find you the perfect home</h2>
 <div style={overlayStyle}></div>
 
@@ -111,10 +110,8 @@ value={searchTerm}
 onChange={(e) => {
 setSearchTerm(e.target.value);
 setIsOverlayActive(e.target.value.trim().length > 0);
-}}
+}}/>
 
-
-/>
 {searchResults.length > 0 && searchTerm && !loading && (
 <div className="search-results-container">
 {searchResults.slice(0,10).map((result) => (
@@ -126,12 +123,9 @@ setIsOverlayActive(e.target.value.trim().length > 0);
 ))}
 </div>
 )}
-<button className="form-btn" type="submit" >
-<Image src={searchimg} width={20} alt='...'  />
-</button>
 
+<Image style={{transform:'translate(-40px)'}} src={searchimg} width={30} alt='...'  />
 </form>
-</div>
 </div>
 
 <div className="card-block">

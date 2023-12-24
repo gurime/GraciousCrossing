@@ -9,7 +9,7 @@ import { auth, db } from '@/app/Config/firebase'
 import { doc, setDoc } from 'firebase/firestore'
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from 'firebase/auth'
 export default function RegisterForm() {
-  const [ firstName, setFirstName ] = useState('');
+const [ firstName, setFirstName ] = useState('');
 const [ lastName, setLastName ]  = useState('');
 const [isLoading, setIsLoading] = useState(false);
 const [ email, setEmail ] = useState('');
@@ -66,14 +66,14 @@ setPasswordStrength(strength);
 
 
 const validateInputs = () => {
-  setIsInputValid(email !== '' && isValidEmail(email) && password !== '');
+setIsInputValid(email !== '' && isValidEmail(email) && password !== '');
 };
 
 // Inside RegisterForm.js
 const isValidEmail = (email) => {
-  // Regular expression for a simple email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+// Regular expression for a simple email validation
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+return emailRegex.test(email);
 };
 
 return (
@@ -103,11 +103,11 @@ setEmail(e.target.value);
 validateInputs();
 }}
 onBlur={() => {
-  if (email !== '' && !isValidEmail(email)) {
-    setErrorState('Please enter a valid email address.');
-  } else {
-    setErrorState(null);
-  }
+if (email !== '' && !isValidEmail(email)) {
+setErrorState('Please enter a valid email address.');
+} else {
+setErrorState(null);
+}
 }}
 required
 maxLength="254"
@@ -147,8 +147,14 @@ justifyContent:'center'
 <p><Link  href='/pages/Login'>Already Have An Account</Link></p>
 </div>
 <div className='error'>{errorState && <p>{errorState}</p>}</div>
-<button type='submit' disabled={!isInputValid || isLoading}>
-  {isLoading ? <BeatLoader color='blue' /> : 'Register'}
+<button type='submit' 
+disabled={!isInputValid || isLoading}
+style={{
+cursor: !isInputValid || isLoading ? 'not-allowed' : 'pointer',
+backgroundColor: !isInputValid || isLoading ? '#d3d3d3' : '#007bff',
+color: !isInputValid || isLoading ? '#a9a9a9' : '#fff',
+}}>
+{isLoading ? <BeatLoader color='blue' /> : 'Register'}
 </button>
 </form>
  

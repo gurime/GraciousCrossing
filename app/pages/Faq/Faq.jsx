@@ -25,16 +25,19 @@ content="At Gracious Crossing, we understand that buying a home is one of the bi
 />
 <Accordion
 title="What Sets Gracious Crossing Apart?"
-content="At Gracious Crossing, we're not just selling houses, we're building communities. Our focus is on finding homes that fit your lifestyle, in neighborhoods that you'll love. We take the time to get to know our clients, so we can match you with a home that's truly a perfect fit. Plus, our commitment to customer service means that we'll be there for you every step of the way, even after you've moved in."
+content="At Gracious Crossing, we're building communities. Our focus is on finding homes that fit your lifestyle, in neighborhoods that you'll love. We take the time to get to know our clients, so we can match you with a home that's truly a perfect fit. Plus, our commitment to customer service means that we'll be there for you every step of the way, even after you've moved in."
 />
+
 <Accordion
-title="What Kind of Homes Does Gracious Crossing Offer?"
-content="Gracious Crossing offers a wide range of homes to suit any taste and budget. From cozy bungalows to spacious luxury homes, we've got something for everyone. And if you're looking for something specific, our team of real estate agents can help you find it. We work with a variety of home sellers, so we can offer you the best selection of homes in the area."
+title="What Types of Homes Does Gracious Crossing Locate?"
+content="Gracious Crossing facilitates the discovery of diverse homes spanning from modest mobile homes to grand mansions. Our portfolio includes options for various preferences and financial considerations. Whether you seek a compact mobile home or an opulent mansion, Gracious Crossing is equipped to assist you. Our team of experienced real estate agents collaborates with a broad spectrum of home sellers, ensuring a comprehensive selection of homes tailored to your needs."
 />
+
 <Accordion
 title="What Makes Gracious Crossing Different?"
-content="At Gracious Crossing, we're not just in the business of selling homes, we're in the business of building relationships. We believe that the key to a successful real estate transaction is communication, and we pride ourselves on being there for our clients every step of the way. Whether you have a question about the home buying process or need help finding a local contractor, we're always just a phone call away."
+content="At Gracious Crossing, we're in the business of building relationships. We believe that the key to a successful real estate transaction is communication, and we pride ourselves on being there for our clients every step of the way. Whether you have a question about the home buying process or need help finding a local contractor, we're always just a phone call away."
 />
+
 <Accordion
 title= "How Can Gracious Crossing Help You?"
 content="Whether you're buying your first home or your tenth, Gracious Crossing is here to help. We offer a variety of services to make the home buying process as easy and stress-free as possible, including home inspections, mortgage advice, and more. So why wait? Contact us today to see how we can help you find your dream home."

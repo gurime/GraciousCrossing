@@ -1,9 +1,9 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import footLogo from '../img/gracious.png'
+import footLogo from '../img/gracious_logo.png'
 import Image from 'next/image'
-import navlogo from '../img/gracious.png'
+import navlogo from '../img/GraciousCross.png'
 
 const Footer = () => {
 
@@ -122,7 +122,7 @@ return (
 </div>
 
 <div style={{backgroundColor:'transparent'}}  className="nav">
-<Image style={{margin:'auto '}} onClick={() => router.push('/')} src={navlogo} height={36} alt='...'  />
+<Image style={{margin:'auto ',cursor:'pointer'}} title='Home Page' onClick={() => router.push('/')} src={navlogo} width={200} alt='...'  />
 
 
 
@@ -162,7 +162,7 @@ textAlign:'center'
 
 <div className="footer-logo-box">
 
-<Image width={36} onClick={scrollTo}  src={footLogo} alt="..." />
+<Image title='Back To Top' width={36} onClick={scrollTo}  src={footLogo} alt="..." />
 
 </div>
 </footer>
