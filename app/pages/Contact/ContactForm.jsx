@@ -81,7 +81,10 @@ const router = useRouter()
       ]);
   
 //    router.push('/pages/Contact/Confirmation')
-  
+setSuccessMessage('Thank you for your message')
+ setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
       setNames('');
       setEmail('');
       setSubject('');
@@ -92,6 +95,7 @@ const router = useRouter()
       setTimeout(() => {
         setErrorMessage('');
       }, 3000);
+     
     } finally {
       setIsLoading(false);
     }

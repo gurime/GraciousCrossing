@@ -7,12 +7,12 @@ import { getAuth } from 'firebase/auth';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCZlO-JkjUCRv8P6vfnGjTUqT76xdhbU4o",
-  authDomain: "graciouscrossing-5fcf0.firebaseapp.com",
-  projectId: "graciouscrossing-5fcf0",
-  storageBucket: "graciouscrossing-5fcf0.appspot.com",
-  messagingSenderId: "622054581133",
-  appId: "1:622054581133:web:e081932c03da35223e93c4"
+  apiKey: "AIzaSyDh0Tj8-_-Apyt8Bbl_v0gVDfIoatwp4eE",
+  authDomain: "gracious-crossing.firebaseapp.com",
+  projectId: "gracious-crossing",
+  storageBucket: "gracious-crossing.appspot.com",
+  messagingSenderId: "641405250070",
+  appId: "1:641405250070:web:2d99b467a73e6c1703e337"
 };
 
 // Initialize Firebase

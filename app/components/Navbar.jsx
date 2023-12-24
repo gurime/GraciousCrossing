@@ -94,6 +94,14 @@ handleSearch();
 // const toggleFooter = () => {
 // setIsFooterVisible(!isFooterVisible);
 // };
+
+const handleLogout = async () => {
+    try {
+    await auth.signOut();
+    router.push('/pages/Login')
+    } catch (error) {
+    }
+    };
         
 return (
 <>
@@ -103,14 +111,15 @@ return (
 </div>
 <ul className="navlinks">
 {isSignedIn ? (
-<Link  href='#!'>
+<div>
 {names.length === 2 && (
 <>
 <span className="sm-name" >{names[0]}</span>
 <span className="sm-name">{names[1]}</span>
+
 </>
 )}
-</Link>
+</div>
 ) : (
 
 <div className="commentreg-box">
@@ -139,6 +148,20 @@ Register
 <li><Link href="/pages/About">About</Link></li>
 <li><Link href="/pages/Contact">Contact</Link></li>
 <li><Link href="/pages/Faq">Faq</Link></li>
+
+
+{isSignedIn ? (
+    <button
+
+type="submit"
+onClick={handleLogout}
+>
+Log out
+</button>  
+
+    ) : (
+        <div></div>
+    )}
 </ul>
 </nav>
 </>
