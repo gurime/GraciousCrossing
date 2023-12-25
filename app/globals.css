@@ -349,13 +349,13 @@ margin-bottom: 1rem;
 }
 
 .confirmation-hero{
-  display: grid;
-  height: 100svh;
-  place-items: center;
-  background-image: linear-gradient(to right,var(--gradient-stops));
-    --gradient-from: #0a479e;
-    --gradient-stops: var(--gradient-from),var(--gradient-to);
-    --gradient-to: #0a023f;
+display: grid;
+height: 100svh;
+place-items: center;
+background-image: linear-gradient(to right,var(--gradient-stops));
+--gradient-from: #0a479e;
+--gradient-stops: var(--gradient-from),var(--gradient-to);
+--gradient-to: #0a023f;
 }
 /* contact css stops here */
 
