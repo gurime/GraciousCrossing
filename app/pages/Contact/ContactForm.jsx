@@ -80,26 +80,25 @@ const router = useRouter()
         },
       ]);
   
-//    router.push('/pages/Contact/Confirmation')
-setSuccessMessage('Thank you for your message')
+   router.push('/pages/Contact/Confirmation')
+// setSuccessMessage('Thank you for your message')
  setTimeout(() => {
-        setSuccessMessage('');
-      }, 3000);
-      setNames('');
-      setEmail('');
-      setSubject('');
-      setContent('');
-    } catch (error) {
+setSuccessMessage('');
+}, 3000);
+setNames('');
+setEmail('');
+setSubject('');
+setContent('');
+} catch (error) {
       
-      setErrorMessage('Error submitting form. Please try again.');
-      setTimeout(() => {
-        setErrorMessage('');
-      }, 3000);
-     
-    } finally {
-      setIsLoading(false);
-    }
-  };
+setErrorMessage('Error submitting form. Please try again.');
+setTimeout(() => {
+setErrorMessage('');
+}, 3000);
+} finally {
+setIsLoading(false);
+}
+};
   
 return (
 <>
@@ -108,53 +107,52 @@ return (
 <form className="contactform" onSubmit={handleSubmit}>
 <h1>Contact Gracious Crossing</h1>
 <label htmlFor='fname' aria-label="Name">Name</label>
-          <input
-            type="text"
-            name="fname"
-            value={names} onChange={(e) => setNames(e.target.value)} required
-          />
+<input
+type="text"
+name="fname"
+value={names} onChange={(e) => setNames(e.target.value)} required/>
 
-          <label htmlFor='email' aria-label="Email">Email</label>
-          <input
-            type="email"
-            name="email"
-            aria-describedby="emailError"
-            value={email}
+<label htmlFor='email' aria-label="Email">Email</label>
+<input
+type="email"
+name="email"
+aria-describedby="emailError"
+value={email}
 onChange={(e) => {
-setEmail(e.target.value);
+setEmail(e.target.value);}}/>
 
-}}
-          />
+<label htmlFor='subject' aria-label="Subject">Subject</label>
+<input
+type="text"
+name="subject"
+aria-describedby="subjectError"
+value={subject}
+onChange={(e) => setSubject(e.target.value)}/>
 
-          <label htmlFor='subject' aria-label="Subject">Subject</label>
-          <input
-          type="text"
-          name="subject"
-          aria-describedby="subjectError"
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)} // Assuming you want to capture the subject
-        />
+<label htmlFor='content' aria-label="Type Your Message">Type Your Message</label>
+<textarea
+type="text"
+name="content"
+rows={5}
+required
+value={content}
+onChange={(e) => setContent(e.target.value)}
+autoFocus={autoFocus}
+aria-describedby="messageError"/>
 
-          <label htmlFor='content' aria-label="Type Your Message">Type Your Message</label>
-          <textarea
-            type="text"
-            name="content"
-            rows={5}
-            required
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            autoFocus={autoFocus}
-            aria-describedby="messageError"
-          />
-        <button
-            className={isSignedIn ? "submitbtn" : "submitbtn disabled"}
-            type="submit"
-            disabled={!isSignedIn || !content || isLoading}>
-            {isLoading ? <BeatLoader color='blue' /> : 'Submit'}
-          </button>
-          </form>
-          {errorMessage && <p className='error'>{errorMessage.toString()}</p>}
-        {successMessage && <p className="success">{successMessage}</p>}
+<button
+type="submit"
+disabled={!isSignedIn || !content || isLoading}
+style={{
+cursor: !isSignedIn || !content || isLoading ? 'not-allowed' : 'pointer',
+backgroundColor: !isSignedIn || !content || isLoading ? '#d3d3d3' : '#007bff',
+color: !isSignedIn || !content || isLoading ? '#a9a9a9' : '#fff',
+}}>
+{isLoading ? <BeatLoader color='white' /> : 'Submit'}
+</button>
+</form>
+{errorMessage && <p className='error'>{errorMessage.toString()}</p>}
+{successMessage && <p className="success">{successMessage}</p>}
 </div>
 <Footer/>
 </>

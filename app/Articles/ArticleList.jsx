@@ -53,7 +53,8 @@ return (
 <Navbar/>
 
 <div className='ArticleHero'>
-    <div><h1>Home Shopping Guide</h1>
+    <div style={{padding:'5rem 0'}}>
+      <h1>Home Shopping Guide</h1>
     <p></p>
     <p>Explore tips and tricks for a successful home-buying experience.</p></div>
     
