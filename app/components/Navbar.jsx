@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import Navlogo from '../img/gracious.png'
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import { auth } from '../Config/firebase'
-import { getArticle } from './Navapi/api'
+import { getArticle } from './HeroFormApi/api'
 import Footer from './Footer'
 export default function Navbar() {
 const router = useRouter()

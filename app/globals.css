@@ -353,9 +353,9 @@ display: grid;
 height: 100svh;
 place-items: center;
 background-image: linear-gradient(to right,var(--gradient-stops));
---gradient-from: #0a479e;
+--gradient-from: #006aff;
 --gradient-stops: var(--gradient-from),var(--gradient-to);
---gradient-to: #0a023f;
+--gradient-to: #1173d1;
 }
 /* contact css stops here */
 
@@ -592,6 +592,7 @@ place-items: center;
 display: flex;
 place-items: center;
 justify-content: space-between;
+margin-bottom: 1rem;
 }
 
 .card-title{
@@ -638,12 +639,15 @@ background-size: 200% auto;
 margin: auto 0;
 }
 
+
 .imgbox img {
 width: 100%;
 height: auto;
 object-fit: cover;
 object-position: center;
 }
+
+
 
 .body-content {
 line-height: 2;
@@ -658,6 +662,29 @@ letter-spacing: 1px;
 .flexdate{
 padding: 0 1rem;
 }
+
+.cover_showcase{
+  display: flex;
+  place-items: center;
+  place-content: space-evenly;
+  }
+  
+  .cover_showcase img{
+  width: 200px;
+  height: 150px;
+  }
+  
+  .details_header_title{
+  padding: 0 1rem;
+  }
+  
+  .amenities-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 40rem;
+  line-height: 2;
+  padding: 0 1rem;
+  }
 
 @media(max-width:1200px){
 .article-container{

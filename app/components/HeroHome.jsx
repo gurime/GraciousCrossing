@@ -10,7 +10,7 @@ import card1 from "../img/card1-img.jpeg"
 import card2 from "../img/bg-card3.jpg"
 import card3 from "../img/bg-card2.jpg"
 import { useRouter } from 'next/navigation'
-import { collectionRoutes, getArticle } from './Navapi/api'
+import { collectionRoutes, getArticle } from './HeroFormApi/api'
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../Config/firebase'
@@ -132,9 +132,8 @@ setIsOverlayActive(e.target.value.trim().length > 0);
 <div className="tagline-header">
 <h1>Find the best homes</h1>
 <p>Browse some of the highest 
-quality homes, list your property, 
-sign a lease and more.</p>
-<Link href='#!'>More Info</Link>
+quality homes.</p>
+<Link href='/pages/PropertyListings'>More Info</Link>
 </div>
 <Image height={300} src={cardimg1} alt="" priority/>
 </div>
