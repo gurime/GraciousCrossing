@@ -97,11 +97,11 @@ margin: '0 0 0 6px',
 </div>
 {/**block for category and author */}
 <div className='cover_showcase'>
-<img src={post.cover_showcase}/>
-<img src={post.cover_showcase1}/>
-<img src={post.cover_showcase2}/>
-<img src={post.cover_showcase3}/>
-<img src={post.cover_showcase4}/>
+  {post.cover_showcase && <img src={post.cover_showcase} alt="Cover Showcase 1" />}
+  {post.cover_showcase1 && <img src={post.cover_showcase1} alt="Cover Showcase 2" />}
+  {post.cover_showcase2 && <img src={post.cover_showcase2} alt="Cover Showcase 3" />}
+  {post.cover_showcase3 && <img src={post.cover_showcase3} alt="Cover Showcase 4" />}
+  {post.cover_showcase4 && <img src={post.cover_showcase4} alt="Cover Showcase 5" />}
 </div>
 
 <div className='details_header_title'>
