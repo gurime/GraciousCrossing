@@ -13,16 +13,16 @@ export async function generateMetadata({ params }) {
     const articleDetails = await getArticle(articleId);
     if (articleDetails) {
       return {
-        title: `Journey | ${articleDetails.title || 'Page Not Found'}`,
+        title: `Gracious Crossing | ${articleDetails.title || 'Page Not Found'}`,
       };
     } else {
       return {
-        title: 'Journey | Page Not Found',
+        title: 'Gracious Crossing | Page Not Found',
       };
     }
   } catch (error) {
     return {
-      title: 'Journey | Page Not Found',
+      title: 'Gracious Crossing | Page Not Found',
     };
   }
 }
@@ -106,6 +106,7 @@ margin: '0 0 0 6px',
 
 <div className='details_header_title'>
 <h2>{post.price}</h2>
+<p>{post.property_type}</p>
 <p>{post.address}</p>
 </div>
 

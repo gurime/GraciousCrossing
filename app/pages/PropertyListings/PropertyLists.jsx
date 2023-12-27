@@ -28,12 +28,11 @@ export default function PropertyLists() {
 const [fetchError, setFetchError] = useState(null);
 const [loading, setLoading] = useState(true);
 const [useArticle, setUseArticle] = useState([]);
-const [orderBy, setOrderBy] = useState('date');
 
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getArticles(orderBy);
+        const data = await getArticles();
         setUseArticle(data);
       } catch (error) {
         console.error('Error fetching articles:', error);
@@ -44,68 +43,39 @@ useEffect(() => {
     };
 
     fetchData();
-  }, [orderBy])
+  }, [])
   
 return (
 <>
 
 
 
-<div className='ArticleHero'>
-    <div style={{padding:'5rem 0'}}>
-      <h1>Home Shopping Guide</h1>
-    <p></p>
-    <p>Explore tips and tricks for a successful home-buying experience.</p></div>
-    
-</div>
-
-<p style={{textAlign:'center'}}>Order by:</p>
-
-<div className='btn-grid'>
-<button className='edit-btn' onClick={() => setOrderBy('date')}>Time Created</button>
-<button className='edit-btn' onClick={() => setOrderBy('title')}>Title</button>
-</div>
-
-<div className='card-grid'>
-{loading && <h1 className='loading'>Loading...</h1>}
-{fetchError && <p>{fetchError}</p>}
-{!loading && !fetchError && useArticle.map((blog) => (
-<div className="card" key={blog.id}>
-<img src={blog.cover_image} alt="" />
-<div className="authflex">
-<p>{blog.catogory}</p>
-<div className="authpic-block">
-<h3 className="card-catogory">{blog.author}
-<img
-style={{ width: '30px', height: '30px',padding:'0 5px' }}
-className="authpic"
-src={blog.authpic}
-alt=""
-/></h3>
-
+<div className='PropertyArticleHero'>
+<div >
+<h1>Property Listings</h1>
+<p>Discover the perfect home for you in our curated listings.</p>
 </div>
 </div>
-<h2 className="card-title">{blog.title}</h2>
-<p className="card-content">
-{blog.excerpt && blog.excerpt.slice(0, 100)}...
-</p>
-<div
-style={{
-display: 'flex',
-placeItems: 'center',
-justifyContent: 'space-between',
 
-}}>
-<Link href={`/pages/Articles/${blog.id}`}className="slugbtn btn">
-<button className="card-button" rel="noreferrer">
-Read More
-</button>
+
+<div className='property-grid'>
+{useArticle && useArticle.map((blog) => (
+<Link key={blog.id} href={`/pages/Articles/${blog.id}`}>
+<div className='property-card'>
+<img src={blog.cover_image} alt="" className='property-image' />
+<div className='property-details'>
+<div className='property-price'>{blog.price}</div>
+<div className='property-type'>
+<div style={{marginRight:'auto'}}>{blog.property_type}</div> 
+<div>{blog.catogory}</div></div>
+<div className='property-address'>{blog.address}</div>
+<p className='property-description'>{blog.description}</p>
+</div>
+</div>
 </Link>
-{blog.date}
-</div>
-</div>
 ))}
 </div>
+
 
 </>
 )

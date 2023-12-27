@@ -23,8 +23,7 @@ const docData = doc.data();
 
 // Check if the article title includes the search term
 if (
-docData.title &&
-docData.title.toLowerCase().includes(searchTerm.toLowerCase().trim())
+docData.title && docData.title.toLowerCase().includes(searchTerm.toLowerCase().trim())
 ) {
 // Add the article data to the result
 data.push({ collection: collectionNames[index], id: doc.id, ...docData });
