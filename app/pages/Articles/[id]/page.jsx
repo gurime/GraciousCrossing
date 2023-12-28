@@ -70,12 +70,14 @@ return (
     marginLeft:'auto',
     display:'flex',
     placeItems:'center'
-}}> Owner {post.author} <img
+}}> Owner {post.userName} 
+<img
 style={{ width: '70px',padding:'0 1rem' }}
 className="authpic"
 src={post.authpic}
 alt="..."
-/></h3>
+/>
+</h3>
 <h3
 style={{
 display: 'flex',
@@ -105,19 +107,20 @@ margin: '0 0 0 6px',
 </div>
 
 <div className='details_header_title'>
-<h2>{post.price}</h2>
+<h2>{post.price} <small>{post.billingFrequency}</small></h2>
 <p>{post.property_type}</p>
 <p>{post.address}</p>
 </div>
 
 <h3 style={{padding:'0 1rem'}}>Popular Amenities</h3>
 <div className='amenities-grid'>
-<span>{post.amenities}</span>
-<span>{post.amenities1}</span>
-<span>{post.amenities2}</span>
-<span>{post.amenities3}</span>
-<span>{post.amenities4}</span>
-<span>{post.amenities5}</span>
+{post.heating && <span>Heating is available</span>}
+{post.lights && <span>Lights are available</span>}
+{post.laundry && <span>Laundry is available</span>}
+{post.cable && <span>Cable is available</span>}
+{post.airConditioning && <span>AC is available</span>}
+{post.water && <span>Water is available</span>}
+
 </div>
 
 

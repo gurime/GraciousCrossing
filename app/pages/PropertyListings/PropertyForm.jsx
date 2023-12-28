@@ -1,6 +1,8 @@
 'use client'
 import { auth } from '@/app/Config/firebase';
 import { addDoc, collection, doc, getDoc, getFirestore } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+
 import { getAuth } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
@@ -23,7 +25,12 @@ export default function PropertyForm() {
   const [heating, setHeating] = useState("");
   const [airConditioning, setAirConditioning] = useState("");
   const [address, setAddress] = useState("");
+  const [authpicFile, setAuthpicFile] = useState(null);
   const [ isLoading, setIsLoading] = useState(false)
+  const [coverImageFile, setCoverImageFile] = useState(null);
+  const [showcase1File, setShowcase1File] = useState(null);  // Add this line
+  const [articleId, setArticleId] = useState("");  // Add this line
+
   const [comments, setComments] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
   const [names, setNames] = useState([]);
@@ -73,58 +80,105 @@ export default function PropertyForm() {
   setErrorMessage('Unexpected error occurred. Please try again later.');
   }
   };
+
+
   
-  
-  
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-  const auth = getAuth();
-  const user = auth.currentUser;
-  setIsLoading(true);
-  const db = getFirestore();
-  const docRef = await addDoc(collection(db, 'extended_stay'), {
-  articleId:articleId,
-  userId: user.uid,
-  content: content,
-  timestamp: new Date(),
-  userName: user.displayName,
-  userEmail: user.email,
-  });
-  setComments((prevComments) => [...prevComments,
-  {
-  id: docRef.id,
-  userId: user.uid,
-  content: content,
-  timestamp: new Date(),
-  userName: user.displayName,
-  userEmail: user.email,
-  },
-  ]);
-  setSuccessMessage('Comment created successfully');
-  setTimeout(() => {
-  setSuccessMessage('');
-  }, 3000);
-  setContent('');
-  } catch (error) {
-  setErrorMessage('Error submitting comment. Please try again.');
-  setTimeout(() => {
-  setErrorMessage('');
-  }, 3000);
-  } finally {
-  setIsLoading(false);
-  }
+  const handleCoverImageChange = (e) => {
+    // Set the selected cover image file to state
+    const file = e.target.files[0];
+    setCoverImageFile(file);
   };
-  
-  
-  const handleLogout = async () => {
-  try {
-  await auth.signOut();
-  router.push('/pages/Login')
-  } catch (error) {
-  }
+  const handleAuthpicChange = (e) => {
+    // Set the selected cover image file to state
+    const file = e.target.files[0];
+    setAuthpicFile(file);
   };
 
+  const handleShowcase1Change = (e) => {
+    const file = e.target.files[0];
+    setShowcase1File(file);
+  };
+
+
+  
+  const storage = getStorage(); // Initialize Firebase Storage
+
+  const handleFileUpload = async (file, storagePath) => {
+    try {
+      const storageRef = ref(storage, storagePath);
+      await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+      return downloadURL;
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      throw error;
+    }
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+  
+      setIsLoading(true);
+  
+      // Upload files to Firebase Storage if they exist
+      const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, 'images/cover_image.jpg') : null;
+      const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, 'images/cover_showcase1.jpg') : null;
+  
+      // Upload authpicFile to Firebase Storage if it exists
+      const authpic = authpicFile ? await handleFileUpload(authpicFile, 'images/authpic.jpg') : null;
+  
+      // Add comment document to Firestore with file URLs
+      const db = getFirestore();
+      const docRef = await addDoc(collection(db, 'extended_stay'), {
+        articleId: articleId,
+        userId: user.uid,
+        content: content,
+        title: title,
+        owner: owner,
+        price: price,
+        bedrooms: bedrooms,
+        bathrooms: bathrooms,
+        billingFrequency: billingFrequency,
+        catogory: catogory,
+        water: water,
+        lights: lights,
+        cable: cable,
+        laundry: laundry,
+        airConditioning: airConditioning,
+        heating: heating,
+        address: address,
+        timestamp: new Date(),
+        userName: user.displayName,
+        userEmail: user.email,
+        authpic: authpic, // Update to use the processed authpic data
+        cover_image: cover_image,
+        cover_showcase1: cover_showcase1,
+        // ... Add other file URLs to your Firestore document ...
+      });
+  
+      router.push('/pages/PropertyListings');
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('Error. Please try again.');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  const handleLogout = async () => {
+    try {
+    await auth.signOut();
+    router.push('/pages/Login')
+    } catch (error) {
+    }
+    };
 return (
 <>
 <div className="mortage-hero">
@@ -170,7 +224,8 @@ Register
 </div>
 )}
 {/* post form start here here */}
-<label htmlFor="title">Title</label>
+<div style={{display:'flex',placeItems:'center'}}>
+  <label htmlFor="title">Title</label>
 <input type="text"
 name='title'
 value={title} 
@@ -184,8 +239,9 @@ value={owner}
 onChange={(e) => setOwner(e.target.value)}
 required
 />
+</div>
 
-<div>
+<div style={{display:'flex',placeItems:'center'}}>
   <label htmlFor="price">Price</label>
 <input
   type="text"
@@ -194,7 +250,6 @@ required
   onChange={(e) => setPrice(e.target.value)}
   required
 />
-<label htmlFor="billingFrequency">Billing Frequency</label>
 <select
   name="billingFrequency"
   value={billingFrequency}
@@ -207,6 +262,7 @@ required
 </select>
 </div>
 
+<div style={{display:'flex',placeItems:'center'}}>
 
 
 <label htmlFor="catogory">Catogory</label>
@@ -217,6 +273,9 @@ required
   onChange={(e) => setCatogory(e.target.value)}
   required
 />
+</div>
+<div style={{display:'flex',placeItems:'center'}}>
+
 
 <label htmlFor="bedrooms">Bedrooms</label>
 <input
@@ -235,6 +294,7 @@ required
   onChange={(e) => setBathrooms(e.target.value)}
   required
 />
+</div>
 
 <label style={{fontWeight:'600'}} htmlFor="amenities">Amenities</label>
 
@@ -306,17 +366,33 @@ required
 
 
 
+<label htmlFor="authpic">Picture</label>
+<input
+  type="file"
+  id="authpic"
+  name="authpic"
+  accept="image/*"
+  onChange={handleAuthpicChange}
+/>
+<label htmlFor="cover_image">Cover Image</label>
+<input
+  type="file"
+  id="cover_image"
+  name="cover_image"
+  accept="image/*"
+  onChange={handleCoverImageChange}
+/>
+<label htmlFor="showcase1"></label>
+<input
+  type="file"
+  id="showcase1"
+  name="showcase1"
+  accept="image/*"
+  onChange={handleShowcase1Change}
+/>
 
 
-
-
-
-
-
-
-
-
-
+<div style={{display:'flex',placeItems:'center'}}>
 <label htmlFor="catogory">Address</label>
 <input
   type="address"
@@ -325,7 +401,7 @@ required
   onChange={(e) => setAddress(e.target.value)}
   required
 />
-
+</div>
 
 <textarea
 rows="5"
