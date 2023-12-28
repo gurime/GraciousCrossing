@@ -112,7 +112,7 @@ return (
 </div>
 <ul className="navlinks">
 {isSignedIn ? (
-<div>
+<Link href='/pages/Profile'>
 {names.length === 2 && (
 <>
 <span className="sm-name" >{names[0]}</span>
@@ -120,7 +120,7 @@ return (
 
 </>
 )}
-</div>
+</Link>
 ) : (
 
 <div className="commentreg-box">

@@ -4,7 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 
 export async function getArticle(id) {
 const collectionRefs = [
-doc(db, 'extended_stay', id),
+doc(db, 'propertys', id),
 
 
 ];

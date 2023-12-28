@@ -701,6 +701,31 @@ padding: 0 1rem;
     height: 600px;
   }
 
+  .property-hero{
+    background-image: linear-gradient(180deg,#0000004d,#0000004d),url('./img/bg-property.jpg');
+    background-size: cover;
+    background-position: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+    padding: 1rem;
+    }
+
+    .PropertyArticleHero button{
+      background-color: #17a2f6;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    transition: .5s;
+    border: none;
+    margin-bottom: 5rem;
+    font-size: 17px;
+    cursor: pointer;
+    }
+
   .property-grid {
     display: grid;
 grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
@@ -730,152 +755,148 @@ margin: 0 auto 1rem;
     }
   }
   
-  .property-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
+.property-image {
+width: 100%;
+height: auto;
+object-fit: cover;
+}
 
-  .property-owner_name{
+.property-owner_name{
 padding: 0 20px;
 font-size: 10px;
 color: #000;
-  }
+}
   
-  .property-details {
-    padding: 0 20px;
-
-  }
+.property-details {
+padding: 0 20px;
+}
   
-  .property-price {
-    
-    color: #333;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 24px;
-    margin-bottom: 1rem;
-  }
+.property-price {
+color: #333;
+font-weight: 600;
+font-size: 20px;
+line-height: 24px;
+margin-bottom: 1rem;
+}
   
-  .property-type {
-    display: flex;
-    place-items: center;
-    color: #555;
-  }
+.property-type {
+display: flex;
+place-items: center;
+color: #555;
+}
   
-  .property-address {
-    margin-top: 8px;
-    color: #777;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 24px;
-    padding: 0 20px;
-  }
-  
-  .property-description {
-    margin-top: 12px;
-    color: #444;
-    line-height: 1.625;
+.property-address {
+margin-top: 8px;
+color: #777;
 font-weight: 400;
-  }
+font-size: 15px;
+line-height: 24px;
+padding: 0 20px;
+}
+  
+.property-description {
+margin-top: 12px;
+color: #444;
+line-height: 1.625;
+font-weight: 400;
+}
 
-  .postform{
-    margin: 1rem auto;
-    background-color: #eff3f8;
-    padding: 20px;
-    box-shadow: 0 0 10px #00000033;
-    }
+.postform{
+margin: 1rem auto;
+background-color: #eff3f8;
+padding: 20px;
+}
     
-    .navinfo-box{
-      margin-right: auto;
-    
-    }
+.navinfo-box{
+margin-right: auto;
+}
     
     
     
-    .navinfo{
-    letter-spacing: 1px;
-    font-size: 20px;
-    padding: 5px;
-    text-transform: capitalize;
-    color: #4a4a4a;}
-    
-    .postform label{
-    text-transform: capitalize;
-    margin-bottom: 1rem;
-    letter-spacing: 1px;
-    line-height: 2;
-    padding: 0 1rem;
-    }
-    
-    .postform input{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #088fdd;
-    box-sizing: border-box;
-    font-size: 16px;
-    resize: none;
-    letter-spacing: 1px;
-    line-height: 25px;
-    outline: none;
-    }
-    
-    .postform textarea{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    font-size: 16px;
-    resize: none;
-    letter-spacing: 1px;
-    line-height: 25px;
-    outline: none;
-    }
+.navinfo{
+letter-spacing: 1px;
+font-size: 20px;
+padding: 5px;
+text-transform: capitalize;
+color: #4a4a4a;}
 
-    .postform input[type="checkbox"] {
+.postform label{
+text-transform: capitalize;
+margin-bottom: 1rem;
+letter-spacing: 1px;
+line-height: 2;
+padding: 0 1rem;
+}
+
+.postform input{
+width: 100%;
+padding: 10px;
+margin-bottom: 20px;
+border-radius: 5px;
+border: 1px solid #088fdd;
+box-sizing: border-box;
+font-size: 16px;
+resize: none;
+letter-spacing: 1px;
+line-height: 25px;
+outline: none;
+}
+
+.postform textarea{
+width: 100%;
+padding: 10px;
+margin-bottom: 20px;
+border-radius: 5px;
+border: 1px solid #ccc;
+box-sizing: border-box;
+font-size: 16px;
+resize: none;
+letter-spacing: 1px;
+line-height: 25px;
+outline: none;
+}
+
+.postform input[type="checkbox"] {
 width: 82%;
-padding: 0;    }
+padding: 0;}
     
-    .postform button{
-    background-color: #009fdd;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    }
+.postform button{
+background-color: #009fdd;
+color: white;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+}
     
     
     
-    .postuser-block{
-    display: flex;
-    place-items: center;
-    }
-    
-    .postuser-username{
-    padding: 0 1rem;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: capitalize;
-    }
-    
-    .commentreg-box{
-    display: flex;
-    place-items: center;
-    }
+.postuser-block{
+display: flex;
+place-items: center;
+}
 
-   .billingselect{
-    padding: 5px;
-    border-radius: 3px;
-    margin: 1rem;
-    color: #333; /* Text color */
-    background-color: #f4f4f4; /* Background color */
-    border-color: #ccc; /* Border color */
+.postuser-username{
+padding: 0 1rem;
+font-size: 14px;
+letter-spacing: 1px;
+text-transform: capitalize;
+}
+
+.commentreg-box{
+display: flex;
+place-items: center;
+}
+
+.billingselect{
+padding: 5px;
+border-radius: 3px;
+margin: 1rem;
+color: #333; /* Text color */
+background-color: #f4f4f4; /* Background color */
+border-color: #ccc; /* Border color */
 }
 
   
@@ -894,6 +915,13 @@ padding: 7px;
 .backbtn-box h1{
 font-size: 20px;
 }
+}
+@media(max-width:768px){
+.postform input[type="checkbox"] {
+width: 60%;
+}
+
+
 }
 /* details page css stops here */
 

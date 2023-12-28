@@ -2,11 +2,12 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react'
 import { auth, db } from '@/app/Config/firebase';
-import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore, query } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
 
 
 async function getArticles(orderBy) {
-const querySnapshot = await getDocs(collection(db, "extended_stay"));
+const querySnapshot = await getDocs(collection(db, "propertys"));
 const data = [];
 
 querySnapshot.forEach((doc) => {
@@ -24,24 +25,25 @@ const [fetchError, setFetchError] = useState(null);
 const [loading, setLoading] = useState(true);
 const [useArticle, setUseArticle] = useState([]);
 const [isSignedIn, setIsSignedIn] = useState(false);
+const [ comments, setComments ] = useState()
+const router = useRouter()
 
-const getUserData = async (userId) => {
+const fetchComments = async (articleId) => {
   try {
-    const db = getFirestore();
-    const userDocRef = doc(db, 'extended_stay', userId);
-    const userDocSnapshot = await getDoc(userDocRef);
-
-    if (userDocSnapshot.exists()) {
-      const userData = userDocSnapshot.data();
-      return userData;
-    } else {
-      return null;
-    }
+  const db = getFirestore();
+  const commentsRef = collection(db, 'propertys');
+  const queryRef = query(commentsRef, where('articleId', '==', articleId),   orderBy('timestamp', 'desc'));
+  const querySnapshot = await getDocs(queryRef);
+  const newComments = querySnapshot.docs.map((doc) => {
+  const commentData = doc.data();
+  return {id: doc.id,...commentData,timestamp: commentData.timestamp.toDate(),};});
+  setComments(newComments);
+  setLoading(false);
   } catch (error) {
-    console.error('Error fetching user data:', error.message);
-    throw error;
+  setErrorMessage('Error fetching comments. Please try again.');
+  setLoading(false);
   }
-};
+  };
 
 useEffect(() => {
   const fetchData = async (user) => {
@@ -78,8 +80,10 @@ return (
 <div >
 <h1>Property Listings</h1>
 <p>Discover the perfect home for you in our curated listings.</p>
+<button onClick={() => router.push('/pages/PropertyListings/PropertyForm')}>Add a Listing</button>
 </div>
 </div>
+
 
 
 <div className='property-grid'>

@@ -2,6 +2,7 @@
 import { auth } from '@/app/Config/firebase';
 import { addDoc, collection, doc, getDoc, getFirestore } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
 
 import { getAuth } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
@@ -114,7 +115,9 @@ export default function PropertyForm() {
       throw error;
     }
   };
-  
+
+// Log relevant information for debugging
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -123,17 +126,17 @@ export default function PropertyForm() {
       const user = auth.currentUser;
   
       setIsLoading(true);
-  
+      const uniqueArticleId = uuidv4();
+    setArticleId(uniqueArticleId);
       // Upload files to Firebase Storage if they exist
-      const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, 'images/cover_image.jpg') : null;
-      const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, 'images/cover_showcase1.jpg') : null;
-  
-      // Upload authpicFile to Firebase Storage if it exists
-      const authpic = authpicFile ? await handleFileUpload(authpicFile, 'images/authpic.jpg') : null;
+const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}_cover_image.jpg`) : null;
+const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}_authpic.jpg`) : null;
+const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}_cover_showcase1.jpg`) : null;
+      
   
       // Add comment document to Firestore with file URLs
       const db = getFirestore();
-      const docRef = await addDoc(collection(db, 'extended_stay'), {
+      const docRef = await addDoc(collection(db, 'propertys'), {
         articleId: articleId,
         userId: user.uid,
         content: content,
@@ -163,6 +166,7 @@ export default function PropertyForm() {
       router.push('/pages/PropertyListings');
     } catch (error) {
       console.error('Error:', error);
+      
       setErrorMessage('Error. Please try again.');
       setTimeout(() => {
         setErrorMessage('');
@@ -181,7 +185,7 @@ export default function PropertyForm() {
     };
 return (
 <>
-<div className="mortage-hero">
+<div className="property-hero">
 <form className="postform" onSubmit={handleSubmit}>
 {isSignedIn ? (
 <div className="commentreg-box">
@@ -413,9 +417,13 @@ onChange={(e) => setContent(e.target.value)}
 autoFocus={autoFocus}>
 </textarea>
 <button
-className={isSignedIn ? "submitbtn" : "submitbtn disabled"}
 type="submit"
-disabled={!isSignedIn || !content || isLoading}>
+disabled={!isSignedIn || !content || isLoading}
+style={{
+cursor: !isSignedIn || !content || isLoading ? 'not-allowed' : 'pointer',
+backgroundColor: !isSignedIn || !content || isLoading ? '#d3d3d3' : '#007bff',
+color: !isSignedIn || !content || isLoading ? '#a9a9a9' : '#fff',
+}}>
 {isLoading ? <BeatLoader color='white' /> : 'Submit'}
 </button>
 {errorMessage && <p className="error">{errorMessage}</p>}
