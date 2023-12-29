@@ -15,21 +15,23 @@ export default function PropertyForm() {
   const [title, setTitle] = useState("");
   const [owner, setOwner] = useState("");
   const [price, setPrice] = useState("");
-  const [billingFrequency, setBillingFrequency] = useState("");
+  const [billingFrequency, setBillingFrequency] = useState('monthly');
   const [catogory, setCatogory] = useState("");
-  const [bedrooms, setBedrooms] = useState("");
-  const [bathrooms, setBathrooms] = useState("");
+  const [bedrooms, setBedrooms] = useState("1");
+  const [bathrooms, setBathrooms] = useState("1");
   const [cable, setCable] = useState("");
   const [laundry, setLaundry] = useState("");
   const [lights, setLights] = useState("");
   const [water, setWater] = useState("");
   const [heating, setHeating] = useState("");
+  const [pool, setPool] = useState("");
   const [airConditioning, setAirConditioning] = useState("");
   const [address, setAddress] = useState("");
-  const [authpicFile, setAuthpicFile] = useState(null);
   const [ isLoading, setIsLoading] = useState(false)
   const [coverImageFile, setCoverImageFile] = useState(null);
   const [showcase1File, setShowcase1File] = useState(null);  // Add this line
+  const [showcase2File, setShowcase2File] = useState(null);  // Add this line
+  const [showcase3File, setShowcase3File] = useState(null);  // Add this line
   const [articleId, setArticleId] = useState("");  // Add this line
 
   const [comments, setComments] = useState([]);
@@ -89,15 +91,19 @@ export default function PropertyForm() {
     const file = e.target.files[0];
     setCoverImageFile(file);
   };
-  const handleAuthpicChange = (e) => {
-    // Set the selected cover image file to state
-    const file = e.target.files[0];
-    setAuthpicFile(file);
-  };
+  
 
   const handleShowcase1Change = (e) => {
     const file = e.target.files[0];
     setShowcase1File(file);
+  };
+  const handleShowcase2Change = (e) => {
+    const file = e.target.files[0];
+    setShowcase2File(file);
+  };
+  const handleShowcase3Change = (e) => {
+    const file = e.target.files[0];
+    setShowcase3File(file);
   };
 
 
@@ -130,8 +136,12 @@ export default function PropertyForm() {
     setArticleId(uniqueArticleId);
       // Upload files to Firebase Storage if they exist
 const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}_cover_image.jpg`) : null;
-const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}_authpic.jpg`) : null;
+
 const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}_cover_showcase1.jpg`) : null;
+      
+const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}_cover_showcase2.jpg`) : null;
+      
+const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}_cover_showcase3.jpg`) : null;
       
   
       // Add comment document to Firestore with file URLs
@@ -153,13 +163,15 @@ const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `i
         laundry: laundry,
         airConditioning: airConditioning,
         heating: heating,
+        pool: pool,
         address: address,
         timestamp: new Date(),
         userName: user.displayName,
         userEmail: user.email,
-        authpic: authpic, // Update to use the processed authpic data
         cover_image: cover_image,
         cover_showcase1: cover_showcase1,
+        cover_showcase2: cover_showcase2,
+        cover_showcase3: cover_showcase3,
         // ... Add other file URLs to your Firestore document ...
       });
   
@@ -183,126 +195,121 @@ const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `i
     } catch (error) {
     }
     };
-return (
-<>
-<div className="property-hero">
-<form className="postform" onSubmit={handleSubmit}>
-{isSignedIn ? (
-<div className="commentreg-box">
-{names.length === 2 && (
-<>
-<div className='navinfo-box'><span className="navinfo">{names[0]}</span>
-<span className="navinfo">{names[1]}</span></div>
-</>
-)}
-<button
-style={{
-width: 'auto',
-marginBottom: '4px',
-}}
-type="submit"
-onClick={handleLogout}
->
-Log out
-</button>
-</div>
-) : (
-<div className="commentreg-box">
-<button
-style={{
-backgroundColor: 'blue',
-width: 'auto',
-margin: '10px',
-}}
-onClick={() => router.push('/pages/Login')}>
-Login
-</button>
-<button
-style={{
-margin: '10px',
-width: 'auto',
-}}
-onClick={() => router.push('/pages/Register')}>
-Register
-</button>
-</div>
-)}
-{/* post form start here here */}
-<div style={{display:'flex',placeItems:'center'}}>
-  <label htmlFor="title">Title</label>
-<input type="text"
-name='title'
-value={title} 
-onChange={(e) => setTitle(e.target.value)}
-required
-/>
-<label htmlFor="owner">Owner</label>
-<input type="text"
-name='owner'
-value={owner} 
-onChange={(e) => setOwner(e.target.value)}
-required
-/>
-</div>
+    return (
+      <>
+        <div className="property-hero">
+          <form className="postform" onSubmit={handleSubmit}>
+            {isSignedIn ? (
+              <div className="commentreg-box">
+                {names.length === 2 && (
+                  <>
+                    <div className='navinfo-box'>
+                      <span style={{color:'#fff'}} className="navinfo">{names[0]}</span>
+                      <span style={{color:'#fff'}} className="navinfo">{names[1]}</span>
+                    </div>
+                  </>
+                )}
+                <button
+                  style={{
+                    width: 'auto',
+                    marginBottom: '4px',
+                  }}
+                  type="submit"
+                  onClick={handleLogout}
+                >
+                  Log out
+                </button>
+              </div>
+            ) : (
+              <div className="commentreg-box">
+                <button
+                  style={{
+                    backgroundColor: 'blue',
+                    width: 'auto',
+                    margin: '10px',
+                  }}
+                  onClick={() => router.push('/pages/Login')}>
+                  Login
+                </button>
+                <button
+                  style={{
+                    margin: '10px',
+                    width: 'auto',
+                  }}
+                  onClick={() => router.push('/pages/Register')}>
+                  Register
+                </button>
+              </div>
+            )}
+            {/* post form start here here */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', alignItems: 'center' }}>
+  <label htmlFor="title">Property Name</label>
+  <input
+    type="text"
+    name="title"
+    value={title}
+    onChange={(e) => setTitle(e.target.value)}
+    required
+  />
 
-<div style={{display:'flex',placeItems:'center'}}>
+  <label htmlFor="owner">Owner</label>
+  <input
+    type="text"
+    name="owner"
+    value={owner}
+    onChange={(e) => setOwner(e.target.value)}
+    required
+  />
+
   <label htmlFor="price">Price</label>
-<input
-  type="text"
-  name="price"
-  value={price}
-  onChange={(e) => setPrice(e.target.value)}
-  required
-/>
-<select
-  name="billingFrequency"
-  value={billingFrequency}
-  onChange={(e) => setBillingFrequency(e.target.value)}
-  required
-  className='billingselect'
->
-  <option value="monthly">Monthly</option>
-  <option value="weekly">Weekly</option>
-</select>
-</div>
+  <input
+    type="text"
+    name="price"
+    value={price}
+    onChange={(e) => setPrice(e.target.value)}
+    required
+  />
 
-<div style={{display:'flex',placeItems:'center'}}>
+  <select
+    name="billingFrequency"
+    value={billingFrequency}
+    onChange={(e) => setBillingFrequency(e.target.value)}
+    required
+    className='billingselect'
+  >
+    <option value="monthly">Monthly</option>
+    <option value="weekly">Weekly</option>
+  </select>
 
+  <label htmlFor="catogory">Property Category</label>
+  <input
+    type="text"
+    name="category"
+    value={catogory}
+    onChange={(e) => setCatogory(e.target.value)}
+    required
+  />
 
-<label htmlFor="catogory">Catogory</label>
-<input
-  type="text"
-  name="catogory"
-  value={catogory}
-  onChange={(e) => setCatogory(e.target.value)}
-  required
-/>
-</div>
-<div style={{display:'flex',placeItems:'center'}}>
+  <label htmlFor="bedrooms">Bedrooms</label>
+  <input
+    type="number"
+    name="bedrooms"
+    value={bedrooms}
+    onChange={(e) => setBedrooms(e.target.value)}
+    required
+  />
 
+  <label htmlFor="bathrooms">Bathrooms</label>
+  <input
+    type="number"
+    name="bathrooms"
+    value={bathrooms}
+    onChange={(e) => setBathrooms(e.target.value)}
+    required
+  />
 
-<label htmlFor="bedrooms">Bedrooms</label>
-<input
-  type="number"
-  name="bedrooms"
-  value={bedrooms}
-  onChange={(e) => setBedrooms(e.target.value)}
-  required
-/>
-
-<label htmlFor="bathrooms">Bathrooms</label>
-<input
-  type="number"
-  name="bathrooms"
-  value={bathrooms}
-  onChange={(e) => setBathrooms(e.target.value)}
-  required
-/>
-</div>
-
-<label style={{fontWeight:'600'}} htmlFor="amenities">Amenities</label>
-
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+  <label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
+  <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
   <input
     type="checkbox"
     id="water"
@@ -357,7 +364,7 @@ required
   <label htmlFor="airConditioning">AC</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse',margin:'1rem 0', borderBottom:'solid 1px grey'  }}>
+<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
   <input
     type="checkbox"
     id="heating"
@@ -366,71 +373,89 @@ required
     onChange={(e) => setHeating(e.target.checked)}
   />
   <label htmlFor="heating">Heating</label>
+  </div>
+<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0', borderBottom: 'solid 1px grey' }}>
+  <input
+    type="checkbox"
+    id="pool"
+    name="pool"
+    checked={pool}
+    onChange={(e) => setPool(e.target.checked)}
+  />
+  <label htmlFor="pool">Pool</label>
+  </div>
+  <label htmlFor="cover_image">This will be your Headline Image</label>
+  <input
+    type="file"
+    id="cover_image"
+    name="cover_image"
+    accept="image/*"
+    onChange={handleCoverImageChange}
+  />
+
+  <label htmlFor="showcase1">Showcase Image 1</label>
+  <input
+    type="file"
+    id="showcase1"
+    name="showcase1"
+    accept="image/*"
+    onChange={handleShowcase1Change}
+  />
+
+  <label htmlFor="showcase2">Showcase Image 2</label>
+  <input
+    type="file"
+    id="showcase2"
+    name="showcase2"
+    accept="image/*"
+    onChange={handleShowcase2Change}
+  />
+
+  <label htmlFor="showcase3">Shocase Image 3</label>
+  <input
+    type="file"
+    id="showcase3"
+    name="showcase3"
+    accept="image/*"
+    onChange={handleShowcase3Change}
+  />
+
+  <label htmlFor="category">Address</label>
+  <input
+    type="address"
+    name="address"
+    value={address}
+    onChange={(e) => setAddress(e.target.value)}
+    required
+  />
+
+  <textarea
+    rows="5"
+    cols="50"
+    placeholder='Describe your property'
+    required
+    value={content}
+    onChange={(e) => setContent(e.target.value)}
+    autoFocus={autoFocus}
+  ></textarea>
+
+  <button
+    type="submit"
+    disabled={!isSignedIn || !content || isLoading}
+    style={{
+      cursor: !isSignedIn || !content || isLoading ? 'not-allowed' : 'pointer',
+      backgroundColor: !isSignedIn || !content || isLoading ? '#d3d3d3' : '#007bff',
+      color: !isSignedIn || !content || isLoading ? '#a9a9a9' : '#fff',
+    }}
+  >
+    {isLoading ? <BeatLoader color='white' /> : 'Submit'}
+  </button>
+
+  {errorMessage && <p className="error">{errorMessage}</p>}
+  {successMessage && <p className="success">{successMessage}</p>}
 </div>
-
-
-
-<label htmlFor="authpic">Picture</label>
-<input
-  type="file"
-  id="authpic"
-  name="authpic"
-  accept="image/*"
-  onChange={handleAuthpicChange}
-/>
-<label htmlFor="cover_image">Cover Image</label>
-<input
-  type="file"
-  id="cover_image"
-  name="cover_image"
-  accept="image/*"
-  onChange={handleCoverImageChange}
-/>
-<label htmlFor="showcase1"></label>
-<input
-  type="file"
-  id="showcase1"
-  name="showcase1"
-  accept="image/*"
-  onChange={handleShowcase1Change}
-/>
-
-
-<div style={{display:'flex',placeItems:'center'}}>
-<label htmlFor="catogory">Address</label>
-<input
-  type="address"
-  name="address"
-  value={address}
-  onChange={(e) => setAddress(e.target.value)}
-  required
-/>
-</div>
-
-<textarea
-rows="5"
-cols="50"
-placeholder='Describe you property'
-required
-value={content}
-onChange={(e) => setContent(e.target.value)}
-autoFocus={autoFocus}>
-</textarea>
-<button
-type="submit"
-disabled={!isSignedIn || !content || isLoading}
-style={{
-cursor: !isSignedIn || !content || isLoading ? 'not-allowed' : 'pointer',
-backgroundColor: !isSignedIn || !content || isLoading ? '#d3d3d3' : '#007bff',
-color: !isSignedIn || !content || isLoading ? '#a9a9a9' : '#fff',
-}}>
-{isLoading ? <BeatLoader color='white' /> : 'Submit'}
-</button>
-{errorMessage && <p className="error">{errorMessage}</p>}
-{successMessage && <p className="success">{successMessage}</p>}
-</form>
-
-</div>
-</>
-)
-}
+          </form>
+        </div>
+      </>
+    );
+                }    

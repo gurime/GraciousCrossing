@@ -3,7 +3,7 @@ margin: 0;
 overflow-x: hidden;
 box-sizing: border-box;
 background-color: #eff3f8;
-letter-spacing: 1px;
+letter-spacing: 2px;
 }
 
 .nav{
@@ -104,7 +104,7 @@ letter-spacing: 1px;
 background-color: #fff;
 z-index: 999;
 position : absolute ;
-width: 96%;
+width: 94.4%;
 top: 230px;
 }
 
@@ -115,17 +115,14 @@ font-weight: bolder;
 text-align: start;
 }
 
-.search-results-container a:hover{
-color: #007bff;
-}
+
 
 .search-results-container p{
 font-size: 16px;
+padding: 0 1rem;
+    letter-spacing: 2px;
 }
 
-.search-result-item{
-padding: 0 1rem;
-}
 
 
 .heroform{
@@ -802,9 +799,10 @@ font-weight: 400;
 }
 
 .postform{
-margin: 1rem auto;
-background-color: #eff3f8;
-padding: 20px;
+  margin: 1rem auto;
+  background-color: #303030;
+  padding: 20px;
+  color: white;
 }
     
 .navinfo-box{
@@ -826,6 +824,7 @@ margin-bottom: 1rem;
 letter-spacing: 1px;
 line-height: 2;
 padding: 0 1rem;
+width: 100%;
 }
 
 .postform input{

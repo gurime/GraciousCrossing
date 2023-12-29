@@ -112,7 +112,7 @@ return (
 </div>
 <ul className="navlinks">
 {isSignedIn ? (
-<Link href='/pages/Profile'>
+<Link href='#!'>
 {names.length === 2 && (
 <>
 <span className="sm-name" >{names[0]}</span>

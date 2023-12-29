@@ -118,6 +118,7 @@ setIsOverlayActive(e.target.value.trim().length > 0);
 <div key={result.id} className="search-result-item">
 <Link key={result.id} href={getLink(result.collection, result.id)}>
 <p>{result.title}</p>
+
 </Link>
 </div>
 ))}

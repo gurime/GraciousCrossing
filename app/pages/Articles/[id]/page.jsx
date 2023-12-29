@@ -70,12 +70,7 @@ return (
     display:'flex',
     placeItems:'center'
 }}> Owner {post.userName} 
-<img
-style={{ width: '70px',padding:'0 1rem' }}
-className="authpic"
-src={post.authpic}
-alt="..."
-/>
+
 </h3>
 <h3
 style={{
@@ -119,6 +114,7 @@ margin: '0 0 0 6px',
 {post.cable && <span>Cable is available</span>}
 {post.airConditioning && <span>AC is available</span>}
 {post.water && <span>Water is available</span>}
+{post.pool && <span>Pool is available</span>}
 
 </div>
 
