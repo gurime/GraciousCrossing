@@ -29,7 +29,7 @@ return (
 
 <li><Link href='#!'>Company News</Link></li>
 
-<li><Link href='/pages/About'>About iTruth News</Link></li>
+<li><Link href='/pages/About'>About Gracious Crossing</Link></li>
 
 <li><Link href='/pages/Investor'>Investor Relations </Link></li>
 
