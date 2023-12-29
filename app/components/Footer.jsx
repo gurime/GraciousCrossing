@@ -31,9 +31,9 @@ return (
 
 <li><Link href='/pages/About'>About Gracious Crossing</Link></li>
 
-<li><Link href='/pages/Investor'>Investor Relations </Link></li>
+<li><Link href='#!'>Investor Relations </Link></li>
 
-<li><Link href='/pages/Advertise' >Advertise</Link></li>
+<li><Link href='#!' >Advertise</Link></li>
 
 
 </ul>

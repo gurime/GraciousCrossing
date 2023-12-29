@@ -44,46 +44,56 @@ const fetchComments = async (articleId) => {
   setLoading(false);
   }
   };
-
-useEffect(() => {
-  const fetchData = async (user) => {
-    try {
-      const data = await getArticles();
-      setUseArticle(data);
-
-    } catch (error) {
-      setFetchError('Error fetching data. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const unsubscribe = auth.onAuthStateChanged(async (user) => {
-    setIsSignedIn(!!user);
-
-    if (user) {
-      fetchData(user);
-    }
-  });
-
-  return () => {
-    // Unsubscribe when component unmounts
-    unsubscribe();
-  };
-}, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getArticles();
+        setUseArticle(data);
+      } catch (error) {
+        setFetchError('Error fetching data. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      setIsSignedIn(!!user);
+      fetchData(); 
+    });
+  
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  
 return (
 <>
 
 
 
 <div className='PropertyArticleHero'>
-<div >
-<h1>Property Listings</h1>
-<p>Discover the perfect home for you in our curated listings.</p>
-<button onClick={() => router.push('/pages/PropertyListings/PropertyForm')}>Add a Listing</button>
-</div>
+<div>
+  <h1>Property Listings</h1>
+
+  {!isSignedIn && (
+    <p>Please sign in or register to add listings.</p>
+  )}
+
+  <button
+    onClick={() => router.push('/pages/PropertyListings/PropertyForm')}
+    disabled={!isSignedIn}
+    style={{
+      cursor: !isSignedIn ? 'not-allowed' : 'pointer',
+      backgroundColor: !isSignedIn ? '#d3d3d3' : '#007bff',
+      color: !isSignedIn ? '#a9a9a9' : '#fff',
+    }}
+  >
+    Add a Listing
+  </button>
+  
 </div>
 
+</div>
 
 
 <div className='property-grid'>

@@ -149,7 +149,7 @@ quality homes.</p>
 {isSignedIn ? (
 <Link href='/pages/PropertyListings/PropertyForm'>Add your listings</Link>
 ) : (
-<p>Please sign in to add listings.</p>
+<p>Please sign in or register to add listings.</p>
 )}
 
 
