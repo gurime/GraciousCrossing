@@ -170,7 +170,14 @@ quality homes.</p>
 <Image src={card1}   style={{width:'100%',height:'auto'}}   alt='...' />
 <h2>Find Your Dream Home</h2>
 <p>Search our extensive database of homes for sale and find the perfect match for you and your family to call home.</p>
-<button>Learn More</button>
+<button
+    onClick={() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth', // Optional: Adds a smooth scrolling effect
+      });
+    }}
+  >Search</button>
 </div>
 
 <div className="card" >

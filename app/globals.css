@@ -209,9 +209,9 @@ display: grid;
 place-items: center;
 place-content: center;
 grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
-grid-gap: 1rem;
+
 gap: 1rem;
-padding: .8rem 0;
+padding: .8rem 1rem;
 }
 
 .card{
@@ -621,6 +621,7 @@ max-width: 80rem;
 margin: auto;
 }
 
+
 .backbtn-box{
 display: flex;
 justify-content: space-between;
@@ -677,6 +678,18 @@ padding: 0 1rem;
   display: flex;
   place-items: center;
   place-content: space-evenly;
+  }
+
+  @media(max-width:768px){
+    .cover_showcase{
+      flex-direction: column;
+    }
+
+    .cover_showcase img{
+      width: 350px !important;
+      padding: 1rem 0;
+      height: auto !important;
+    }
   }
   
   .cover_showcase img{
@@ -911,7 +924,55 @@ background-color: #f4f4f4; /* Background color */
 border-color: #ccc; /* Border color */
 }
 
+
+.container-terms {
+  display: grid;
+  place-items: center;
+  padding: 0 1rem;
+}
+
+.aboutimg_container{
+  display: flex;
+  place-items: center;
+  justify-content: space-evenly;
+
+}
+
+.aboutimg_container img{
+  width: 250px;
+  border-radius: 50%;
+  height: auto;
   
+}
+
+.about_text{
+  padding: 0 1rem;
+  line-height: 34px;
+margin-bottom: 1rem;
+}
+
+@media(max-width:768px){
+  .about_text h1{
+    font-size: 18px;
+  }
+
+  .aboutimg_container{
+    flex-direction: column;
+  }
+
+  .sm-container_img{
+    width: auto !important;
+    padding: 0 1rem;
+  }
+ 
+}
+
+.textblock p {
+  line-height: 2;
+  font-weight: 600;
+  font-size: 14px;
+}
+/* terms css stops here */
 
 
 @media(max-width:1200px){

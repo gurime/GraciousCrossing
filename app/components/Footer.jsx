@@ -43,10 +43,10 @@ return (
   <div className="footer-headline">Home Shopping</div>
 
   <ul className="footer-navlink">
-    <li><Link href='/pages/ForSale'>Homes for Sale</Link></li>
+    <li><Link href='/pages/PropertyListings'>Homes for Sale</Link></li>
     <li><Link href='/pages/ForRent'>Homes for Rent</Link></li>
     <li><Link href='/pages/NewConstruction'>New Construction</Link></li>
-    <li><Link href='/pages/Mortgage'>Mortgage Calculator</Link></li>
+    <li><Link href='/pages/MortageCalculator'>Mortgage Calculator</Link></li>
     <li><Link href='/pages/HomeValues'>Home Values</Link></li>
     <li><Link href='/pages/RealEstateAgents'>Real Estate Agents</Link></li>
     <li><Link href='/pages/HomeDesign'>Home Design</Link></li>
