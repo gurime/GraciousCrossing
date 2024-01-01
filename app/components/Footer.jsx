@@ -44,14 +44,14 @@ return (
 
   <ul className="footer-navlink">
     <li><Link href='/pages/PropertyListings'>Homes for Sale</Link></li>
-    <li><Link href='/pages/ForRent'>Homes for Rent</Link></li>
-    <li><Link href='/pages/NewConstruction'>New Construction</Link></li>
+    <li><Link href='#!'>Homes for Rent</Link></li>
+    <li><Link href='#!'>New Construction</Link></li>
     <li><Link href='/pages/MortageCalculator'>Mortgage Calculator</Link></li>
-    <li><Link href='/pages/HomeValues'>Home Values</Link></li>
-    <li><Link href='/pages/RealEstateAgents'>Real Estate Agents</Link></li>
-    <li><Link href='/pages/HomeDesign'>Home Design</Link></li>
-    <li><Link href='/pages/Neighborhoods'>Neighborhoods</Link></li>
-    <li><Link href='/pages/CommercialRealEstate'>Commercial Real Estate</Link></li>
+    <li><Link href='#!'>Home Values</Link></li>
+    <li><Link href='#!'>Real Estate Agents</Link></li>
+    <li><Link href='#!'>Home Design</Link></li>
+    <li><Link href='#!'>Neighborhoods</Link></li>
+    <li><Link href='#!'>Commercial Real Estate</Link></li>
   </ul>
 </div>
 
@@ -60,15 +60,15 @@ return (
   <div className="footer-headline">Global Real Estate</div>
 
   <ul className="footer-navlink">
-    <li><Link href='/pages/InternationalListings'>International Listings</Link></li>
-    <li><Link href='/pages/PropertyInvestment'>Property Investment</Link></li>
-    <li><Link href='/pages/GlobalMarketTrends'>Global Market Trends</Link></li>
-    <li><Link href='/pages/RealEstateNews'>Real Estate News</Link></li>
-    <li><Link href='/pages/ArchitecturalDesigns'>Architectural Designs</Link></li>
-    <li><Link href='/pages/UrbanDevelopment'>Urban Development</Link></li>
-    <li><Link href='/pages/EuropeanHomes'>European Homes</Link></li>
-    <li><Link href='/pages/AsianProperties'>Asian Properties</Link></li>
-    <li><Link href='/pages/AfricanRealEstate'>African Real Estate</Link></li>
+    <li><Link href='#!'>International Listings</Link></li>
+    <li><Link href='#!'>Property Investment</Link></li>
+    <li><Link href='#!'>Global Market Trends</Link></li>
+    <li><Link href='#!'>Real Estate News</Link></li>
+    <li><Link href='#!'>Architectural Designs</Link></li>
+    <li><Link href='#!'>Urban Development</Link></li>
+    <li><Link href='#!'>European Homes</Link></li>
+    <li><Link href='#!'>Asian Properties</Link></li>
+    <li><Link href='#!'>African Real Estate</Link></li>
   </ul>
 </div>
 
@@ -77,15 +77,15 @@ return (
   <div className="footer-headline">Home & Lifestyle</div>
 
   <ul className="footer-navlink">
-    <li><Link href='/pages/HomeDecor'>Home Decor</Link></li>
-    <li><Link href='/pages/AutoHome'>Auto & Home</Link></li>
-    <li><Link href='/pages/HomeLiving'>Home & Living</Link></li>
-    <li><Link href='/pages/Pets'>Pets & Tips</Link></li>
-    <li><Link href='/pages/HealthFitness'>Health & Fitness</Link></li>
-    <li><Link href='/pages/Family'>Family & Friends</Link></li>
-    <li><Link href='/pages/Spirituality'>Spirituality & Faith</Link></li>
-    <li><Link href='/pages/Books'>Books & Literature</Link></li>
-    <li><Link href='/pages/CommunityNews'>Community News</Link></li>
+    <li><Link href='#!'>Home Decor</Link></li>
+    <li><Link href='#!'>Auto & Home</Link></li>
+    <li><Link href='#!'>Home & Living</Link></li>
+    <li><Link href='#!'>Pets & Tips</Link></li>
+    <li><Link href='#!'>Health & Fitness</Link></li>
+    <li><Link href='#!'>Family & Friends</Link></li>
+    <li><Link href='#!'>Spirituality & Faith</Link></li>
+    <li><Link href='#!'>Books & Literature</Link></li>
+    <li><Link href='#!'>Community News</Link></li>
   </ul>
 </div>
 
@@ -94,21 +94,21 @@ return (
 <div className="footer-headline">Health</div>
 
 <ul className="footer-navlink" style={{borderBottom:'none'}}>
-<li><Link  href='/pages/MentalHealth'>Mental Health</Link></li>
+<li><Link  href='#!'>Mental Health</Link></li>
 
-<li><Link  href='/pages/ChildrensHealth'>Children's Health</Link></li>
+<li><Link  href='#!'>Children's Health</Link></li>
 
-<li><Link  href='/pages/HeartHealth'>Heart Health</Link></li>
+<li><Link  href='#!'>Heart Health</Link></li>
 
-<li><Link  href='/pages/PetHealth'>Pet Health</Link></li>
+<li><Link  href='#!'>Pet Health</Link></li>
 
-<li><Link  href='/pages/EyeHealth'>Eye Health</Link></li>
+<li><Link  href='#!'>Eye Health</Link></li>
 
-<li><Link  href='/pages/HealthyLiving'>Healthy Living </Link></li>
+<li><Link  href='#!'>Healthy Living </Link></li>
 
-<li><Link  href='/pages/MedicalResearch'>Medical Reasearch</Link></li>
+<li><Link  href='#!'>Medical Reasearch</Link></li>
 
-<li><Link  href='/pages/Cancer'> Cancer</Link></li>
+<li><Link  href='#!'> Cancer</Link></li>
 
 
 
