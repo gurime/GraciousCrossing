@@ -73,7 +73,7 @@ return (
 
 <div className='PropertyArticleHero'>
 <div>
-  <h1>Property Listings</h1>
+  <h1>Homes For Sale & Rent</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>
