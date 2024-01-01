@@ -42,9 +42,9 @@ setIsInputValid(true);
 return (
 <>
 <div className='registerwall'>
-<form style={{width:'30rem'}} className='formbox' onSubmit={handleLogin}>
+<form  className='formbox' onSubmit={handleLogin}>
 
-<Image src={gc} width={500} height={60} alt='...'/>
+<div className='reg_header'><Image src={gc} width={500} height={60} alt='...'/></div>
 <label htmlFor='email'>Email</label>
 <input
 type='email'

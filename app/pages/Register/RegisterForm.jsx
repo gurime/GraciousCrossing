@@ -79,13 +79,14 @@ return emailRegex.test(email);
 return (
 <>
 <div className='registerwall'>
-<form style={{width:'30rem'}} className='formbox'onSubmit={handleRegister}>
+<form  className='formbox'onSubmit={handleRegister}>
 
 
 {errorState && errorState.includes('email') && (
   <p className='error-message'>{errorState}</p>
 )}
-<Image src={gc} width={500} height={60} alt='...'/>
+<div className='reg_header'><Image src={gc} width={500} height={60} alt='...'/></div>
+
 <label htmlFor='fname'>First Name</label>
 <input type='text'  id='fname' value={firstName} onChange={(e) => setFirstName(e.target.value)} required  maxLength="50"/>
 

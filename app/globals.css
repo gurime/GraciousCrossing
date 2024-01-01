@@ -247,7 +247,7 @@ cursor: pointer;
 
 @media(max-width:768px){
 .hero h1{
-font-size:24px;
+font-size:20px;
 }
 .hero h2{
 font-size:15px;
@@ -516,9 +516,14 @@ place-items: center;
 padding: 4rem;
 }
 
+.reg_header{
+  margin: auto;
+  border-bottom: 1rem;
+}
+
+
 .registerwall form{
-max-width: 40rem;
-margin: 0 auto;
+width: 40rem;
 padding: 2rem;
 border-radius: 5px;
 background-color: #fff;}
@@ -548,6 +553,16 @@ cursor: pointer;
 outline: none;
 padding: 20px;
 width: 100%;
+}
+
+@media(max-width:768px){
+  .registerwall form{
+    width: 100%;
+  }
+  .reg_header img{
+    width: 300px;
+    height: auto;
+  }
 }
 /* register css stops here */
 .ArticleHero{
