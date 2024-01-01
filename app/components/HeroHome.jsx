@@ -171,13 +171,12 @@ quality homes.</p>
 <h2>Find Your Dream Home</h2>
 <p>Search our extensive database of homes for sale and find the perfect match for you and your family to call home.</p>
 <button
-    onClick={() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth', // Optional: Adds a smooth scrolling effect
-      });
-    }}
-  >Search</button>
+onClick={() => {
+window.scrollTo({
+top: 0,
+behavior: 'smooth', 
+});
+}}>Search</button>
 </div>
 
 <div className="card" >

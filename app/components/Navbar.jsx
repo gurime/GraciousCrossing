@@ -146,9 +146,6 @@ Register
 </div>
 )}
 <li><Link href="/">Home</Link></li>
-<li><Link href="/pages/About">About</Link></li>
-<li><Link href="/pages/Contact">Contact</Link></li>
-<li><Link href="/pages/Faq">Faq</Link></li>
 <Link href='#!' onClick={toggleFooter}>More:</Link>
 
 

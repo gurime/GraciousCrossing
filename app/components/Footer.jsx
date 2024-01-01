@@ -34,6 +34,8 @@ return (
 <li><Link href='#!'>Investor Relations </Link></li>
 
 <li><Link href='#!' >Advertise</Link></li>
+<li><Link href="/pages/Faq">Faq</Link></li>
+
 
 
 </ul>
