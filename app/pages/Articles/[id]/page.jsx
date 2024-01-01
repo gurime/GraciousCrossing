@@ -63,7 +63,7 @@ return (
 {/**block for img */}
 {/**block for category and author */}
 <div className="authflex">
-<p>{post.catogory}</p>
+<p>{post.propertyType}</p>
 <h3 style={{
     fontWeight: '300',
     marginLeft:'auto',

@@ -4,7 +4,8 @@ import { doc, getDoc } from "firebase/firestore";
 
 export async function getArticle(id) {
 const collectionRefs = [
-doc(db, 'propertys', id),
+doc(db, 'Houses', id),
+doc(db, 'Apartments', id),
 
 
 ];

@@ -1,7 +1,7 @@
-import Footer from '@/app/components/Footer'
-import Navbar from '@/app/components/Navbar'
+import Navbar from '@/app/components/Navbar';
 import React from 'react'
-import PropertyLists from './PropertyLists'
+import Footer from '@/app/components/Footer';
+import PropertyLists from '../PropertyLists';
 
 
 export const metadata = {

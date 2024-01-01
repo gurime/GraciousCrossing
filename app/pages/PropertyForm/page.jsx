@@ -1,7 +1,7 @@
 import React from 'react'
-import PropertyForm from '../PropertyForm'
 import Navbar from '@/app/components/Navbar'
 import Footer from '@/app/components/Footer'
+import PropertyForm from '../PropertyForm';
 
 
 export const metadata = {

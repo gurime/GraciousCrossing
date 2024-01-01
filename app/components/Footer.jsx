@@ -45,8 +45,8 @@ return (
   <div className="footer-headline">Home Shopping</div>
 
   <ul className="footer-navlink">
-    <li><Link href='/pages/PropertyListings'>Homes for Sale & Rent</Link></li>
-    <li><Link href='#!'>Apartments for Rent</Link></li>
+    <li><Link href='/pages/Houses'>Homes for Sale & Rent</Link></li>
+    <li><Link href='/pages/Apartments'>Apartments for Rent</Link></li>
     <li><Link href='#!'>New Construction</Link></li>
     <li><Link href='/pages/MortageCalculator'>Mortgage Calculator</Link></li>
     <li><Link href='#!'>Home Values</Link></li>

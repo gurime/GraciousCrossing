@@ -2,12 +2,12 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react'
 import { auth, db } from '@/app/Config/firebase';
-import { collection, doc, getDoc, getDocs, getFirestore, query } from 'firebase/firestore';
+import { collection,  getDocs, getFirestore, query } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 
 
 async function getArticles(orderBy) {
-const querySnapshot = await getDocs(collection(db, "propertys"));
+const querySnapshot = await getDocs(collection(db, "Apartments"));
 const data = [];
 
 querySnapshot.forEach((doc) => {
@@ -20,7 +20,7 @@ data.push({ id: doc.id, ...doc.data() });
   }
 
 
-export default function PropertyLists() {
+export default function ApartmentList() {
 const [fetchError, setFetchError] = useState(null);
 const [loading, setLoading] = useState(true);
 const [useArticle, setUseArticle] = useState([]);
@@ -31,7 +31,7 @@ const router = useRouter()
 const fetchComments = async (articleId) => {
   try {
   const db = getFirestore();
-  const commentsRef = collection(db, 'propertys');
+  const commentsRef = collection(db, 'Apartments');
   const queryRef = query(commentsRef, where('articleId', '==', articleId),   orderBy('timestamp', 'desc'));
   const querySnapshot = await getDocs(queryRef);
   const newComments = querySnapshot.docs.map((doc) => {
@@ -71,16 +71,16 @@ return (
 
 
 
-<div className='PropertyArticleHero'>
+<div className='ApartmentArticleHero'>
 <div>
-  <h1>Homes For Sale & Rent</h1>
+  <h1>Apartments for Rent</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>
   )}
 
   <button
-    onClick={() => router.push('/pages/PropertyListings/PropertyForm')}
+    onClick={() => router.push('/pages/PropertyForm')}
     disabled={!isSignedIn}
     style={{
       cursor: !isSignedIn ? 'not-allowed' : 'pointer',
@@ -105,7 +105,7 @@ return (
 <div className='property-price'>{blog.price} <small>{blog.billingFrequency}</small></div>
 <div className='property-type'>
 <div style={{ marginRight: 'auto' }}>{blog.bathrooms}bds | {blog.bedrooms}ba</div>
-<div>{blog.catogory}</div>
+<div>{blog.propertyType}</div>
 </div>
 <p className='property-description'>{blog.content.slice(0, 100)}...</p>
 </div>
