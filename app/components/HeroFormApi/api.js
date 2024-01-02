@@ -4,7 +4,7 @@ import { collection, getDocs, query } from "firebase/firestore";
 export async function getArticle(searchTerm) {
 try {
 // Specify the collections to search in
-const collectionNames = ['propertys',
+const collectionNames = ['Apartments','Houses'
 ];
     
 // Fetch documents from each collection in parallel
@@ -23,10 +23,16 @@ const docData = doc.data();
 
 // Check if the article title includes the search term
 if (
-docData.title && docData.title.toLowerCase().includes(searchTerm.toLowerCase().trim())
+  (
+    docData.title && docData.title.toLowerCase().includes(searchTerm.toLowerCase().trim())
+  ) || (
+    docData.description && docData.description.toLowerCase().includes(searchTerm.toLowerCase().trim())
+  ) || (
+    docData.content && docData.content.toLowerCase().includes(searchTerm.toLowerCase().trim())
+  )
 ) {
-// Add the article data to the result
-data.push({ collection: collectionNames[index], id: doc.id, ...docData });
+  // Add the article data to the result
+  data.push({ collection: collectionNames[index], id: doc.id, ...docData });
 }
 });
 });
@@ -39,12 +45,7 @@ throw error;
 }
 
 export const collectionRoutes = {
-propertys: '/pages/Articles',
-
-//home page stops here//
-    
-
-    
-
+Apartments: '/pages/Articles',
+Houses: '/pages/Articles',
 };
     

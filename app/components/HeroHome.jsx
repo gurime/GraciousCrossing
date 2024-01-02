@@ -15,84 +15,76 @@ import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../Config/firebase'
 export default function HeroHome() {
-    const [forceRender, setForceRender] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    const [isSignedIn, setIsSignedIn] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    const [isOverlayActive, setIsOverlayActive] = useState(false);
-
+const [forceRender, setForceRender] = useState(false);
+const [loading, setLoading] = useState(false);
+const [isSignedIn, setIsSignedIn] = useState(false);
+const [searchTerm, setSearchTerm] = useState('');
+const [searchResults, setSearchResults] = useState([]);
+const [isOverlayActive, setIsOverlayActive] = useState(false);
 const router = useRouter()
 const overlayStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width:'100%',
-    height: '100%',
-    background: '#000',
-    opacity:'.6',
-    display: isOverlayActive ? 'block' : 'none',
-    pointerEvents: 'none',
-    };
-
-useEffect(() => {
-    const handleDocumentClick = (e) => {
-        const isClickOutsideSearch = !e.target.closest('.search-container');
-        
-        if (isClickOutsideSearch) {
-            setIsOverlayActive(false);
-            setSearchResults([]);
-            setSearchTerm(''); // Clear the search input
-
-        }
-    };
-
-    document.body.addEventListener('click', handleDocumentClick);
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-        setForceRender((prev) => !prev); // Force re-render
-
-        setIsSignedIn(!!user);    });
-    const getUserData = async (userId) => {
-        try {
-            const db = getFirestore();
-            const userDocRef = doc(db, 'users', userId);
-            const userDocSnapshot = await getDoc(userDocRef);
-
-            if (userDocSnapshot.exists()) {
-                const userData = userDocSnapshot.data();
-                return userData;
-            } else {
-                return null;
-            }
-        } catch (error) {
-            console.error('Error fetching user data:', error.message);
-            throw error;
-        }
-    };
-
-    // Assuming you have an unsubscribe function
-    return () => {
-        document.body.removeEventListener('click', handleDocumentClick);
-        // Make sure to define the unsubscribe function
-        // unsubscribe();
-    };
-}, [searchTerm, isOverlayActive]);
-
-const handleSearch = async () => {
-    // Assuming getArticle is a defined function
-    const results = await getArticle(searchTerm);
-    setSearchResults(results);
+position: 'fixed',
+top: 0,
+left: 0,
+width:'100%',
+height: '100%',
+background: '#000',
+opacity:'.6',
+display: isOverlayActive ? 'block' : 'none',
+pointerEvents: 'none',
 };
 
 useEffect(() => {
-    handleSearch();
+const handleDocumentClick = (e) => {
+const isClickOutsideSearch = !e.target.closest('.search-container');
+if (isClickOutsideSearch) {
+setIsOverlayActive(false);
+setSearchResults([]);
+setSearchTerm(''); // Clear the search input
+}
+};
+document.body.addEventListener('click', handleDocumentClick);
+const unsubscribe = onAuthStateChanged(auth, (user) => {
+setForceRender((prev) => !prev); // Force re-render
+setIsSignedIn(!!user);    });
+const getUserData = async (userId) => {
+try {
+const db = getFirestore();
+const userDocRef = doc(db, 'users', userId);
+const userDocSnapshot = await getDoc(userDocRef);
+if (userDocSnapshot.exists()) {
+const userData = userDocSnapshot.data();
+return userData;
+} else {
+return null;
+}
+} catch (error) {
+throw error;
+}
+};
+
+// Assuming you have an unsubscribe function
+return () => {
+document.body.removeEventListener('click', handleDocumentClick);
+// Make sure to define the unsubscribe function
+// unsubscribe();
+};
+}, [searchTerm, isOverlayActive]);
+
+const handleSearch = async () => {
+// Assuming getArticle is a defined function
+const results = await getArticle(searchTerm);
+setSearchResults(results);
+};
+
+useEffect(() => {
+handleSearch();
 }, [searchTerm]);
 
-            const getLink = (collection, id) => {
-                const route = collectionRoutes[collection];
-                return route ? `${route}/${id}` : '/';
-                };
+const getLink = (collection, id) => {
+const route = collectionRoutes[collection];
+return route ? `${route}/${id}` : '/';
+};
 return (
 <>
 <div className="hero">
@@ -107,6 +99,7 @@ spellCheck="false"
 dir="auto"
 tabIndex={0}
 value={searchTerm}
+autoFocus
 onChange={(e) => {
 setSearchTerm(e.target.value);
 setIsOverlayActive(e.target.value.trim().length > 0);
@@ -117,7 +110,7 @@ setIsOverlayActive(e.target.value.trim().length > 0);
 {searchResults.slice(0,10).map((result) => (
 <div key={result.id} className="search-result-item">
 <Link key={result.id} href={getLink(result.collection, result.id)}>
-<p>{result.title}</p>
+<p>{result.title} | {result.address}</p>
 
 </Link>
 </div>
@@ -134,7 +127,7 @@ setIsOverlayActive(e.target.value.trim().length > 0);
 <h1>Find the best homes</h1>
 <p>Browse some of the highest 
 quality homes.</p>
-<Link href='/pages/PropertyListings/Houses'>More Info</Link>
+<Link href='/pages/Houses'>More Info</Link>
 </div>
 <Image height={300} src={cardimg1} alt="" priority/>
 </div>
@@ -147,7 +140,7 @@ quality homes.</p>
 
 
 {isSignedIn ? (
-<Link href='/pages/PropertyListings/PropertyForm'>Add your listings</Link>
+<Link href='/pages/PropertyForm'>Add your listings</Link>
 ) : (
 <p>Please sign in or register to add listings.</p>
 )}

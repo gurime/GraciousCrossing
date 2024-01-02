@@ -102,7 +102,7 @@ return (
 <div className='property-card'>
 <img src={blog.cover_image} alt="" className='property-image' />
 <div className='property-details'>
-<div className='property-price'>{blog.price} <small>{blog.billingFrequency}</small></div>
+<div className='property-price'>${blog.price} <small>{blog.billingFrequency}</small></div>
 <div className='property-type'>
 <div style={{ marginRight: 'auto' }}>{blog.bathrooms}bds | {blog.bedrooms}ba</div>
 <div>{blog.propertyType}</div>

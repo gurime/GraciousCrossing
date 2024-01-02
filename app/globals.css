@@ -106,7 +106,7 @@ letter-spacing: 1px;
 background-color: #fff;
 z-index: 999;
 position : absolute ;
-width: 94.4%;
+width: 96%;
 top: 230px;
 }
 
@@ -258,15 +258,26 @@ font-size:15px;
 width: 50%;
 }
 }
-@media(max-width:900px){
+@media(max-width:1400px){
+.heroform{
+width: 60%;
+}
+}
+@media(max-width:1200px){
 .heroform{
 width: 70%;
 }
 }
 
-@media(max-width:700px){
+@media(max-width:1000px){
 .heroform{
 width: 100%;
+}
+}
+
+@media(max-width:768px){
+.search-results-container{
+width: 93.2%;
 }
 }
 
@@ -1035,6 +1046,15 @@ margin-bottom: 1rem;
   font-size: 14px;
 }
 /* terms css stops here */
+
+@media(max-width:768px){
+ .profile img{
+  width: 410px;
+  height: auto;
+} 
+}
+
+/* profile page */
 
 
 @media(max-width:1200px){

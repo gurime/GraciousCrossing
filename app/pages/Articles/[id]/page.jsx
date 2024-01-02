@@ -101,7 +101,7 @@ margin: '0 0 0 6px',
 </div>
 
 <div className='details_header_title'>
-<h2>{post.price} <small>{post.billingFrequency}</small></h2>
+<h2>${post.price} <small>{post.billingFrequency}</small></h2>
 <p>{post.property_type}</p>
 <p>{post.address}</p>
 </div>
