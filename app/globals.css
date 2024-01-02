@@ -1047,6 +1047,31 @@ margin-bottom: 1rem;
 }
 /* terms css stops here */
 
+.edit-btn {
+  margin-left: 10px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  }
+  
+  .edit-delBlock{
+    padding: 1rem 6px;
+  }
+  
+  .delete-btn {
+  margin-left: 10px;
+  border: none;
+  background-color: #ff0000;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  }
 @media(max-width:768px){
  .profile img{
   width: 410px;
