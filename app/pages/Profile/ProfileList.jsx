@@ -39,35 +39,73 @@ const data = querySnapshot.docs
 .filter((property) => property.userId === userId);
 return data;
 };
-  
+const getUserProfileData = async (userId) => {
+  try {
+    const docSnapshot = await getDoc(doc(db, 'users', userId));
+    if (docSnapshot.exists()) {
+      return docSnapshot.data();
+    } else {
+      console.error('User profile not found for user ID:', userId);
+      return null; // or handle the absence of profile data in a different way
+    }
+  } catch (error) {
+    console.error('Error fetching user profile data:', error);
+    throw error;
+  }
+};
+
 useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const user = auth.currentUser;
-        if (user) {
-          const profileData = await getUserProfileData(user.uid);
-          setUseArticle([...housesData, ...apartmentsData]);
-          setProfileData(profileData);
-        } else {
-          setUseArticle([]); // User is not authenticated, clear the articles
-        }
-      } catch (error) {
-        setFetchError('Error fetching data. Please try again later.');
-      } finally {
-        setLoading(false);
+  const fetchData = async () => {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        const profileData = await getUserProfileData(user.uid);
+
+        // Define an array of possible collections
+        const possibleCollections = ['Houses', 'Apartments'];
+
+        // Dynamically fetch articles based on the selected collection or use all collections
+        const selectedCollection = profileData?.selectedCollection || possibleCollections;
+
+        // Fetch data from all selected collections
+        const fetchPromises = selectedCollection.map(async (collectionName) => {
+          const querySnapshot = await getDocs(collection(getFirestore(), collectionName));
+          const articles = querySnapshot.docs
+            .map((doc) => ({ id: doc.id, ...doc.data() }))
+            .filter((article) => article.userId === user.uid); // Compare with user's UID
+        
+          return articles;
+        });
+
+        // Wait for all fetch operations to complete
+        const articlesArrays = await Promise.all(fetchPromises);
+
+        // Flatten the array of arrays into a single array of articles
+        const articles = articlesArrays.flat();
+
+        setUseArticle(articles);
+        setProfileData(profileData);
+      } else {
+        setUseArticle([]); // User is not authenticated, clear the articles
       }
-    };
-  
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      setIsSignedIn(!!user);
-      fetchData();
-    });
-  
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-  
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setFetchError('Error fetching data. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    setIsSignedIn(!!user);
+    fetchData();
+  });
+
+  return () => {
+    unsubscribe();
+  };
+}, []);
+
 
 const userIsAuthenticated = async () => {
 return new Promise((resolve) => {
@@ -121,9 +159,7 @@ setErrorMessage('');
 };
       
 
-const getUserProfileData = async (userId) => {
-    // Your implementation to fetch user profile data from Firestore
-  };
+
 const handleCoverImageChange = (e) => {
     const file = e.target.files[0];
     setCoverImageFile(file);
@@ -143,48 +179,58 @@ const handleFileUpload = async (file, storagePath) => {
   }
 };
 const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const auth = getAuth();
-      const user = auth.currentUser;
-      setIsLoading(true);
-      const uniqueArticleId = uuidv4();
-      setArticleId(uniqueArticleId);
-  
-      // Upload files to Firebase Storage if they exist
-      const background_image = backgroundImageFile ? await handleFileUpload(backgroundImageFile, `images/${uniqueArticleId}_background_image.jpg`) : null;
-  
-      const db = getFirestore(); // Initialize Firestore instance
-  
-      // Update Firestore with the new background image in the existing user document
-      await updateDoc(doc(db, 'users', user.uid), {
-        backgroundImage: background_image,
-      });
-  
-      // Add a new document to the collection (if needed)
-      const docRef = await addDoc(collection(db, 'listings'), {
-        articleId: uniqueArticleId,
-        userId: user.uid,
-        timestamp: new Date(),
-        userName: user.displayName,
-        userEmail: user.email,
-        backgroundImage: background_image,
-      });
-    } catch (error) {
-      setErrorMessage('Error. Please try again.');
-      setTimeout(() => {
-        setErrorMessage('');
-      }, 3000);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  e.preventDefault();
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    setIsLoading(true);
+    const uniqueArticleId = uuidv4();
+    setArticleId(uniqueArticleId);
+
+    // Upload files to Firebase Storage if they exist
+    const background_image = backgroundImageFile
+      ? await handleFileUpload(backgroundImageFile, `images/${uniqueArticleId}_background_image.jpg`)
+      : null;
+
+    const db = getFirestore(); // Initialize Firestore instance
+
+    // Update Firestore with the new background image in the existing user document
+    await updateDoc(doc(db, 'users', user.uid), {
+      backgroundImage: background_image,
+    });
+
+    // Set the new background image in the local state
+    setProfileData((prevProfileData) => ({
+      ...prevProfileData,
+      backgroundImage: background_image,
+    }));
+
+    // Add a new document to the collection (if needed)
+    const docRef = await addDoc(collection(db, 'listings'), {
+      articleId: uniqueArticleId,
+      userId: user.uid,
+      timestamp: new Date(),
+      userName: user.displayName,
+      userEmail: user.email,
+      backgroundImage: background_image,
+    });
+  } catch (error) {
+    setErrorMessage('Error. Please try again.');
+    setTimeout(() => {
+      setErrorMessage('');
+    }, 3000);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
   
 
 return (
 <>
-<div style={{  backgroundImage: `url(${profileData.backgroundImage})`,
-}}>
+<div>
+  {profileData && (
+    <div style={{ backgroundImage: `url(${profileData.backgroundImage})` }}>
       <form onSubmit={handleSubmit}>
         <input
           type="file"
@@ -197,6 +243,10 @@ return (
       </form>
       {errorMessage && <div>{errorMessage}</div>}
     </div>
+  )}
+  {!profileData && <p>Loading...</p>}
+</div>
+
 
 <div className='profile' style={{ display: 'grid', placeContent: 'center', placeItems: 'center' }}>
 <Image src={gcpm} width={1000} alt='...' />
@@ -216,7 +266,7 @@ ${blog.price} <small>{blog.billingFrequency}</small>
 <div style={{ marginRight: 'auto' }}>{blog.bathrooms}bds | {blog.bedrooms}ba</div>
 <div>{blog.propertyType}</div>
 </div>
-<p className='property-description'>{blog.content.slice(0, 100)}...</p>
+{/* <p className='property-description'>{blog.content.slice(0, 100)}...</p> */}
 </div>
 <div className='property-address'>{blog.address}</div>
 <div className='property-owner_name'>Listing by {blog.userName}</div>
