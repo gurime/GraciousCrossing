@@ -107,7 +107,7 @@ return (
 <div style={{ marginRight: 'auto' }}>{blog.bathrooms}bds | {blog.bedrooms}ba</div>
 <div>{blog.propertyType}</div>
 </div>
-<p className='property-description'>{blog.content.slice(0, 100)}...</p>
+{/* <p className='property-description'>{blog.content.slice(0, 100)}...</p> */}
 </div>
 <div className='property-address'>{blog.address}</div>
 
