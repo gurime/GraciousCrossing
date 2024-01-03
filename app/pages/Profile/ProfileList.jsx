@@ -157,12 +157,12 @@ const handleSubmit = async (e) => {
       const db = getFirestore(); // Initialize Firestore instance
   
       // Update Firestore with the new background image in the existing user document
-      await updateDoc(doc(db, 'profiles', user.uid), {
+      await updateDoc(doc(db, 'users', user.uid), {
         backgroundImage: background_image,
       });
   
       // Add a new document to the collection (if needed)
-      const docRef = await addDoc(collection(db, 'articles'), {
+      const docRef = await addDoc(collection(db, 'listings'), {
         articleId: uniqueArticleId,
         userId: user.uid,
         timestamp: new Date(),
