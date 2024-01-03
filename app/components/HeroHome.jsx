@@ -99,7 +99,6 @@ spellCheck="false"
 dir="auto"
 tabIndex={0}
 value={searchTerm}
-autoFocus
 onChange={(e) => {
 setSearchTerm(e.target.value);
 setIsOverlayActive(e.target.value.trim().length > 0);
