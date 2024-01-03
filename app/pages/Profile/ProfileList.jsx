@@ -230,9 +230,15 @@ return (
 <>
 <div>
   {profileData && (
-    <div style={{ backgroundImage: `url(${profileData.backgroundImage})` }}>
-      <form onSubmit={handleSubmit}>
-        <input
+<div
+style={{ 
+backgroundImage: `url(${profileData.backgroundImage})`,
+height:'350px',
+backgroundPosition:'center',
+backgroundSize:'cover'
+}}>
+<form onSubmit={handleSubmit}>
+       <input
           type="file"
           id="cover_image"
           name="cover_image"
