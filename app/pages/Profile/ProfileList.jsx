@@ -9,7 +9,7 @@ import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { auth, db } from '@/app/Config/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
+import cbg_camera from '../../img/camera_icon.png'
 export default function ProfileList() {
 const [fetchError, setFetchError] = useState(null);
 const [loading, setLoading] = useState(true);
@@ -238,16 +238,20 @@ backgroundPosition:'center',
 backgroundSize:'cover'
 }}>
 <form onSubmit={handleSubmit}>
-       <input
-          type="file"
-          id="cover_image"
-          name="cover_image"
-          accept="image/*"
-          onChange={handleCoverImageChange}
-        />
-        <button type="submit">Upload</button>
-      </form>
-      {errorMessage && <div>{errorMessage}</div>}
+  <label htmlFor="cover_image" className="camera-icon-label">
+    <input
+      type="file"
+      id="cover_image"
+      name="cover_image"
+      accept="image/*"
+      onChange={handleCoverImageChange}
+      style={{ display: 'none' }} // Hide the actual file input
+    />
+<Image src={cbg_camera} alt='...'/>
+  </label>
+  <button type="submit">Upload</button>
+</form>
+{errorMessage && <div>{errorMessage}</div>}
     </div>
   )}
   {!profileData && <p>Loading...</p>}
