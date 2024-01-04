@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { auth, db } from '@/app/Config/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import cbg_camera from '../../img/camera_icon.png'
+import ModalForm from './ModalForm';
 export default function ProfileList() {
 const [fetchError, setFetchError] = useState(null);
 const [loading, setLoading] = useState(true);
@@ -24,7 +25,9 @@ const [articleId, setArticleId] = useState("");
 const [profileData, setProfileData] = useState("");  
 const [backgroundImageFile, setBackgroundImageFile] = useState(null);
 const [editMode, setEditMode] = useState(false);
-
+const [editData, setEditData] = useState(null); // To store data for editing
+const [editModalOpen, setEditModalOpen] = useState(false);
+const [editingComment, setEditingComment] = useState(null);
 
 const router = useRouter();
 
@@ -119,6 +122,72 @@ resolve(isAuthenticated);
 });
 };
 // userIsAuthenticated stops here
+const comments = []; // Initialize an empty array or fetch comments from somewhere
+
+const handleEdit = (postId, userId,comments) => {
+  const commentToEdit = comments.find((comment) => comment.id === postId);
+  if (commentToEdit) {
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
+  if (currentUser && currentUser.uid === commentToEdit.userId) {
+  setEditingComment(commentToEdit);
+  setEditModalOpen(true);
+  } else {
+  setErrorMessage('Unauthorized to edit this listing.');
+  setTimeout(() => {
+  setErrorMessage('');
+  }, 3000);
+  }
+  } else {
+  setErrorMessage('listing not found');
+  setTimeout(() => {
+  setErrorMessage('');
+  }, 3000);
+  }
+  };
+  // EditPost stops here
+  
+  const handleEditModalSave = async (postId, editedContent) => {
+  try {
+  await updateComment(postId, editedContent);
+  setEditModalOpen(false);
+  } catch (error) {
+  setErrorMessage('Error saving listing. Please try again.');
+  setTimeout(() => {
+  setErrorMessage('');
+  }, 3000);
+  }
+  };
+  // handleEditModalSave stops here
+  
+  const handleEditModalCancel = () => {
+  setEditModalOpen(false);
+  };
+  // handleEditModalCancel stops here
+  
+  const updateComment = async (postId, editedContent) => {
+  try {
+  const db = getFirestore();
+  const commentRef = doc(db, collectionName, postId);
+  await updateDoc(commentRef, {
+  content: editedContent,
+  });
+  setComments((prevComments) =>
+  prevComments.map((comment) =>comment.id === postId ? { ...comment, content: editedContent } : comment
+  )
+  );
+  setSuccessMessage('listing updated successfully');
+  setTimeout(() => {
+  setSuccessMessage('');
+  }, 3000);
+  } catch (error) {
+  setErrorMessage('Error updating listing. Please try again.');
+  setTimeout(() => {
+  setErrorMessage('');
+  }, 3000);
+  }
+  };
+
 
 const handleDelete = async (collectionName, postId, userId) => {
 try {
@@ -246,57 +315,50 @@ return (
 <div
 style={{ 
 display: 'flex',
- justifyContent: 'flex-end',
+justifyContent: 'flex-end',
 backgroundImage: `url(${profileData.backgroundImage})`,
 height:'400px',
 backgroundPosition:'center',
 backgroundSize:'cover',
-
 }}>
 <form style={{
-  position: 'absolute',
-  top: '264px',
+position: 'absolute',
+top: '264px',
 }} onSubmit={handleSubmit}>
- <button
- className='ApartmentArticleHero-button'
-    onClick={() => router.push('/pages/PropertyForm')}
-    disabled={!isSignedIn}
-    style={{
-      cursor: !isSignedIn ? 'not-allowed' : 'pointer',
-      backgroundColor: !isSignedIn ? '#d3d3d3' : '#007bff',
-      color: !isSignedIn ? '#a9a9a9' : '#fff',
-      margin:'5px 0'
-    }}
-  >
-    Add a Listing
-  </button>  <label htmlFor="cover_image" className="camera-icon-label" style={{ cursor: 'pointer' }} onClick={() => setEditMode(true)}>
-    <input
-      type="file"
-      id="cover_image"
-      name="cover_image"
-      accept="image/*"
-      onChange={handleCoverImageChange}
-      style={{ display: 'none' }} // Hide the actual file input
-    />
-    <Image
-      src={cbg_camera} alt='...'
-    />
-    {editMode ? 'Upload' : 'Edit Cover Image'}
-  </label>
+<button
+className='ApartmentArticleHero-button'
+onClick={() => router.push('/pages/PropertyForm')}
+disabled={!isSignedIn}
+style={{
+cursor: !isSignedIn ? 'not-allowed' : 'pointer',
+backgroundColor: !isSignedIn ? '#d3d3d3' : '#007bff',
+color: !isSignedIn ? '#a9a9a9' : '#fff',
+margin:'5px 0'
+}}>Add a Listing
+</button>  <label htmlFor="cover_image" className="camera-icon-label" style={{ cursor: 'pointer' }} onClick={() => setEditMode(true)}>
+<input
+type="file"
+id="cover_image"
+name="cover_image"
+accept="image/*"
+onChange={handleCoverImageChange}
+style={{ display: 'none' }} />
 
-  {editMode && (
-    <>
-      <button style={{ marginLeft: '165px' }} className='edit-btn' type="submit">Upload</button>
-      <button className='edit-btn' onClick={handleCancel} type="button">Cancel</button>
-    </>
-  )}
+<Image src={cbg_camera} alt='...'/>
+{editMode ? 'Upload' : 'Edit Cover Image'}
+</label>
+
+{editMode && (
+<>
+<button style={{ marginLeft: '165px' }} className='edit-btn' type="submit">Upload</button>
+<button className='edit-btn' onClick={handleCancel} type="button">Cancel</button>
+</>
+)}
 </form>
-
 {errorMessage && <div>{errorMessage}</div>}
- 
-    </div>
-  )}
-  {!profileData && <p>Loading...</p>}
+ </div>
+)}
+{!profileData && <p>Loading...</p>}
 </div>
 
 
@@ -306,33 +368,37 @@ backgroundSize:'cover',
 {errorMessage && errorMessage}
 {successMessage && successMessage}
 <div className='property-grid'>
-{useArticle.map((blog) => (
-<div className='property-card' key={blog.id}>
-<Link href={`/pages/Articles/${blog.id}`}>
-<img src={blog.cover_image} alt='' className='property-image' />
-<div className='property-details'>
-<div className='property-price'>
-${blog.price} <small>{blog.billingFrequency}</small>
-</div>
-<div className='property-type'>
-<div style={{ marginRight: 'auto' }}>{blog.bathrooms}bds | {blog.bedrooms}ba</div>
-<div>{blog.propertyType}</div>
-</div>
-{/* <p className='property-description'>{blog.content.slice(0, 100)}...</p> */}
-</div>
-<div className='property-address'>{blog.address}</div>
-<div className='property-owner_name'>Listing by {blog.userName}</div>
-</Link>
-{blog.userId === auth.currentUser?.uid && (
-  <div className="edit-delBlock">
-    <button className='edit-btn' onClick={(e) => handleEdit(e, blog.id, blog.userId)}>Edit</button>
-    <button className='delete-btn' onClick={() => handleDelete('Houses', blog.id, blog.userId)}>Delete</button>
-  </div>
-)}
-</div>
-))}
+  {useArticle.map((blog) => (
+    <div className='property-card' key={blog.id}>
+      <Link href={`/pages/Articles/${blog.id}`}>
+        <img src={blog.cover_image} alt='' className='property-image' />
+        <div className='property-details'>
+          <div className='property-price'>
+            ${blog.price} <small>{blog.billingFrequency}</small>
+          </div>
+          <div className='property-type'>
+            <div style={{ marginRight: 'auto' }}>{blog.bathrooms}bds | {blog.bedrooms}ba</div>
+            <div>{blog.propertyType}</div>
+          </div>
+          {/* <p className='property-description'>{blog.content.slice(0, 100)}...</p> */}
+        </div>
+        <div className='property-address'>{blog.address}</div>
+        <div className='property-owner_name'>Listing by {blog.userName}</div>
+      </Link>
+      {blog.userId === auth.currentUser?.uid && (
+        <div className="edit-delBlock">
+          {/* Corrected onClick for ModalForm */}
+          <button className='edit-btn' onClick={() => handleEdit(blog.id, blog.userId, useArticle)}>
+  Edit
+</button>
+          <button className='delete-btn' onClick={() => handleDelete('Houses', blog.id, blog.userId)}>Delete</button>
+        </div>
+      )}
+    </div>
+  ))}
 </div>
 
+{editModalOpen && (<ModalForm comment={editingComment} onSave={handleEditModalSave} onCancel={handleEditModalCancel} />)}
 
 </>
 );
