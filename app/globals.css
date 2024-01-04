@@ -812,6 +812,19 @@ padding: 0 1rem;
     font-size: 17px;
     cursor: pointer;
     }
+    .ApartmentArticleHero-button{
+      background-color: #17a2f6;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    transition: .5s;
+    border: none;
+    margin-bottom: 5rem;
+    font-size: 17px;
+    cursor: pointer;
+    }
 
   .property-grid {
     display: grid;
@@ -1078,6 +1091,30 @@ margin-bottom: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
   }
+  .camera-icon-label{
+    display: flex;
+    place-items: center;
+    background-color: #000;
+    color: #fff;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    padding: 5px;
+  }
+
+  .camera-icon-label img{
+height: auto;
+width: 34px;
+padding: 0 1rem;
+cursor: pointer;  }
+
+.profile{
+  display: grid;
+  place-items: center;
+  place-content: center;
+  margin-bottom: 1rem;
+
+}
+
 @media(max-width:768px){
  .profile img{
   width: 330px;

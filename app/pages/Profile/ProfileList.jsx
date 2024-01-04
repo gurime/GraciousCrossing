@@ -23,6 +23,8 @@ const [ isLoading, setIsLoading] = useState(false)
 const [articleId, setArticleId] = useState("");  
 const [profileData, setProfileData] = useState("");  
 const [backgroundImageFile, setBackgroundImageFile] = useState(null);
+const [editMode, setEditMode] = useState(false);
+
 
 const router = useRouter();
 
@@ -158,13 +160,18 @@ setErrorMessage('');
 }
 };
       
-
+const handleCancel = () => {
+  // Reset any changes made in edit mode
+  setCoverImageFile(null);
+  setEditMode(false);
+};
 
 const handleCoverImageChange = (e) => {
-    const file = e.target.files[0];
-    setCoverImageFile(file);
-    setBackgroundImageFile(file); // Initialize the backgroundImageFile
-  };
+  const file = e.target.files[0];
+  console.log('Selected file:', file); // Add this line for debugging
+  setCoverImageFile(file);
+  setBackgroundImageFile(file); // Initialize the backgroundImageFile
+};
 
   const storage = getStorage(); // Initialize Firebase Storage
 
@@ -192,7 +199,9 @@ const handleSubmit = async (e) => {
       ? await handleFileUpload(backgroundImageFile, `images/${uniqueArticleId}_background_image.jpg`)
       : null;
 
-    const db = getFirestore(); // Initialize Firestore instance
+    console.log('Uploaded background image:', background_image);
+
+    const db = getFirestore();
 
     // Update Firestore with the new background image in the existing user document
     await updateDoc(doc(db, 'users', user.uid), {
@@ -214,7 +223,12 @@ const handleSubmit = async (e) => {
       userEmail: user.email,
       backgroundImage: background_image,
     });
+
+    // Reset the state after a successful upload
+    setCoverImageFile(null);
+    setEditMode(false);
   } catch (error) {
+    console.error('Error during handleSubmit:', error);
     setErrorMessage('Error. Please try again.');
     setTimeout(() => {
       setErrorMessage('');
@@ -223,22 +237,39 @@ const handleSubmit = async (e) => {
     setIsLoading(false);
   }
 };
-
   
 
 return (
 <>
-<div>
-  {profileData && (
+<div style={{position:'relative',marginBottom:'1rem'}}>
+{profileData && (
 <div
 style={{ 
+display: 'flex',
+ justifyContent: 'flex-end',
 backgroundImage: `url(${profileData.backgroundImage})`,
-height:'350px',
+height:'400px',
 backgroundPosition:'center',
-backgroundSize:'cover'
+backgroundSize:'cover',
+
 }}>
-<form onSubmit={handleSubmit}>
-  <label htmlFor="cover_image" className="camera-icon-label">
+<form style={{
+  position: 'absolute',
+  top: '264px',
+}} onSubmit={handleSubmit}>
+ <button
+ className='ApartmentArticleHero-button'
+    onClick={() => router.push('/pages/PropertyForm')}
+    disabled={!isSignedIn}
+    style={{
+      cursor: !isSignedIn ? 'not-allowed' : 'pointer',
+      backgroundColor: !isSignedIn ? '#d3d3d3' : '#007bff',
+      color: !isSignedIn ? '#a9a9a9' : '#fff',
+      margin:'5px 0'
+    }}
+  >
+    Add a Listing
+  </button>  <label htmlFor="cover_image" className="camera-icon-label" style={{ cursor: 'pointer' }} onClick={() => setEditMode(true)}>
     <input
       type="file"
       id="cover_image"
@@ -247,18 +278,29 @@ backgroundSize:'cover'
       onChange={handleCoverImageChange}
       style={{ display: 'none' }} // Hide the actual file input
     />
-<Image src={cbg_camera} alt='...'/>
+    <Image
+      src={cbg_camera} alt='...'
+    />
+    {editMode ? 'Upload' : 'Edit Cover Image'}
   </label>
-  <button type="submit">Upload</button>
+
+  {editMode && (
+    <>
+      <button style={{ marginLeft: '165px' }} className='edit-btn' type="submit">Upload</button>
+      <button className='edit-btn' onClick={handleCancel} type="button">Cancel</button>
+    </>
+  )}
 </form>
+
 {errorMessage && <div>{errorMessage}</div>}
+ 
     </div>
   )}
   {!profileData && <p>Loading...</p>}
 </div>
 
 
-<div className='profile' style={{ display: 'grid', placeContent: 'center', placeItems: 'center' }}>
+<div className='profile'>
 <Image src={gcpm} width={1000} alt='...' />
 </div>
 {errorMessage && errorMessage}
