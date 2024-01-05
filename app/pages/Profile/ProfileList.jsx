@@ -4,13 +4,12 @@ import React, { useEffect, useState } from 'react';
 import gcpm from '../../img/gcpm.png';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore,  updateDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { auth, db } from '@/app/Config/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import cbg_camera from '../../img/camera_icon.png'
-import ModalForm from './ModalForm';
 export default function ProfileList() {
 const [fetchError, setFetchError] = useState(null);
 const [loading, setLoading] = useState(true);
@@ -24,329 +23,205 @@ const [articleId, setArticleId] = useState("");
 const [profileData, setProfileData] = useState("");  
 const [backgroundImageFile, setBackgroundImageFile] = useState(null);
 const [editMode, setEditMode] = useState(false);
-const [editModalOpen, setEditModalOpen] = useState(false);
-const [editingComment, setEditingComment] = useState(null);
 const [comments, setComments] = useState([]);
 const [selectedCollection, setSelectedCollection] = useState([]);
-const [collectionName, setCollectionName] = useState(''); // Initialize with an appropriate default value
+const [collectionName, setCollectionName] = useState('Houses'); // Initialize with an appropriate default value
 
 const router = useRouter();
 
 const getArticles = async (collectionName, userId) => {
 const auth = getAuth();
 const user = auth.currentUser;
-if (!user) {
-router.push('/pages/Login')
-}
-  
+if (!user) {router.push('/pages/Login')}
 const querySnapshot = await getDocs(collection(getFirestore(), collectionName));
 const data = querySnapshot.docs
 .map((doc) => ({ id: doc.id, ...doc.data() }))
 .filter((property) => property.userId === userId);
 return data;
 };
+
+
 const getUserProfileData = async (userId) => {
+try {
+const docSnapshot = await getDoc(doc(db, 'users', userId));
+if (docSnapshot.exists()) {
+return docSnapshot.data();
+} else {
+return null; // or handle the absence of profile data in a different way
+}
+} catch (error) {
+throw error;
+}
+};
+
+const fetchData = async () => {
   try {
-    const docSnapshot = await getDoc(doc(db, 'users', userId));
-    if (docSnapshot.exists()) {
-      return docSnapshot.data();
+    const user = auth.currentUser;
+
+    if (user) {
+      const profileData = await getUserProfileData(user.uid);
+      const possibleCollections = ['Houses', 'Apartments'];
+
+      const selectedCollection = profileData?.selectedCollection || possibleCollections;
+
+      const fetchPromises = selectedCollection.map(async (collectionName) => {
+        const querySnapshot = await getDocs(collection(getFirestore(), collectionName));
+        const articles = querySnapshot.docs
+          .map((doc) => ({ id: doc.id, ...doc.data() }))
+          .filter((article) => article.userId === user.uid);
+
+        return articles;
+      });
+
+      const articlesArrays = await Promise.all(fetchPromises);
+      const articles = articlesArrays.flat();
+
+      setUseArticle(articles);
+      setProfileData(profileData);
     } else {
-      console.error('User profile not found for user ID:', userId);
-      return null; // or handle the absence of profile data in a different way
+      setUseArticle([]);
     }
   } catch (error) {
-    console.error('Error fetching user profile data:', error);
-    throw error;
+    setFetchError('Error fetching data. Please try again later.');
+  } finally {
+    setLoading(false);
   }
 };
 
 useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const user = auth.currentUser;
-      if (user) {
-        const profileData = await getUserProfileData(user.uid);
-
-        // Define an array of possible collections
-        const possibleCollections = ['Houses', 'Apartments'];
-
-        // Dynamically fetch articles based on the selected collection or use all collections
-        const selectedCollection = profileData?.selectedCollection || possibleCollections;
-        const userSelectedCollection = profileData?.selectedCollection || possibleCollections;
-
-        // Set the selected collection in the state
-        setSelectedCollection(userSelectedCollection);
-        setSelectedCollection(userSelectedCollection);
-        setCollectionName(userSelectedCollection[0]);
-        // Fetch data from all selected collections
-        const fetchPromises = selectedCollection.map(async (collectionName) => {
-          const querySnapshot = await getDocs(collection(getFirestore(), collectionName));
-          const articles = querySnapshot.docs
-            .map((doc) => ({ id: doc.id, ...doc.data() }))
-            .filter((article) => article.userId === user.uid); // Compare with user's UID
-        
-          return articles;
-        });
-
-        // Wait for all fetch operations to complete
-        const articlesArrays = await Promise.all(fetchPromises);
-
-        // Flatten the array of arrays into a single array of articles
-        const articles = articlesArrays.flat();
-
-        setUseArticle(articles);
-        setProfileData(profileData);
-      } else {
-        setUseArticle([]); // User is not authenticated, clear the articles
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setFetchError('Error fetching data. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const unsubscribe = auth.onAuthStateChanged(async (user) => {
     setIsSignedIn(!!user);
-    fetchData();
-    
+    if (user) {
+      fetchData(collectionName);
+    } else {
+      setUseArticle([]); // User is not authenticated, clear the articles
+      setLoading(false);
+    }
   });
 
   return () => {
     unsubscribe();
   };
-}, []);
+}, [collectionName]);
 
 
-const userIsAuthenticated = async () => {
-return new Promise((resolve) => {
-const auth = getAuth();
-onAuthStateChanged(auth, (user) => {
-const isAuthenticated = !!user;
-resolve(isAuthenticated);
-});
-});
-};
+  const userIsAuthenticated = async () => {
+    return new Promise((resolve, reject) => {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        const isAuthenticated = !!user;
+        resolve(isAuthenticated);
+      }, (error) => {
+        reject(error);
+      });
+    });
+  };
+  
 // userIsAuthenticated stops here
-const handleEdit = (userId, comments, collectionName) => {
-  const commentToEdit = comments.find((comment) => comment.id === userId);
-  if (commentToEdit) {
-    const auth = getAuth();
-    const currentUser = auth.currentUser;
-    if (currentUser && currentUser.uid === commentToEdit.userId) {
-      setEditingComment(commentToEdit);
-      setEditModalOpen(true);
-    } else {
-      setErrorMessage('Unauthorized to edit this listing.');
-      setTimeout(() => {
-        setErrorMessage('');
-      }, 3000);
-    }
-  } else {
-    setErrorMessage('Listing not found');
-    setTimeout(() => {
-      setErrorMessage('');
-    }, 3000);
-  }
-};
 
-  // EditPost stops here
-  const handleEditModalSave = async (userId, editedContent, collectionName) => {
+
+ 
+
+  
+  useEffect(() => {
+  setComments([]); // Reset comments to empty array
+  fetchData(collectionName);
+  }, [collectionName]);
+
+
+  const handleDelete = async (collectionName, listingId) => {
     try {
-      console.log('Before updateComment:', userId, editedContent, collectionName);
-      await updateComment(userId, editedContent, collectionName);
-      console.log('After updateComment:', userId, editedContent, collectionName);
-      setEditModalOpen(false);
-      return true;
+      const docRef = doc(getFirestore(), collectionName, listingId);
+      await deleteDoc(docRef);
+      setUseArticle((prevArticles) => prevArticles.filter((article) => article.id !== listingId));
     } catch (error) {
-      console.error('Error during update:', error);
-      console.error('Error details:', error.message); // Log the error message
-      setErrorMessage('Error updating listing. Please try again.');
+      console.error('Error deleting listing:', error);
+      setErrorMessage('Error deleting listing. Please try again.');
       setTimeout(() => {
         setErrorMessage('');
       }, 3000);
-      return false;
+    } finally {
+      setIsLoading(false);
     }
   };
   
   
   
-  // handleEditModalSave stops here
-  
-  const handleEditModalCancel = () => {
-  setEditModalOpen(false);
-  };
-
-
-
-
-
-  // handleEditModalCancel stops here
-  const updateComment = async (userId, editedContent, collectionName) => {
+  const handleEdit = async (collectionName, userId, updatedData) => {
     try {
-      console.log('Before Firestore update:', postId, editedContent, collectionName);
-  
-      const db = getFirestore();
-      const commentRef = doc(db, collectionName, userId); // Assuming postId is the document ID
-      await updateDoc(commentRef, editedContent, userId, collectionName );
-  
-      setComments((prevComments) =>
-        prevComments.map((comment) =>
-          comment.id === userId ? { ...comment, ...editedContent } : comment
-        )
+      await updateDoc(doc(getFirestore(), collectionName, userId), updatedData);
+      setUseArticle((prevArticles) =>
+        prevArticles.map((article) => (article.id === userId ? { ...article, ...updatedData } : article))
       );
-  
-      setSuccessMessage('Listing updated successfully');
-  
-      setTimeout(() => {
-        setSuccessMessage('');
-      }, 3000);
     } catch (error) {
-      setErrorMessage('Error updating Listing. Please try again.');
-  
+      console.error('Error editing listing:', error);
+      setErrorMessage('Error. Please try again.');
       setTimeout(() => {
         setErrorMessage('');
       }, 3000);
+    } finally {
+      setIsLoading(false);
     }
   };
-  
-  
+     
 
-const handleDelete = async (collectionName, userId) => {
+  
+  
+const handleSubmit = async (e) => {
+e.preventDefault();
 try {
 const auth = getAuth();
-const currentUser = auth.currentUser;
-const isAuthenticated = await userIsAuthenticated();
-      
-if (currentUser) {
-if (currentUser.uid === userId) {
+const user = auth.currentUser;
+setIsLoading(true);
+const uniqueArticleId = uuidv4();
+setArticleId(uniqueArticleId);
+const background_image = backgroundImageFile ? await handleFileUpload(backgroundImageFile, `images/${uniqueArticleId}_background_image.jpg`) : null;
 const db = getFirestore();
-const commentDoc = await getDoc(doc(db, collectionName, userId));
-if (commentDoc.exists()) {
-await deleteDoc(doc(db, collectionName, userId));
-// Update the state to remove the deleted article
-setUseArticle((prevArticles) => prevArticles.filter((article) => article.id !== userId));
-setSuccessMessage('Listing deleted successfully');
-setTimeout(() => {
-setSuccessMessage('');
-}, 3000);
-} else {
-setErrorMessage('Listing not found');
-setTimeout(() => {
-setErrorMessage('');
-}, 3000);
-}
-} else {
-setErrorMessage('Unauthorized to delete this Listing.');
+await updateDoc(doc(db, 'users', user.uid), {backgroundImage: background_image,});
+setProfileData((prevProfileData) => ({...prevProfileData,backgroundImage: background_image,}));
+const docRef = await addDoc(collection(db, 'listings'), {
+articleId: uniqueArticleId,
+userId: user.uid,
+timestamp: new Date(),
+userName: user.displayName,
+userEmail: user.email,
+backgroundImage: background_image,
+});
+setCoverImageFile(null);
+setEditMode(false);} catch (error) {
+setErrorMessage('Error. Please try again.');
 setTimeout(() => {
 setErrorMessage('');
 }, 3000);
-}
-}
-} catch (error) {
-console.error('Error deleting Listing:', error);
-setErrorMessage('Error deleting Listing. Please try again.');
-setTimeout(() => {
-setErrorMessage('');
-}, 3000);
+} finally {
+setIsLoading(false);
 }
 };
-      
+
+
 const handleCancel = () => {
-  // Reset any changes made in edit mode
-  setCoverImageFile(null);
-  setEditMode(false);
+setCoverImageFile(null);
+setEditMode(false);
 };
 
 const handleCoverImageChange = (e) => {
-  const file = e.target.files[0];
-  console.log('Selected file:', file); // Add this line for debugging
-  setCoverImageFile(file);
-  setBackgroundImageFile(file); // Initialize the backgroundImageFile
+const file = e.target.files[0];
+setCoverImageFile(file);
+setBackgroundImageFile(file); // Initialize the backgroundImageFile
 };
 
-  const storage = getStorage(); // Initialize Firebase Storage
-
+const storage = getStorage(); // Initialize Firebase Storage
 const handleFileUpload = async (file, storagePath) => {
-  try {
-    const storageRef = ref(storage, storagePath);
-    await uploadBytes(storageRef, file);
-    const downloadURL = await getDownloadURL(storageRef);
-    return downloadURL;
-  } catch (error) {
-    throw error;
-  }
+try {
+const storageRef = ref(storage, storagePath);
+await uploadBytes(storageRef, file);
+const downloadURL = await getDownloadURL(storageRef);
+return downloadURL;
+} catch (error) {
+throw error;
+}
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    setIsLoading(true);
-    const uniqueArticleId = uuidv4();
-    setArticleId(uniqueArticleId);
-
-    // Upload files to Firebase Storage if they exist
-    const background_image = backgroundImageFile
-      ? await handleFileUpload(backgroundImageFile, `images/${uniqueArticleId}_background_image.jpg`)
-      : null;
-
-    console.log('Uploaded background image:', background_image);
-
-    const db = getFirestore();
-
-    // Update Firestore with the new background image in the existing user document
-    await updateDoc(doc(db, 'users', user.uid), {
-      backgroundImage: background_image,
-    });
-
-    // Set the new background image in the local state
-    setProfileData((prevProfileData) => ({
-      ...prevProfileData,
-      backgroundImage: background_image,
-    }));
-
-    // Add a new document to the collection (if needed)
-    const docRef = await addDoc(collection(db, 'listings'), {
-      articleId: uniqueArticleId,
-      userId: user.uid,
-      timestamp: new Date(),
-      userName: user.displayName,
-      userEmail: user.email,
-      backgroundImage: background_image,
-    });
-
-    // Reset the state after a successful upload
-    setCoverImageFile(null);
-    setEditMode(false);
-  } catch (error) {
-    console.error('Error during handleSubmit:', error);
-    setErrorMessage('Error. Please try again.');
-    setTimeout(() => {
-      setErrorMessage('');
-    }, 3000);
-  } finally {
-    setIsLoading(false);
-  }
-};
-  
 
 return (
 <>
@@ -426,24 +301,21 @@ style={{ display: 'none' }} />
         <div className='property-owner_name'>Listing by {blog.userName}</div>
       </Link>
       {blog.userId === auth.currentUser?.uid && (
-        <div className="edit-delBlock">
-          {/* Corrected onClick for ModalForm */}
-          <button className='edit-btn' onClick={() => handleEdit( blog.userId, useArticle)}>
-  Edit
-</button>
-          <button className='delete-btn' onClick={() => handleDelete(  blog.userId, useArticle )}>Delete</button>
-        </div>
-      )}
+  <div className="edit-delBlock">
+    {/* Pass the correct postId to handleEdit */}
+    <button className='edit-btn' onClick={() => handleEdit(blog.id, blog.userId)}>
+      Edit
+    </button>
+
+    {/* Pass the correct postId and collectionName to handleDelete */}
+    <button className='delete-btn' onClick={() => handleDelete(blog.id, collectionName)}>
+      Delete
+    </button>
+  </div>
+)}
     </div>
   ))}
 </div>
-{editModalOpen && (
-  <ModalForm
-    comment={editingComment}
-    onSave={(userId, editedContent) => handleEditModalSave(userId, editedContent, collectionName)}
-    onCancel={handleEditModalCancel}
-  />
-)}
 
 
 </>
