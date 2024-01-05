@@ -189,7 +189,7 @@ const handleEdit = (userId, comments, collectionName) => {
   
       const db = getFirestore();
       const commentRef = doc(db, collectionName, userId); // Assuming postId is the document ID
-      await updateDoc(commentRef, editedContent);
+      await updateDoc(commentRef, editedContent, userId, collectionName );
   
       setComments((prevComments) =>
         prevComments.map((comment) =>
