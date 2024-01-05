@@ -129,8 +129,8 @@ resolve(isAuthenticated);
 });
 };
 // userIsAuthenticated stops here
-const handleEdit = (postId, userId, comments, collectionName) => {
-  const commentToEdit = comments.find((comment) => comment.id === postId);
+const handleEdit = (userId, comments, collectionName) => {
+  const commentToEdit = comments.find((comment) => comment.id === userId);
   if (commentToEdit) {
     const auth = getAuth();
     const currentUser = auth.currentUser;
@@ -152,11 +152,11 @@ const handleEdit = (postId, userId, comments, collectionName) => {
 };
 
   // EditPost stops here
-  const handleEditModalSave = async (postId, editedContent, collectionName) => {
+  const handleEditModalSave = async (userId, editedContent, collectionName) => {
     try {
-      console.log('Before updateComment:', postId, editedContent, collectionName);
-      await updateComment(postId, editedContent, collectionName);
-      console.log('After updateComment:', postId, editedContent, collectionName);
+      console.log('Before updateComment:', userId, editedContent, collectionName);
+      await updateComment(userId, editedContent, collectionName);
+      console.log('After updateComment:', userId, editedContent, collectionName);
       setEditModalOpen(false);
       return true;
     } catch (error) {
@@ -183,17 +183,17 @@ const handleEdit = (postId, userId, comments, collectionName) => {
 
 
   // handleEditModalCancel stops here
-  const updateComment = async (postId, editedContent, collectionName) => {
+  const updateComment = async (userId, editedContent, collectionName) => {
     try {
       console.log('Before Firestore update:', postId, editedContent, collectionName);
   
       const db = getFirestore();
-      const commentRef = doc(db, collectionName, postId); // Assuming postId is the document ID
+      const commentRef = doc(db, collectionName, userId); // Assuming postId is the document ID
       await updateDoc(commentRef, editedContent);
   
       setComments((prevComments) =>
         prevComments.map((comment) =>
-          comment.id === postId ? { ...comment, ...editedContent } : comment
+          comment.id === userId ? { ...comment, ...editedContent } : comment
         )
       );
   
@@ -213,7 +213,7 @@ const handleEdit = (postId, userId, comments, collectionName) => {
   
   
 
-const handleDelete = async (collectionName, postId, userId) => {
+const handleDelete = async (collectionName, userId) => {
 try {
 const auth = getAuth();
 const currentUser = auth.currentUser;
@@ -222,11 +222,11 @@ const isAuthenticated = await userIsAuthenticated();
 if (currentUser) {
 if (currentUser.uid === userId) {
 const db = getFirestore();
-const commentDoc = await getDoc(doc(db, collectionName, postId));
+const commentDoc = await getDoc(doc(db, collectionName, userId));
 if (commentDoc.exists()) {
-await deleteDoc(doc(db, collectionName, postId));
+await deleteDoc(doc(db, collectionName, userId));
 // Update the state to remove the deleted article
-setUseArticle((prevArticles) => prevArticles.filter((article) => article.id !== postId));
+setUseArticle((prevArticles) => prevArticles.filter((article) => article.id !== userId));
 setSuccessMessage('Listing deleted successfully');
 setTimeout(() => {
 setSuccessMessage('');
