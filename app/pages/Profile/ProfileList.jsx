@@ -428,10 +428,10 @@ style={{ display: 'none' }} />
       {blog.userId === auth.currentUser?.uid && (
         <div className="edit-delBlock">
           {/* Corrected onClick for ModalForm */}
-          <button className='edit-btn' onClick={() => handleEdit(blog.id, blog.userId, useArticle)}>
+          <button className='edit-btn' onClick={() => handleEdit( blog.userId, useArticle)}>
   Edit
 </button>
-          <button className='delete-btn' onClick={() => handleDelete( blog.id, blog.userId)}>Delete</button>
+          <button className='delete-btn' onClick={() => handleDelete(  blog.userId, useArticle )}>Delete</button>
         </div>
       )}
     </div>
@@ -440,7 +440,7 @@ style={{ display: 'none' }} />
 {editModalOpen && (
   <ModalForm
     comment={editingComment}
-    onSave={(postId, editedContent) => handleEditModalSave(postId, editedContent, collectionName)}
+    onSave={(userId, editedContent) => handleEditModalSave(userId, editedContent, collectionName)}
     onCancel={handleEditModalCancel}
   />
 )}
