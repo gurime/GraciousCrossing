@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import gcpm from '../../img/gcpm.png';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { auth, db } from '@/app/Config/firebase';
@@ -19,15 +19,16 @@ const [isSignedIn, setIsSignedIn] = useState(false);
 const [successMessage, setSuccessMessage] = useState();
 const [errorMessage, setErrorMessage] = useState('');
 const [coverImageFile, setCoverImageFile] = useState(null);
-const [ selectedCollection, setSelectedCollection] = useState("Houses")
 const [ isLoading, setIsLoading] = useState(false)
 const [articleId, setArticleId] = useState("");  
 const [profileData, setProfileData] = useState("");  
 const [backgroundImageFile, setBackgroundImageFile] = useState(null);
 const [editMode, setEditMode] = useState(false);
-const [editData, setEditData] = useState(null); // To store data for editing
 const [editModalOpen, setEditModalOpen] = useState(false);
 const [editingComment, setEditingComment] = useState(null);
+const [comments, setComments] = useState([]);
+const [selectedCollection, setSelectedCollection] = useState([]);
+const [collectionName, setCollectionName] = useState(''); // Initialize with an appropriate default value
 
 const router = useRouter();
 
@@ -71,7 +72,12 @@ useEffect(() => {
 
         // Dynamically fetch articles based on the selected collection or use all collections
         const selectedCollection = profileData?.selectedCollection || possibleCollections;
+        const userSelectedCollection = profileData?.selectedCollection || possibleCollections;
 
+        // Set the selected collection in the state
+        setSelectedCollection(userSelectedCollection);
+        setSelectedCollection(userSelectedCollection);
+        setCollectionName(userSelectedCollection[0]);
         // Fetch data from all selected collections
         const fetchPromises = selectedCollection.map(async (collectionName) => {
           const querySnapshot = await getDocs(collection(getFirestore(), collectionName));
@@ -104,6 +110,7 @@ useEffect(() => {
   const unsubscribe = auth.onAuthStateChanged(async (user) => {
     setIsSignedIn(!!user);
     fetchData();
+    
   });
 
   return () => {
@@ -122,72 +129,89 @@ resolve(isAuthenticated);
 });
 };
 // userIsAuthenticated stops here
-const comments = []; // Initialize an empty array or fetch comments from somewhere
-
-const handleEdit = (postId, userId,comments) => {
+const handleEdit = (postId, userId, comments, collectionName) => {
   const commentToEdit = comments.find((comment) => comment.id === postId);
   if (commentToEdit) {
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
-  if (currentUser && currentUser.uid === commentToEdit.userId) {
-  setEditingComment(commentToEdit);
-  setEditModalOpen(true);
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+    if (currentUser && currentUser.uid === commentToEdit.userId) {
+      setEditingComment(commentToEdit);
+      setEditModalOpen(true);
+    } else {
+      setErrorMessage('Unauthorized to edit this listing.');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+    }
   } else {
-  setErrorMessage('Unauthorized to edit this listing.');
-  setTimeout(() => {
-  setErrorMessage('');
-  }, 3000);
+    setErrorMessage('Listing not found');
+    setTimeout(() => {
+      setErrorMessage('');
+    }, 3000);
   }
-  } else {
-  setErrorMessage('listing not found');
-  setTimeout(() => {
-  setErrorMessage('');
-  }, 3000);
-  }
-  };
+};
+
   // EditPost stops here
-  
-  const handleEditModalSave = async (postId, editedContent) => {
-  try {
-  await updateComment(postId, editedContent);
-  setEditModalOpen(false);
-  } catch (error) {
-  setErrorMessage('Error saving listing. Please try again.');
-  setTimeout(() => {
-  setErrorMessage('');
-  }, 3000);
-  }
+  const handleEditModalSave = async (postId, editedContent, collectionName) => {
+    try {
+      console.log('Before updateComment:', postId, editedContent, collectionName);
+      await updateComment(postId, editedContent, collectionName);
+      console.log('After updateComment:', postId, editedContent, collectionName);
+      setEditModalOpen(false);
+      return true;
+    } catch (error) {
+      console.error('Error during update:', error);
+      console.error('Error details:', error.message); // Log the error message
+      setErrorMessage('Error updating listing. Please try again.');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+      return false;
+    }
   };
+  
+  
+  
   // handleEditModalSave stops here
   
   const handleEditModalCancel = () => {
   setEditModalOpen(false);
   };
-  // handleEditModalCancel stops here
-  
-  const updateComment = async (postId, editedContent) => {
-  try {
-  const db = getFirestore();
-  const commentRef = doc(db, collectionName, postId);
-  await updateDoc(commentRef, {
-  content: editedContent,
-  });
-  setComments((prevComments) =>
-  prevComments.map((comment) =>comment.id === postId ? { ...comment, content: editedContent } : comment
-  )
-  );
-  setSuccessMessage('listing updated successfully');
-  setTimeout(() => {
-  setSuccessMessage('');
-  }, 3000);
-  } catch (error) {
-  setErrorMessage('Error updating listing. Please try again.');
-  setTimeout(() => {
-  setErrorMessage('');
-  }, 3000);
-  }
-  };
 
+
+
+
+
+  // handleEditModalCancel stops here
+  const updateComment = async (postId, editedContent, collectionName) => {
+    try {
+      console.log('Before Firestore update:', postId, editedContent, collectionName);
+  
+      const db = getFirestore();
+      const commentRef = doc(db, collectionName, postId); // Assuming postId is the document ID
+      await updateDoc(commentRef, editedContent);
+  
+      setComments((prevComments) =>
+        prevComments.map((comment) =>
+          comment.id === postId ? { ...comment, ...editedContent } : comment
+        )
+      );
+  
+      setSuccessMessage('Listing updated successfully');
+  
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    } catch (error) {
+      setErrorMessage('Error updating Listing. Please try again.');
+  
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+    }
+  };
+  
+  
 
 const handleDelete = async (collectionName, postId, userId) => {
 try {
@@ -254,6 +278,22 @@ const handleFileUpload = async (file, storagePath) => {
     throw error;
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
@@ -391,14 +431,20 @@ style={{ display: 'none' }} />
           <button className='edit-btn' onClick={() => handleEdit(blog.id, blog.userId, useArticle)}>
   Edit
 </button>
-          <button className='delete-btn' onClick={() => handleDelete('Houses', blog.id, blog.userId)}>Delete</button>
+          <button className='delete-btn' onClick={() => handleDelete( blog.id, blog.userId)}>Delete</button>
         </div>
       )}
     </div>
   ))}
 </div>
+{editModalOpen && (
+  <ModalForm
+    comment={editingComment}
+    onSave={(postId, editedContent) => handleEditModalSave(postId, editedContent, collectionName)}
+    onCancel={handleEditModalCancel}
+  />
+)}
 
-{editModalOpen && (<ModalForm comment={editingComment} onSave={handleEditModalSave} onCancel={handleEditModalCancel} />)}
 
 </>
 );

@@ -1,100 +1,95 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function ModalForm({  comment, onSave, onCancel  }) {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [ isLoading, setIsLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
+  const [coverImageFile, setCoverImageFile] = useState(null);
+  const [showcase1File, setShowcase1File] = useState(null);  
+  const [showcase2File, setShowcase2File] = useState(null);  
+  const [showcase3File, setShowcase3File] = useState(null); 
     // Initialize state with existingData or an empty object
-    const [editedContent, setEditedContent] = useState(comment.content,comment.address);
-    const handleSave = () => {
-    onSave(comment.id, editedContent);
+    const [editedContent, setEditedContent] = useState({
+      title: comment.title || '',
+      owner: comment.owner || '',
+      price: comment.price || '',
+      address: comment.address || '',
+      water: comment.water || '',
+      lights: comment.lights || '',
+      cable: comment.cable || '',
+      pool: comment.pool || '',
+      billingFrequency: comment.billingFrequency || '',
+      bathrooms: comment.bathrooms || '',
+      bedrooms: comment.bedrooms || '',
+      laundry: comment.laundry || '',
+      heating: comment.heating || '',
+      airConditioning: comment.airConditioning || '',
+      selectedCollection: comment.selectedCollection || '',
+      content: comment.content || '',
+    });
+
+    useEffect(() => {
+      // If any additional properties are added to comment dynamically,
+      // update the editedContent state accordingly in this useEffect.
+      // For example:
+      // setEditedContent(prevContent => ({ ...prevContent, newProperty: comment.newProperty || '' }));
+    }, [comment]);
+
+
+    const handleCheckboxChange = (propertyName) => {
+      setEditedContent((prevContent) => ({ ...prevContent, [propertyName]: !prevContent[propertyName] }));
     };
-    const [title, setTitle] = useState(comment.title || '');
-    const [owner, setOwner] = useState(comment.owner || '');
-    const [price, setPrice] = useState(comment.price || '');
-    const [address, setAddress] = useState(comment.address || '');
-    const [water, setWater] = useState(comment.water || '');
-    const [lights, setLights] = useState(comment.lights || '');
-    const [cable, setCable] = useState(comment.cable || '');
-    const [pool, setPool] = useState(comment.pool || '');
-    const [billingFrequency, setBillingFrequency] = useState(comment.billingFrequency || '');
-    const [bathrooms, setBathrooms] = useState(comment.bathrooms || '');
-    const [bedrooms, setBedrooms] = useState(comment.bedrooms || '');
-    const [laundry, setLaundry] = useState(comment.laundry || '');
-    const [heating, setHeating] = useState(comment.heating || '');
-    const [airConditioning, setAirConditioning] = useState(comment.airConditioning || '');
-    // ... (initialize other state variables)
+  
+    const handleInputChange = (propertyName, value) => {
+      setEditedContent((prevContent) => ({ ...prevContent, [propertyName]: value }));
+    };
+  
+    const handleSave = (e) => {
+      e.preventDefault();
+      onSave(comment.id, editedContent);
+      // Reset the form or handle other logic as needed
+    };
   
     // Placeholder for functions
     const handleCoverImageChange = (e) => {
-      // Implement your logic here
-    };
+      // Set the selected cover image file to state
+      const file = e.target.files[0];
+      setCoverImageFile(file);
+      };
+        
+      
+      const handleShowcase1Change = (e) => {
+      const file = e.target.files[0];
+      setShowcase1File(file);
+      };
+      
+      const handleShowcase2Change = (e) => {
+      const file = e.target.files[0];
+      setShowcase2File(file);
+      };
+      
+      const handleShowcase3Change = (e) => {
+      const file = e.target.files[0];
+      setShowcase3File(file);
+      };
+      
   
-    const handleShowcase1Change = (e) => {
-      // Implement your logic here
-    };
-  
-    const handleShowcase2Change = (e) => {
-      // Implement your logic here
-    };
-  
-    const handleShowcase3Change = (e) => {
-      // Implement your logic here
-    };
 
     return (
 <>
 {/* post form start here here */}
-<div className="property-hero">
-<form className="postform" onSubmit={handleSubmit}>
-{isSignedIn ? (
-<div className="commentreg-box">
-{names.length === 2 && (
-<>
-<div className='navinfo-box'>
-<span  className="navinfo">{names[0]}</span>
-<span  className="navinfo">{names[1]}</span>
-</div>
-</>
-)}
-<button
-style={{
-width: 'auto',
-marginBottom: '4px',
-}}
-type="submit"
-onClick={handleLogout}
->
-Log out
-</button>
-</div>
-) : (
-<div className="commentreg-box">
-<button
-style={{
-backgroundColor: 'blue',
-width: 'auto',
-margin: '10px',
-}}
-onClick={() => router.push('/pages/Login')}>
-Login
-</button>
-<button
-style={{
-margin: '10px',
-width: 'auto',
-}}
-onClick={() => router.push('/pages/Register')}>
-Register
-</button>
-</div>
-)}
+<form className="postform" onSubmit={handleSave}>
+
 {/* post form start here here */}
 <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', alignItems: 'center' }}>
 <label htmlFor="title">Property Name</label>
 <input
 type="text"
 name="title"
-value={title}
-onChange={(e) => setTitle(e.target.value)}
+value={editedContent.title}
+onChange={(e) => handleInputChange('title', e.target.value)}
 required
 />
 
@@ -102,8 +97,8 @@ required
 <input
 type="text"
 name="owner"
-value={owner}
-onChange={(e) => setOwner(e.target.value)}
+value={editedContent.owner}
+onChange={(e) => handleInputChange('owner', e.target.value)}
 required
 />
 
@@ -111,16 +106,16 @@ required
 <input
 type="text"
 name="price"
-value={price}
-onChange={(e) => setPrice(e.target.value)}
+value={editedContent.price}
+onChange={(e) => handleInputChange('price', e.target.value)}
 required
 />
 
 <select
 style={{marginLeft:'1px'}}
 name="billingFrequency"
-value={billingFrequency}
-onChange={(e) => setBillingFrequency(e.target.value)}
+value={editedContent.billingFrequency}
+onChange={(e) => handleInputChange('billingFrequency', e.target.value)}
 required
 className='billingselect'
 >
@@ -133,8 +128,8 @@ className='billingselect'
 
 <select
 name="selectedCollection"
-value={selectedCollection}
-onChange={(e) => setSelectedCollection(e.target.value)}
+value={editedContent.selectedCollection}
+onChange={(e) => handleInputChange('selectedCollection', e.target.value)}
 required
 >  
 <option value="Houses">Houses</option>
@@ -146,8 +141,8 @@ required
 <input
 type="number"
 name="bedrooms"
-value={bedrooms}
-onChange={(e) => setBedrooms(e.target.value)}
+value={editedContent.bedrooms}
+onChange={(e) => handleInputChange('bedrooms', e.target.value)}
 required
 />
 
@@ -155,8 +150,8 @@ required
 <input
 type="number"
 name="bathrooms"
-value={bathrooms}
-onChange={(e) => setBathrooms(e.target.value)}
+value={editedContent.bathrooms}
+onChange={(e) => handleInputChange('bathrooms', e.target.value)}
 required
 />
 
@@ -166,8 +161,8 @@ required
 type="checkbox"
 id="water"
 name="water"
-checked={water}
-onChange={(e) => setWater(e.target.checked)}
+checked={editedContent.water}
+onChange={(e) => handleCheckboxChange('water', e.target.value)}
 />
 <label htmlFor="water">Water</label>
 </div>
@@ -177,8 +172,8 @@ onChange={(e) => setWater(e.target.checked)}
 type="checkbox"
 id="lights"
 name="lights"
-checked={lights}
-onChange={(e) => setLights(e.target.checked)}
+checked={editedContent.lights}
+onChange={(e) => handleCheckboxChange('lights', e.target.value)}
 />
 <label htmlFor="lights">Lights</label>
 </div>
@@ -188,8 +183,8 @@ onChange={(e) => setLights(e.target.checked)}
 type="checkbox"
 id="cable"
 name="cable"
-checked={cable}
-onChange={(e) => setCable(e.target.checked)}
+checked={editedContent.cable}
+onChange={(e) => handleCheckboxChange('cable', e.target.value)}
 />
 <label htmlFor="cable">Cable</label>
 </div>
@@ -199,8 +194,8 @@ onChange={(e) => setCable(e.target.checked)}
 type="checkbox"
 id="laundry"
 name="laundry"
-checked={laundry}
-onChange={(e) => setLaundry(e.target.checked)}
+checked={editedContent.laundry}
+onChange={(e) => handleCheckboxChange('laundry', e.target.value)}
 />
 <label htmlFor="laundry">Laundry</label>
 </div>
@@ -210,8 +205,8 @@ onChange={(e) => setLaundry(e.target.checked)}
 type="checkbox"
 id="airConditioning"
 name="airConditioning"
-checked={airConditioning}
-onChange={(e) => setAirConditioning(e.target.checked)}
+checked={editedContent.airConditioning}
+onChange={(e) => handleCheckboxChange('airConditioning', e.target.value)}
 />
 <label htmlFor="airConditioning">AC</label>
 </div>
@@ -221,8 +216,8 @@ onChange={(e) => setAirConditioning(e.target.checked)}
 type="checkbox"
 id="heating"
 name="heating"
-checked={heating}
-onChange={(e) => setHeating(e.target.checked)}
+checked={editedContent.heating}
+onChange={(e) => handleCheckboxChange('heating', e.target.value)}
 />
 <label htmlFor="heating">Heating</label>
 </div>
@@ -231,8 +226,8 @@ onChange={(e) => setHeating(e.target.checked)}
 type="checkbox"
 id="pool"
 name="pool"
-checked={pool}
-onChange={(e) => setPool(e.target.checked)}
+checked={editedContent.pool}
+onChange={(e) => handleCheckboxChange('pool', e.target.value)}
 />
 <label htmlFor="pool">Pool</label>
 </div>
@@ -276,8 +271,8 @@ onChange={handleShowcase3Change}
 <input
 type="address"
 name="address"
-value={address}
-onChange={(e) => setAddress(e.target.value)}
+value={editedContent.address}
+onChange={(e) => handleInputChange('address', e.target.value)}
 required
 />
 
@@ -286,28 +281,27 @@ rows="5"
 cols="50"
 placeholder='Describe your property'
 required
-value={content}
-onChange={(e) => setContent(e.target.value)}
-autoFocus={autoFocus}
+value={editedContent.content}
+onChange={(e) => handleInputChange('content', e.target.value)}
 ></textarea>
 
 <button
 type="submit"
-disabled={!isSignedIn || !content || !selectedCollection || isLoading}
-style={{
-cursor: !isSignedIn || !content || !selectedCollection || isLoading ? 'not-allowed' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection || isLoading ? '#d3d3d3' : '#007bff',
-color: !isSignedIn || !content || !selectedCollection || isLoading ? '#a9a9a9' : '#fff',
-}}
+// disabled={!isSignedIn || !content || !selectedCollection || isLoading}
+// style={{
+// cursor: !isSignedIn || !content || !selectedCollection || isLoading ? 'not-allowed' : 'pointer',
+// backgroundColor: !isSignedIn || !content || !selectedCollection || isLoading ? '#d3d3d3' : '#007bff',
+// color: !isSignedIn || !content || !selectedCollection || isLoading ? '#a9a9a9' : '#fff',
+// }}
 >
-{isLoading ? <BeatLoader color='white' /> : 'Submit'}
+{isLoading ? <BeatLoader color='white' /> : 'Update'}
 </button>
 
 {errorMessage && <p className="error">{errorMessage}</p>}
 {successMessage && <p className="success">{successMessage}</p>}
 </div>
 </form>
-</div>
+
 </>
     );
 }
