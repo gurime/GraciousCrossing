@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { auth, db } from '@/app/Config/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import cbg_camera from '../../img/camera_icon.png'
+import ModalForm from './ModalForm';
 export default function ProfileList() {
 const [fetchError, setFetchError] = useState(null);
 const [loading, setLoading] = useState(true);
@@ -92,7 +93,7 @@ useEffect(() => {
   const unsubscribe = auth.onAuthStateChanged(async (user) => {
     setIsSignedIn(!!user);
     if (user) {
-      fetchData(collectionName);
+      fetchData(); // Only one call to fetchData
     } else {
       setUseArticle([]); // User is not authenticated, clear the articles
       setLoading(false);
@@ -102,6 +103,10 @@ useEffect(() => {
   return () => {
     unsubscribe();
   };
+}, [fetchData]); 
+
+useEffect(() => {
+  setComments([]); 
 }, [collectionName]);
 
 
@@ -116,24 +121,42 @@ useEffect(() => {
       });
     });
   };
-  
-// userIsAuthenticated stops here
-
-
- 
-
-  
-  useEffect(() => {
-  setComments([]); // Reset comments to empty array
-  fetchData(collectionName);
-  }, [collectionName]);
-
-
-  const handleDelete = async (collectionName, listingId) => {
+  const handleDelete = async (collectionName, articleId, userId) => {
     try {
-      const docRef = doc(getFirestore(), collectionName, listingId);
-      await deleteDoc(docRef);
-      setUseArticle((prevArticles) => prevArticles.filter((article) => article.id !== listingId));
+      const isAuthenticated = await userIsAuthenticated();
+  
+      if (isAuthenticated) {
+        const docRef = doc(getFirestore(), collectionName, articleId);
+        console.log('Deleting document:', docRef.path);
+        console.log('isAuthenticated:', isAuthenticated);
+
+        // Check if the userId matches before deleting
+        const snapshot = await getDoc(docRef);
+        console.log('Document exists:', snapshot.exists());
+        
+        if (snapshot.exists() && snapshot.data().userId === userId) {
+          // Continue with deletion
+          await deleteDoc(docRef);
+          console.log('Document deleted successfully.');
+        
+          // Update state after deletion
+          setUseArticle((prevArticles) =>
+            prevArticles.filter((article) => article.id !== articleId)
+          );
+        } else {
+          console.error('Document not found or user does not have permission to delete.');
+          setErrorMessage('Error deleting listing. Please try again.');
+          setTimeout(() => {
+            setErrorMessage('');
+          }, 3000);
+        }
+      } else {
+        console.error('User is not authenticated. Unable to delete listing.');
+        setErrorMessage('Authentication error. Please log in and try again.');
+        setTimeout(() => {
+          setErrorMessage('');
+        }, 3000);
+      }
     } catch (error) {
       console.error('Error deleting listing:', error);
       setErrorMessage('Error deleting listing. Please try again.');
@@ -149,6 +172,8 @@ useEffect(() => {
   
   const handleEdit = async (collectionName, userId, updatedData) => {
     try {
+      const isAuthenticated = await userIsAuthenticated();
+
       await updateDoc(doc(getFirestore(), collectionName, userId), updatedData);
       setUseArticle((prevArticles) =>
         prevArticles.map((article) => (article.id === userId ? { ...article, ...updatedData } : article))
@@ -166,7 +191,7 @@ useEffect(() => {
      
 
   
-  
+// profile background img
 const handleSubmit = async (e) => {
 e.preventDefault();
 try {
@@ -221,7 +246,7 @@ return downloadURL;
 throw error;
 }
 };
-
+// profile background img
 
 return (
 <>
@@ -316,7 +341,7 @@ style={{ display: 'none' }} />
     </div>
   ))}
 </div>
-
+{editMode && <ModalForm onEdit={handleEdit} />}
 
 </>
 );
