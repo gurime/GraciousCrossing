@@ -126,7 +126,11 @@ setIsOverlayActive(e.target.value.trim().length > 0);
 <h1>Find the best homes</h1>
 <p>Browse some of the highest 
 quality homes.</p>
-<Link href='/pages/Houses'>More Info</Link>
+{isSignedIn ? (
+<Link href='/pages/Houses'>More Ifo</Link>
+) : (
+<p>Please sign in or register to view listings.</p>
+)}
 </div>
 <Image height={300} src={cardimg1} alt="" priority/>
 </div>
