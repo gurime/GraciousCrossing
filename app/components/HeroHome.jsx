@@ -127,7 +127,7 @@ setIsOverlayActive(e.target.value.trim().length > 0);
 <p>Browse some of the highest 
 quality homes.</p>
 {isSignedIn ? (
-<Link href='/pages/Houses'>More Ifo</Link>
+<Link href='/pages/Houses'>More Info</Link>
 ) : (
 <p>Please sign in or register to view listings.</p>
 )}

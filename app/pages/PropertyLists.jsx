@@ -226,31 +226,53 @@ return (
 <div className='property-grid'>
 {useArticle.map((blog) => (
 <Link key={blog.id} href={`/pages/Articles/${blog.id}`}>
-<div ref={commentsRef}  className='property-card'>
-<img src={blog.cover_image} alt="" className='property-image' />
+<div ref={commentsRef} className='property-card'>
+<div
+style={{
+backgroundImage: `url(${blog.cover_image})`,
+backgroundSize: 'cover',
+backgroundPosition: 'center',
+height: '0',
+paddingTop: '56.25%', // 16:9 aspect ratio for responsive height
+width: '100%'
+}}
+></div>
 <div className='property-details'>
-<div className='property-price'>${blog.price} <small>{blog.billingFrequency}</small></div>
+<div className='property-price'>
+{blog.price} <small>{blog.billingFrequency}</small>
+</div>
 <div className='property-type'>
 <div style={{ marginRight: 'auto' }}>{blog.bathrooms}bds | {blog.bedrooms}ba</div>
 <div>{blog.propertyType}</div>
 </div>
-{/* <p className='property-description'>{blog.content.slice(0, 100)}...</p> */}
 </div>
 <div className='property-address'>{blog.address}</div>
-
 <div className='property-owner_name'>Listing by {blog.userName}</div>
 <div className="edit-delBlock">
-  <button className="edit-btn" onClick={(e) => { e.preventDefault(); editPost(blog.id, blog.userId); }} type="button">
-    Edit
-  </button>
-  <button className="delete-btn" onClick={(e) => { e.preventDefault(); deletePost(blog.id, blog.userId); }} type="button">
-    Delete
-  </button>
+<button
+className="edit-btn"
+onClick={(e) => {
+e.preventDefault();
+editPost(blog.id, blog.userId);
+}}
+type="button"
+>
+Edit
+</button>
+<button
+className="delete-btn"
+onClick={(e) => {
+e.preventDefault();
+deletePost(blog.id, blog.userId);
+}}
+type="button"
+>
+Delete
+</button>
 </div>
-{errorMessage && <p className="error">{errorMessage}</p>}
-{successMessage && <p className="success">{successMessage}</p>}
 </div>
 </Link>
+
 ))}
 
 </div>

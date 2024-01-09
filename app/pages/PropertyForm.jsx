@@ -34,8 +34,8 @@ const [showcase3File, setShowcase3File] = useState(null);
 const [articleId, setArticleId] = useState("");  
 const [ selectedCollection, setSelectedCollection] = useState("Houses")
 const [successMessage, setSuccessMessage] = useState("");
+
 const [names, setNames] = useState([]);
-const [autoFocus, setAutoFocus] = useState(true);
 const [errorMessage, setErrorMessage] = useState('');
 const router = useRouter();
   
@@ -179,7 +179,21 @@ setErrorMessage('');
 setIsLoading(false);
 }
 };
+
   
+const formatPrice = (input) => {
+const numericValue = input.replace(/[^0-9]/g, '');
+const formattedValue = new Intl.NumberFormat(regionCode || 'en-US').format(numericValue);
+const currencySymbol = new Intl.NumberFormat(regionCode || 'en-US', { style: 'currency', currency: 'USD' }).format(0).replace(/[0-9]/g, '').trim();
+const priceWithSymbol = `${currencySymbol}${formattedValue}`;
+return priceWithSymbol;
+};
+  
+const handlePriceChange = (e) => {
+const inputValue = e.target.value;
+const formattedPrice = formatPrice(inputValue);
+setPrice(formattedPrice);
+};
 const handleLogout = async () => {
 try {
 await auth.signOut();
@@ -255,12 +269,13 @@ required
 
 <label htmlFor="price">Price</label>
 <input
-type="text"
+type="text"  // Change the type to text to allow non-numeric characters
 name="price"
 value={price}
-onChange={(e) => setPrice(e.target.value)}
+onChange={handlePriceChange}
 required
 />
+
 
 <select
 style={{marginLeft:'1px'}}
@@ -434,7 +449,7 @@ placeholder='Describe your property'
 required
 value={content}
 onChange={(e) => setContent(e.target.value)}
-autoFocus={autoFocus}
+
 ></textarea>
 
 <button

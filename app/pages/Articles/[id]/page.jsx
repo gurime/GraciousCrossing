@@ -101,7 +101,7 @@ margin: '0 0 0 6px',
 </div>
 
 <div className='details_header_title'>
-<h2>${post.price} <small>{post.billingFrequency}</small></h2>
+<h2>{post.price} <small>{post.billingFrequency}</small></h2>
 <p>{post.property_type}</p>
 <p>{post.address}</p>
 </div>
@@ -123,21 +123,7 @@ margin: '0 0 0 6px',
 
 
 
-<div className="body-content">
-
-
-<p>{post.content}</p>
-<p>{post.content1}</p>
-<p>{post.content2}</p>
-<p>{post.content3}</p>
-<p>{post.content4}</p>
-<p>{post.content5}</p>
-
-
-
-
-
-</div>
+<div className="body-content" style={{ whiteSpace: 'pre-line' }}><p>{post.content}</p></div>
 
 
 

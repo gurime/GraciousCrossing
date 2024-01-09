@@ -748,112 +748,113 @@ padding: 0 1rem;
   padding: 0 1rem;
   }
 
-  .PropertyArticleHero{
-    background-image: linear-gradient(to bottom, #9191914d, #0000004d), url('./img/property_listings_home.jpg');
-    background-size: cover;
-    background-position: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    place-items: center;
-    text-align: center;
-    color: #fff;
-    padding: 1rem;
-    height: 600px;
-  }
-  .ApartmentArticleHero{
-    background-image: linear-gradient(to bottom, #9191914d, #0000004d), url('./img/bg-wall.jpg');
-    background-size: cover;
-    background-position: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    place-items: center;
-    text-align: center;
-    color: #fff;
-    padding: 1rem;
-    height: 600px;
-  }
+.PropertyArticleHero{
+background-image: linear-gradient(to bottom, #9191914d, #0000004d), url('./img/property_listings_home.jpg');
+background-size: cover;
+background-position: 50%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+place-items: center;
+text-align: center;
+color: #fff;
+padding: 1rem;
+height: 600px;
+}
+.ApartmentArticleHero{
+background-image: linear-gradient(to bottom, #9191914d, #0000004d), url('./img/bg-wall.jpg');
+background-size: cover;
+background-position: 50%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+place-items: center;
+text-align: center;
+color: #fff;
+padding: 1rem;
+height: 600px;
+}
 
-  .property-hero{
-    background-image: linear-gradient(180deg,#0000004d,#0000004d),url('./img/bg-property.jpg');
-    background-size: cover;
-    background-position: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    place-items: center;
-    padding: 1rem;
-    }
+.property-hero{
+background-image: linear-gradient(180deg,#0000004d,#0000004d),url('./img/bg-property.jpg');
+background-size: cover;
+background-position: 50%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+place-items: center;
+padding: 1rem;
+}
 
-    .PropertyArticleHero button{
-      background-color: #17a2f6;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 5px;
-    transition: .5s;
-    border: none;
-    margin-bottom: 5rem;
-    font-size: 17px;
-    cursor: pointer;
-    }
-    .ApartmentArticleHero button{
-      background-color: #17a2f6;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 5px;
-    transition: .5s;
-    border: none;
-    margin-bottom: 5rem;
-    font-size: 17px;
-    cursor: pointer;
-    }
-    .ApartmentArticleHero-button{
-      background-color: #17a2f6;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 5px;
-    transition: .5s;
-    border: none;
-    margin-bottom: 5rem;
-    font-size: 17px;
-    cursor: pointer;
-    }
+.PropertyArticleHero button{
+background-color: #17a2f6;
+color: #fff;
+padding: 10px 20px;
+text-decoration: none;
+display: inline-block;
+border-radius: 5px;
+transition: .5s;
+border: none;
+margin-bottom: 5rem;
+font-size: 17px;
+cursor: pointer;
+}
 
-  .property-grid {
-    display: grid;
+.ApartmentArticleHero button{
+background-color: #17a2f6;
+color: #fff;
+padding: 10px 20px;
+text-decoration: none;
+display: inline-block;
+border-radius: 5px;
+transition: .5s;
+border: none;
+margin-bottom: 5rem;
+font-size: 17px;
+cursor: pointer;
+}
+
+.ApartmentArticleHero-button{
+background-color: #17a2f6;
+color: #fff;
+padding: 10px 20px;
+text-decoration: none;
+display: inline-block;
+border-radius: 5px;
+transition: .5s;
+border: none;
+margin-bottom: 5rem;
+font-size: 17px;
+cursor: pointer;
+}
+
+.property-grid {
+display: grid;
 grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
 grid-gap: 10px;
 place-items: center;
 padding: 0 1rem;
-margin: 0 auto 1rem;
-  }
+margin: 0 auto;
+}
 
-  .property-grid a{
-    text-decoration: none;
-  }
+.property-grid a{
+text-decoration: none;
+}
   
-  .property-card {
-    min-width: 286px;
-    height: 100%;
-    max-width: 395px;
-    margin: 1rem 0;
-    border: 0px solid rgb(209, 209, 213);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 0px;
-    transition: transform 0.2s ease-in-out;
-  
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
+.property-card {
+min-width: 286px;
+height: 100%;
+max-width: 395px;
+margin: 1rem 0;
+border: 0px solid rgb(209, 209, 213);
+border-radius: 8px;
+overflow: hidden;
+box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 0px;
+transition: transform 0.2s ease-in-out;
+&:hover {
+transform: scale(1.05);
+}
+}
   
 .property-image {
 width: 100%;
@@ -902,25 +903,25 @@ font-weight: 400;
 }
 
 .postform{
-  margin: 1rem auto;
-  background-color: #ffffff;
-  padding: 20px;
-  color: #000000;
-  width: 50%;
+margin: 1rem auto;
+background-color: #ffffff;
+padding: 20px;
+color: #000000;
+width: 50%;
 }
 
 .postform select{
-  width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #088fdd;
-    box-sizing: border-box;
-    font-size: 16px;
-    resize: none;
-    letter-spacing: 1px;
-    line-height: 25px;
-    outline: none;
+width: 100%;
+padding: 10px;
+margin-bottom: 20px;
+border-radius: 5px;
+border: 1px solid #088fdd;
+box-sizing: border-box;
+font-size: 16px;
+resize: none;
+letter-spacing: 1px;
+line-height: 25px;
+outline: none;
 }
     
 .navinfo-box{
@@ -1018,79 +1019,73 @@ border-color: #ccc; /* Border color */
 
 
 .container-terms {
-  display: grid;
-  place-items: center;
-  padding: 0 1rem;
+display: grid;
+place-items: center;
+padding: 0 1rem;
 }
 
 .aboutimg_container{
-  display: flex;
-  place-items: center;
-  justify-content: space-evenly;
-
+display: flex;
+place-items: center;
+justify-content: space-evenly;
 }
 
 .aboutimg_container img{
-  width: 250px;
-  border-radius: 50%;
-  height: auto;
-  
+width: 250px;
+border-radius: 50%;
+height: auto;
 }
 
 .about_text{
-  padding: 0 1rem;
-  line-height: 34px;
+padding: 0 1rem;
+line-height: 34px;
 margin-bottom: 1rem;
 }
 
 @media(max-width:768px){
-  .about_text h1{
-    font-size: 18px;
-  }
+.about_text h1{
+font-size: 18px;}
 
-  .aboutimg_container{
-    flex-direction: column;
-  }
+.aboutimg_container{
+flex-direction: column;}
 
-  .sm-container_img{
-    width: auto !important;
-    padding: 0 1rem;
-  }
- 
+.sm-container_img{
+width: auto !important;
+padding: 0 1rem;}
 }
 
 .textblock p {
-  line-height: 2;
-  font-weight: 600;
-  font-size: 14px;
+line-height: 2;
+font-weight: 600;
+font-size: 14px;
 }
 /* terms css stops here */
 
 .edit-btn {
-  margin-left: 10px;
-  border: none;
-  background-color: #007bff;
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  }
+margin-left: 10px;
+border: none;
+background-color: #007bff;
+color: #fff;
+padding: 8px 16px;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
   
-  .edit-delBlock{
-    padding: 1rem 6px;
-  }
+.edit-delBlock{
+padding: 1rem 6px;
+}
   
-  .delete-btn {
-  margin-left: 10px;
-  border: none;
-  background-color: #ff0000;
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  }
+.delete-btn {
+margin-left: 10px;
+border: none;
+background-color: #ff0000;
+color: #fff;
+padding: 8px 16px;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
 
 
 
@@ -1110,19 +1105,7 @@ padding: 7px;
 font-size: 20px;
 }
 }
-@media(max-width:768px){
-
-.postform{
-  width: auto;
-}
-
-
-.postform input[type="checkbox"] {
-width: 60%;
-}
-
-
-}
+@media(max-width:768px){.postform{width: auto;}.postform input[type="checkbox"] {width: 60%;}}
 /* details page css stops here */
 
 footer{
@@ -1157,7 +1140,7 @@ font-size: 24px;
 font-weight: 600;
 letter-spacing: 2px;
 padding: 5px 0;
-  border-bottom: solid 1px #fff;
+border-bottom: solid 1px #fff;
 }
 
 .footer-navlink{

@@ -9,33 +9,31 @@ import { BeatLoader } from 'react-spinners'
 import { auth } from '../Config/firebase';
 
 export default function EditModalForm({ comment, onSave, onCancel }) {
-    const [isSignedIn, setIsSignedIn] = useState(false);
-    const [content, setContent] = useState(comment ? comment.content : "");
-    const [title, setTitle] = useState(comment ? comment.title : "");
-    const [owner, setOwner] = useState(comment ? comment.owner : "");
-    const [price, setPrice] = useState(comment ? comment.price : "");
-    const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'monthly');
-    const [bedrooms, setBedrooms] = useState(comment ? comment.bedrooms : "1");
-    const [bathrooms, setBathrooms] = useState(comment ? comment.bathrooms : "1");
-    const [cable, setCable] = useState(comment ? comment.cable : "");
-    const [laundry, setLaundry] = useState(comment ? comment.laundry : "");
-    const [lights, setLights] = useState(comment ? comment.lights : "");
-    const [water, setWater] = useState(comment ? comment.water : "");
-    const [heating, setHeating] = useState(comment ? comment.heating : "");
-    const [pool, setPool] = useState(comment ? comment.pool : "");
-    const [airConditioning, setAirConditioning] = useState(comment ? comment.airConditioning : "");
-    const [address, setAddress] = useState(comment ? comment.address : "");
-    const [isLoading, setIsLoading] = useState(false);
-    const [coverImageFile, setCoverImageFile] = useState(comment ? null : comment.cover_image);
+const [isSignedIn, setIsSignedIn] = useState(false);
+const [content, setContent] = useState(comment ? comment.content : "");
+const [title, setTitle] = useState(comment ? comment.title : "");
+const [owner, setOwner] = useState(comment ? comment.owner : "");
+const [price, setPrice] = useState(comment ? comment.price : "");
+const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'monthly');
+const [bedrooms, setBedrooms] = useState(comment ? comment.bedrooms : "1");
+const [bathrooms, setBathrooms] = useState(comment ? comment.bathrooms : "1");
+const [cable, setCable] = useState(comment ? comment.cable : "");
+const [laundry, setLaundry] = useState(comment ? comment.laundry : "");
+const [lights, setLights] = useState(comment ? comment.lights : "");
+const [water, setWater] = useState(comment ? comment.water : "");
+const [heating, setHeating] = useState(comment ? comment.heating : "");
+const [pool, setPool] = useState(comment ? comment.pool : "");
+const [airConditioning, setAirConditioning] = useState(comment ? comment.airConditioning : "");
+const [address, setAddress] = useState(comment ? comment.address : "");
+const [isLoading, setIsLoading] = useState(false);
+const [coverImageFile, setCoverImageFile] = useState(comment ? null : comment.cover_image);
 const [showcase1File, setShowcase1File] = useState(comment ? null : comment.cover_showcase1);
 const [showcase2File, setShowcase2File] = useState(comment ? null : comment.cover_showcase2);
 const [showcase3File, setShowcase3File] = useState(comment ? null : comment.cover_showcase3);
-
-    const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Houses");
-
-    const [successMessage, setSuccessMessage] = useState("");
-    const [autoFocus, setAutoFocus] = useState(true);
-    const [errorMessage, setErrorMessage] = useState('');
+const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Houses");
+const [successMessage, setSuccessMessage] = useState("");
+const [autoFocus, setAutoFocus] = useState(true);
+const [errorMessage, setErrorMessage] = useState('');
 const router = useRouter();
 
 
@@ -80,32 +78,33 @@ setErrorMessage('Invalid comment content. Please try again.');
 setErrorMessage('Unexpected error occurred. Please try again later.');
 }
 };
+
 const handleCancel = () => {
-    onCancel(); // Call the onCancel function passed as a prop
-  };
+onCancel(); // Call the onCancel function passed as a prop
+};
   
 
 const handleCoverImageChange = (e) => {
-    const file = e.target.files[0];
-    setCoverImageFile(file ? file : comment.cover_image);
-  };
+const file = e.target.files[0];
+// Check if a new file is selected, if not, use the existing image
+setCoverImageFile(file ? file : comment.cover_image);
+};
   
-  const handleShowcase1Change = (e) => {
-    const file = e.target.files[0];
-    setShowcase1File(file ? file : comment.cover_showcase1);
-  };
+const handleShowcase1Change = (e) => {
+const file = e.target.files[0];
+setShowcase1File(file ? file : comment.cover_showcase1);
+};
   
-  const handleShowcase2Change = (e) => {
-    const file = e.target.files[0];
-    setShowcase2File(file ? file : comment.cover_showcase2);
-  };
+const handleShowcase2Change = (e) => {
+const file = e.target.files[0];
+setShowcase2File(file ? file : comment.cover_showcase2);
+};
   
-  const handleShowcase3Change = (e) => {
-    const file = e.target.files[0];
-    setShowcase3File(file ? file : comment.cover_showcase3);
-  };
+const handleShowcase3Change = (e) => {
+const file = e.target.files[0];
+setShowcase3File(file ? file : comment.cover_showcase3);
+};
   
-
   
 const storage = getStorage(); // Initialize Firebase Storage
 const handleFileUpload = async (file, storagePath) => {
@@ -122,8 +121,8 @@ throw error;
 // Log relevant information for debugging
 
 const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
+e.preventDefault();
+try {
       const auth = getAuth();
       const user = auth.currentUser;
       setIsLoading(true);
@@ -131,56 +130,70 @@ const handleSubmit = async (e) => {
       // Check if it's an update or a new post
 
       // Check if it's an update or a new post
-      const isUpdate = !!comment.id;
+const isUpdate = !!comment.id;
       // Upload files to Firebase Storage if they exist
-      const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${comment.id}_cover_image.jpg`) : null;
-      const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${comment.id}_cover_showcase1.jpg`) : null;
-      const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${comment.id}_cover_showcase2.jpg`) : null;
-      const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${comment.id}_cover_showcase3.jpg`) : null;
+const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${comment.id}_cover_image.jpg`) : null;
+const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${comment.id}_cover_showcase1.jpg`) : null;
+const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${comment.id}_cover_showcase2.jpg`) : null;
+const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${comment.id}_cover_showcase3.jpg`) : null;
   
-      const db = getFirestore();
+const db = getFirestore();
+if (isUpdate && comment.id && selectedCollection) {
+const docRef = doc(db, selectedCollection, comment.id);
+await updateDoc(docRef, {
+content: content,
+title: title,
+owner: owner,
+price: price,
+bedrooms: bedrooms,
+bathrooms: bathrooms,
+billingFrequency: billingFrequency,
+water: water,
+lights: lights,
+cable: cable,
+laundry: laundry,
+airConditioning: airConditioning,
+heating: heating,
+pool: pool,
+address: address,
+timestamp: new Date(),
+cover_image: cover_image,
+cover_showcase1: cover_showcase1,
+cover_showcase2: cover_showcase2,
+cover_showcase3: cover_showcase3,
+});
+setSuccessMessage('Listing updated successfully');
+window.location.reload();
+} else {
+setErrorMessage('Error: Cannot add a new document without articleId.');
+}
+} catch (error) {
+setErrorMessage('Error updating Listing. Please try again.');
+} finally {
+setIsLoading(false);
+}
+};
   
-      if (isUpdate && comment.id && selectedCollection) {
-        // Update existing document
-        const docRef = doc(db, selectedCollection, comment.id);
-        await updateDoc(docRef, {
-          content: content,
-          title: title,
-          owner: owner,
-          price: price,
-          bedrooms: bedrooms,
-          bathrooms: bathrooms,
-          billingFrequency: billingFrequency,
-          water: water,
-          lights: lights,
-          cable: cable,
-          laundry: laundry,
-          airConditioning: airConditioning,
-          heating: heating,
-          pool: pool,
-          address: address,
-          timestamp: new Date(),
-          cover_image: cover_image,
-          cover_showcase1: cover_showcase1,
-          cover_showcase2: cover_showcase2,
-          cover_showcase3: cover_showcase3,
-        });
+const formatPrice = (input) => {
+  const numericValue = input.replace(/[^0-9]/g, '');
   
-        setSuccessMessage('Listing updated successfully');
-        window.location.reload();
+  // Use the provided regionCode, defaulting to 'en-US'
+  const formattedValue = new Intl.NumberFormat(regionCode || 'en-US').format(numericValue);
 
-      } else {
-        setErrorMessage('Error: Cannot add a new document without articleId.');
-      }
-    } catch (error) {
-      // Log the error for debugging
-      setErrorMessage('Error updating Listing. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // Add the currency symbol based on the region
+  const currencySymbol = new Intl.NumberFormat(regionCode || 'en-US', { style: 'currency', currency: 'USD' }).format(0).replace(/[0-9]/g, '').trim();
   
+  const priceWithSymbol = `${currencySymbol}${formattedValue}`;
+  return priceWithSymbol;
+};
 
+const handlePriceChange = (e) => {
+  const inputValue = e.target.value;
+  const formattedPrice = formatPrice(inputValue);
+
+  // Call the existing setPrice function
+  setPrice(formattedPrice);
+};
 return (
 <>
 <div style={{position:'relative'}}>
@@ -215,15 +228,14 @@ required
 />
 
 <label htmlFor="price">Price</label>
-<input
-type="text"
-name="price"
-value={price}
-onChange={(e) => setPrice(e.target.value)}
-required
-autoFocus={autoFocus}
-
-/>
+      <input
+        type="text"
+        name="price"
+        value={price}
+        onChange={handlePriceChange}
+        required
+        autoFocus={autoFocus}
+      />
 
 <select
 style={{marginLeft:'1px'}}
