@@ -189,12 +189,15 @@ setIsLoading(false);
 };
 
 const formatPrice = (input, regionCode) => {
-    const numericValue = input.replace(/[^0-9]/g, '');
+    // convert the input to a number
+    const numericValue = parseFloat(input).toString();
+    // format the number as a currency value
     const formattedValue = new Intl.NumberFormat(regionCode || 'en-US', { minimumFractionDigits: 0 }).format(numericValue);
     const currencySymbol = new Intl.NumberFormat(regionCode || 'en-US', { style: 'currency', currency: 'USD' }).format(0).replace(/[0-9]/g, '').trim();
     const priceWithSymbol = `${currencySymbol}${formattedValue}`;
     return priceWithSymbol;
 };
+
 
 
   
