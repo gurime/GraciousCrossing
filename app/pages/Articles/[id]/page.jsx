@@ -53,13 +53,22 @@ return (
 </div>
 {/**block for goback btn and title */}
 {/**block for img */}
-{post.cover_image ? (
-  <div className="imgbox">
-    <img src={post.cover_image} alt="..." />
-  </div>
-) : (
-  <p>Error loading image</p>
-)}
+  {post.cover_image ? (
+    <div className="imgbox">
+      <img className="cover_image" src={post.cover_image} alt="Property Cover" />
+{post.cover_showcase && <img className='cover_showcase1' src={post.cover_showcase} alt="Cover Showcase 1" />}
+{post.cover_showcase1 && <img className='cover_showcase2'  src={post.cover_showcase1} alt="Cover Showcase 2" />}
+{post.cover_showcase2 && <img className='cover_showcase3' src={post.cover_showcase2} alt="Cover Showcase 3" />}
+{post.cover_showcase3 && <img className='cover_showcase4' src={post.cover_showcase3} alt="Cover Showcase 4" />}
+{post.cover_showcase4 && <img className='cover_showcase5' src={post.cover_showcase4} alt="Cover Showcase 5" />}</div>
+
+ 
+  ) : (
+    <p>Error loading image</p>
+  )}
+
+
+{/* < */}
 {/**block for img */}
 {/**block for category and author */}
 <div className="authflex">
@@ -92,13 +101,7 @@ margin: '0 0 0 6px',
 </h3>
 </div>
 {/**block for category and author */}
-<div className='cover_showcase'>
-  {post.cover_showcase && <img src={post.cover_showcase} alt="Cover Showcase 1" />}
-  {post.cover_showcase1 && <img src={post.cover_showcase1} alt="Cover Showcase 2" />}
-  {post.cover_showcase2 && <img src={post.cover_showcase2} alt="Cover Showcase 3" />}
-  {post.cover_showcase3 && <img src={post.cover_showcase3} alt="Cover Showcase 4" />}
-  {post.cover_showcase4 && <img src={post.cover_showcase4} alt="Cover Showcase 5" />}
-</div>
+
 
 <div className='details_header_title'>
 <h2>{post.price} <small>{post.billingFrequency}</small></h2>

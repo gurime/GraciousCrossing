@@ -31,6 +31,7 @@ const [coverImageFile, setCoverImageFile] = useState(null);
 const [showcase1File, setShowcase1File] = useState(null);  
 const [showcase2File, setShowcase2File] = useState(null);  
 const [showcase3File, setShowcase3File] = useState(null);  
+const [showcase4File, setShowcase4File] = useState(null);  
 const [articleId, setArticleId] = useState("");  
 const [ selectedCollection, setSelectedCollection] = useState("Houses")
 const [successMessage, setSuccessMessage] = useState("");
@@ -104,6 +105,10 @@ const handleShowcase3Change = (e) => {
 const file = e.target.files[0];
 setShowcase3File(file);
 };
+const handleShowcase4Change = (e) => {
+const file = e.target.files[0];
+setShowcase4File(file);
+};
 
 
   
@@ -137,6 +142,8 @@ const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `i
 const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}_cover_showcase2.jpg`) : null;
       
 const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}_cover_showcase3.jpg`) : null;
+
+const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}_cover_showcase4.jpg`) : null;
       
   
 const db = getFirestore();
@@ -165,6 +172,7 @@ cover_image: cover_image,
 cover_showcase1: cover_showcase1,
 cover_showcase2: cover_showcase2,
 cover_showcase3: cover_showcase3,
+cover_showcase4: cover_showcase4,
 propertyType: selectedCollection,  
 });
   
@@ -180,14 +188,15 @@ setIsLoading(false);
 }
 };
 
-  
-const formatPrice = (input) => {
-const numericValue = input.replace(/[^0-9]/g, '');
-const formattedValue = new Intl.NumberFormat(regionCode || 'en-US').format(numericValue);
-const currencySymbol = new Intl.NumberFormat(regionCode || 'en-US', { style: 'currency', currency: 'USD' }).format(0).replace(/[0-9]/g, '').trim();
-const priceWithSymbol = `${currencySymbol}${formattedValue}`;
-return priceWithSymbol;
+const formatPrice = (input, regionCode) => {
+    const numericValue = input.replace(/[^0-9]/g, '');
+    const formattedValue = new Intl.NumberFormat(regionCode || 'en-US', { minimumFractionDigits: 0 }).format(numericValue);
+    const currencySymbol = new Intl.NumberFormat(regionCode || 'en-US', { style: 'currency', currency: 'USD' }).format(0).replace(/[0-9]/g, '').trim();
+    const priceWithSymbol = `${currencySymbol}${formattedValue}`;
+    return priceWithSymbol;
 };
+
+
   
 const handlePriceChange = (e) => {
 const inputValue = e.target.value;
@@ -431,6 +440,14 @@ id="showcase3"
 name="showcase3"
 accept="image/*"
 onChange={handleShowcase3Change}
+/>
+<label htmlFor="showcase3">Shocase Image 4</label>
+<input
+type="file"
+id="showcase4"
+name="showcase4"
+accept="image/*"
+onChange={handleShowcase4Change}
 />
 
 <label htmlFor="category">Address</label>
