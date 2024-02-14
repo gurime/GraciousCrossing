@@ -188,14 +188,10 @@ setIsLoading(false);
 }
 };
 
-const formatPrice = (input, regionCode) => {
-    // convert the input to a number
-    const numericValue = parseFloat(input).toString();
-    // format the number as a currency value
-    const formattedValue = new Intl.NumberFormat(regionCode || 'en-US', { minimumFractionDigits: 0 }).format(numericValue);
-    const currencySymbol = new Intl.NumberFormat(regionCode || 'en-US', { style: 'currency', currency: 'USD' }).format(0).replace(/[0-9]/g, '').trim();
-    const priceWithSymbol = `${currencySymbol}${formattedValue}`;
-    return priceWithSymbol;
+const formatPrice = (input) => {
+const numericValue = input.replace(/[^0-9.]/g, '').trim(); 
+const priceWithSymbol = `$${numericValue}`;
+return priceWithSymbol;
 };
 
 
@@ -481,7 +477,7 @@ backgroundColor: !isSignedIn || !content || !selectedCollection || isLoading ? '
 color: !isSignedIn || !content || !selectedCollection || isLoading ? '#a9a9a9' : '#fff',
 }}
 >
-{isLoading ? <BeatLoader color='white' /> : 'Submit'}
+{isLoading ? <BeatLoader color='blue' /> : 'Submit'}
 </button>
 
 {errorMessage && <p className="error">{errorMessage}</p>}
