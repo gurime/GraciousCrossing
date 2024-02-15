@@ -215,7 +215,7 @@ return (
     <>
 <div className="property-hero">
 <form className="postform" onSubmit={handleSubmit}>
-{isSignedIn ? (
+{/* {isSignedIn ? (
 <div className="commentreg-box">
 {names.length === 2 && (
 <>
@@ -256,7 +256,7 @@ onClick={() => router.push('/pages/Register')}>
 Register
 </button>
 </div>
-)}
+)} */}
 {/* post form start here here */}
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="title">Property Name</label>
 <input
