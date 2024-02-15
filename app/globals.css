@@ -34,7 +34,7 @@ text-decoration: none;
 .navlinks button{
 background-color: #b53434;
 color: #fff;
-padding: 10px 20px;
+padding: 10px;
 border: none;
 border-radius: 5px;
 cursor: pointer;
@@ -745,6 +745,7 @@ padding: 0 1rem;
   
   .amenities-grid{
   display: grid;
+  align-items: center;
   grid-template-columns: repeat(2, 1fr);
   max-width: 40rem;
   line-height: 2;
@@ -766,6 +767,19 @@ height: 600px;
 }
 .ApartmentArticleHero{
 background-image: linear-gradient(to bottom, #9191914d, #0000004d), url('./img/bg-wall.jpg');
+background-size: cover;
+background-position: 50%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+place-items: center;
+text-align: center;
+color: #fff;
+padding: 1rem;
+height: 600px;
+}
+.NewConstructionHero{
+background-image: linear-gradient(to bottom, #9191914d, #0000004d), url('./img/newcon-wall.jpg');
 background-size: cover;
 background-position: 50%;
 display: flex;
@@ -817,7 +831,7 @@ font-size: 17px;
 cursor: pointer;
 }
 
-.ApartmentArticleHero-button{
+.NewConstructionHero button{
 background-color: #17a2f6;
 color: #fff;
 padding: 10px 20px;
@@ -915,17 +929,14 @@ font-weight: 400;
 }
 
 .postform select{
-width: 100%;
-padding: 10px;
-margin-bottom: 20px;
-border-radius: 5px;
-border: 1px solid #088fdd;
-box-sizing: border-box;
-font-size: 16px;
-resize: none;
-letter-spacing: 1px;
-line-height: 25px;
-outline: none;
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  outline: none;
 }
     
 .navinfo-box{
@@ -978,9 +989,7 @@ line-height: 25px;
 outline: none;
 }
 
-.postform input[type="checkbox"] {
-width: 82%;
-padding: 0;}
+
     
 .postform button{
 background-color: #009fdd;
@@ -1012,14 +1021,6 @@ display: flex;
 place-items: center;
 }
 
-.billingselect{
-padding: 5px;
-border-radius: 3px;
-margin: 1rem;
-color: #333; /* Text color */
-background-color: #f4f4f4; /* Background color */
-border-color: #ccc; /* Border color */
-}
 
 
 .container-terms {
@@ -1109,7 +1110,9 @@ padding: 7px;
 font-size: 20px;
 }
 }
-@media(max-width:768px){.postform{width: auto;}.postform input[type="checkbox"] {width: 60%;}}
+@media(max-width:768px){
+.postform{width: 100%;}
+}
 /* details page css stops here */
 
 footer{

@@ -24,6 +24,7 @@ const [lights, setLights] = useState("");
 const [water, setWater] = useState("");
 const [heating, setHeating] = useState("");
 const [pool, setPool] = useState("");
+const [wifi, setWifi] = useState("");
 const [airConditioning, setAirConditioning] = useState("");
 const [address, setAddress] = useState("");
 const [ isLoading, setIsLoading] = useState(false)
@@ -164,6 +165,7 @@ laundry: laundry,
 airConditioning: airConditioning,
 heating: heating,
 pool: pool,
+wifi: wifi,
 address: address,
 timestamp: new Date(),
 userName: user.displayName,
@@ -256,8 +258,7 @@ Register
 </div>
 )}
 {/* post form start here here */}
-<div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', alignItems: 'center' }}>
-<label htmlFor="title">Property Name</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="title">Property Name</label>
 <input
 type="text"
 name="title"
@@ -273,9 +274,9 @@ name="owner"
 value={owner}
 onChange={(e) => setOwner(e.target.value)}
 required
-/>
+/></div>
 
-<label htmlFor="price">Price</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Price</label>
 <input
 type="text"  // Change the type to text to allow non-numeric characters
 name="price"
@@ -283,8 +284,8 @@ value={price}
 onChange={handlePriceChange}
 required
 />
-
-
+</div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
 <select
 style={{marginLeft:'1px'}}
 name="billingFrequency"
@@ -296,9 +297,9 @@ className='billingselect'
 <option value="monthly">Monthly</option>
 <option value="weekly">Weekly</option>
 <option value="sale">Sale</option>
-</select>
+</select></div>
 
-<label htmlFor="selectedCollection">Property Category</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="selectedCollection">Property Category</label>
 
 <select
 name="selectedCollection"
@@ -308,10 +309,10 @@ required
 >  
 <option value="Houses">Houses</option>
 <option value="Apartments">Apartments</option>
-{/* Add more options as needed */}
-</select>
+<option value="NewConstruction">New Construction</option>
+</select></div>
 
-<label htmlFor="bedrooms">Bedrooms</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="bedrooms">Bedrooms</label>
 <input
 type="number"
 name="bedrooms"
@@ -327,7 +328,8 @@ name="bathrooms"
 value={bathrooms}
 onChange={(e) => setBathrooms(e.target.value)}
 required
-/>
+/></div>
+
 
 <label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
 <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
@@ -395,7 +397,7 @@ onChange={(e) => setHeating(e.target.checked)}
 />
 <label htmlFor="heating">Heating</label>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0', borderBottom: 'solid 1px grey' }}>
+<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
 <input
 type="checkbox"
 id="pool"
@@ -405,7 +407,19 @@ onChange={(e) => setPool(e.target.checked)}
 />
 <label htmlFor="pool">Pool</label>
 </div>
-<label htmlFor="cover_image">This will be your Headline Image</label>
+<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0', borderBottom: 'solid 1px grey' }}>
+<input
+type="checkbox"
+id="wifi"
+name="wifi"
+checked={wifi}
+onChange={(e) => setWifi(e.target.checked)}
+/>
+<label htmlFor="wifi">Wifi</label>
+</div>
+
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="cover_image">Featured Image</label>
 <input
 type="file"
 id="cover_image"
@@ -413,43 +427,48 @@ name="cover_image"
 accept="image/*"
 onChange={handleCoverImageChange}
 />
+</div>
 
-<label htmlFor="showcase1">Showcase Image 1</label>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase1">Showcase Image </label>
 <input
 type="file"
 id="showcase1"
 name="showcase1"
 accept="image/*"
 onChange={handleShowcase1Change}
-/>
+/></div>
 
-<label htmlFor="showcase2">Showcase Image 2</label>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase2">Showcase Image </label>
 <input
 type="file"
 id="showcase2"
 name="showcase2"
 accept="image/*"
 onChange={handleShowcase2Change}
-/>
+/></div>
 
-<label htmlFor="showcase3">Shocase Image 3</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase3">Shocase Image </label>
 <input
 type="file"
 id="showcase3"
 name="showcase3"
 accept="image/*"
 onChange={handleShowcase3Change}
-/>
-<label htmlFor="showcase3">Shocase Image 4</label>
+/></div>
+
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase3">Shocase Image </label>
 <input
 type="file"
 id="showcase4"
 name="showcase4"
 accept="image/*"
 onChange={handleShowcase4Change}
-/>
+/></div>
 
-<label htmlFor="category">Address</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="category">Address</label>
 <input
 type="address"
 name="address"
@@ -457,6 +476,8 @@ value={address}
 onChange={(e) => setAddress(e.target.value)}
 required
 />
+</div>
+
 
 <textarea
 rows="5"
@@ -482,7 +503,7 @@ color: !isSignedIn || !content || !selectedCollection || isLoading ? '#a9a9a9' :
 
 {errorMessage && <p className="error">{errorMessage}</p>}
 {successMessage && <p className="success">{successMessage}</p>}
-</div>
+
 </form>
 </div>
 </>

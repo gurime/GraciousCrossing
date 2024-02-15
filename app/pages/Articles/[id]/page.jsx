@@ -3,7 +3,15 @@ import Navbar from '@/app/components/Navbar'
 import Goback from '@/app/components/goback'
 import { getArticle } from '../lib';
 import Goup from '@/app/components/goup';
-
+import heat from '../../../img/heater_icon.png'
+import lights from '../../../img/light_bulb.png'
+import laundry from '../../../img/washer_icon.png'
+import cable from '../../../img/tv_icon.png'
+import ac from '../../../img/fan_icon.png'
+import water from '../../../img/water_icon.png'
+import pool from '../../../img/swim_icon.png'
+import wifi from '../../../img/wifi_icon.png'
+import Image from 'next/image';
 
 
 export async function generateMetadata({ params }) {
@@ -117,13 +125,31 @@ margin: '0 0 0 6px',
 
 <h3 style={{padding:'0 1rem'}}>Popular Amenities</h3>
 <div className='amenities-grid'>
-{post.heating && <span>Heating is available</span>}
-{post.lights && <span>Lights are available</span>}
-{post.laundry && <span>Laundry is available</span>}
-{post.cable && <span>Cable is available</span>}
-{post.airConditioning && <span>AC is available</span>}
-{post.water && <span>Water is available</span>}
-{post.pool && <span>Pool is available</span>}
+
+<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={heat}/>{post.heating && <span>Heating is available</span>}</div>
+
+<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={lights}/>{post.lights && <span>Lights are available</span>}</div>
+
+
+
+<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={laundry}/>{post.laundry && <span>Laundry is available</span>}</div>
+
+<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={cable}/>{post.cable && <span>Cable is available</span>}</div>
+
+<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={ac}/>{post.airConditioning && <span>AC is available</span>}</div>
+
+<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={water}/>{post.water && <span>Water is available</span>}</div>
+
+<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={pool}/>{post.pool && <span>Pool is available</span>}</div>
+
+<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={wifi}/>{post.wifi && <span>Pool is available</span>}</div>
+
+
+
+
+
+
+
 
 </div>
 

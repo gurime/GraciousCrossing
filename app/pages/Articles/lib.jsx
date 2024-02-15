@@ -6,6 +6,7 @@ export async function getArticle(id) {
 const collectionRefs = [
 doc(db, 'Houses', id),
 doc(db, 'Apartments', id),
+doc(db, 'NewConstruction', id),
 
 
 ];
