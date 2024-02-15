@@ -108,13 +108,14 @@ letter-spacing: 1px;
 
 
 
-.search-results-container{
-background-color: #fff;
-z-index: 999;
-position : absolute ;
-width: 96%;
-top: 230px;
+.search-results-container {
+  background-color: #fff;
+  z-index: 999;
+  position: absolute;
+  width: 100%;
+  top: 230px;
 }
+
 
 .search-results-container a{
 color: #000;
@@ -248,10 +249,51 @@ border: none;
 border-radius: 5px;
 cursor: pointer;
 }
+/* Define a base width for larger screens */
 
-@media (max-width:2400px) {
-  
+
+/* Adjust width based on screen size */
+@media (max-width: 3440px) {
+  .search-results-container {
+    width: calc(97% - 0%);
+  }
 }
+
+@media (max-width: 3100px) {
+  .search-results-container {
+    width: calc(97% - 0.3%);
+  }
+}
+
+@media (max-width: 2800px) {
+  .search-results-container {
+    width: calc(97% - 1%);
+  }
+}
+@media (max-width: 2400px) {
+  .search-results-container {
+    width: calc(97% - 1.5%);
+  }
+}
+@media (max-width: 2100px) {
+  .search-results-container {
+    width: calc(97% - 2.2%);
+  }
+}
+@media (max-width: 1800px) {
+  .search-results-container {
+    width: calc(97% - 2.9%);
+  }
+}
+@media (max-width: 1500px) {
+  .search-results-container {
+    width: calc(97% - 4.1%);
+  }
+}
+
+/* Add more media queries as needed */
+
+/* Define a minimum width for smaller screens */
 
 
 @media(max-width:768px){
@@ -263,13 +305,24 @@ font-size:15px;
 }
 }
 /* CSS for medium screens */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1300px) {
   .heroform {
     width: 75%;
   }
 
   .search-results-container {
-    width: 92.5%; /* Adjusted to match .heroform */
+    width: calc(97% - 0.6%);
+  }
+
+  .search-result-item {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  
+
+  .search-results-container {
+    width: calc(97% - 2.4%);
   }
 
   .search-result-item {
@@ -278,13 +331,13 @@ font-size:15px;
 }
 
 /* CSS for small screens */
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 540px) {
   .heroform {
     width: 100%;
   }
 
   .search-results-container {
-    width: 92.5%;
+    width: calc(97% - 3.7%);
   }
 
   .search-result-item {
