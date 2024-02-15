@@ -4,7 +4,7 @@ import { collection, getDocs, query } from "firebase/firestore";
 export async function getArticle(searchTerm) {
 try {
 // Specify the collections to search in
-const collectionNames = ['Apartments','Houses'
+const collectionNames = ['Apartments','Houses','NewConstruction'
 ];
     
 // Fetch documents from each collection in parallel
@@ -47,5 +47,6 @@ throw error;
 export const collectionRoutes = {
 Apartments: '/pages/Articles',
 Houses: '/pages/Articles',
+NewConstruction: '/pages/NewConstruction',
 };
     
