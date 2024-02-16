@@ -33,6 +33,7 @@ const [showcase1File, setShowcase1File] = useState(null);
 const [showcase2File, setShowcase2File] = useState(null);  
 const [showcase3File, setShowcase3File] = useState(null);  
 const [showcase4File, setShowcase4File] = useState(null);  
+const [authpicFile, setAuthPicFile] = useState(null);  
 const [articleId, setArticleId] = useState("");  
 const [ selectedCollection, setSelectedCollection] = useState("Houses")
 const [successMessage, setSuccessMessage] = useState("");
@@ -85,6 +86,11 @@ setErrorMessage('Unexpected error occurred. Please try again later.');
 
 
   
+const handleAuthPicChange = (e) => {
+// Set the selected cover image file to state
+const file = e.target.files[0];
+setAuthPicFile(file);
+};
 const handleCoverImageChange = (e) => {
 // Set the selected cover image file to state
 const file = e.target.files[0];
@@ -136,6 +142,8 @@ setIsLoading(true);
 const uniqueArticleId = uuidv4();
 setArticleId(uniqueArticleId);
 // Upload files to Firebase Storage if they exist
+const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}_authpic.jpg`) : null;
+
 const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}_cover_image.jpg`) : null;
 
 const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}_cover_showcase1.jpg`) : null;
@@ -145,6 +153,7 @@ const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `i
 const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}_cover_showcase3.jpg`) : null;
 
 const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}_cover_showcase4.jpg`) : null;
+
       
   
 const db = getFirestore();
@@ -170,6 +179,7 @@ address: address,
 timestamp: new Date(),
 userName: user.displayName,
 userEmail: user.email,
+authpic: authpic,
 cover_image: cover_image,
 cover_showcase1: cover_showcase1,
 cover_showcase2: cover_showcase2,
@@ -190,14 +200,17 @@ setIsLoading(false);
 }
 };
 
-const formatPrice = (input) => {
-const numericValue = input.replace(/[^0-9.]/g, '').trim(); 
-const priceWithSymbol = `$${numericValue}`;
+const formatPrice = (input,) => {
+const numericValue = input.replace(/[^0-9.]/g, '').trim();
+const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Add commas to the integer part
+const priceWithSymbol = `$${formattedNumericValue}`;
 return priceWithSymbol;
 };
+  
 
 
 
+  
   
 const handlePriceChange = (e) => {
 const inputValue = e.target.value;
@@ -275,6 +288,16 @@ value={owner}
 onChange={(e) => setOwner(e.target.value)}
 required
 /></div>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="authpic">Profile Picture</label>
+<input
+type="file"
+id="authpic"
+name="authpic"
+accept="image/*"
+onChange={handleAuthPicChange}
+/>
+</div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Price</label>
 <input
@@ -493,10 +516,11 @@ onChange={(e) => setContent(e.target.value)}
 type="submit"
 disabled={!isSignedIn || !content || !selectedCollection || isLoading}
 style={{
-cursor: !isSignedIn || !content || !selectedCollection || isLoading ? 'not-allowed' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection || isLoading ? '#d3d3d3' : '#007bff',
-color: !isSignedIn || !content || !selectedCollection || isLoading ? '#a9a9a9' : '#fff',
+cursor: !isSignedIn || !content || !selectedCollection || isLoading ? 'none' : 'pointer',
+backgroundColor: !isSignedIn || !content || !selectedCollection || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#fff',
 }}
+  
 >
 {isLoading ? <BeatLoader color='blue' /> : 'Submit'}
 </button>

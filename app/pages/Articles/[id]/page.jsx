@@ -61,19 +61,25 @@ return (
 </div>
 {/**block for goback btn and title */}
 {/**block for img */}
-  {post.cover_image ? (
-    <div className="imgbox">
-      <img className="cover_image" src={post.cover_image} alt="Property Cover" />
-{post.cover_showcase && <img className='cover_showcase1' src={post.cover_showcase} alt="Cover Showcase 1" />}
-{post.cover_showcase1 && <img className='cover_showcase2'  src={post.cover_showcase1} alt="Cover Showcase 2" />}
-{post.cover_showcase2 && <img className='cover_showcase3' src={post.cover_showcase2} alt="Cover Showcase 3" />}
-{post.cover_showcase3 && <img className='cover_showcase4' src={post.cover_showcase3} alt="Cover Showcase 4" />}
-{post.cover_showcase4 && <img className='cover_showcase5' src={post.cover_showcase4} alt="Cover Showcase 5" />}</div>
+{post.cover_image ? (
+<div className="imgbox">
+<img className="cover_image" src={post.cover_image} alt="Property Cover" />
+{[1, 2, 3, 4, 5].map((index) => {
+const showcase = post[`cover_showcase${index}`];
+return showcase && (
+<img
+key={`cover_showcase${index}`}
+className={`cover_showcase${index}`}
+src={showcase}
+alt={`Cover Showcase ${index}`}
+/>
+);
+})}
+</div>
+) : (
+  <p>Error loading image</p>
+)}
 
- 
-  ) : (
-    <p>Error loading image</p>
-  )}
 
 
 {/* < */}
@@ -81,12 +87,7 @@ return (
 {/**block for category and author */}
 <div className="authflex">
 <p>{post.propertyType}</p>
-<h3 style={{
-    fontWeight: '300',
-    marginLeft:'auto',
-    display:'flex',
-    placeItems:'center'
-}}> Owner {post.userName} 
+<h3 className='authflexOwner'> Owner {post.userName} 
 
 </h3>
 <h3
@@ -96,15 +97,17 @@ placeItems: 'center',
 fontWeight: '300',
 }}
 className="card-category">
-
-{/**separator */}
 <div
 style={{
-height: '30px',
-margin: '0 0 0 6px',
+width: '50px',
+height: '50px',
+borderRadius: '50%',
+backgroundImage: `url(${post.authpic})`,
+backgroundSize: 'cover',
+backgroundPosition: 'center',
 }}
 ></div>
-{/**separator */}
+
 
 </h3>
 </div>
@@ -126,31 +129,23 @@ margin: '0 0 0 6px',
 <h3 style={{padding:'0 1rem'}}>Popular Amenities</h3>
 <div className='amenities-grid'>
 
-<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={heat}/>{post.heating && <span>Heating is available</span>}</div>
+<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={heat} alt='...'/>{post.heating && <span>Heating is available</span>}</div>
 
-<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={lights}/>{post.lights && <span>Lights are available</span>}</div>
-
-
-
-<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={laundry}/>{post.laundry && <span>Laundry is available</span>}</div>
-
-<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={cable}/>{post.cable && <span>Cable is available</span>}</div>
-
-<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={ac}/>{post.airConditioning && <span>AC is available</span>}</div>
-
-<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={water}/>{post.water && <span>Water is available</span>}</div>
-
-<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={pool}/>{post.pool && <span>Pool is available</span>}</div>
-
-<div style={{display:'flex',margin:'1rem 0'}}><Image style={{padding:'0 1rem'}} width={30} src={wifi}/>{post.wifi && <span>Pool is available</span>}</div>
+<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={lights} alt='...'/>{post.lights && <span>Lights are available</span>}</div>
 
 
 
+<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={laundry} alt='...'/>{post.laundry && <span>Laundry is available</span>}</div>
 
+<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={cable} alt='...'/>{post.cable && <span>Cable is available</span>}</div>
 
+<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={ac} alt='...'/>{post.airConditioning && <span>AC is available</span>}</div>
 
+<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={water} alt='...'/>{post.water && <span>Water is available</span>}</div>
 
+<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={pool} alt='...' />{post.pool && <span>Pool is available</span>}</div>
 
+<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={wifi} alt='...'/>{post.wifi && <span>Pool is available</span>}</div>
 </div>
 
 
@@ -163,19 +158,10 @@ margin: '0 0 0 6px',
 
 
 
-<div
-style={{
-display: 'flex',
-justifyContent: 'flex-end',
-placeItems: 'center',
-marginBottom: '1rem',
-}}>
-<Goup/>
-</div>
+<div className='artilceGoUpbtn'><Goup/></div>
 
 </div>
-
-
-<Footer /></>
+<Footer/>
+</>
 )
 }
