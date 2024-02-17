@@ -242,7 +242,7 @@ width: '100%'
 {blog.price} <small>{blog.billingFrequency}</small>
 </div>
 <div className='property-type'>
-<div style={{ marginRight: 'auto' }}>{blog.bathrooms}bds | {blog.bedrooms}ba</div>
+<div style={{ marginRight: 'auto' }}>{blog.bathrooms}ba | {blog.bedrooms}bds</div>
 <div>{blog.propertyType}</div>
 </div>
 </div>

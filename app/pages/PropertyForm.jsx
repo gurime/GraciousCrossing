@@ -14,6 +14,7 @@ const [isSignedIn, setIsSignedIn] = useState(false);
 const [content, setContent] = useState("");
 const [title, setTitle] = useState("");
 const [owner, setOwner] = useState("");
+const [phone, setPhone] = useState("");
 const [price, setPrice] = useState("");
 const [billingFrequency, setBillingFrequency] = useState('monthly');
 const [bedrooms, setBedrooms] = useState("1");
@@ -163,6 +164,7 @@ userId: user.uid,
 content: content,
 title: title,
 owner: owner,
+phone:phone,
 price: price,
 bedrooms: bedrooms,
 bathrooms: bathrooms,
@@ -209,7 +211,12 @@ return priceWithSymbol;
   
 
 
-
+const handlePhoneChange = (e) => {
+const inputValue = e.target.value;
+const formattedPhone = inputValue
+.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3').trim().slice(0,12);
+setPhone(formattedPhone);
+};
   
   
 const handlePriceChange = (e) => {
@@ -217,59 +224,12 @@ const inputValue = e.target.value;
 const formattedPrice = formatPrice(inputValue);
 setPrice(formattedPrice);
 };
-const handleLogout = async () => {
-try {
-await auth.signOut();
-router.push('/pages/Login')
-} catch (error) {
-}
-};
+
 return (
     <>
 <div className="property-hero">
 <form className="postform" onSubmit={handleSubmit}>
-{/* {isSignedIn ? (
-<div className="commentreg-box">
-{names.length === 2 && (
-<>
-<div className='navinfo-box'>
-<span  className="navinfo">{names[0]}</span>
-<span  className="navinfo">{names[1]}</span>
-</div>
-</>
-)}
-<button
-style={{
-width: 'auto',
-marginBottom: '4px',
-}}
-type="submit"
-onClick={handleLogout}
->
-Log out
-</button>
-</div>
-) : (
-<div className="commentreg-box">
-<button
-style={{
-backgroundColor: 'blue',
-width: 'auto',
-margin: '10px',
-}}
-onClick={() => router.push('/pages/Login')}>
-Login
-</button>
-<button
-style={{
-margin: '10px',
-width: 'auto',
-}}
-onClick={() => router.push('/pages/Register')}>
-Register
-</button>
-</div>
-)} */}
+
 {/* post form start here here */}
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="title">Property Name</label>
 <input
@@ -288,7 +248,6 @@ value={owner}
 onChange={(e) => setOwner(e.target.value)}
 required
 /></div>
-
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="authpic">Profile Picture</label>
 <input
 type="file"
@@ -298,6 +257,20 @@ accept="image/*"
 onChange={handleAuthPicChange}
 />
 </div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="number">Phone Number</label>
+<input
+type="text"
+name="number"
+value={phone}
+onChange={handlePhoneChange}
+inputMode="numeric"  
+autoComplete="off"   
+required
+/>
+
+</div>
+
+
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Price</label>
 <input

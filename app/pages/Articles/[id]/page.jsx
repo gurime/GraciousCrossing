@@ -11,6 +11,7 @@ import ac from '../../../img/fan_icon.png'
 import water from '../../../img/water_icon.png'
 import pool from '../../../img/swim_icon.png'
 import wifi from '../../../img/wifi_icon.png'
+import phone from '../../../img/portfolio_phone.png'
 import Image from 'next/image';
 
 
@@ -119,21 +120,42 @@ backgroundPosition: 'center',
 {post.cover_showcase8 && <img src={post.cover_showcase8} alt="Cover Showcase 8" />}
 {post.cover_showcase9 && <img src={post.cover_showcase9} alt="Cover Showcase 9" />}
 </div>
+<h1>Pricing</h1>
 
 <div className='details_header_title'>
 <h2>{post.price} <small>{post.billingFrequency}</small></h2>
 <p>{post.property_type}</p>
 <p>{post.address}</p>
+<div style={{
+display:'flex',
+alignItems:'center',
+lineHeight:'2',
+width:'15rem'
+}}>
+<Image src={phone} width={20} height={38} alt='...'/>
+<div style={{width:'1rem'}}></div>
+<p>{post.phone}</p>
 </div>
 
-<h3 style={{padding:'0 1rem'}}>Popular Amenities</h3>
-<div className='amenities-grid'>
+<div style={{
+display:'flex',
 
+alignItems:'center',
+lineHeight:'2'
+}}>
+<h3 style={{fontWeight:'100'}}>{post.bathrooms} Bath | {post.bedrooms} Bedrooms</h3> 
+</div>
+
+</div>
+<div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+<h3 style={{padding:'0 1rem'}}>Popular Amenities</h3>
+</div>
+<div className='ameities-flex'>
+
+<div className='amenities-grid'>
 <div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={heat} alt='...'/>{post.heating && <span>Heating is available</span>}</div>
 
 <div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={lights} alt='...'/>{post.lights && <span>Lights are available</span>}</div>
-
-
 
 <div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={laundry} alt='...'/>{post.laundry && <span>Laundry is available</span>}</div>
 
@@ -148,6 +170,10 @@ backgroundPosition: 'center',
 <div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={wifi} alt='...'/>{post.wifi && <span>Pool is available</span>}</div>
 </div>
 
+
+
+
+</div>
 
 
 

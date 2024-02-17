@@ -47,6 +47,6 @@ throw error;
 export const collectionRoutes = {
 Apartments: '/pages/Articles',
 Houses: '/pages/Articles',
-NewConstruction: '/pages/NewConstruction',
+NewConstruction: '/pages/Articles',
 };
     
