@@ -120,7 +120,6 @@ backgroundPosition: 'center',
 {post.cover_showcase8 && <img src={post.cover_showcase8} alt="Cover Showcase 8" />}
 {post.cover_showcase9 && <img src={post.cover_showcase9} alt="Cover Showcase 9" />}
 </div>
-<h1>Pricing</h1>
 
 <div className='details_header_title'>
 <h2>{post.price} <small>{post.billingFrequency}</small></h2>

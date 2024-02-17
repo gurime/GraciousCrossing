@@ -26,10 +26,16 @@ const [pool, setPool] = useState(comment ? comment.pool : "");
 const [airConditioning, setAirConditioning] = useState(comment ? comment.airConditioning : "");
 const [address, setAddress] = useState(comment ? comment.address : "");
 const [isLoading, setIsLoading] = useState(false);
+const [wifi, setWifi] = useState(comment ? comment.wifi : "");
+const [phone, setPhone] = useState(comment ? comment.phone : "");
+const [authpicFile, setAuthPicFile] = useState(comment ? null : comment.authpic);  
+
 const [coverImageFile, setCoverImageFile] = useState(comment ? null : comment.cover_image);
 const [showcase1File, setShowcase1File] = useState(comment ? null : comment.cover_showcase1);
 const [showcase2File, setShowcase2File] = useState(comment ? null : comment.cover_showcase2);
 const [showcase3File, setShowcase3File] = useState(comment ? null : comment.cover_showcase3);
+const [showcase4File, setShowcase4File] = useState(comment ? null : comment.cover_showcase4);  
+
 const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Houses");
 const [successMessage, setSuccessMessage] = useState("");
 const [autoFocus, setAutoFocus] = useState(true);
@@ -83,7 +89,11 @@ const handleCancel = () => {
 onCancel(); // Call the onCancel function passed as a prop
 };
   
-
+const handleAuthPicChange = (e) => {
+  // Set the selected cover image file to state
+  const file = e.target.files[0];
+  setAuthPicFile(file);
+  };
 const handleCoverImageChange = (e) => {
 const file = e.target.files[0];
 // Check if a new file is selected, if not, use the existing image
@@ -103,6 +113,11 @@ setShowcase2File(file ? file : comment.cover_showcase2);
 const handleShowcase3Change = (e) => {
 const file = e.target.files[0];
 setShowcase3File(file ? file : comment.cover_showcase3);
+};
+  
+const handleShowcase4Change = (e) => {
+const file = e.target.files[0];
+setShowcase4File(file ? file : comment.cover_showcase4);
 };
   
   
@@ -127,15 +142,16 @@ try {
       const user = auth.currentUser;
       setIsLoading(true);
   
-      // Check if it's an update or a new post
 
       // Check if it's an update or a new post
 const isUpdate = !!comment.id;
       // Upload files to Firebase Storage if they exist
+      const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${comment.id}_authpic.jpg`) : null;
 const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${comment.id}_cover_image.jpg`) : null;
 const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${comment.id}_cover_showcase1.jpg`) : null;
 const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${comment.id}_cover_showcase2.jpg`) : null;
 const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${comment.id}_cover_showcase3.jpg`) : null;
+const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${comment.id}_cover_showcase4.jpg`) : null;
   
 const db = getFirestore();
 if (isUpdate && comment.id && selectedCollection) {
@@ -155,68 +171,74 @@ laundry: laundry,
 airConditioning: airConditioning,
 heating: heating,
 pool: pool,
+phone:phone,
+wifi:wifi,
+authpic: authpic,
 address: address,
 timestamp: new Date(),
 cover_image: cover_image,
 cover_showcase1: cover_showcase1,
 cover_showcase2: cover_showcase2,
 cover_showcase3: cover_showcase3,
+cover_showcase4: cover_showcase4
 });
 setSuccessMessage('Listing updated successfully');
 window.location.reload();
 } else {
 setErrorMessage('Error: Cannot add a new document without articleId.');
 }
+// Example error handling
 } catch (error) {
-setErrorMessage('Error updating Listing. Please try again.');
-} finally {
-setIsLoading(false);
+  console.error("Error during Firestore update:", error);
+
+  if (error.code === 'permission-denied') {
+    setErrorMessage('Permission denied: You may not have the necessary permissions.');
+  } else if (error.code === 'not-found') {
+    setErrorMessage('Document not found: The specified document does not exist.');
+  } else {
+    setErrorMessage('Unexpected error occurred. Please try again later.');
+  }
 }
+
 };
   
-const formatPrice = (input) => {
-  const numericValue = input.replace(/[^0-9]/g, '');
-  
-  // Use the provided regionCode, defaulting to 'en-US'
-  const formattedValue = new Intl.NumberFormat(regionCode || 'en-US').format(numericValue);
-
-  // Add the currency symbol based on the region
-  const currencySymbol = new Intl.NumberFormat(regionCode || 'en-US', { style: 'currency', currency: 'USD' }).format(0).replace(/[0-9]/g, '').trim();
-  
-  const priceWithSymbol = `${currencySymbol}${formattedValue}`;
+const formatPrice = (input,) => {
+  const numericValue = input.replace(/[^0-9.]/g, '').trim();
+  const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); 
+  const priceWithSymbol = `$${formattedNumericValue}`;
   return priceWithSymbol;
-};
-
-const handlePriceChange = (e) => {
+  };
+    
+  
+  
+  const handlePhoneChange = (e) => {
+  const inputValue = e.target.value;
+  const formattedPhone = inputValue
+  .replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3').trim().slice(0,12);
+  setPhone(formattedPhone);
+  };
+    
+    
+  const handlePriceChange = (e) => {
   const inputValue = e.target.value;
   const formattedPrice = formatPrice(inputValue);
-
-  // Call the existing setPrice function
   setPrice(formattedPrice);
-};
+  };
+  
 return (
 <>
 <div style={{position:'relative'}}>
-<form   className="postform" onSubmit={handleSubmit} >
-{isSignedIn ? (
-<div className="commentreg-box">
+<form className="postform" onSubmit={handleSubmit}>
 
-
-</div>
-) : (
-<div className="commentreg-box">
-
-</div>
-)}
 {/* post form start here here */}
-<div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', alignItems: 'center' }}>
-<label htmlFor="title">Property Name</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="title">Property Name</label>
 <input
 type="text"
 name="title"
 value={title}
 onChange={(e) => setTitle(e.target.value)}
-required/>
+required
+/>
 
 <label htmlFor="owner">Owner</label>
 <input
@@ -225,18 +247,41 @@ name="owner"
 value={owner}
 onChange={(e) => setOwner(e.target.value)}
 required
+/></div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="authpic">Profile Picture</label>
+<input
+type="file"
+id="authpic"
+name="authpic"
+accept="image/*"
+onChange={handleAuthPicChange}
+/>
+</div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="number">Phone Number</label>
+<input
+type="text"
+name="number"
+value={phone}
+onChange={handlePhoneChange}
+inputMode="numeric"  
+autoComplete="off"   
+required
 />
 
-<label htmlFor="price">Price</label>
-      <input
-        type="text"
-        name="price"
-        value={price}
-        onChange={handlePriceChange}
-        required
-        autoFocus={autoFocus}
-      />
+</div>
 
+
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Price</label>
+<input
+type="text"  // Change the type to text to allow non-numeric characters
+name="price"
+value={price}
+onChange={handlePriceChange}
+required
+/>
+</div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
 <select
 style={{marginLeft:'1px'}}
 name="billingFrequency"
@@ -248,9 +293,9 @@ className='billingselect'
 <option value="monthly">Monthly</option>
 <option value="weekly">Weekly</option>
 <option value="sale">Sale</option>
-</select>
+</select></div>
 
-<label htmlFor="selectedCollection">Property Category</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="selectedCollection">Property Category</label>
 
 <select
 name="selectedCollection"
@@ -259,10 +304,11 @@ onChange={(e) => setSelectedCollection(e.target.value)}
 required
 >  
 <option value="Houses">Houses</option>
-{/* Add more options as needed */}
-</select>
+<option value="Apartments">Apartments</option>
+<option value="NewConstruction">New Construction</option>
+</select></div>
 
-<label htmlFor="bedrooms">Bedrooms</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="bedrooms">Bedrooms</label>
 <input
 type="number"
 name="bedrooms"
@@ -278,7 +324,8 @@ name="bathrooms"
 value={bathrooms}
 onChange={(e) => setBathrooms(e.target.value)}
 required
-/>
+/></div>
+
 
 <label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
 <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
@@ -346,7 +393,7 @@ onChange={(e) => setHeating(e.target.checked)}
 />
 <label htmlFor="heating">Heating</label>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0', borderBottom: 'solid 1px grey' }}>
+<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
 <input
 type="checkbox"
 id="pool"
@@ -356,7 +403,19 @@ onChange={(e) => setPool(e.target.checked)}
 />
 <label htmlFor="pool">Pool</label>
 </div>
-<label htmlFor="cover_image">This will be your Headline Image</label>
+<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0', borderBottom: 'solid 1px grey' }}>
+<input
+type="checkbox"
+id="wifi"
+name="wifi"
+checked={wifi}
+onChange={(e) => setWifi(e.target.checked)}
+/>
+<label htmlFor="wifi">Wifi</label>
+</div>
+
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="cover_image">Featured Image</label>
 <input
 type="file"
 id="cover_image"
@@ -364,35 +423,48 @@ name="cover_image"
 accept="image/*"
 onChange={handleCoverImageChange}
 />
+</div>
 
-<label htmlFor="showcase1">Showcase Image 1</label>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase1">Showcase Image </label>
 <input
 type="file"
 id="showcase1"
 name="showcase1"
 accept="image/*"
 onChange={handleShowcase1Change}
-/>
+/></div>
 
-<label htmlFor="showcase2">Showcase Image 2</label>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase2">Showcase Image </label>
 <input
 type="file"
 id="showcase2"
 name="showcase2"
 accept="image/*"
 onChange={handleShowcase2Change}
-/>
+/></div>
 
-<label htmlFor="showcase3">Shocase Image 3</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase3">Shocase Image </label>
 <input
 type="file"
 id="showcase3"
 name="showcase3"
 accept="image/*"
 onChange={handleShowcase3Change}
-/>
+/></div>
 
-<label htmlFor="category">Address</label>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase3">Shocase Image </label>
+<input
+type="file"
+id="showcase4"
+name="showcase4"
+accept="image/*"
+onChange={handleShowcase4Change}
+/></div>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="category">Address</label>
 <input
 type="address"
 name="address"
@@ -400,6 +472,8 @@ value={address}
 onChange={(e) => setAddress(e.target.value)}
 required
 />
+</div>
+
 
 <textarea
 rows="5"
@@ -408,17 +482,25 @@ placeholder='Describe your property'
 required
 value={content}
 onChange={(e) => setContent(e.target.value)}
+
 ></textarea>
 
 <button
-    type="submit"
-   
-  >
-    {isLoading ? <BeatLoader color='white' /> : 'Update'}
-  </button>
+type="submit"
+disabled={!isSignedIn || !content || !selectedCollection || isLoading}
+style={{
+cursor: !isSignedIn || !content || !selectedCollection || isLoading ? 'none' : 'pointer',
+backgroundColor: !isSignedIn || !content || !selectedCollection || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#fff',
+}}
+  
+>
+{isLoading ? <BeatLoader color='blue' /> : 'Update'}
+</button>
 <button style={{backgroundColor:'red'}} onClick={handleCancel}>Cancel</button>
+{errorMessage && <p className="error">{errorMessage}</p>}
+{successMessage && <p className="success">{successMessage}</p>}
 
-</div>
 </form>
 </div>
 </>
