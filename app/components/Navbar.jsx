@@ -16,6 +16,7 @@ const [isOverlayActive, setIsOverlayActive] = useState(false);
 const [isFooterVisible, setIsFooterVisible] = useState(false);
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [names, setNames] = useState([]);
+const [ isAdminUser,setIsAdminUser] = useState([])
 const overlayStyle = {
 position: 'fixed',
 top: 0,
@@ -34,14 +35,18 @@ const unsubscribe = auth.onAuthStateChanged(async (user) => {
 setIsSignedIn(!!user);
 
 if (user) {
-try {
-// Fetch user data from Firestore
-const userData = await getUserData(user.uid);          
-setNames([userData.firstName, userData.lastName]);
-} catch (error) {
-console.error(error.message);
-}
-}
+    try {
+      // Fetch user data from Firestore
+      const userData = await getUserData(user.uid);
+      setNames([userData.firstName, userData.lastName]);
+
+      // Check if the user is from the adminusers collection
+      const isAdminUser = userData.isAdmin; // Assuming there's an 'isAdmin' field in your user data
+      setIsAdminUser(isAdminUser);
+
+    } catch (error) {
+    }
+  }
 });
 
 const handleDocumentClick = (e) => {
@@ -111,7 +116,7 @@ return (
 <Image onClick={() => router.push('/')} src={Navlogo} height={36} alt='...' />
 </div>
 <ul className="navlinks">
-{isSignedIn ? (
+{isSignedIn && !isAdminUser? (
 <Link href='#!' style={{
     cursor:'none'
 }}>
@@ -151,7 +156,7 @@ Register
 <Link href='#!' onClick={toggleFooter}>More:</Link>
 
 
-{isSignedIn ? (
+{isSignedIn && !isAdminUser ? (
 <button
 type="submit"
 onClick={handleLogout}

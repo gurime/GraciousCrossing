@@ -1,3 +1,4 @@
+import AdminHeader from "./components/AdminHeader";
 import Footer from "./components/Footer";
 import HeroHome from "./components/HeroHome";
 import Navbar from "./components/Navbar";
@@ -13,6 +14,7 @@ export const metadata = {
 export default function Home() {
   return (
     <>
+    <AdminHeader/>
 <Navbar/>
 <HeroHome/>
 <Footer/>

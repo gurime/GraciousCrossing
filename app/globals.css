@@ -6,6 +6,63 @@ background-color: azure;
 letter-spacing: 2px;
 }
 
+.adminnav{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3684fa;
+  padding: 1rem;
+}
+
+.contribute-box {
+  display: flex;
+  margin: 3rem auto;
+  justify-content: space-evenly;
+  padding: 0 1rem;
+  place-items: center;
+}
+
+.contribute-leftbox {
+  height: auto;
+  padding: 2rem 0;
+}
+
+.contribute-leftbox img {
+  width: auto;
+  display: flex;
+  height: 110px;
+  margin: auto;
+}
+
+.formbox input, .formbox textarea {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #6d1ffa;
+  text-indent: 7px;
+}
+
+.formbox input {
+  padding: 1rem 0;
+  outline: none;
+  font-size: 20px;
+}
+
+.formbox input, .formbox label {
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.formbox button {
+  background-color: #6d1ffa;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  padding: 20px;
+  width: 100%;
+}
+
 .nav{
 display: flex;
 place-items: center;
