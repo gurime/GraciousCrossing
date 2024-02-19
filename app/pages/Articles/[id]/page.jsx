@@ -117,6 +117,7 @@ backgroundPosition: 'center',
 
 <div className='details_header_title'>
 <h2>{post.price} <small>{post.billingFrequency}</small></h2>
+<h2>$29000</h2> <small>monthly</small>
 <p>{post.property_type}</p>
 <p>{post.address}</p>
 <div style={{
