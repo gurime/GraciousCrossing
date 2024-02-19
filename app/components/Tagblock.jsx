@@ -22,6 +22,7 @@ return (
 display:'flex',
 justifyContent:'space-evenly',
 alignItems:'center',
+flex wrap:'wrap',
 borderBottom:'solid 1px'
 }}>
 <div className='card' style={{display:'grid'}}>
