@@ -18,7 +18,7 @@ const router = useRouter()
 return (
 <>
 
-div className="property-grid">
+<div className="property-grid">
 <div className='card' style={{display:'grid'}}>
 <Image src={sellhome} alt='...'/>
 <h1>Sell Your Home</h1>
