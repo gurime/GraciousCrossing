@@ -14,7 +14,9 @@ const [content, setContent] = useState(comment ? comment.content : "");
 const [title, setTitle] = useState(comment ? comment.title : "");
 const [owner, setOwner] = useState(comment ? comment.owner : "");
 const [price, setPrice] = useState(comment ? comment.price : "");
+const [priceextra, setPriceextra] = useState(comment ? comment.priceextra : "");
 const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'monthly');
+const [billingFrequency2, setBillingFrequency2] = useState(comment ? comment.billingFrequency : 'monthly');
 const [bedrooms, setBedrooms] = useState(comment ? comment.bedrooms : "1");
 const [bathrooms, setBathrooms] = useState(comment ? comment.bathrooms : "1");
 const [cable, setCable] = useState(comment ? comment.cable : "");
@@ -168,9 +170,11 @@ content: content,
 title: title,
 owner: owner,
 price: price,
+priceextra: priceextra,
 bedrooms: bedrooms,
 bathrooms: bathrooms,
 billingFrequency: billingFrequency,
+billingFrequency2: billingFrequency2,
 water: water,
 lights: lights,
 cable: cable,
@@ -217,7 +221,13 @@ const formatPrice = (input,) => {
   return priceWithSymbol;
   };
     
-  
+  const formatPrice1 = (input,) => {
+    const numericValue = input.replace(/[^0-9.]/g, '').trim();
+    const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Add commas to the integer part
+    const priceWithSymbol = `$${formattedNumericValue}`;
+    return priceWithSymbol;
+    };
+      
   
   const handlePhoneChange = (e) => {
   const inputValue = e.target.value;
@@ -232,6 +242,12 @@ const formatPrice = (input,) => {
   const formattedPrice = formatPrice(inputValue);
   setPrice(formattedPrice);
   };
+
+  const handlePriceChange1 = (e) => {
+    const inputValue = e.target.value;
+    const formattedPrice = formatPrice1(inputValue);
+    setPriceextra(formattedPrice);
+    };
   
 return (
 <>
@@ -302,6 +318,29 @@ className='billingselect'
 <option value="weekly">Weekly</option>
 <option value="sale">Sale</option>
 </select></div>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Financing Price </label>
+<input
+type="text"  // Change the type to text to allow non-numeric characters
+name="price"
+value={priceextra}
+onChange={handlePriceChange1}
+required
+/>
+</div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Seller Financing</label>
+<select
+style={{marginLeft:'1px'}}
+name="billingFrequency"
+value={billingFrequency2}
+onChange={(e) => setBillingFrequency2(e.target.value)}
+required
+className='billingselect'
+>
+<option value="monthly">Monthly</option>
+<option value="weekly">Weekly</option>
+</select></div>
+
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="selectedCollection">Property Category</label>
 
@@ -507,6 +546,7 @@ onChange={(e) => setContent(e.target.value)}
 type="submit"
 disabled={!isSignedIn || !content || !selectedCollection || isLoading}
 style={{
+margin:'1rem 0',
 cursor: !isSignedIn || !content || !selectedCollection || isLoading ? 'none' : 'pointer',
 backgroundColor: !isSignedIn || !content || !selectedCollection || isLoading ? '#9e9e9e' : '#00a8ff',
 color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#fff',
@@ -517,8 +557,8 @@ color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#
 </button>
 <button style={{backgroundColor:'red'}} onClick={handleCancel}>Cancel</button>
 
-{errorMessage && <p className="error">{errorMessage}</p>}
-{successMessage && <p className="success">{successMessage}</p>}
+{/* {errorMessage && <p className="error">{errorMessage}</p>}
+{successMessage && <p className="success">{successMessage}</p>} */}
 
 </form>
 </div>

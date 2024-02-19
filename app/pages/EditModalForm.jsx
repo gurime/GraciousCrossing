@@ -489,6 +489,7 @@ onChange={(e) => setContent(e.target.value)}
 type="submit"
 disabled={!isSignedIn || !content || !selectedCollection || isLoading}
 style={{
+margin:'1rem 0',
 cursor: !isSignedIn || !content || !selectedCollection || isLoading ? 'none' : 'pointer',
 backgroundColor: !isSignedIn || !content || !selectedCollection || isLoading ? '#9e9e9e' : '#00a8ff',
 color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#fff',
@@ -498,8 +499,8 @@ color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#
 {isLoading ? <BeatLoader color='blue' /> : 'Update'}
 </button>
 <button style={{backgroundColor:'red'}} onClick={handleCancel}>Cancel</button>
-{errorMessage && <p className="error">{errorMessage}</p>}
-{successMessage && <p className="success">{successMessage}</p>}
+{/* {errorMessage && <p className="error">{errorMessage}</p>}
+{successMessage && <p className="success">{successMessage}</p>} */}
 
 </form>
 </div>

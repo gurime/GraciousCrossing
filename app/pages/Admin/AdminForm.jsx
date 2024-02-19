@@ -16,6 +16,7 @@ const [title, setTitle] = useState("");
 const [owner, setOwner] = useState("");
 const [phone, setPhone] = useState("");
 const [price, setPrice] = useState("");
+const [priceextra, setPriceextra] = useState("");
 const [billingFrequency, setBillingFrequency] = useState('monthly');
 const [billingFrequency2, setBillingFrequency2] = useState('monthly');
 const [bedrooms, setBedrooms] = useState("1");
@@ -174,6 +175,7 @@ title: title,
 owner: owner,
 phone:phone,
 price: price,
+priceextra: priceextra,
 bedrooms: bedrooms,
 bathrooms: bathrooms,
 billingFrequency: billingFrequency,
@@ -223,6 +225,13 @@ const priceWithSymbol = `$${formattedNumericValue}`;
 return priceWithSymbol;
 };
   
+const formatPrice1 = (input,) => {
+const numericValue = input.replace(/[^0-9.]/g, '').trim();
+const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Add commas to the integer part
+const priceWithSymbol = `$${formattedNumericValue}`;
+return priceWithSymbol;
+};
+  
 
 
 const handlePhoneChange = (e) => {
@@ -237,6 +246,11 @@ const handlePriceChange = (e) => {
 const inputValue = e.target.value;
 const formattedPrice = formatPrice(inputValue);
 setPrice(formattedPrice);
+};
+const handlePriceChange1 = (e) => {
+const inputValue = e.target.value;
+const formattedPrice = formatPrice1(inputValue);
+setPriceextra(formattedPrice);
 };
 
 return (
@@ -309,16 +323,16 @@ className='billingselect'
 <option value="sale">Sale</option>
 </select></div>
 
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Price extra</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Financing Price </label>
 <input
 type="text"  // Change the type to text to allow non-numeric characters
 name="price"
 value={priceextra}
-onChange={handlePriceChange}
+onChange={handlePriceChange1}
 required
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Seller Financing</label>
 <select
 style={{marginLeft:'1px'}}
 name="billingFrequency"
@@ -329,7 +343,6 @@ className='billingselect'
 >
 <option value="monthly">Monthly</option>
 <option value="weekly">Weekly</option>
-<option value="sale">Sale</option>
 </select></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="selectedCollection">Property Category</label>
@@ -545,8 +558,8 @@ color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#
 {isLoading ? <BeatLoader color='blue' /> : 'Submit'}
 </button>
 
-{errorMessage && <p className="error">{errorMessage}</p>}
-{successMessage && <p className="success">{successMessage}</p>}
+{/* {errorMessage && <p className="error">{errorMessage}</p>}
+{successMessage && <p className="success">{successMessage}</p>} */}
 
 </form>
 </div>

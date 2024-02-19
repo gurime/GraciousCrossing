@@ -116,8 +116,8 @@ backgroundPosition: 'center',
 
 
 <div className='details_header_title'>
-<h2>{post.price} <small>{post.billingFrequency}</small></h2>
-<h2>$29000</h2> <small>monthly</small>
+<h2>{post.price} <small style={{fontWeight:'100'}}>{post.billingFrequency}</small></h2>
+<h2>{post.priceextra} <small style={{fontWeight:'100'}}>{post.billingFrequency2}</small></h2> 
 <p>{post.property_type}</p>
 <p>{post.address}</p>
 <div style={{
