@@ -17,6 +17,7 @@ const [owner, setOwner] = useState("");
 const [phone, setPhone] = useState("");
 const [price, setPrice] = useState("");
 const [billingFrequency, setBillingFrequency] = useState('monthly');
+const [billingFrequency2, setBillingFrequency2] = useState('monthly');
 const [bedrooms, setBedrooms] = useState("1");
 const [bathrooms, setBathrooms] = useState("1");
 const [cable, setCable] = useState("");
@@ -176,6 +177,7 @@ price: price,
 bedrooms: bedrooms,
 bathrooms: bathrooms,
 billingFrequency: billingFrequency,
+billingFrequency2: billingFrequency2,
 water: water,
 lights: lights,
 cable: cable,
@@ -299,6 +301,29 @@ style={{marginLeft:'1px'}}
 name="billingFrequency"
 value={billingFrequency}
 onChange={(e) => setBillingFrequency(e.target.value)}
+required
+className='billingselect'
+>
+<option value="monthly">Monthly</option>
+<option value="weekly">Weekly</option>
+<option value="sale">Sale</option>
+</select></div>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Price extra</label>
+<input
+type="text"  // Change the type to text to allow non-numeric characters
+name="price"
+value={priceextra}
+onChange={handlePriceChange}
+required
+/>
+</div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
+<select
+style={{marginLeft:'1px'}}
+name="billingFrequency"
+value={billingFrequency2}
+onChange={(e) => setBillingFrequency2(e.target.value)}
 required
 className='billingselect'
 >
