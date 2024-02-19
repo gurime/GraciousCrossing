@@ -2,6 +2,8 @@ import AdminHeader from "./components/AdminHeader";
 import Footer from "./components/Footer";
 import HeroHome from "./components/HeroHome";
 import Navbar from "./components/Navbar";
+import Tagblock from "./components/Tagblock";
+import HouseListing from "./pages/FeaturedHouse/HouseListing";
 
 export const metadata = {
   title: 'Gracious Crossing',
@@ -16,7 +18,10 @@ export default function Home() {
     <>
     <AdminHeader/>
 <Navbar/>
+
 <HeroHome/>
+<HouseListing/>
+<Tagblock/>
 <Footer/>
     </>
   )

@@ -30,11 +30,11 @@ const [wifi, setWifi] = useState(comment ? comment.wifi : "");
 const [phone, setPhone] = useState(comment ? comment.phone : "");
 const [authpicFile, setAuthPicFile] = useState(comment ? null : comment.authpic);  
 
-const [coverImageFile, setCoverImageFile] = useState(comment ? null : comment.cover_image);
-const [showcase1File, setShowcase1File] = useState(comment ? null : comment.cover_showcase1);
-const [showcase2File, setShowcase2File] = useState(comment ? null : comment.cover_showcase2);
-const [showcase3File, setShowcase3File] = useState(comment ? null : comment.cover_showcase3);
-const [showcase4File, setShowcase4File] = useState(comment ? null : comment.cover_showcase4);  
+const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image : null  );
+const [showcase1File, setShowcase1File] = useState(comment ? comment.cover_showcase1 : null );
+const [showcase2File, setShowcase2File] = useState(comment ? comment.cover_showcase2  : null );
+const [showcase3File, setShowcase3File] = useState(comment ? comment.cover_showcase3 : null  );
+const [showcase4File, setShowcase4File] = useState(comment ? comment.cover_showcase4 : null  );  
 
 const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Houses");
 const [successMessage, setSuccessMessage] = useState("");

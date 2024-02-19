@@ -6,11 +6,12 @@ import { auth, db } from '@/app/Config/firebase';
 import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, updateDoc, where } from 'firebase/firestore';
-import EditModalForm from './EditModalForm';
+import AdminEdit from '../AdminEdit';
+import { BeatLoader } from 'react-spinners';
 
 
 async function getArticles(orderBy) {
-const querySnapshot = await getDocs(collection(db, "Houses"));
+const querySnapshot = await getDocs(collection(db, "Featured Houses"));
 const data = [];
 
 querySnapshot.forEach((doc) => {
@@ -20,7 +21,7 @@ return data;
 }
 
 
-export default function PropertyLists() {
+export default function HouseListing() {
 const [fetchError, setFetchError] = useState(null);
 const [loading, setLoading] = useState(true);
 const [useArticle, setUseArticle] = useState([]);
@@ -36,7 +37,7 @@ const commentsRef = useRef(null);
 const fetchComments = async (articleId) => {
 try {
 const db = getFirestore();
-const commentsRef = collection(db, 'Houses');
+const commentsRef = collection(db, 'Featured Houses');
 const queryRef = query(commentsRef, where('articleId', '==', articleId),   orderBy('timestamp', 'desc'));
 const querySnapshot = await getDocs(queryRef);
 const newComments = querySnapshot.docs.map((doc) => {
@@ -115,9 +116,9 @@ const isAuthenticated = await userIsAuthenticated();
 if (currentUser) {
 if (currentUser.uid === UserId) {
 const db = getFirestore();
-const commentDoc = await getDoc(doc(db, 'Houses', postId));
+const commentDoc = await getDoc(doc(db, 'Featured Houses', postId));
 if (commentDoc.exists()) {
-await deleteDoc(doc(db, 'Houses', postId));
+await deleteDoc(doc(db, 'Featured Houses', postId));
 setUseArticle((prevArticles) =>prevArticles.filter((article) => article.id !== postId)
 );
 setSuccessMessage('Listing deleted successfully');
@@ -167,48 +168,34 @@ setErrorMessage('');
         
       fetchData();
     }, []);
-    
-  
 return (
 <>
 
-
-
-<div className='PropertyArticleHero'>
-<div>
-  <h1>Homes For Sale & Rent</h1>
-
-  {!isSignedIn && (
-    <p>Please sign in or register to add listings.</p>
-  )}
-
-  <button
-    onClick={() => router.push('/pages/PropertyForm')}
-    disabled={!isSignedIn}
-    style={{
-      cursor: !isSignedIn ? 'not-allowed' : 'pointer',
-      backgroundColor: !isSignedIn ? '#d3d3d3' : '#007bff',
-      color: !isSignedIn ? '#a9a9a9' : '#fff',
-    }}
-  >
-    Add a Listing
-  </button>
-  
-</div>
-
-</div>
 {editModalOpen && (
-  <EditModalForm
+  <AdminEdit
+    style={{ /* Add any custom styles here */ }}
     comment={editingComment}
     onSave={handleEditModalSave}
     onCancel={() => setEditModalOpen(false)}
   />
 )}
 
-<div className='property-grid'>
-{useArticle.map((blog) => (
-<Link key={blog.id} href={`/pages/Articles/${blog.id}`}>
-<div ref={commentsRef} className='property-card'>
+<div style={{ textAlign: 'center', color: 'blue', fontWeight: '300' }}>
+  <h1>Featured Homes</h1>
+</div>
+
+{loading ? (
+  <div style={{ textAlign: 'center' }}>
+    <BeatLoader color='blue' />
+  </div>
+) : (
+  <div className='property-grid' style={{ borderBottom: 'solid 1px' }}>
+    {useArticle.length === 0 ? (
+      <p>No listings available.</p>
+    ) : (
+      useArticle.map((blog) => (
+        <Link key={blog.id} href={`/pages/Articles/${blog.id}`}>
+          <div ref={commentsRef} className='property-card'>
 <div
 style={{
 backgroundImage: `url(${blog.cover_image})`,
@@ -253,11 +240,14 @@ Delete
 </button>
 </div>
 </div>
-</Link>
+        </Link>
+      ))
+    )}
+  </div>
+)}
 
-))}
 
-</div>
+
 
 
 

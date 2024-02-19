@@ -88,7 +88,7 @@ alt={`Cover Showcase ${index}`}
 {/**block for category and author */}
 <div className="authflex">
 <p>{post.propertyType}</p>
-<h3 className='authflexOwner'> Owner {post.userName} 
+<h3 className='authflexOwner'> {post.owner} 
 
 </h3>
 <h3
@@ -113,13 +113,7 @@ backgroundPosition: 'center',
 </h3>
 </div>
 {/**block for category and author */}
-<div className='cover_showcase'>
-{post.cover_showcase5 && <img src={post.cover_showcase5} alt="Cover Showcase 5" />}
-{post.cover_showcase6 && <img src={post.cover_showcase6} alt="Cover Showcase 6" />}
-{post.cover_showcase7 && <img src={post.cover_showcase7} alt="Cover Showcase 7" />}
-{post.cover_showcase8 && <img src={post.cover_showcase8} alt="Cover Showcase 8" />}
-{post.cover_showcase9 && <img src={post.cover_showcase9} alt="Cover Showcase 9" />}
-</div>
+
 
 <div className='details_header_title'>
 <h2>{post.price} <small>{post.billingFrequency}</small></h2>

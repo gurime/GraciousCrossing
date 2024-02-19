@@ -1,49 +1,49 @@
 'use client'
-import { auth } from '@/app/Config/firebase';
-import { addDoc, collection, doc, getDoc, getFirestore } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
-import { v4 as uuidv4 } from 'uuid';
-
 import { getAuth } from 'firebase/auth';
+import { addDoc, collection, doc, getFirestore, updateDoc } from 'firebase/firestore';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
+import { auth } from '../Config/firebase';
 
-export default function AdminForm() {
+export default function AdminEdit({ comment, onSave, onCancel }) {
 const [isSignedIn, setIsSignedIn] = useState(false);
-const [content, setContent] = useState("");
-const [title, setTitle] = useState("");
-const [owner, setOwner] = useState("");
-const [phone, setPhone] = useState("");
-const [price, setPrice] = useState("");
-const [billingFrequency, setBillingFrequency] = useState('monthly');
-const [bedrooms, setBedrooms] = useState("1");
-const [bathrooms, setBathrooms] = useState("1");
-const [cable, setCable] = useState("");
-const [laundry, setLaundry] = useState("");
-const [lights, setLights] = useState("");
-const [water, setWater] = useState("");
-const [heating, setHeating] = useState("");
-const [pool, setPool] = useState("");
-const [wifi, setWifi] = useState("");
-const [airConditioning, setAirConditioning] = useState("");
-const [address, setAddress] = useState("");
-const [ isLoading, setIsLoading] = useState(false)
-const [coverImageFile, setCoverImageFile] = useState(null);
-const [showcase1File, setShowcase1File] = useState(null);  
-const [showcase2File, setShowcase2File] = useState(null);  
-const [showcase3File, setShowcase3File] = useState(null);  
-const [showcase4File, setShowcase4File] = useState(null);  
-const [showcase5File, setShowcase5File] = useState(null);  
-const [authpicFile, setAuthPicFile] = useState(null);  
-const [articleId, setArticleId] = useState("");  
-const [ selectedCollection, setSelectedCollection] = useState("Featured Houses")
-const [successMessage, setSuccessMessage] = useState("");
+const [content, setContent] = useState(comment ? comment.content : "");
+const [title, setTitle] = useState(comment ? comment.title : "");
+const [owner, setOwner] = useState(comment ? comment.owner : "");
+const [price, setPrice] = useState(comment ? comment.price : "");
+const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'monthly');
+const [bedrooms, setBedrooms] = useState(comment ? comment.bedrooms : "1");
+const [bathrooms, setBathrooms] = useState(comment ? comment.bathrooms : "1");
+const [cable, setCable] = useState(comment ? comment.cable : "");
+const [laundry, setLaundry] = useState(comment ? comment.laundry : "");
+const [lights, setLights] = useState(comment ? comment.lights : "");
+const [water, setWater] = useState(comment ? comment.water : "");
+const [heating, setHeating] = useState(comment ? comment.heating : "");
+const [pool, setPool] = useState(comment ? comment.pool : "");
+const [airConditioning, setAirConditioning] = useState(comment ? comment.airConditioning : "");
+const [address, setAddress] = useState(comment ? comment.address : "");
+const [isLoading, setIsLoading] = useState(false);
+const [wifi, setWifi] = useState(comment ? comment.wifi : "");
+const [phone, setPhone] = useState(comment ? comment.phone : "");
+const [authpicFile, setAuthPicFile] = useState(comment ? null : comment.authpic);  
 
-const [names, setNames] = useState([]);
+const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image : ''  );
+const [showcase1File, setShowcase1File] = useState(comment ? comment.cover_showcase1 : '' );
+const [showcase2File, setShowcase2File] = useState(comment ? comment.cover_showcase2  : '' );
+const [showcase3File, setShowcase3File] = useState(comment ? comment.cover_showcase3 : ''  );
+const [showcase4File, setShowcase4File] = useState(comment ? comment.cover_showcase4 : ''  );  
+const [showcase5File, setShowcase5File] = useState(comment ? comment.cover_showcase5 : ''  );  
+
+const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Featured Houses");
+const [successMessage, setSuccessMessage] = useState("");
+const [autoFocus, setAutoFocus] = useState(true);
 const [errorMessage, setErrorMessage] = useState('');
 const router = useRouter();
-  
+
+
 useEffect(() => {
 const unsubscribe = auth.onAuthStateChanged(async (user) => {
 const getUserData = async (userId) => {
@@ -86,44 +86,45 @@ setErrorMessage('Unexpected error occurred. Please try again later.');
 }
 };
 
-
+const handleCancel = () => {
+onCancel(); // Call the onCancel function passed as a prop
+};
   
 const handleAuthPicChange = (e) => {
-// Set the selected cover image file to state
-const file = e.target.files[0];
-setAuthPicFile(file);
-};
+  // Set the selected cover image file to state
+  const file = e.target.files[0];
+  setAuthPicFile(file);
+  };
 const handleCoverImageChange = (e) => {
-// Set the selected cover image file to state
 const file = e.target.files[0];
-setCoverImageFile(file);
+// Check if a new file is selected, if not, use the existing image
+setCoverImageFile(file ? file : comment.cover_image);
 };
   
-
 const handleShowcase1Change = (e) => {
 const file = e.target.files[0];
-setShowcase1File(file);
+setShowcase1File(file ? file : comment.cover_showcase1);
 };
-
+  
 const handleShowcase2Change = (e) => {
 const file = e.target.files[0];
-setShowcase2File(file);
+setShowcase2File(file ? file : comment.cover_showcase2);
 };
-
+  
 const handleShowcase3Change = (e) => {
 const file = e.target.files[0];
-setShowcase3File(file);
+setShowcase3File(file ? file : comment.cover_showcase3);
 };
+  
 const handleShowcase4Change = (e) => {
 const file = e.target.files[0];
-setShowcase4File(file);
+setShowcase4File(file ? file : comment.cover_showcase4);
 };
+  
 const handleShowcase5Change = (e) => {
-const file = e.target.files[0];
-setShowcase5File(file);
-};
-
-
+  const file = e.target.files[0];
+  setShowcase5File(file);
+  };
   
 const storage = getStorage(); // Initialize Firebase Storage
 const handleFileUpload = async (file, storagePath) => {
@@ -142,36 +143,30 @@ throw error;
 const handleSubmit = async (e) => {
 e.preventDefault();
 try {
-const auth = getAuth();
-const user = auth.currentUser;
-setIsLoading(true);
-const uniqueArticleId = uuidv4();
-setArticleId(uniqueArticleId);
-// Upload files to Firebase Storage if they exist
-const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}_authpic.jpg`) : null;
+      const auth = getAuth();
+      const user = auth.currentUser;
+      setIsLoading(true);
+  
 
-const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}_cover_image.jpg`) : null;
+      // Check if it's an update or a new post
+const isUpdate = !!comment.id;
+      // Upload files to Firebase Storage if they exist
+      const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${comment.id}_authpic.jpg`) : null;
+const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${comment.id}_cover_image.jpg`) : null;
+const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${comment.id}_cover_showcase1.jpg`) : null;
+const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${comment.id}_cover_showcase2.jpg`) : null;
+const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${comment.id}_cover_showcase3.jpg`) : null;
+const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${comment.id}_cover_showcase4.jpg`) : null;
+const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${comment.id}_cover_showcase5.jpg`) : null;
 
-const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}_cover_showcase1.jpg`) : null;
-      
-const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}_cover_showcase2.jpg`) : null;
-      
-const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}_cover_showcase3.jpg`) : null;
-
-const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}_cover_showcase4.jpg`) : null; 
-
-const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}_cover_showcase5.jpg`) : null;
-
-      
   
 const db = getFirestore();
-const docRef = await addDoc(collection(db, selectedCollection), {
-articleId: articleId,
-userId: user.uid,
+if (isUpdate && comment.id && selectedCollection) {
+const docRef = doc(db, selectedCollection, comment.id);
+await updateDoc(docRef, {
 content: content,
 title: title,
 owner: owner,
-phone:phone,
 price: price,
 bedrooms: bedrooms,
 bathrooms: bathrooms,
@@ -183,63 +178,64 @@ laundry: laundry,
 airConditioning: airConditioning,
 heating: heating,
 pool: pool,
-wifi: wifi,
+phone:phone,
+wifi:wifi,
+authpic: authpic,
 address: address,
 timestamp: new Date(),
-userName: user.displayName,
-userEmail: user.email,
-authpic: authpic,
 cover_image: cover_image,
 cover_showcase1: cover_showcase1,
 cover_showcase2: cover_showcase2,
 cover_showcase3: cover_showcase3,
 cover_showcase4: cover_showcase4,
 cover_showcase5: cover_showcase5,
-propertyType: selectedCollection,  
 });
-  
-if (selectedCollection === "FeaturedHouse" || "FeaturedApartment") {
-router.push('/');
+setSuccessMessage('Listing updated successfully');
+window.location.reload();
 } else {
-const formattedPageName = selectedCollection.charAt(0).toUpperCase() + selectedCollection.slice(1);
-router.push(`/pages/${formattedPageName}`);
+setErrorMessage('Error: Cannot add a new document without articleId.');
 }
+// Example error handling
 } catch (error) {
-setErrorMessage('Error. Please try again.');
-setTimeout(() => {
-setErrorMessage('');
-}, 3000);
-} finally {
-setIsLoading(false);
+  console.error("Error during Firestore update:", error);
+
+  if (error.code === 'permission-denied') {
+    setErrorMessage('Permission denied: You may not have the necessary permissions.');
+  } else if (error.code === 'not-found') {
+    setErrorMessage('Document not found: The specified document does not exist.');
+  } else {
+    setErrorMessage('Unexpected error occurred. Please try again later.');
+  }
 }
-};
 
+};
+  
 const formatPrice = (input,) => {
-const numericValue = input.replace(/[^0-9.]/g, '').trim();
-const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Add commas to the integer part
-const priceWithSymbol = `$${formattedNumericValue}`;
-return priceWithSymbol;
-};
-  
-
-
-const handlePhoneChange = (e) => {
-const inputValue = e.target.value;
-const formattedPhone = inputValue
-.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3').trim().slice(0,12);
-setPhone(formattedPhone);
-};
+  const numericValue = input.replace(/[^0-9.]/g, '').trim();
+  const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); 
+  const priceWithSymbol = `$${formattedNumericValue}`;
+  return priceWithSymbol;
+  };
+    
   
   
-const handlePriceChange = (e) => {
-const inputValue = e.target.value;
-const formattedPrice = formatPrice(inputValue);
-setPrice(formattedPrice);
-};
-
+  const handlePhoneChange = (e) => {
+  const inputValue = e.target.value;
+  const formattedPhone = inputValue
+  .replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3').trim().slice(0,12);
+  setPhone(formattedPhone);
+  };
+    
+    
+  const handlePriceChange = (e) => {
+  const inputValue = e.target.value;
+  const formattedPrice = formatPrice(inputValue);
+  setPrice(formattedPrice);
+  };
+  
 return (
-    <>
-<div className="property-hero">
+<>
+<div style={{position: 'relative', height: '900px', overflow: 'auto' }}>
 <form className="postform" onSubmit={handleSubmit}>
 
 {/* post form start here here */}
@@ -517,8 +513,9 @@ color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#
 }}
   
 >
-{isLoading ? <BeatLoader color='blue' /> : 'Submit'}
+{isLoading ? <BeatLoader color='blue' /> : 'Update'}
 </button>
+<button style={{backgroundColor:'red'}} onClick={handleCancel}>Cancel</button>
 
 {errorMessage && <p className="error">{errorMessage}</p>}
 {successMessage && <p className="success">{successMessage}</p>}
@@ -526,5 +523,5 @@ color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#
 </form>
 </div>
 </>
-);
-}    
+)
+}

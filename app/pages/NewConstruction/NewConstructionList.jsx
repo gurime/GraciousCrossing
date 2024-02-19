@@ -153,39 +153,21 @@ setErrorMessage('');
 
 
 
-
     useEffect(() => {
       const fetchData = async () => {
-        try {
-          const data = await getArticles();
-          const user = auth.currentUser; // Retrieve the current user
-          // Filter the listings to show only those belonging to the current user
-          const userArticles = data.filter(article => article.userId === user.uid);
-          // Combine the user's listings with other listings
-          const combinedListings = userArticles.concat(data.filter(article => article.userId !== user.uid));
-          setUseArticle(combinedListings);
-          // Store user's listings separately if needed
-          setUserListings(userArticles);
-        } catch (error) {
-          setFetchError('Error fetching data. Please try again later.');
-        } finally {
-          setLoading(false);
-        }
+      try {
+      const data = await getArticles();
+      setUseArticle(data);
+      } catch (error) {
+      console.error('Error fetching articles:', error);
+      setFetchError('Error fetching articles. Please try again later.');
+      } finally {
+      setLoading(false); 
+      }
       };
-    
-      const checkAuthState = async (user) => {
-        setIsSignedIn(!!user);
-        if (user) {
-          fetchData();
-        }
-      };
-    
-      const unsubscribe = auth.onAuthStateChanged(checkAuthState);
-    
-      return () => {
-        unsubscribe();
-      };
-    }, [auth]);
+        
+      fetchData();
+    }, []);
     
 return (
 <>
@@ -247,7 +229,7 @@ width: '100%'
 </div>
 <div className='property-address'>{blog.address}</div>
 
-<div className='property-owner_name'>Listing by {blog.userName}</div>
+<div className='property-owner_name'>Listing by {blog.owner}</div>
 <div className="edit-delBlock">
 <button
 className="edit-btn"

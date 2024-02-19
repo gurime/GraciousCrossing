@@ -899,11 +899,7 @@ padding: 0 1rem;
     border-radius: 20px;
 }
 
-  @media(max-width:768px){
-    .ameities-flex{
-      flex-direction: column;
-    }
-  }
+ 
 
 .PropertyArticleHero{
 background-image: linear-gradient(to bottom, #9191914d, #0000004d), url('./img/property_listings_home.jpg');

@@ -7,6 +7,8 @@ const collectionRefs = [
 doc(db, 'Houses', id),
 doc(db, 'Apartments', id),
 doc(db, 'NewConstruction', id),
+doc(db, 'Featured Houses', id),
+doc(db, 'Featured Apartments', id),
 
 
 ];
