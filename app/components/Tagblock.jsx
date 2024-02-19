@@ -18,13 +18,7 @@ const router = useRouter()
 return (
 <>
 
-<div style={{
-display:'flex',
-justifyContent:'space-evenly',
-alignItems:'center',
-flex wrap:'wrap',
-borderBottom:'solid 1px'
-}}>
+div className="property-grid">
 <div className='card' style={{display:'grid'}}>
 <Image src={sellhome} alt='...'/>
 <h1>Sell Your Home</h1>
