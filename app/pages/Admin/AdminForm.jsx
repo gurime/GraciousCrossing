@@ -37,6 +37,9 @@ const [showcase2File, setShowcase2File] = useState(null);
 const [showcase3File, setShowcase3File] = useState(null);  
 const [showcase4File, setShowcase4File] = useState(null);  
 const [showcase5File, setShowcase5File] = useState(null);  
+const [showcase6File, setShowcase6File] = useState(null);  
+const [showcase7File, setShowcase7File] = useState(null);  
+const [showcase8File, setShowcase8File] = useState(null);  
 const [authpicFile, setAuthPicFile] = useState(null);  
 const [articleId, setArticleId] = useState("");  
 const [ selectedCollection, setSelectedCollection] = useState("Featured Houses")
@@ -124,6 +127,18 @@ const handleShowcase5Change = (e) => {
 const file = e.target.files[0];
 setShowcase5File(file);
 };
+const handleShowcase6Change = (e) => {
+const file = e.target.files[0];
+setShowcase6File(file);
+};
+const handleShowcase7Change = (e) => {
+const file = e.target.files[0];
+setShowcase7File(file);
+};
+const handleShowcase8Change = (e) => {
+const file = e.target.files[0];
+setShowcase8File(file);
+};
 
 
   
@@ -163,6 +178,9 @@ const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `i
 const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}_cover_showcase4.jpg`) : null; 
 
 const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}_cover_showcase5.jpg`) : null;
+const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}_cover_showcase6.jpg`) : null;
+const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}_cover_showcase7.jpg`) : null;
+const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${uniqueArticleId}_cover_showcase8.jpg`) : null;
 
       
   
@@ -199,6 +217,9 @@ cover_showcase2: cover_showcase2,
 cover_showcase3: cover_showcase3,
 cover_showcase4: cover_showcase4,
 cover_showcase5: cover_showcase5,
+cover_showcase6: cover_showcase6,
+cover_showcase7: cover_showcase7,
+cover_showcase8: cover_showcase8,
 propertyType: selectedCollection,  
 });
   
@@ -285,7 +306,7 @@ accept="image/*"
 onChange={handleAuthPicChange}
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="number">Phone Number</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',margin: '1rem 0', borderBottom: 'solid 1px'  }}><label htmlFor="number">Phone Number</label>
 <input
 type="text"
 name="number"
@@ -309,7 +330,7 @@ onChange={handlePriceChange}
 required
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
 <select
 style={{marginLeft:'1px'}}
 name="billingFrequency"
@@ -323,7 +344,7 @@ className='billingselect'
 <option value="sale">Sale</option>
 </select></div>
 
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Financing Price </label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center', }}><label htmlFor="price">Financing Price </label>
 <input
 type="text"  // Change the type to text to allow non-numeric characters
 name="price"
@@ -332,10 +353,10 @@ onChange={handlePriceChange1}
 required
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Seller Financing</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency2 ">Seller Financing</label>
 <select
 style={{marginLeft:'1px'}}
-name="billingFrequency"
+name="billingFrequency2"
 value={billingFrequency2}
 onChange={(e) => setBillingFrequency2(e.target.value)}
 required
@@ -360,7 +381,7 @@ required
 <option value="NewConstruction">New Construction</option>
 </select></div>
 
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="bedrooms">Bedrooms</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="bedrooms">Bedrooms</label>
 <input
 type="number"
 name="bedrooms"
@@ -455,7 +476,7 @@ onChange={(e) => setPool(e.target.checked)}
 />
 <label htmlFor="pool">Pool</label>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0', borderBottom: 'solid 1px grey' }}>
+<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', marginBottom: '1rem', borderBottom: 'solid 1px ' }}>
 <input
 type="checkbox"
 id="wifi"
@@ -522,6 +543,30 @@ id="showcase5"
 name="showcase5"
 accept="image/*"
 onChange={handleShowcase5Change}
+/></div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase6">Showcase Image </label>
+<input
+type="file"
+id="showcase6"
+name="showcase6"
+accept="image/*"
+onChange={handleShowcase6Change}
+/></div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase7">Showcase Image </label>
+<input
+type="file"
+id="showcase7"
+name="showcase7"
+accept="image/*"
+onChange={handleShowcase7Change}
+/></div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',margin: '1rem 0', borderBottom: 'solid 1px'  }}><label htmlFor="showcase8">Showcase Image </label>
+<input
+type="file"
+id="showcase8"
+name="showcase8"
+accept="image/*"
+onChange={handleShowcase8Change}
 /></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="category">Address</label>

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import cardimg1 from '../img/home-card1.jpeg'
 import cardimg2 from '../img/home-card2.jpg'
@@ -11,26 +11,51 @@ import sellhome from '../img/sellhome.JPG'
 import apartrent from '../img/apart_rent.JPG'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../Config/firebase'
 export default function Tagblock() {
 const [isSignedIn, setIsSignedIn] = useState(false);
+useEffect(() => {
 
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    setIsSignedIn(!!user);    });
+    
+    
+    // Assuming you have an unsubscribe function
+  
+    }, []);
+const getUserData = async (userId) => {
+    try {
+    const db = getFirestore();
+    const userDocRef = doc(db, 'users', userId);
+    const userDocSnapshot = await getDoc(userDocRef);
+    if (userDocSnapshot.exists()) {
+    const userData = userDocSnapshot.data();
+    return userData;
+    } else {
+    return null;
+    }
+    } catch (error) {
+    throw error;
+    }
+    };
 const router = useRouter()
 return (
 <>
 
 <div className="property-grid">
-<div className='card' style={{display:'grid'}}>
+<div className='card' style={{display:'grid',maxWidth:'20rem'}}>
 <Image src={sellhome} alt='...'/>
-<h1>Sell Your Home</h1>
+<h1 style={{fontWeight:'100',textAlign:'center'}}>Sell Your Home</h1>
 <p >
 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti incidunt suscipit ipsa alias. Explicabo repellat!</p>
 <button onClick={() => router.push('/pages/Houses')}>Sell</button>
 </div>
-<div className='card'  style={{display:'grid'}}>
+<div className='card'  style={{display:'grid',maxWidth:'20rem'}}>
 
 
 <Image src={apartrent}  alt='...'/>
-<h1>Apartment For Rent</h1>
+<h1 style={{fontWeight:'100',textAlign:'center'}}>Apartments For Rent</h1>
 <p >
 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti incidunt suscipit ipsa alias. Explicabo repellat!</p>
 
@@ -47,11 +72,9 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti incidunt susc
 <h1>Find the best homes</h1>
 <p>Browse some of the highest 
 quality homes.</p>
-{isSignedIn ? (
+
 <Link href='/pages/Houses'>More Info</Link>
-) : (
-<p>Please sign in or register to view listings.</p>
-)}
+
 </div>
 <Image height={300} src={cardimg1} alt="" priority/>
 </div>

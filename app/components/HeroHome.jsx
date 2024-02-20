@@ -41,21 +41,7 @@ document.body.addEventListener('click', handleDocumentClick);
 const unsubscribe = onAuthStateChanged(auth, (user) => {
 setForceRender((prev) => !prev); // Force re-render
 setIsSignedIn(!!user);    });
-const getUserData = async (userId) => {
-try {
-const db = getFirestore();
-const userDocRef = doc(db, 'users', userId);
-const userDocSnapshot = await getDoc(userDocRef);
-if (userDocSnapshot.exists()) {
-const userData = userDocSnapshot.data();
-return userData;
-} else {
-return null;
-}
-} catch (error) {
-throw error;
-}
-};
+
 
 // Assuming you have an unsubscribe function
 return () => {

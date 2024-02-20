@@ -38,6 +38,9 @@ const [showcase2File, setShowcase2File] = useState(comment ? comment.cover_showc
 const [showcase3File, setShowcase3File] = useState(comment ? comment.cover_showcase3 : ''  );
 const [showcase4File, setShowcase4File] = useState(comment ? comment.cover_showcase4 : ''  );  
 const [showcase5File, setShowcase5File] = useState(comment ? comment.cover_showcase5 : ''  );  
+const [showcase6File, setShowcase6File] = useState(comment ? comment.cover_showcase6 : ''  );  
+const [showcase7File, setShowcase7File] = useState(comment ? comment.cover_showcase7 : ''  );  
+const [showcase8File, setShowcase8File] = useState(comment ? comment.cover_showcase8 : ''  );  
 
 const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Featured Houses");
 const [successMessage, setSuccessMessage] = useState("");
@@ -125,8 +128,21 @@ setShowcase4File(file ? file : comment.cover_showcase4);
   
 const handleShowcase5Change = (e) => {
   const file = e.target.files[0];
-  setShowcase5File(file);
+  setShowcase5File(file ? file : comment.cover_showcase5);
   };
+
+  const handleShowcase6Change = (e) => {
+    const file = e.target.files[0];
+    setShowcase6File(file ? file : comment.cover_showcase6);
+    };
+    const handleShowcase7Change = (e) => {
+    const file = e.target.files[0];
+    setShowcase7File(file ? file : comment.cover_showcase7);
+    };
+    const handleShowcase8Change = (e) => {
+    const file = e.target.files[0];
+    setShowcase8File(file ? file : comment.cover_showcase8);
+    };
   
 const storage = getStorage(); // Initialize Firebase Storage
 const handleFileUpload = async (file, storagePath) => {
@@ -160,6 +176,9 @@ const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `i
 const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${comment.id}_cover_showcase3.jpg`) : null;
 const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${comment.id}_cover_showcase4.jpg`) : null;
 const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${comment.id}_cover_showcase5.jpg`) : null;
+const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${comment.id}_cover_showcase6.jpg`) : null;
+const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${comment.id}_cover_showcase7.jpg`) : null;
+const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${comment.id}_cover_showcase8.jpg`) : null;
 
   
 const db = getFirestore();
@@ -193,6 +212,9 @@ cover_showcase2: cover_showcase2,
 cover_showcase3: cover_showcase3,
 cover_showcase4: cover_showcase4,
 cover_showcase5: cover_showcase5,
+cover_showcase6: cover_showcase6,
+cover_showcase7: cover_showcase7,
+cover_showcase8: cover_showcase8,
 });
 setSuccessMessage('Listing updated successfully');
 window.location.reload();
@@ -328,10 +350,10 @@ onChange={handlePriceChange1}
 required
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Seller Financing</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency2 ">Seller Financing</label>
 <select
 style={{marginLeft:'1px'}}
-name="billingFrequency"
+name="billingFrequency2"
 value={billingFrequency2}
 onChange={(e) => setBillingFrequency2(e.target.value)}
 required
@@ -519,6 +541,31 @@ id="showcase5"
 name="showcase5"
 accept="image/*"
 onChange={handleShowcase5Change}
+/></div>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase6">Showcase Image </label>
+<input
+type="file"
+id="showcase6"
+name="showcase6"
+accept="image/*"
+onChange={handleShowcase6Change}
+/></div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase7">Showcase Image </label>
+<input
+type="file"
+id="showcase7"
+name="showcase7"
+accept="image/*"
+onChange={handleShowcase7Change}
+/></div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase8">Showcase Image </label>
+<input
+type="file"
+id="showcase8"
+name="showcase8"
+accept="image/*"
+onChange={handleShowcase8Change}
 /></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="category">Address</label>
