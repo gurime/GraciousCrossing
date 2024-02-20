@@ -303,7 +303,7 @@ accept="image/*"
 onChange={handleAuthPicChange}
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="number">Phone Number</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="number">Phone Number</label>
 <input
 type="text"
 name="number"
@@ -327,7 +327,7 @@ onChange={handlePriceChange}
 required
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
 <select
 style={{marginLeft:'1px'}}
 name="billingFrequency"
@@ -350,7 +350,7 @@ onChange={handlePriceChange1}
 required
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency2 ">Seller Financing</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency2 ">Seller Financing</label>
 <select
 style={{marginLeft:'1px'}}
 name="billingFrequency2"
@@ -379,7 +379,7 @@ required
 <option value="NewConstruction">New Construction</option>
 </select></div>
 
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="bedrooms">Bedrooms</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="bedrooms">Bedrooms</label>
 <input
 type="number"
 name="bedrooms"
@@ -474,7 +474,7 @@ onChange={(e) => setPool(e.target.checked)}
 />
 <label htmlFor="pool">Pool</label>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0', borderBottom: 'solid 1px grey' }}>
+<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0', borderBottom: 'solid 1px ' }}>
 <input
 type="checkbox"
 id="wifi"
@@ -559,7 +559,7 @@ name="showcase7"
 accept="image/*"
 onChange={handleShowcase7Change}
 /></div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase8">Showcase Image </label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="showcase8">Showcase Image </label>
 <input
 type="file"
 id="showcase8"

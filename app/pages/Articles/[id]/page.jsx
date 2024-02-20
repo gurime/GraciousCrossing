@@ -13,6 +13,7 @@ import pool from '../../../img/swim_icon.png'
 import wifi from '../../../img/wifi_icon.png'
 import phone from '../../../img/portfolio_phone.png'
 import Image from 'next/image';
+import AdminHeader from '@/app/components/AdminHeader';
 
 
 export async function generateMetadata({ params }) {
@@ -53,6 +54,7 @@ export default async function HomeDetailsPage({params}) {
 
 return (
 <>
+<AdminHeader/>
 <Navbar />
 <div   className="article-container">
 {/**block for goback btn and title */}
@@ -141,27 +143,69 @@ lineHeight:'2'
 </div>
 
 </div>
-<div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-<h3 style={{padding:'0 1rem'}}>Popular Amenities</h3>
+<div style={{ display: (post.heating || post.lights || post.laundry || post.cable || post.airConditioning || post.water || post.pool || post.wifi) ? 'flex' : 'none', justifyContent: 'space-between', alignItems: 'center' }}>
+  <h3 style={{ padding: '0 1rem' }}>Popular Amenities</h3>
 </div>
+
 <div className='ameities-flex'>
 
 <div className='amenities-grid'>
-<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={heat} alt='...'/>{post.heating && <span>Heating is available</span>}</div>
+{post.heating &&
+  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
+    <Image style={{ padding: '0 1rem' }} width={30} src={heat} alt='...' />
+    <span>Heating is available</span>
+  </div>
+}
 
-<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={lights} alt='...'/>{post.lights && <span>Lights are available</span>}</div>
+{post.lights &&
+  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
+    <Image style={{ padding: '0 1rem' }} width={30} src={lights} alt='...' />
+    <span>Lights are available</span>
+  </div>
+}
 
-<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={laundry} alt='...'/>{post.laundry && <span>Laundry is available</span>}</div>
+{post.laundry &&
+  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
+    <Image style={{ padding: '0 1rem' }} width={30} src={laundry} alt='...' />
+    <span>Laundry is available</span>
+  </div>
+}
 
-<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={cable} alt='...'/>{post.cable && <span>Cable is available</span>}</div>
+{post.cable &&
+  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
+    <Image style={{ padding: '0 1rem' }} width={30} src={cable} alt='...' />
+    <span>Cable is available</span>
+  </div>
+}
 
-<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={ac} alt='...'/>{post.airConditioning && <span>AC is available</span>}</div>
+{post.airConditioning &&
+  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
+    <Image style={{ padding: '0 1rem' }} width={30} src={ac} alt='...' />
+    <span>AC is available</span>
+  </div>
+}
 
-<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={water} alt='...'/>{post.water && <span>Water is available</span>}</div>
+{post.water &&
+  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
+    <Image style={{ padding: '0 1rem' }} width={30} src={water} alt='...' />
+    <span>Water is available</span>
+  </div>
+}
 
-<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={pool} alt='...' />{post.pool && <span>Pool is available</span>}</div>
+{post.pool &&
+  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
+    <Image style={{ padding: '0 1rem' }} width={30} src={pool} alt='...' />
+    <span>Pool is available</span>
+  </div>
+}
 
-<div style={{display:'flex',margin:'1rem 0',alignItems:'center'}}><Image style={{padding:'0 1rem'}} width={30} src={wifi} alt='...'/>{post.wifi && <span>Pool is available</span>}</div>
+{post.wifi &&
+  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
+    <Image style={{ padding: '0 1rem' }} width={30} src={wifi} alt='...' />
+    <span>WiFi is available</span>
+  </div>
+}
+
 </div>
 
 

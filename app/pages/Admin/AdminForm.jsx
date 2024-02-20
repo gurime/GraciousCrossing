@@ -186,7 +186,6 @@ const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `i
   
 const db = getFirestore();
 const docRef = await addDoc(collection(db, selectedCollection), {
-articleId: articleId,
 userId: user.uid,
 content: content,
 title: title,
@@ -277,8 +276,9 @@ setPriceextra(formattedPrice);
 return (
     <>
 <div className="property-hero">
+  
 <form className="postform" onSubmit={handleSubmit}>
-
+  <h1 style={{padding:'0 1rem'}}>Admin Form</h1>
 {/* post form start here here */}
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="title">Property Name</label>
 <input

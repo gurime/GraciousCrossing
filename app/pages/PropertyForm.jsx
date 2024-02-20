@@ -229,7 +229,7 @@ return (
     <>
 <div className="property-hero">
 <form className="postform" onSubmit={handleSubmit}>
-
+<h1 style={{padding:'0 1rem'}}>Propery Form</h1>
 {/* post form start here here */}
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="title">Property Name</label>
 <input

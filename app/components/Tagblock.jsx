@@ -13,32 +13,46 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../Config/firebase'
+import { doc, getDoc, getFirestore } from 'firebase/firestore'
 export default function Tagblock() {
 const [isSignedIn, setIsSignedIn] = useState(false);
+const [isAdmin, setIsAdmin] = useState(false);
 useEffect(() => {
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-    setIsSignedIn(!!user);    });
-    
-    
-    // Assuming you have an unsubscribe function
+const unsubscribe = onAuthStateChanged(auth, async (user) => {
+setIsSignedIn(!!user);
+if (user) {
+const userData = await getUserData(user.uid);
+if (userData) {
+const isAdmin = userData.isAdmin || false;
+setIsAdmin(isAdmin);
+}
+}
+});
   
-    }, []);
+return () => unsubscribe();
+}, []);
+  
 const getUserData = async (userId) => {
-    try {
-    const db = getFirestore();
-    const userDocRef = doc(db, 'users', userId);
-    const userDocSnapshot = await getDoc(userDocRef);
-    if (userDocSnapshot.exists()) {
-    const userData = userDocSnapshot.data();
-    return userData;
-    } else {
-    return null;
-    }
-    } catch (error) {
-    throw error;
-    }
-    };
+try {
+const db = getFirestore();
+const userDocRef = doc(db, 'users', userId);
+const adminDocRef = doc(db, 'adminusers', userId);
+const userDocSnapshot = await getDoc(userDocRef);
+const adminDocSnapshot = await getDoc(adminDocRef);
+  
+if (userDocSnapshot.exists()) {
+const userData = userDocSnapshot.data();
+return userData;
+} else if (adminDocSnapshot.exists()) {
+const adminData = adminDocSnapshot.data();
+return adminData;
+} else {
+return null;
+}
+} catch (error) {
+throw error;
+}
+};
 const router = useRouter()
 return (
 <>
@@ -46,7 +60,7 @@ return (
 <div className="property-grid">
 <div className='card' style={{display:'grid',maxWidth:'20rem'}}>
 <Image src={sellhome} alt='...'/>
-<h1 style={{fontWeight:'100',textAlign:'center'}}>Sell Your Home</h1>
+<h1 style={{fontWeight:'100',textAlign:'center',fontSize:'24px'}}>Sell Your Home</h1>
 <p >
 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti incidunt suscipit ipsa alias. Explicabo repellat!</p>
 <button onClick={() => router.push('/pages/Houses')}>Sell</button>
@@ -55,7 +69,7 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti incidunt susc
 
 
 <Image src={apartrent}  alt='...'/>
-<h1 style={{fontWeight:'100',textAlign:'center'}}>Apartments For Rent</h1>
+<h1 style={{fontWeight:'100',textAlign:'center',fontSize:'24px'}}>Apartments For Rent</h1>
 <p >
 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti incidunt suscipit ipsa alias. Explicabo repellat!</p>
 
@@ -87,11 +101,16 @@ quality homes.</p>
 
 
 {isSignedIn ? (
-<Link href='/pages/PropertyForm'>Add your listings</Link>
+<div>
+{isAdmin ? (
+<Link href='/pages/Admin'>Add your listings</Link>
 ) : (
-<p>Please sign in or register to add listings.</p>
+<Link href='/pages/PropertyForm'>Add your listings</Link>
 )}
-
+</div>
+) : (
+  <p>Please sign in or register to add listings.</p>
+)}
 
 </div>
 </div>

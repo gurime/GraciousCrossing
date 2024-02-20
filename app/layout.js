@@ -1,7 +1,7 @@
 import './globals.css'
-import { Montserrat } from 'next/font/google'
+import { Inter, Roboto,Montserrat,Open_Sans } from 'next/font/google'
 
-const inter = Montserrat ({ subsets: ['latin'],weight:['400'] })
+const inter = Open_Sans ({ subsets: ['latin'],weight:['400'] })
 
 export const metadata = {
   title: 'Page Not Found',

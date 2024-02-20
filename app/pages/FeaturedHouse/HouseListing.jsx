@@ -212,7 +212,7 @@ width: '100%'
 </div>
 <div className='property-type'>
 <div style={{ marginRight: 'auto' }}>{blog.bathrooms}ba | {blog.bedrooms}bds</div>
-<div>{blog.propertyType}</div>
+{blog.propertyType}
 </div>
 </div>
 <div className='property-address'>{blog.address}</div>
