@@ -17,8 +17,8 @@ const [owner, setOwner] = useState("");
 const [phone, setPhone] = useState("");
 const [price, setPrice] = useState("");
 const [priceextra, setPriceextra] = useState("");
-const [billingFrequency, setBillingFrequency] = useState('monthly');
-const [billingFrequency2, setBillingFrequency2] = useState('monthly');
+const [billingFrequency, setBillingFrequency] = useState('Mo');
+const [billingFrequency2, setBillingFrequency2] = useState('Mo');
 const [bedrooms, setBedrooms] = useState("1");
 const [bathrooms, setBathrooms] = useState("1");
 const [cable, setCable] = useState("");
@@ -339,14 +339,14 @@ onChange={(e) => setBillingFrequency(e.target.value)}
 required
 className='billingselect'
 >
-<option value="monthly">Monthly</option>
-<option value="weekly">Weekly</option>
-<option value="sale">Sale</option>
+<option value="Mo">Monthly</option>
+<option value="Weekly">Weekly</option>
+<option value="For Sale">For Sale</option>
 </select></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center', }}><label htmlFor="price">Financing Price </label>
 <input
-type="text"  // Change the type to text to allow non-numeric characters
+type="text" 
 name="price"
 value={priceextra}
 onChange={handlePriceChange1}
@@ -362,8 +362,8 @@ onChange={(e) => setBillingFrequency2(e.target.value)}
 required
 className='billingselect'
 >
-<option value="monthly">Monthly</option>
-<option value="weekly">Weekly</option>
+<option value="Mo">Monthly</option>
+<option value="Weekly">Weekly</option>
 </select></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="selectedCollection">Property Category</label>
@@ -581,7 +581,7 @@ required
 
 
 <textarea
-rows="5"
+rows="10"
 cols="50"
 placeholder='Describe your property'
 required

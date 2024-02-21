@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
 import { auth } from '../Config/firebase';
 
-export default function AdminEdit({ comment, onSave, onCancel }) {
+export default function AdminEdit({ comment,  onCancel }) {
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [content, setContent] = useState(comment ? comment.content : "");
 const [title, setTitle] = useState(comment ? comment.title : "");
@@ -30,7 +30,7 @@ const [address, setAddress] = useState(comment ? comment.address : "");
 const [isLoading, setIsLoading] = useState(false);
 const [wifi, setWifi] = useState(comment ? comment.wifi : "");
 const [phone, setPhone] = useState(comment ? comment.phone : "");
-const [authpicFile, setAuthPicFile] = useState(comment ? null : comment.authpic);  
+const [authpicFile, setAuthPicFile] = useState(comment ? comment.authpic : null);  
 
 const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image : ''  );
 const [showcase1File, setShowcase1File] = useState(comment ? comment.cover_showcase1 : '' );
@@ -71,6 +71,16 @@ if (user) {
 try {
 const userData = await getUserData(user.uid);
 setNames([userData.firstName, userData.lastName]);
+setAuthPicFile(userData.authpic ? userData.authpic : null);
+setCoverImageFile(userData.cover_image ? userData.cover_image : '');
+setShowcase1File(userData.cover_showcase1 ? userData.cover_showcase1 : '');
+setShowcase2File(userData.cover_showcase2 ? userData.cover_showcase2 : '');
+setShowcase3File(userData.cover_showcase3 ? userData.cover_showcase3 : '');
+setShowcase4File(userData.cover_showcase4 ? userData.cover_showcase4 : '');
+setShowcase5File(userData.cover_showcase5 ? userData.cover_showcase5 : '');
+setShowcase6File(userData.cover_showcase6 ? userData.cover_showcase6 : '');
+setShowcase7File(userData.cover_showcase7 ? userData.cover_showcase7 : '');
+setShowcase8File(userData.cover_showcase8 ? userData.cover_showcase8 : '');
 } catch (error) {
 handleError(error);
 } finally {
@@ -161,15 +171,11 @@ throw error;
 const handleSubmit = async (e) => {
 e.preventDefault();
 try {
-      const auth = getAuth();
-      const user = auth.currentUser;
-      setIsLoading(true);
-  
-
-      // Check if it's an update or a new post
+const auth = getAuth();
+const user = auth.currentUser;
+setIsLoading(true);
 const isUpdate = !!comment.id;
-      // Upload files to Firebase Storage if they exist
-      const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${comment.id}_authpic.jpg`) : null;
+const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${comment.id}_authpic.jpg`) : null;
 const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${comment.id}_cover_image.jpg`) : null;
 const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${comment.id}_cover_showcase1.jpg`) : null;
 const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${comment.id}_cover_showcase2.jpg`) : null;
@@ -179,8 +185,6 @@ const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `i
 const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${comment.id}_cover_showcase6.jpg`) : null;
 const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${comment.id}_cover_showcase7.jpg`) : null;
 const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${comment.id}_cover_showcase8.jpg`) : null;
-
-  
 const db = getFirestore();
 if (isUpdate && comment.id && selectedCollection) {
 const docRef = doc(db, selectedCollection, comment.id);
@@ -217,64 +221,62 @@ cover_showcase7: cover_showcase7,
 cover_showcase8: cover_showcase8,
 });
 setSuccessMessage('Listing updated successfully');
-window.location.reload();
+window.location.reload()
 } else {
 setErrorMessage('Error: Cannot add a new document without articleId.');
 }
 // Example error handling
 } catch (error) {
-  console.error("Error during Firestore update:", error);
-
-  if (error.code === 'permission-denied') {
-    setErrorMessage('Permission denied: You may not have the necessary permissions.');
-  } else if (error.code === 'not-found') {
-    setErrorMessage('Document not found: The specified document does not exist.');
-  } else {
-    setErrorMessage('Unexpected error occurred. Please try again later.');
-  }
+if (error.code === 'permission-denied') {
+setErrorMessage('Permission denied: You may not have the necessary permissions.');
+} else if (error.code === 'not-found') {
+setErrorMessage('Document not found: The specified document does not exist.');
+} else {
+setErrorMessage('Unexpected error occurred. Please try again later.');
+}
 }
 
 };
   
 const formatPrice = (input,) => {
-  const numericValue = input.replace(/[^0-9.]/g, '').trim();
-  const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); 
-  const priceWithSymbol = `$${formattedNumericValue}`;
-  return priceWithSymbol;
-  };
-    
-  const formatPrice1 = (input,) => {
-    const numericValue = input.replace(/[^0-9.]/g, '').trim();
-    const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Add commas to the integer part
-    const priceWithSymbol = `$${formattedNumericValue}`;
-    return priceWithSymbol;
-    };
+const numericValue = input.replace(/[^0-9.]/g, '').trim();
+const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); 
+const priceWithSymbol = `$${formattedNumericValue}`;
+return priceWithSymbol;
+};
+  
+const formatPrice1 = (input,) => {
+const numericValue = input.replace(/[^0-9.]/g, '').trim();
+const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Add commas to the integer part
+const priceWithSymbol = `$${formattedNumericValue}`;
+return priceWithSymbol;
+};
       
   
-  const handlePhoneChange = (e) => {
-  const inputValue = e.target.value;
-  const formattedPhone = inputValue
-  .replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3').trim().slice(0,12);
-  setPhone(formattedPhone);
-  };
+const handlePhoneChange = (e) => {
+const inputValue = e.target.value;
+const formattedPhone = inputValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3').trim().slice(0,12);
+setPhone(formattedPhone);
+};
     
     
-  const handlePriceChange = (e) => {
-  const inputValue = e.target.value;
-  const formattedPrice = formatPrice(inputValue);
-  setPrice(formattedPrice);
-  };
+const handlePriceChange = (e) => {
+const inputValue = e.target.value;
+const formattedPrice = formatPrice(inputValue);
+setPrice(formattedPrice);
+};
 
-  const handlePriceChange1 = (e) => {
-    const inputValue = e.target.value;
-    const formattedPrice = formatPrice1(inputValue);
-    setPriceextra(formattedPrice);
-    };
+const handlePriceChange1 = (e) => {
+const inputValue = e.target.value;
+const formattedPrice = formatPrice1(inputValue);
+setPriceextra(formattedPrice);
+};
   
 return (
 <>
-<div style={{position: 'relative', height: '900px', overflow: 'auto' }}>
+<div style={{position: 'relative'}}>
 <form className="postform" onSubmit={handleSubmit}>
+<h1 style={{padding:'0 1rem'}}>Admin Form</h1>
 
 {/* post form start here here */}
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="title">Property Name</label>
@@ -336,9 +338,10 @@ onChange={(e) => setBillingFrequency(e.target.value)}
 required
 className='billingselect'
 >
-<option value="monthly">Monthly</option>
+<option value="Mo">Monthly</option>
 <option value="weekly">Weekly</option>
-<option value="sale">Sale</option>
+<option value="For Sale">For Sale</option>
+<option value="Sold">Sold</option>
 </select></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Financing Price </label>
@@ -359,8 +362,8 @@ onChange={(e) => setBillingFrequency2(e.target.value)}
 required
 className='billingselect'
 >
-<option value="monthly">Monthly</option>
-<option value="weekly">Weekly</option>
+<option value="Mo">Monthly</option>
+<option value="Weekly">Weekly</option>
 </select></div>
 
 
@@ -580,7 +583,7 @@ required
 
 
 <textarea
-rows="5"
+rows="10"
 cols="50"
 placeholder='Describe your property'
 required

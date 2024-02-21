@@ -118,8 +118,49 @@ backgroundPosition: 'center',
 
 
 <div className='details_header_title'>
-<h2>{post.price} <small style={{fontWeight:'100'}}>{post.billingFrequency}</small></h2>
-<h2>{post.priceextra} <small style={{fontWeight:'100'}}>{post.billingFrequency2}</small></h2> 
+<div style={{fontWeight:'100',display:'flex',alignItems:'center'}}>
+<li style={{color:'red'}}></li>
+<span style={{marginRight:'auto',fontSize:'20px',fontWeight:'600'}}>{post.billingFrequency}</span>
+
+<div style={{
+display:'grid'
+}}>
+<button style={{
+padding:'1rem',
+outline:'none',
+border:'none',
+background:'#0059e0',
+color:'#fff',
+fontSize:'16px',
+lineHeight:'24px',
+fontWeight:'600',
+margin:'0 0 1rem 0'
+}}>Schedule aTour</button>
+
+<button style={{
+padding:'1rem',
+outline:'none',
+border:'1px solid #0059e0',
+fontSize:'16px',
+lineHeight:'24px',
+color:'#0059e0'
+}}>Contact Agent</button></div>
+
+</div>
+
+<div style={{
+display:'flex',
+alignItems:'center',
+lineHeight:'2'
+}}>
+  
+<h2>{post.price} </h2>
+<h3 style={{padding:'0 1rem'}}>{post.bathrooms} Bath | {post.bedrooms} Beds</h3> 
+</div>
+
+
+
+<p style={{fontWeight:'600'}}>{post.priceextra}/<small >{post.billingFrequency2}</small></p> 
 <p>{post.property_type}</p>
 <p>{post.address}</p>
 <div style={{
@@ -133,14 +174,7 @@ width:'15rem'
 <p>{post.phone}</p>
 </div>
 
-<div style={{
-display:'flex',
 
-alignItems:'center',
-lineHeight:'2'
-}}>
-<h3 style={{fontWeight:'100'}}>{post.bathrooms} Bath | {post.bedrooms} Bedrooms</h3> 
-</div>
 
 </div>
 <div style={{ display: (post.heating || post.lights || post.laundry || post.cable || post.airConditioning || post.water || post.pool || post.wifi) ? 'flex' : 'none', justifyContent: 'space-between', alignItems: 'center' }}>
