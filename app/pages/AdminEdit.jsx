@@ -15,8 +15,8 @@ const [title, setTitle] = useState(comment ? comment.title : "");
 const [owner, setOwner] = useState(comment ? comment.owner : "");
 const [price, setPrice] = useState(comment ? comment.price : "");
 const [priceextra, setPriceextra] = useState(comment ? comment.priceextra : "");
-const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'monthly');
-const [billingFrequency2, setBillingFrequency2] = useState(comment ? comment.billingFrequency : 'monthly');
+const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'Monthly');
+const [billingFrequency2, setBillingFrequency2] = useState(comment ? comment.billingFrequency : 'Monthly');
 const [bedrooms, setBedrooms] = useState(comment ? comment.bedrooms : "1");
 const [bathrooms, setBathrooms] = useState(comment ? comment.bathrooms : "1");
 const [cable, setCable] = useState(comment ? comment.cable : "");
@@ -30,17 +30,17 @@ const [address, setAddress] = useState(comment ? comment.address : "");
 const [isLoading, setIsLoading] = useState(false);
 const [wifi, setWifi] = useState(comment ? comment.wifi : "");
 const [phone, setPhone] = useState(comment ? comment.phone : "");
-const [authpicFile, setAuthPicFile] = useState(comment ? comment.authpic : null);  
+const [authpicFile, setAuthPicFile] = useState(comment ? comment.authpic : comment.authpic );  
 
-const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image : ''  );
-const [showcase1File, setShowcase1File] = useState(comment ? comment.cover_showcase1 : '' );
-const [showcase2File, setShowcase2File] = useState(comment ? comment.cover_showcase2  : '' );
-const [showcase3File, setShowcase3File] = useState(comment ? comment.cover_showcase3 : ''  );
-const [showcase4File, setShowcase4File] = useState(comment ? comment.cover_showcase4 : ''  );  
-const [showcase5File, setShowcase5File] = useState(comment ? comment.cover_showcase5 : ''  );  
-const [showcase6File, setShowcase6File] = useState(comment ? comment.cover_showcase6 : ''  );  
-const [showcase7File, setShowcase7File] = useState(comment ? comment.cover_showcase7 : ''  );  
-const [showcase8File, setShowcase8File] = useState(comment ? comment.cover_showcase8 : ''  );  
+const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image : comment.cover_image );
+const [showcase1File, setShowcase1File] = useState(comment ? comment.cover_showcase1 : comment.cover_showcase1  );
+const [showcase2File, setShowcase2File] = useState(comment ? comment.cover_showcase2  : comment.cover_showcase2  );
+const [showcase3File, setShowcase3File] = useState(comment ? comment.cover_showcase3 : comment.cover_showcase3  );
+const [showcase4File, setShowcase4File] = useState(comment ? comment.cover_showcase4 : comment.cover_showcase4   );  
+const [showcase5File, setShowcase5File] = useState(comment ? comment.cover_showcase5 : comment.cover_showcase5   );  
+const [showcase6File, setShowcase6File] = useState(comment ? comment.cover_showcase6 : comment.cover_showcase6   );  
+const [showcase7File, setShowcase7File] = useState(comment ? comment.cover_showcase7 : comment.cover_showcase7   );  
+const [showcase8File, setShowcase8File] = useState(comment ? comment.cover_showcase8 : comment.cover_showcase8   );  
 
 const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Featured Houses");
 const [successMessage, setSuccessMessage] = useState("");
@@ -339,14 +339,14 @@ required
 className='billingselect'
 >
 <option value="Mo">Monthly</option>
-<option value="weekly">Weekly</option>
+<option value="Weekly">Weekly</option>
 <option value="For Sale">For Sale</option>
 <option value="Sold">Sold</option>
 </select></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Financing Price </label>
 <input
-type="text"  // Change the type to text to allow non-numeric characters
+type="text"  
 name="price"
 value={priceextra}
 onChange={handlePriceChange1}

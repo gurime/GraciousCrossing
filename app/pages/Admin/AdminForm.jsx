@@ -17,8 +17,8 @@ const [owner, setOwner] = useState("");
 const [phone, setPhone] = useState("");
 const [price, setPrice] = useState("");
 const [priceextra, setPriceextra] = useState("");
-const [billingFrequency, setBillingFrequency] = useState('Mo');
-const [billingFrequency2, setBillingFrequency2] = useState('Mo');
+const [billingFrequency, setBillingFrequency] = useState('Monthly');
+const [billingFrequency2, setBillingFrequency2] = useState('Monthly');
 const [bedrooms, setBedrooms] = useState("1");
 const [bathrooms, setBathrooms] = useState("1");
 const [cable, setCable] = useState("");
@@ -339,7 +339,7 @@ onChange={(e) => setBillingFrequency(e.target.value)}
 required
 className='billingselect'
 >
-<option value="Mo">Monthly</option>
+<option value="Monthly">Monthly</option>
 <option value="Weekly">Weekly</option>
 <option value="For Sale">For Sale</option>
 </select></div>
@@ -362,7 +362,7 @@ onChange={(e) => setBillingFrequency2(e.target.value)}
 required
 className='billingselect'
 >
-<option value="Mo">Monthly</option>
+<option value="Monthly">Monthly</option>
 <option value="Weekly">Weekly</option>
 </select></div>
 
@@ -560,7 +560,7 @@ name="showcase7"
 accept="image/*"
 onChange={handleShowcase7Change}
 /></div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',margin: '1rem 0', borderBottom: 'solid 1px'  }}><label htmlFor="showcase8">Showcase Image </label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom: '1rem ', borderBottom: 'solid 1px'  }}><label htmlFor="showcase8">Showcase Image </label>
 <input
 type="file"
 id="showcase8"
