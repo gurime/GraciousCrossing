@@ -1,7 +1,7 @@
 'use client'
 import { auth } from '@/app/Config/firebase';
 import { addDoc, collection, doc, getDoc, getFirestore } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL, getStorage } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 import { getAuth } from 'firebase/auth';
@@ -146,7 +146,7 @@ const storage = getStorage(); // Initialize Firebase Storage
 const handleFileUpload = async (file, storagePath) => {
 try {
 const storageRef = ref(storage, storagePath);
-await uploadBytes(storageRef, file);
+await uploadBytesResumable(storageRef, file);
 const downloadURL = await getDownloadURL(storageRef);
 return downloadURL;
 } catch (error) {
