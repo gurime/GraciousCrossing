@@ -16,9 +16,8 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-    <AdminHeader/>
+<AdminHeader/>
 <Navbar/>
-
 <HeroHome/>
 <HouseListing/>
 <Tagblock/>
