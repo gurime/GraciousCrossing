@@ -1,7 +1,7 @@
 'use client'
 import { getAuth } from 'firebase/auth';
 import { addDoc, collection, doc, getFirestore, updateDoc } from 'firebase/firestore';
-import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
@@ -159,7 +159,7 @@ const storage = getStorage(); // Initialize Firebase Storage
 const handleFileUpload = async (file, storagePath) => {
 try {
 const storageRef = ref(storage, storagePath);
-await uploadBytes(storageRef, file);
+await uploadBytesResumable(storageRef, file);
 const downloadURL = await getDownloadURL(storageRef);
 return downloadURL;
 } catch (error) {
