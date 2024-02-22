@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import HeroHome from "./components/HeroHome";
 import Navbar from "./components/Navbar";
 import Tagblock from "./components/Tagblock";
-import HouseListing from "./pages/FeaturedHouse/HouseListing";
+import HouseListing from "./pages/Featuredhouse/HouseListing";
 
 export const metadata = {
   title: 'Gracious Crossing',

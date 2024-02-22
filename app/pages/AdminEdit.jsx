@@ -1,7 +1,7 @@
 'use client'
 import { getAuth } from 'firebase/auth';
 import { addDoc, collection, doc, getFirestore, updateDoc } from 'firebase/firestore';
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
@@ -16,7 +16,8 @@ const [owner, setOwner] = useState(comment ? comment.owner : "");
 const [price, setPrice] = useState(comment ? comment.price : "");
 const [priceextra, setPriceextra] = useState(comment ? comment.priceextra : "");
 const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'Monthly');
-const [billingFrequency2, setBillingFrequency2] = useState(comment ? comment.billingFrequency : 'Monthly');
+const [billingFrequency2, setBillingFrequency2] = useState(comment ? comment.billingFrequency2 : 'Monthly');
+
 const [bedrooms, setBedrooms] = useState(comment ? comment.bedrooms : "1");
 const [bathrooms, setBathrooms] = useState(comment ? comment.bathrooms : "1");
 const [cable, setCable] = useState(comment ? comment.cable : "");
@@ -166,15 +167,49 @@ throw error;
 }
 };
 
+
 // Log relevant information for debugging
 
 const handleSubmit = async (e) => {
+
 e.preventDefault();
 try {
 const auth = getAuth();
 const user = auth.currentUser;
 setIsLoading(true);
 const isUpdate = !!comment.id;
+
+
+
+
+const deleteFile = async (filePath) => {
+try {
+const storageRef = ref(storage, filePath);
+await deleteObject(storageRef);
+} catch (error) {
+}
+};
+
+// Delete existing images if updating
+if (isUpdate && comment.id && selectedCollection) {
+        console.log('Deleting existing images...');
+
+await deleteFile(`images/${comment.id}_authpic.jpg`);
+await deleteFile(`images/${comment.id}_cover_image.jpg`);
+await deleteFile(`images/${comment.id}_cover_showcase1.jpg`);
+await deleteFile(`images/${comment.id}_cover_showcase2.jpg`);
+await deleteFile(`images/${comment.id}_cover_showcase3.jpg`);
+await deleteFile(`images/${comment.id}_cover_showcase4.jpg`);
+await deleteFile(`images/${comment.id}_cover_showcase5.jpg`);
+await deleteFile(`images/${comment.id}_cover_showcase6.jpg`);
+await deleteFile(`images/${comment.id}_cover_showcase7.jpg`);
+await deleteFile(`images/${comment.id}_cover_showcase8.jpg`);
+console.log('Existing images deleted successfully.');
+
+}
+
+
+
 const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${comment.id}_authpic.jpg`) : null;
 const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${comment.id}_cover_image.jpg`) : null;
 const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${comment.id}_cover_showcase1.jpg`) : null;
@@ -185,10 +220,13 @@ const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `i
 const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${comment.id}_cover_showcase6.jpg`) : null;
 const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${comment.id}_cover_showcase7.jpg`) : null;
 const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${comment.id}_cover_showcase8.jpg`) : null;
+console.log('New images uploaded successfully.');
+
 const db = getFirestore();
 if (isUpdate && comment.id && selectedCollection) {
 const docRef = doc(db, selectedCollection, comment.id);
 await updateDoc(docRef, {
+timestamp: new Date(),
 content: content,
 title: title,
 owner: owner,
@@ -220,12 +258,12 @@ cover_showcase6: cover_showcase6,
 cover_showcase7: cover_showcase7,
 cover_showcase8: cover_showcase8,
 });
-setSuccessMessage('Listing updated successfully');
+
+
 window.location.reload()
 } else {
 setErrorMessage('Error: Cannot add a new document without articleId.');
 }
-// Example error handling
 } catch (error) {
 if (error.code === 'permission-denied') {
 setErrorMessage('Permission denied: You may not have the necessary permissions.');
@@ -331,18 +369,20 @@ required
 </div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
 <select
-style={{marginLeft:'1px'}}
-name="billingFrequency"
-value={billingFrequency}
-onChange={(e) => setBillingFrequency(e.target.value)}
-required
-className='billingselect'
+  style={{ marginLeft: '1px' }}
+  name="billingFrequency"
+  value={billingFrequency}
+  onChange={(e) => setBillingFrequency(e.target.value)}
+  required
+  className='billingselect'
 >
-<option value="Mo">Monthly</option>
-<option value="Weekly">Weekly</option>
-<option value="For Sale">For Sale</option>
-<option value="Sold">Sold</option>
-</select></div>
+  <option value="Monthly">Monthly</option>
+  <option value="Weekly">Weekly</option>
+  <option value="For Sale">For Sale</option>
+  <option value="Sold">Sold</option>
+</select>
+
+</div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Financing Price </label>
 <input
@@ -355,16 +395,17 @@ required
 </div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency2 ">Seller Financing</label>
 <select
-style={{marginLeft:'1px'}}
-name="billingFrequency2"
-value={billingFrequency2}
-onChange={(e) => setBillingFrequency2(e.target.value)}
-required
-className='billingselect'
+  style={{ marginLeft: '1px' }}
+  name="billingFrequency2"
+  value={billingFrequency2}
+  onChange={(e) => setBillingFrequency2(e.target.value)}
+  required
+  className='billingselect'
 >
-<option value="Mo">Monthly</option>
-<option value="Weekly">Weekly</option>
-</select></div>
+  <option value="Monthly">Monthly</option>
+  <option value="Weekly">Weekly</option>
+</select>
+</div>
 
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="selectedCollection">Property Category</label>

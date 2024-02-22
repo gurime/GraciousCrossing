@@ -14,6 +14,8 @@ import wifi from '../../../img/wifi_icon.png'
 import phone from '../../../img/portfolio_phone.png'
 import Image from 'next/image';
 import AdminHeader from '@/app/components/AdminHeader';
+import Schedule from '@/app/components/Schedule';
+import ContactAgent from '@/app/components/ContactAgent';
 
 
 export async function generateMetadata({ params }) {
@@ -90,9 +92,7 @@ alt={`Cover Showcase ${index}`}
 {/**block for category and author */}
 <div className="authflex">
 <p>{post.propertyType}</p>
-<h3 className='authflexOwner'> {post.owner} 
 
-</h3>
 <h3
 style={{
 display: 'flex',
@@ -102,9 +102,8 @@ fontWeight: '300',
 className="card-category">
 <div
 style={{
-width: '50px',
-height: '50px',
-borderRadius: '50%',
+width:'50px',
+height:'70px',
 backgroundImage: `url(${post.authpic})`,
 backgroundSize: 'cover',
 backgroundPosition: 'center',
@@ -125,26 +124,11 @@ backgroundPosition: 'center',
 <div style={{
 display:'grid'
 }}>
-<button style={{
-padding:'1rem',
-outline:'none',
-border:'none',
-background:'#0059e0',
-color:'#fff',
-fontSize:'16px',
-lineHeight:'24px',
-fontWeight:'600',
-margin:'0 0 1rem 0'
-}}>Schedule aTour</button>
 
-<button style={{
-padding:'1rem',
-outline:'none',
-border:'1px solid #0059e0',
-fontSize:'16px',
-lineHeight:'24px',
-color:'#0059e0'
-}}>Contact Agent</button></div>
+
+{/* <Schedule/>
+<ContactAgent/> */}
+</div>
 
 </div>
 
@@ -160,7 +144,7 @@ lineHeight:'2'
 
 
 
-<p style={{fontWeight:'600'}}>{post.priceextra}/<small >{post.billingFrequency2}</small></p> 
+<p style={{fontWeight:'600'}}>{post.priceextra}/<small >{post.billingFrequency2.slice(0,2)}</small></p> 
 <p>{post.property_type}</p>
 <p>{post.address}</p>
 <div style={{
@@ -248,9 +232,8 @@ width:'15rem'
 </div>
 
 
-
-
-
+<p style={{ margin: '1rem' }}>Last Updated: {post.timestamp && post.timestamp.toDate().toLocaleString()}</p>
+<div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>
 <div className="body-content" style={{ whiteSpace: 'pre-line' }}><p>{post.content}</p></div>
 
 

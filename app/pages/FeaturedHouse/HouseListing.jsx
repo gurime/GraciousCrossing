@@ -5,7 +5,7 @@ import { auth, db } from '@/app/Config/firebase';
 
 import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, updateDoc, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, where } from 'firebase/firestore';
 import AdminEdit from '../AdminEdit';
 import { BeatLoader } from 'react-spinners';
 

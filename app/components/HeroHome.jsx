@@ -5,7 +5,6 @@ import searchimg from '../img/search_icon.png'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { collectionRoutes, getArticle } from './HeroFormApi/api'
-import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../Config/firebase'
 export default function HeroHome() {
@@ -46,8 +45,8 @@ setIsSignedIn(!!user);    });
 // Assuming you have an unsubscribe function
 return () => {
 document.body.removeEventListener('click', handleDocumentClick);
-// Make sure to define the unsubscribe function
-// unsubscribe();
+
+ unsubscribe();
 };
 }, [searchTerm, isOverlayActive]);
 
@@ -62,9 +61,13 @@ handleSearch();
 }, [searchTerm]);
 
 const getLink = (collection, id) => {
-const route = collectionRoutes[collection];
-return route ? `${route}/${id}` : '/';
-};
+    // Replace spaces with an empty string in the collection name
+    const formattedCollection = collection.replace(/\s+/g, '');
+  
+    // Use the formatted collection name to get the route
+    const route = collectionRoutes[formattedCollection];
+    return route ? `${route}/${id}` : '/';
+  };
 return (
 <>
 <div className="hero">
@@ -85,16 +88,17 @@ setIsOverlayActive(e.target.value.trim().length > 0);
 }}/>
 
 {searchResults.length > 0 && searchTerm && !loading && (
-<div className="search-results-container">
-{searchResults.slice(0,10).map((result) => (
-<div key={result.id} className="search-result-item">
-<Link key={result.id} href={getLink(result.collection, result.id)}>
-<p>{result.title} | {result.address}</p>
+  <div className="search-results-container">
+    {searchResults.slice(0, 10).map((result) => (
+      <div key={result.id} className="search-result-item">
+                {console.log(`Collection: ${result.collection}, ID: ${result.id}, Link: ${getLink(result.collection, result.id)}`)}
 
-</Link>
-</div>
-))}
-</div>
+        <Link href={getLink(result.collection, result.id)}>
+          <p>{result.title} | {result.address}</p>
+        </Link>
+      </div>
+    ))}
+  </div>
 )}
 
 <Image style={{transform:'translate(-40px)'}} src={searchimg} width={30} alt='...'  />
