@@ -1,14 +1,25 @@
 'use client'
 import { getAuth } from 'firebase/auth';
-import { addDoc, collection, doc, getFirestore, updateDoc } from 'firebase/firestore';
+import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
-import { v4 as uuidv4 } from 'uuid';
+
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
 import { auth } from '../Config/firebase';
 
 export default function AdminEdit({ comment,  onCancel }) {
+  const authpicInputRef = useRef(null);
+  const coverImageInputRef = useRef(null);
+  const showcase1InputRef = useRef(null);
+  const showcase2InputRef = useRef(null);
+  const showcase3InputRef = useRef(null);
+  const showcase4InputRef = useRef(null);
+  const showcase5InputRef = useRef(null);
+  const showcase6InputRef = useRef(null);
+  const showcase7InputRef = useRef(null);
+  const showcase8InputRef = useRef(null);
+
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [content, setContent] = useState(comment ? comment.content : "");
 const [title, setTitle] = useState(comment ? comment.title : "");
@@ -31,17 +42,26 @@ const [address, setAddress] = useState(comment ? comment.address : "");
 const [isLoading, setIsLoading] = useState(false);
 const [wifi, setWifi] = useState(comment ? comment.wifi : "");
 const [phone, setPhone] = useState(comment ? comment.phone : "");
-const [authpicFile, setAuthPicFile] = useState(comment ? comment.authpic : comment.authpic );  
-
-const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image : comment.cover_image );
-const [showcase1File, setShowcase1File] = useState(comment ? comment.cover_showcase1 : comment.cover_showcase1  );
-const [showcase2File, setShowcase2File] = useState(comment ? comment.cover_showcase2  : comment.cover_showcase2  );
-const [showcase3File, setShowcase3File] = useState(comment ? comment.cover_showcase3 : comment.cover_showcase3  );
-const [showcase4File, setShowcase4File] = useState(comment ? comment.cover_showcase4 : comment.cover_showcase4   );  
-const [showcase5File, setShowcase5File] = useState(comment ? comment.cover_showcase5 : comment.cover_showcase5   );  
-const [showcase6File, setShowcase6File] = useState(comment ? comment.cover_showcase6 : comment.cover_showcase6   );  
-const [showcase7File, setShowcase7File] = useState(comment ? comment.cover_showcase7 : comment.cover_showcase7   );  
-const [showcase8File, setShowcase8File] = useState(comment ? comment.cover_showcase8 : comment.cover_showcase8   );  
+const [authpicPreview, setAuthPicPreview] = useState(comment ? comment.authpic : null);
+const [coverImagePreview, setCoverImagePreview] = useState(comment ? comment.cover_image : null);
+const [showcase1Preview, setShowcase1Preview] = useState(comment ? comment.cover_showcase1 : null);
+const [showcase2Preview, setShowcase2Preview] = useState(comment ? comment.cover_showcase2 : null);
+const [showcase3Preview, setShowcase3Preview] = useState(comment ? comment.cover_showcase3 : null);
+const [showcase4Preview, setShowcase4Preview] = useState(comment ? comment.cover_showcase4 : null);
+const [showcase5Preview, setShowcase5Preview] = useState(comment ? comment.cover_showcase5 : null);
+const [showcase6Preview, setShowcase6Preview] = useState(comment ? comment.cover_showcase6 : null);
+const [showcase7Preview, setShowcase7Preview] = useState(comment ? comment.cover_showcase7 : null);
+const [showcase8Preview, setShowcase8Preview] = useState(comment ? comment.cover_showcase8 : null);
+const [authpicFile, setAuthPicFile] = useState(comment ? comment.authpic : "" );  
+const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image   : "" );
+const [showcase1File, setShowcase1File] = useState(comment ? comment.cover_showcase1 : ""  );
+const [showcase2File, setShowcase2File] = useState(comment ? comment.cover_showcase2 : ""  );
+const [showcase3File, setShowcase3File] = useState(comment ? comment.cover_showcase3 : ""  );
+const [showcase4File, setShowcase4File] = useState(comment ? comment.cover_showcase4 : ""   );  
+const [showcase5File, setShowcase5File] = useState(comment ? comment.cover_showcase5 : ""   );  
+const [showcase6File, setShowcase6File] = useState(comment ? comment.cover_showcase6 : ""   );  
+const [showcase7File, setShowcase7File] = useState(comment ? comment.cover_showcase7 : ""   );  
+const [showcase8File, setShowcase8File] = useState(comment ? comment.cover_showcase8 : ""   );  
 
 const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Featured Houses");
 const [successMessage, setSuccessMessage] = useState("");
@@ -72,15 +92,6 @@ if (user) {
 try {
 const userData = await getUserData(user.uid);
 setNames([userData.firstName, userData.lastName]);
-setAuthPicFile(userData.authpic ? userData.authpic : null);
-setCoverImageFile(userData.cover_image ? userData.cover_image : '');
-setShowcase1File(userData.cover_showcase1 ? userData.cover_showcase1 : '');
-setShowcase2File(userData.cover_showcase2 ? userData.cover_showcase2 : '');
-setShowcase3File(userData.cover_showcase3 ? userData.cover_showcase3 : '');
-setShowcase4File(userData.cover_showcase4 ? userData.cover_showcase4 : '');
-setShowcase5File(userData.cover_showcase5 ? userData.cover_showcase5 : '');
-setShowcase6File(userData.cover_showcase6 ? userData.cover_showcase6 : '');
-setShowcase7File(userData.cover_showcase7 ? userData.cover_showcase7 : '');
 setShowcase8File(userData.cover_showcase8 ? userData.cover_showcase8 : '');
 } catch (error) {
 handleError(error);
@@ -103,69 +114,187 @@ setErrorMessage('Unexpected error occurred. Please try again later.');
 };
 
 const handleCancel = () => {
-onCancel(); // Call the onCancel function passed as a prop
+onCancel(); 
 };
-  
+
+
+
+
+const storage = getStorage(); 
 const handleAuthPicChange = (e) => {
-  // Set the selected cover image file to state
   const file = e.target.files[0];
   setAuthPicFile(file);
+
+  // Use FileReader to generate a preview URL
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setAuthPicPreview(reader.result);
   };
-const handleCoverImageChange = (e) => {
-const file = e.target.files[0];
-// Check if a new file is selected, if not, use the existing image
-setCoverImageFile(file ? file : comment.cover_image);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    setAuthPicPreview(null);
+  }
 };
-  
+
+
+const handleCoverImageChange = (e) => {
+  const file = e.target.files[0];
+  setCoverImageFile(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setCoverImagePreview(reader.result);
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    setCoverImagePreview(null);
+  }
+};
+
 const handleShowcase1Change = (e) => {
-const file = e.target.files[0];
-setShowcase1File(file ? file : comment.cover_showcase1);
+  const file = e.target.files[0];
+  setShowcase1File(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setShowcase1Preview(reader.result);
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    setShowcase1Preview(null);
+  }
 };
   
 const handleShowcase2Change = (e) => {
-const file = e.target.files[0];
-setShowcase2File(file ? file : comment.cover_showcase2);
+  const file = e.target.files[0];
+  setShowcase2File(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setShowcase2Preview(reader.result);
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    setShowcase2Preview(null);
+  }
 };
-  
+
 const handleShowcase3Change = (e) => {
-const file = e.target.files[0];
-setShowcase3File(file ? file : comment.cover_showcase3);
+  const file = e.target.files[0];
+  setShowcase3File(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setShowcase3Preview(reader.result);
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    setShowcase3Preview(null);
+  }
 };
   
 const handleShowcase4Change = (e) => {
-const file = e.target.files[0];
-setShowcase4File(file ? file : comment.cover_showcase4);
-};
-  
-const handleShowcase5Change = (e) => {
   const file = e.target.files[0];
-  setShowcase5File(file ? file : comment.cover_showcase5);
+  setShowcase4File(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setShowcase4Preview(reader.result);
   };
 
-  const handleShowcase6Change = (e) => {
-    const file = e.target.files[0];
-    setShowcase6File(file ? file : comment.cover_showcase6);
-    };
-    const handleShowcase7Change = (e) => {
-    const file = e.target.files[0];
-    setShowcase7File(file ? file : comment.cover_showcase7);
-    };
-    const handleShowcase8Change = (e) => {
-    const file = e.target.files[0];
-    setShowcase8File(file ? file : comment.cover_showcase8);
-    };
-  
-const storage = getStorage(); // Initialize Firebase Storage
-const handleFileUpload = async (file, storagePath) => {
-try {
-const storageRef = ref(storage, storagePath);
-await uploadBytesResumable(storageRef, file);
-const downloadURL = await getDownloadURL(storageRef);
-return downloadURL;
-} catch (error) {
-throw error;
-}
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    setShowcase4Preview(null);
+  }
 };
+
+const handleShowcase5Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase5File(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setShowcase5Preview(reader.result);
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    setShowcase5Preview(null);
+  }
+};
+
+const handleShowcase6Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase6File(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setShowcase6Preview(reader.result);
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    setShowcase6Preview(null);
+  }
+};
+
+const handleShowcase7Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase7File(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setShowcase7Preview(reader.result);
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    setShowcase7Preview(null);
+  }
+};
+
+const handleShowcase8Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase8File(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setShowcase8Preview(reader.result);
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    setShowcase8Preview(null);
+  }
+};
+  
+
+const handleFileUpload = async (file, storagePath) => {
+  try {
+    const storageRef = ref(storage, storagePath);
+    await uploadBytesResumable(storageRef, file);
+    const downloadURL = await getDownloadURL(storageRef);
+    return downloadURL;
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 
 // Log relevant information for debugging
@@ -178,50 +307,16 @@ const auth = getAuth();
 const user = auth.currentUser;
 setIsLoading(true);
 const isUpdate = !!comment.id;
-
-
-
-
-const deleteFile = async (filePath) => {
-try {
-const storageRef = ref(storage, filePath);
-await deleteObject(storageRef);
-} catch (error) {
-}
-};
-
-// Delete existing images if updating
-if (isUpdate && comment.id && selectedCollection) {
-        console.log('Deleting existing images...');
-
-await deleteFile(`images/${comment.id}_authpic.jpg`);
-await deleteFile(`images/${comment.id}_cover_image.jpg`);
-await deleteFile(`images/${comment.id}_cover_showcase1.jpg`);
-await deleteFile(`images/${comment.id}_cover_showcase2.jpg`);
-await deleteFile(`images/${comment.id}_cover_showcase3.jpg`);
-await deleteFile(`images/${comment.id}_cover_showcase4.jpg`);
-await deleteFile(`images/${comment.id}_cover_showcase5.jpg`);
-await deleteFile(`images/${comment.id}_cover_showcase6.jpg`);
-await deleteFile(`images/${comment.id}_cover_showcase7.jpg`);
-await deleteFile(`images/${comment.id}_cover_showcase8.jpg`);
-console.log('Existing images deleted successfully.');
-
-}
-
-
-
-const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${comment.id}_authpic.jpg`) : null;
-const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${comment.id}_cover_image.jpg`) : null;
-const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${comment.id}_cover_showcase1.jpg`) : null;
-const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${comment.id}_cover_showcase2.jpg`) : null;
-const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${comment.id}_cover_showcase3.jpg`) : null;
-const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${comment.id}_cover_showcase4.jpg`) : null;
-const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${comment.id}_cover_showcase5.jpg`) : null;
-const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${comment.id}_cover_showcase6.jpg`) : null;
-const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${comment.id}_cover_showcase7.jpg`) : null;
-const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${comment.id}_cover_showcase8.jpg`) : null;
-console.log('New images uploaded successfully.');
-
+const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${comment.id}authpic.webp`) : null;
+const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${comment.id}cover_image.webp`) : null;
+const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${comment.id}cover_showcase1.webp`) : null;
+const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${comment.id}cover_showcase2.webp`) : null;
+const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${comment.id}cover_showcase3.webp`) : null;
+const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${comment.id}cover_showcase4.webp`) : null;
+const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${comment.id}cover_showcase5.webp`) : null;
+const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${comment.id}cover_showcase6.webp`) : null;
+const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${comment.id}cover_showcase7.webp`) : null;
+const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${comment.id}cover_showcase8.webp`) : null;
 const db = getFirestore();
 if (isUpdate && comment.id && selectedCollection) {
 const docRef = doc(db, selectedCollection, comment.id);
@@ -257,8 +352,6 @@ cover_showcase6: cover_showcase6,
 cover_showcase7: cover_showcase7,
 cover_showcase8: cover_showcase8,
 });
-
-
 window.location.reload()
 } else {
 setErrorMessage('Error: Cannot add a new document without articleId.');
@@ -333,14 +426,27 @@ value={owner}
 onChange={(e) => setOwner(e.target.value)}
 required
 /></div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="authpic">Profile Picture</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}>
+<label htmlFor="authpic">Profile Picture</label>
 <input
 type="file"
 id="authpic"
 name="authpic"
 accept="image/*"
+style={{display:'none'}}
+ref={authpicInputRef}  
+
 onChange={handleAuthPicChange}
 />
+     
+
+{authpicPreview && (
+ <div style={{textAlign:'right'}}>
+<img src={authpicPreview} alt="Profile Preview" style={{ maxWidth: '50px' }} onClick={() => authpicInputRef.current.click()}/>
+</div>
+)}
+  
+
 </div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="number">Phone Number</label>
 <input
@@ -359,7 +465,7 @@ required
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Price</label>
 <input
-type="text"  // Change the type to text to allow non-numeric characters
+type="text"  
 name="price"
 value={price}
 onChange={handlePriceChange}
@@ -536,7 +642,14 @@ id="cover_image"
 name="cover_image"
 accept="image/*"
 onChange={handleCoverImageChange}
+style={{display:'none'}}
+ref={coverImageInputRef} 
 />
+{coverImagePreview && (
+  <div style={{textAlign:'right'}}>
+    <img src={coverImagePreview} alt="Cover Preview" style={{ maxWidth: '100px',height:'100px'  }} onClick={() => coverImageInputRef.current.click()}/>
+  </div>
+)}
 </div>
 
 
@@ -546,8 +659,16 @@ type="file"
 id="showcase1"
 name="showcase1"
 accept="image/*"
+style={{display:'none'}}
+ref={showcase1InputRef} 
 onChange={handleShowcase1Change}
-/></div>
+/>
+{showcase1Preview && (
+  <div style={{textAlign:'right'}}>
+    <img src={showcase1Preview} alt="Cover Preview" style={{ maxWidth: '100px',height:'100px'  }} onClick={() => showcase1InputRef.current.click()}/>
+  </div>
+)}
+</div>
 
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase2">Showcase Image </label>
@@ -556,8 +677,16 @@ type="file"
 id="showcase2"
 name="showcase2"
 accept="image/*"
+style={{display:'none'}}
+ref={showcase2InputRef} 
 onChange={handleShowcase2Change}
-/></div>
+/>
+{showcase2Preview && (
+<div style={{textAlign:'right'}}>
+<img src={showcase2Preview} alt="Cover Preview" style={{ maxWidth: '100px',height:'100px'  }} onClick={() => showcase2InputRef.current.click()}/>
+</div>
+)}
+</div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase3">Showcase Image </label>
 <input
@@ -565,8 +694,16 @@ type="file"
 id="showcase3"
 name="showcase3"
 accept="image/*"
+style={{display:'none'}}
+ref={showcase3InputRef} 
 onChange={handleShowcase3Change}
-/></div>
+/>
+{showcase3Preview && (
+  <div style={{textAlign:'right'}}>
+    <img src={showcase3Preview} alt="Cover Preview" style={{ maxWidth: '100px',height:'100px'  }} onClick={() => showcase3InputRef.current.click()}/>
+  </div>
+)}
+</div>
 
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase4">Showcase Image </label>
@@ -575,16 +712,32 @@ type="file"
 id="showcase4"
 name="showcase4"
 accept="image/*"
+style={{display:'none'}}
+ref={showcase4InputRef} 
 onChange={handleShowcase4Change}
-/></div>
+/>
+{showcase4Preview && (
+  <div style={{textAlign:'right'}}>
+    <img src={showcase4Preview} alt="Cover Preview" style={{ maxWidth: '100px',height:'100px'  }} onClick={() => showcase4InputRef.current.click()}/>
+  </div>
+)}
+</div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase5">Showcase Image </label>
 <input
 type="file"
 id="showcase5"
 name="showcase5"
 accept="image/*"
+style={{display:'none'}}
+ref={showcase5InputRef} 
 onChange={handleShowcase5Change}
-/></div>
+/>
+{showcase5Preview && (
+  <div style={{textAlign:'right'}}>
+    <img src={showcase5Preview} alt="Cover Preview" style={{ maxWidth: '100px',height:'100px'  }} onClick={() => showcase5InputRef.current.click()}/>
+  </div>
+)}
+</div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase6">Showcase Image </label>
 <input
@@ -592,24 +745,48 @@ type="file"
 id="showcase6"
 name="showcase6"
 accept="image/*"
+style={{display:'none'}}
+ref={showcase6InputRef} 
 onChange={handleShowcase6Change}
-/></div>
+/>
+{showcase6Preview && (
+  <div style={{textAlign:'right'}}>
+    <img src={showcase6Preview} alt="Cover Preview" style={{ maxWidth: '100px',height:'100px' }} onClick={() => showcase6InputRef.current.click()}/>
+  </div>
+)}
+</div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase7">Showcase Image </label>
 <input
 type="file"
 id="showcase7"
 name="showcase7"
 accept="image/*"
+style={{display:'none'}}
+ref={showcase7InputRef} 
 onChange={handleShowcase7Change}
-/></div>
+/>
+{showcase7Preview && (
+  <div style={{textAlign:'right'}}>
+    <img src={showcase7Preview} alt="Cover Preview" style={{ maxWidth: '100px',height:'100px'  }} onClick={() => showcase7InputRef.current.click()}/>
+  </div>
+)}
+</div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="showcase8">Showcase Image </label>
 <input
 type="file"
 id="showcase8"
 name="showcase8"
 accept="image/*"
+style={{display:'none'}}
+ref={showcase8InputRef} 
 onChange={handleShowcase8Change}
-/></div>
+/>
+{showcase8Preview && (
+  <div style={{textAlign:'right'}}>
+    <img src={showcase8Preview} alt="Cover Preview" style={{ maxWidth: '100px',height:'100px'  }} onClick={() => showcase8InputRef.current.click()}/>
+  </div>
+)}
+</div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="category">Address</label>
 <input

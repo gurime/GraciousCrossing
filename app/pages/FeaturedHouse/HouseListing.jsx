@@ -62,29 +62,34 @@ resolve(isAuthenticated);
 };
 // userIsAuthenticated stops here
 
-const editPost = (postId, userId) => {
+
+
+const editPost = (postId) => {
   const listingToEdit = useArticle.find((listing) => listing.id === postId);
 
-  if (listingToEdit) {
-    const auth = getAuth();
-    const currentUser = auth.currentUser;
-
-    if (currentUser && currentUser.uid === listingToEdit.userId) {
-      setEditingComment(listingToEdit);
-      setEditModalOpen(true);
-    } else {
-      setErrorMessage('Unauthorized to edit this Listing.');
-      setTimeout(() => {
-        setErrorMessage('');
-      }, 3000);
-    }
-  } else {
+  if (!listingToEdit) {
     setErrorMessage('Listing not found');
     setTimeout(() => {
       setErrorMessage('');
     }, 3000);
+    return;
   }
+
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
+
+  if (!currentUser || currentUser.uid !== listingToEdit.userId) {
+    setErrorMessage('Unauthorized to edit this listing.');
+    setTimeout(() => {
+      setErrorMessage('');
+    }, 3000);
+    return;
+  }
+
+  setEditingComment(listingToEdit);
+  setEditModalOpen(true);
 };
+
 
 // EditPost stops here
 
