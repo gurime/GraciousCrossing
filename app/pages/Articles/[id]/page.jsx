@@ -231,7 +231,7 @@ width:'15rem'
 
 
 </div>
-<p style={{ margin: '1rem' }}>Last Updated: {}{new Date().toLocaleString()}</p>
+<p style={{ margin: '1rem' }}>Last Updated: {new Date().toLocaleString()}</p>
 
 
 <div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>
