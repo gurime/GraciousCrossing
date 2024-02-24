@@ -832,7 +832,7 @@ margin: auto 0;
   grid-area: 1 / 1 / 3/ 3; 
 }
 
-.cover_image, .cover_showcase1, .cover_showcase2, .cover_showcase3, .cover_showcase4, .cover_showcase5, .cover_showcase6, .cover_showcase7, .cover_showcase8 {
+.cover_image, .cover_showcase1, .cover_showcase2, .cover_showcase3, .cover_showcase4, .cover_showcase5, .cover_showcase6, .cover_showcase7, .cover_showcase8,.cover_showcase9 {
   width: 100%;
   height: 100%; 
   object-fit: cover;

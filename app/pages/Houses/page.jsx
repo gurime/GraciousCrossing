@@ -1,7 +1,8 @@
 import Navbar from '@/app/components/Navbar';
 import React from 'react'
 import Footer from '@/app/components/Footer';
-import PropertyLists from '../PropertyLists';
+import PropertyLists from './PropertyLists';
+import AdminHeader from '@/app/components/AdminHeader';
 
 
 export const metadata = {
@@ -16,6 +17,7 @@ export default function PropertyListings() {
 
 return (
 <>
+<AdminHeader/>
 <Navbar/>
 <PropertyLists/>
 <Footer/>

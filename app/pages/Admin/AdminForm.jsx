@@ -40,6 +40,7 @@ const [showcase5File, setShowcase5File] = useState(null);
 const [showcase6File, setShowcase6File] = useState(null);  
 const [showcase7File, setShowcase7File] = useState(null);  
 const [showcase8File, setShowcase8File] = useState(null);  
+const [showcase9File, setShowcase9File] = useState(null);  
 const [authpicFile, setAuthPicFile] = useState(null);  
 const [articleId, setArticleId] = useState("");  
 const [ selectedCollection, setSelectedCollection] = useState("Featured Houses")
@@ -139,6 +140,10 @@ const handleShowcase8Change = (e) => {
 const file = e.target.files[0];
 setShowcase8File(file);
 };
+const handleShowcase9Change = (e) => {
+const file = e.target.files[0];
+setShowcase9File(file);
+};
 
 
   
@@ -165,22 +170,22 @@ setIsLoading(true);
 const uniqueArticleId = uuidv4();
 setArticleId(uniqueArticleId);
 // Upload files to Firebase Storage if they exist
-const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}_authpic.jpg`) : null;
+const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`) : null;
 
-const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}_cover_image.jpg`) : null;
+const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
 
-const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}_cover_showcase1.jpg`) : null;
+const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
       
-const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}_cover_showcase2.jpg`) : null;
+const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
       
-const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}_cover_showcase3.jpg`) : null;
+const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
+const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null; 
 
-const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}_cover_showcase4.jpg`) : null; 
-
-const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}_cover_showcase5.jpg`) : null;
-const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}_cover_showcase6.jpg`) : null;
-const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}_cover_showcase7.jpg`) : null;
-const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${uniqueArticleId}_cover_showcase8.jpg`) : null;
+const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
+const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
+const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}cover_showcase7.jpg`) : null;
+const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${uniqueArticleId}cover_showcase8.jpg`) : null;
+const cover_showcase9 = showcase9File ? await handleFileUpload(showcase9File, `images/${uniqueArticleId}cover_showcase9.jpg`) : null;
 
       
   
@@ -218,6 +223,7 @@ cover_showcase5: cover_showcase5,
 cover_showcase6: cover_showcase6,
 cover_showcase7: cover_showcase7,
 cover_showcase8: cover_showcase8,
+cover_showcase9: cover_showcase9,
 propertyType: selectedCollection,  
 });
   
@@ -559,13 +565,21 @@ name="showcase7"
 accept="image/*"
 onChange={handleShowcase7Change}
 /></div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom: '1rem ', borderBottom: 'solid 1px'  }}><label htmlFor="showcase8">Showcase Image </label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center', }}><label htmlFor="showcase8">Showcase Image </label>
 <input
 type="file"
 id="showcase8"
 name="showcase8"
 accept="image/*"
 onChange={handleShowcase8Change}
+/></div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom: '1rem ', borderBottom: 'solid 1px'  }}><label htmlFor="showcase8">Showcase Image </label>
+<input
+type="file"
+id="showcase9"
+name="showcase9"
+accept="image/*"
+onChange={handleShowcase9Change}
 /></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="category">Address</label>
@@ -591,11 +605,12 @@ onChange={(e) => setContent(e.target.value)}
 
 <button
 type="submit"
-disabled={!isSignedIn || !content || !selectedCollection || isLoading}
+disabled={!isSignedIn || !content || !selectedCollection  || !coverImageFile || !authpicFile || !showcase1File || !showcase2File || !showcase3File || !showcase4File || !showcase5File || !showcase6File || !showcase7File || !showcase8File || !showcase9File || isLoading}
 style={{
-cursor: !isSignedIn || !content || !selectedCollection || isLoading ? 'none' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#fff',
+margin:'1rem 0',
+cursor: !isSignedIn || !content || !selectedCollection || !coverImageFile || !authpicFile || !showcase1File || !showcase2File || !showcase3File || !showcase4File || !showcase5File || !showcase6File || !showcase7File || !showcase8File || !showcase9File || isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !content || !selectedCollection || !coverImageFile || !authpicFile || !showcase1File || !showcase2File || !showcase3File || !showcase4File || !showcase5File || !showcase6File || !showcase7File || !showcase8File || !showcase9File || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !content || !selectedCollection  || !coverImageFile || !authpicFile || !showcase1File || !showcase2File || !showcase3File || !showcase4File || !showcase5File || !showcase6File || !showcase7File || !showcase8File || !showcase9File || isLoading ? 'grey' : '#fff',
 }}
   
 >

@@ -9,6 +9,7 @@ export default function AdminHeader() {
     const [adminisSignedIn, setIsSignedIn] = useState(false);
 const [adminnames, setNames] = useState([]);
 const router = useRouter()
+const isAdmin = adminisSignedIn && adminnames.length === 2;
 
 useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -61,6 +62,7 @@ useEffect(() => {
       };
 return (
 <>
+
 <div className='adminnav'>
 <ul className='navlinks'>
 <Link href='/'>Home</Link>

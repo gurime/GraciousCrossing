@@ -17,17 +17,7 @@ const [isFooterVisible, setIsFooterVisible] = useState(false);
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [names, setNames] = useState([]);
 const [ isAdminUser,setIsAdminUser] = useState([])
-const overlayStyle = {
-position: 'fixed',
-top: 0,
-left: 0,
-width:'100%',
-height: '100%',
-background: '#000',
-opacity:'.6',
-display: isOverlayActive ? 'block' : 'none',
-pointerEvents: 'none',
-};
+
         
 
 useEffect(() => {
@@ -49,20 +39,6 @@ if (user) {
   }
 });
 
-const handleDocumentClick = (e) => {
-const isClickOutsideSearch = !e.target.closest('.search-container');
-
-if (isClickOutsideSearch) {
-// Click is outside the search, close the overlay and reset search results
-setIsOverlayActive(false);
-setSearchResults([]);
-}
-};
-
-// Add event listener to the document body
-document.body.addEventListener('click', handleDocumentClick);
-
-
 
 const getUserData = async (userId) => {
 try {
@@ -80,22 +56,11 @@ console.error('Error fetching user data:', error.message);
 throw error;
 }
 };
-return () => {
-document.body.removeEventListener('click', handleDocumentClick);
-unsubscribe(); // Assuming you have an unsubscribe function
-};
-}, [searchTerm, isOverlayActive]);
+
+}, []);
 
   
 
-const handleSearch = async () => {
-const results = await getArticle(searchTerm);
-setSearchResults(results);
-};
-
-useEffect(() => {
-handleSearch();
-}, [searchTerm]);
 
 const toggleFooter = () => {
 setIsFooterVisible(!isFooterVisible);

@@ -6,7 +6,7 @@ import { auth, db } from '@/app/Config/firebase';
 import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, updateDoc, where } from 'firebase/firestore';
-import EditModalForm from './EditModalForm';
+import EditModalForm from '../EditModalForm';
 
 
 async function getArticles(orderBy) {
@@ -154,20 +154,36 @@ setErrorMessage('');
 
     useEffect(() => {
       const fetchData = async () => {
-      try {
-      const data = await getArticles();
-      setUseArticle(data);
-      } catch (error) {
-      console.error('Error fetching articles:', error);
-      setFetchError('Error fetching articles. Please try again later.');
-      } finally {
-      setLoading(false); 
-      }
+        try {
+          const data = await getArticles();
+          const user = auth.currentUser; // Retrieve the current user
+          // Filter the listings to show only those belonging to the current user
+          const userArticles = data.filter(article => article.userId === user.uid);
+          // Combine the user's listings with other listings
+          const combinedListings = userArticles.concat(data.filter(article => article.userId !== user.uid));
+          setUseArticle(combinedListings);
+          // Store user's listings separately if needed
+          setUserListings(userArticles);
+        } catch (error) {
+          setFetchError('Error fetching data. Please try again later.');
+        } finally {
+          setLoading(false);
+        }
       };
-        
-      fetchData();
-    }, []);
     
+      const checkAuthState = async (user) => {
+        setIsSignedIn(!!user);
+        if (user) {
+          fetchData();
+        }
+      };
+    
+      const unsubscribe = auth.onAuthStateChanged(checkAuthState);
+    
+      return () => {
+        unsubscribe();
+      };
+    }, [auth]);
   
 return (
 <>

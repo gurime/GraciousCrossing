@@ -66,24 +66,25 @@ return (
 </div>
 {/**block for goback btn and title */}
 {/**block for img */}
-{post.cover_image ? (
-<div className="imgbox">
-<img className="cover_image" src={post.cover_image} alt="Property Cover" />
-{[1, 2, 3, 4, 5,6,7,8].map((index) => {
-const showcase = post[`cover_showcase${index}`];
-return showcase && (
-<img
-key={`cover_showcase${index}`}
-className={`cover_showcase${index}`}
-src={showcase}
-alt={`Cover Showcase ${index}`}
-/>
-);
-})}
-</div>
-) : (
-  <p>Error loading image</p>
+{post.cover_image && (
+  <div className="imgbox">
+    <img className="cover_image" src={post.cover_image} alt="Property Cover" />
+    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => {
+      const showcase = post[`cover_showcase${index}`];
+      return showcase && (
+        <img
+          key={`cover_showcase${index}`}
+          className={`cover_showcase${index}`}
+          src={showcase}
+          alt={`Cover Showcase ${index}`}
+        />
+      );
+    })}
+  </div>
 )}
+
+{!post.cover_image && <p>Error loading image</p>}
+
 
 
 
