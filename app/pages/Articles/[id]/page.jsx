@@ -231,9 +231,9 @@ width:'15rem'
 
 
 </div>
+<p style={{ margin: '1rem' }}>Last Updated: {}{new Date().toLocaleString()}</p>
 
 
-<p style={{ margin: '1rem' }}>Last Updated: {post.timestamp && post.timestamp.toDate().toLocaleString()}</p>
 <div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>
 <div className="body-content" style={{ whiteSpace: 'pre-line' }}><p>{post.content}</p></div>
 
