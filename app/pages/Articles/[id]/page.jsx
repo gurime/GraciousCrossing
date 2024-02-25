@@ -103,7 +103,7 @@ fontWeight: '300',
 className="card-category">
 
 
-<img src={post.authpic} style={{width:'100%',height:'70px'}}/>
+<img src={post.authpic} style={{width:'100%',height:'70px',maxWidth:'400px'}}/>
 
 
 </h3>
@@ -229,7 +229,7 @@ width:'15rem'
 
 
 <div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>
-<div className="body-content" style={{ whiteSpace: 'pre-line' }}><p>{post.content}</p></div>
+<div className="body-content" ><p>{post.content}</p></div>
 
 
 
