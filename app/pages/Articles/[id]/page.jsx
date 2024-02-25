@@ -101,15 +101,9 @@ placeItems: 'center',
 fontWeight: '300',
 }}
 className="card-category">
-<div
-style={{
-width:'50px',
-height:'70px',
-backgroundImage: `url(${post.authpic})`,
-backgroundSize: 'cover',
-backgroundPosition: 'center',
-}}
-></div>
+
+
+<img src={post.authpic} style={{width:'100%',height:'70px'}}/>
 
 
 </h3>

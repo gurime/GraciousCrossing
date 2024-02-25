@@ -62,7 +62,7 @@ return (
 <Image src={sellhome} alt='...'/>
 <h1 style={{fontWeight:'100',textAlign:'center',fontSize:'24px'}}>Sell Your Home</h1>
 <p >
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti incidunt suscipit ipsa alias. Explicabo repellat!</p>
+Unlocke the Door to Your Next Chapter</p>
 <button onClick={() => router.push('/pages/Houses')}>Sell</button>
 </div>
 <div className='card'  style={{display:'grid',maxWidth:'20rem'}}>
@@ -71,7 +71,7 @@ Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti incidunt susc
 <Image src={apartrent}  alt='...'/>
 <h1 style={{fontWeight:'100',textAlign:'center',fontSize:'24px'}}>Apartments For Rent</h1>
 <p >
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti incidunt suscipit ipsa alias. Explicabo repellat!</p>
+Discover Your Ideal Space</p>
 
 
 <button onClick={() => router.push('/pages/Apartments')}>Rent</button>
