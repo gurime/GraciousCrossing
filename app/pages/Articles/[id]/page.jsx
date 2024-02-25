@@ -103,8 +103,8 @@ fontWeight: '300',
 className="card-category">
 
 
-<div>
-    <img src={post.authpic} style={{ maxWidth: '100%', height: 'auto' }} />
+<div className='authbox'>
+    <img src={post.authpic} style={{ maxWidth: '100%', height: '70px' }} />
 </div>
 
 
