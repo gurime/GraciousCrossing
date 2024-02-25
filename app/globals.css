@@ -885,10 +885,10 @@ padding: 0 1rem;
       font-size: 14px;
     }
 
-    .authbox img{
+    /* .authbox {
       max-width: 50% !important;
       height: auto !important
-    }
+    } */
   }
   
   .cover_showcase img{
