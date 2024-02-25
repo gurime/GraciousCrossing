@@ -6,7 +6,7 @@ import { auth, db } from '@/app/Config/firebase';
 import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, where } from 'firebase/firestore';
-import AdminEdit from '../AdminEdit';
+import AdminEdit from '../AdminEdit/AdminEdit';
 import { BeatLoader } from 'react-spinners';
 
 
@@ -31,6 +31,7 @@ const [errorMessage, setErrorMessage] = useState('');
 const [successMessage, setSuccessMessage] = useState();
 const [editModalOpen, setEditModalOpen] = useState(false);
 const [editingComment, setEditingComment] = useState(null);
+
 const router = useRouter()
 const commentsRef = useRef(null);
 
@@ -65,51 +66,42 @@ resolve(isAuthenticated);
 
 
 const editPost = (postId) => {
-  const listingToEdit = useArticle.find((listing) => listing.id === postId);
-
-  if (!listingToEdit) {
-    setErrorMessage('Listing not found');
-    setTimeout(() => {
-      setErrorMessage('');
-    }, 3000);
-    return;
-  }
-
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
-
-  if (!currentUser || currentUser.uid !== listingToEdit.userId) {
-    setErrorMessage('Unauthorized to edit this listing.');
-    setTimeout(() => {
-      setErrorMessage('');
-    }, 3000);
-    return;
-  }
-
-  setEditingComment(listingToEdit);
-  setEditModalOpen(true);
+const listingToEdit = useArticle.find((listing) => listing.id === postId);
+if (!listingToEdit) {
+setErrorMessage('Listing not found');
+setTimeout(() => {
+setErrorMessage('');
+}, 3000);
+return;
+}
+const auth = getAuth();
+const currentUser = auth.currentUser;
+if (!currentUser || currentUser.uid !== listingToEdit.userId) {
+setTimeout(() => {
+setErrorMessage('');
+}, 3000);
+return;
+}
+setEditingComment(listingToEdit);
+setEditModalOpen(true);
 };
 
 
 // EditPost stops here
 
 const handleEditModalSave = async (postId, editedContent) => {
-  try {
-    await updateComment(postId, editedContent);
-
-    setUseArticle((prevArticles) =>
-      prevArticles.map((article) =>
-        article.id === postId ? { ...article, content: editedContent } : article
-      )
-    );
-
-    setEditModalOpen(false); // Close the modal after updating
-  } catch (error) {
-    setErrorMessage('Error saving Listing. Please try again.');
-    setTimeout(() => {
-      setErrorMessage('');
-    }, 3000);
-  }
+try {
+await updateComment(postId, editedContent);
+setUseArticle((prevArticles) =>
+prevArticles.map((article) =>
+article.id === postId ? { ...article, content: editedContent } : article
+)
+);
+} catch (error) {
+setTimeout(() => {
+setErrorMessage('');
+}, 3000);
+}
 };
 
 // updateComment stops here
@@ -131,59 +123,48 @@ setTimeout(() => {
 setSuccessMessage('');
 }, 3000);
 } else {
-setErrorMessage('Listing not found');
 setTimeout(() => {
 setErrorMessage('');
 }, 3000);
 }
 } else {
-setErrorMessage('Unauthorized to delete this Listing.');
 setTimeout(() => {
 setErrorMessage('');
 }, 3000);
 }
 }
 } catch (error) {
-setErrorMessage('Error deleting Listing. Please try again.');
 setTimeout(() => {
 setErrorMessage('');
 }, 3000);
 }
 };
-    
-    // deletepost stops here
+// deletepost stops here
 
 
 
 
 
 
-    useEffect(() => {
-      const fetchData = async () => {
-      try {
-      const data = await getArticles();
-      setUseArticle(data);
-      } catch (error) {
-      console.error('Error fetching articles:', error);
-      setFetchError('Error fetching articles. Please try again later.');
-      } finally {
-      setLoading(false); 
-      }
-      };
-        
-      fetchData();
-    }, []);
+useEffect(() => {
+const fetchData = async () => {
+try {
+const data = await getArticles();
+setUseArticle(data);
+} catch (error) {
+console.error('Error fetching articles:', error);
+setFetchError('Error fetching articles. Please try again later.');
+} finally {
+setLoading(false); 
+}
+};
+  
+fetchData();
+}, []);
 return (
 <>
 
-{editModalOpen && (
-  <AdminEdit
-    style={{ /* Add any custom styles here */ }}
-    comment={editingComment}
-    onSave={handleEditModalSave}
-    onCancel={() => setEditModalOpen(false)}
-  />
-)}
+{editModalOpen && (<AdminEdit comment={editingComment} onSave={handleEditModalSave} onCancel={() => setEditModalOpen(false)}/>)}
 
 <div style={{ textAlign: 'center', color: 'blue', fontWeight: '300' }}>
   <h1>Featured Homes</h1>
@@ -216,9 +197,13 @@ width: '100%'
 {blog.price} <small>{blog.billingFrequency}</small>
 </div>
 <div className='property-type'>
-<div style={{ marginRight: 'auto' }}>{blog.bathrooms}ba | {blog.bedrooms}bds</div>
-{blog.propertyType}
+<div style={{fontSize:'13px' }}>{blog.bathrooms}ba | {blog.bedrooms}bds |</div>
+<div style={{fontSize:'13px' }}> {blog.square} sqft |</div>
+
+<div style={{fontSize:'13px' }}>{blog.propertyType}</div>
+
 </div>
+
 </div>
 <div className='property-address'>{blog.address}</div>
 <div className='property-owner_name'>Listing by {blog.owner}</div>

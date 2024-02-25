@@ -21,6 +21,8 @@ const [billingFrequency, setBillingFrequency] = useState('Monthly');
 const [billingFrequency2, setBillingFrequency2] = useState('Monthly');
 const [bedrooms, setBedrooms] = useState("1");
 const [bathrooms, setBathrooms] = useState("1");
+const [square, setSquare] = useState( "");
+
 const [cable, setCable] = useState("");
 const [laundry, setLaundry] = useState("");
 const [lights, setLights] = useState("");
@@ -41,6 +43,9 @@ const [showcase6File, setShowcase6File] = useState(null);
 const [showcase7File, setShowcase7File] = useState(null);  
 const [showcase8File, setShowcase8File] = useState(null);  
 const [showcase9File, setShowcase9File] = useState(null);  
+const [showcase10File, setShowcase10File] = useState(null   );   
+const [showcase11File, setShowcase11File] = useState(null   );   
+const [showcase12File, setShowcase12File] = useState(null   );   
 const [authpicFile, setAuthPicFile] = useState(null);  
 const [articleId, setArticleId] = useState("");  
 const [ selectedCollection, setSelectedCollection] = useState("Featured Houses")
@@ -145,7 +150,18 @@ const file = e.target.files[0];
 setShowcase9File(file);
 };
 
-
+const handleShowcase10Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase10File(file);
+  };
+  const handleShowcase11Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase11File(file);
+  };
+  const handleShowcase12Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase12File(file);
+  };
   
 const storage = getStorage(); // Initialize Firebase Storage
 const handleFileUpload = async (file, storagePath) => {
@@ -170,22 +186,23 @@ setIsLoading(true);
 const uniqueArticleId = uuidv4();
 setArticleId(uniqueArticleId);
 // Upload files to Firebase Storage if they exist
-const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`) : null;
+const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
+
 
 const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
 
 const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
-      
 const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
-      
 const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
 const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null; 
-
 const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
 const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
 const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}cover_showcase7.jpg`) : null;
 const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${uniqueArticleId}cover_showcase8.jpg`) : null;
 const cover_showcase9 = showcase9File ? await handleFileUpload(showcase9File, `images/${uniqueArticleId}cover_showcase9.jpg`) : null;
+const cover_showcase10 = showcase10File ? await handleFileUpload(showcase10File, `images/${uniqueArticleId}cover_showcase10.jpg`) : null;
+const cover_showcase11 = showcase11File ? await handleFileUpload(showcase11File, `images/${uniqueArticleId}cover_showcase11.jpg`) : null;
+const cover_showcase12 = showcase12File ? await handleFileUpload(showcase12File, `images/${uniqueArticleId}cover_showcase12.jpg`) : null;
 
       
   
@@ -200,6 +217,7 @@ price: price,
 priceextra: priceextra,
 bedrooms: bedrooms,
 bathrooms: bathrooms,
+square: square,
 billingFrequency: billingFrequency,
 billingFrequency2: billingFrequency2,
 water: water,
@@ -224,6 +242,9 @@ cover_showcase6: cover_showcase6,
 cover_showcase7: cover_showcase7,
 cover_showcase8: cover_showcase8,
 cover_showcase9: cover_showcase9,
+cover_showcase10: cover_showcase10,
+cover_showcase11: cover_showcase11,
+cover_showcase12: cover_showcase12,
 propertyType: selectedCollection,  
 });
   
@@ -234,6 +255,8 @@ const formattedPageName = selectedCollection.charAt(0).toUpperCase() + selectedC
 router.push(`/pages/${formattedPageName}`);
 }
 } catch (error) {
+      console.error("Error:", error);
+
 setErrorMessage('Error. Please try again.');
 setTimeout(() => {
 setErrorMessage('');
@@ -308,6 +331,7 @@ type="file"
 id="authpic"
 name="authpic"
 accept="image/*"
+required
 onChange={handleAuthPicChange}
 />
 </div>
@@ -386,7 +410,7 @@ required
 <option value="NewConstruction">New Construction</option>
 </select></div>
 
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="bedrooms">Bedrooms</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}><label htmlFor="bedrooms">Bedrooms</label>
 <input
 type="number"
 name="bedrooms"
@@ -403,6 +427,22 @@ value={bathrooms}
 onChange={(e) => setBathrooms(e.target.value)}
 required
 /></div>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px', }}>
+<label htmlFor="square">Property Size</label>
+<input
+  type="number"
+  id="square"
+  required
+
+  name="square"
+  onChange={(e) => setSquare(e.target.value)}
+/> 
+
+
+  
+
+</div>
 
 
 <label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
@@ -499,6 +539,8 @@ type="file"
 id="cover_image"
 name="cover_image"
 accept="image/*"
+required
+
 onChange={handleCoverImageChange}
 />
 </div>
@@ -510,6 +552,8 @@ type="file"
 id="showcase1"
 name="showcase1"
 accept="image/*"
+required
+
 onChange={handleShowcase1Change}
 /></div>
 
@@ -520,6 +564,8 @@ type="file"
 id="showcase2"
 name="showcase2"
 accept="image/*"
+required
+
 onChange={handleShowcase2Change}
 /></div>
 
@@ -529,6 +575,8 @@ type="file"
 id="showcase3"
 name="showcase3"
 accept="image/*"
+required
+
 onChange={handleShowcase3Change}
 /></div>
 
@@ -539,6 +587,8 @@ type="file"
 id="showcase4"
 name="showcase4"
 accept="image/*"
+required
+
 onChange={handleShowcase4Change}
 /></div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase5">Showcase Image </label>
@@ -547,6 +597,8 @@ type="file"
 id="showcase5"
 name="showcase5"
 accept="image/*"
+required
+
 onChange={handleShowcase5Change}
 /></div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase6">Showcase Image </label>
@@ -555,6 +607,8 @@ type="file"
 id="showcase6"
 name="showcase6"
 accept="image/*"
+required
+
 onChange={handleShowcase6Change}
 /></div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase7">Showcase Image </label>
@@ -563,6 +617,8 @@ type="file"
 id="showcase7"
 name="showcase7"
 accept="image/*"
+required
+
 onChange={handleShowcase7Change}
 /></div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center', }}><label htmlFor="showcase8">Showcase Image </label>
@@ -571,16 +627,57 @@ type="file"
 id="showcase8"
 name="showcase8"
 accept="image/*"
+required
+
 onChange={handleShowcase8Change}
 /></div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom: '1rem ', borderBottom: 'solid 1px'  }}><label htmlFor="showcase8">Showcase Image </label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center'  }}><label htmlFor="showcase8">Showcase Image </label>
 <input
 type="file"
 id="showcase9"
 name="showcase9"
 accept="image/*"
+required
+
 onChange={handleShowcase9Change}
 /></div>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase10">Showcase Image </label>
+<input
+type="file"
+id="showcase10"
+name="showcase10"
+accept="image/*"
+required
+
+onChange={handleShowcase10Change}
+/>
+
+</div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center'}}><label htmlFor="showcase11">Showcase Image </label>
+<input
+type="file"
+id="showcase11"
+name="showcase11"
+accept="image/*"
+required
+
+onChange={handleShowcase11Change}
+/>
+
+</div>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}><label htmlFor="showcase12">Showcase Image </label>
+<input
+type="file"
+id="showcase12"
+name="showcase12"
+accept="image/*"
+required
+
+onChange={handleShowcase12Change}
+/>
+
+</div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="category">Address</label>
 <input
@@ -605,20 +702,21 @@ onChange={(e) => setContent(e.target.value)}
 
 <button
 type="submit"
-disabled={!isSignedIn || !content || !selectedCollection  || !coverImageFile || !authpicFile || !showcase1File || !showcase2File || !showcase3File || !showcase4File || !showcase5File || !showcase6File || !showcase7File || !showcase8File || !showcase9File || isLoading}
+disabled={!isSignedIn || !content || !selectedCollection  ||  isLoading}
 style={{
 margin:'1rem 0',
-cursor: !isSignedIn || !content || !selectedCollection || !coverImageFile || !authpicFile || !showcase1File || !showcase2File || !showcase3File || !showcase4File || !showcase5File || !showcase6File || !showcase7File || !showcase8File || !showcase9File || isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection || !coverImageFile || !authpicFile || !showcase1File || !showcase2File || !showcase3File || !showcase4File || !showcase5File || !showcase6File || !showcase7File || !showcase8File || !showcase9File || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !content || !selectedCollection  || !coverImageFile || !authpicFile || !showcase1File || !showcase2File || !showcase3File || !showcase4File || !showcase5File || !showcase6File || !showcase7File || !showcase8File || !showcase9File || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn || !content || !selectedCollection ||  isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !content || !selectedCollection ||  isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !content || !selectedCollection  || isLoading ? 'grey' : '#fff',
+
 }}
   
 >
 {isLoading ? <BeatLoader color='blue' /> : 'Submit'}
 </button>
 
-{/* {errorMessage && <p className="error">{errorMessage}</p>}
-{successMessage && <p className="success">{successMessage}</p>} */}
+{errorMessage && <p className="error">{errorMessage}</p>
+/* {successMessage && <p className="success">{successMessage}</p>} */}
 
 </form>
 </div>

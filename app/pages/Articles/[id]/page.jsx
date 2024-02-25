@@ -16,7 +16,7 @@ import Image from 'next/image';
 import AdminHeader from '@/app/components/AdminHeader';
 import Schedule from '@/app/components/Schedule';
 import ContactAgent from '@/app/components/ContactAgent';
-
+import moment from 'moment';
 
 export async function generateMetadata({ params }) {
   const articleId = params.id;
@@ -69,7 +69,7 @@ return (
 {post.cover_image && (
   <div className="imgbox">
     <img className="cover_image" src={post.cover_image} alt="Property Cover" />
-    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => {
+    {[1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12].map((index) => {
       const showcase = post[`cover_showcase${index}`];
       return showcase && (
         <img
@@ -140,7 +140,7 @@ lineHeight:'2'
 }}>
   
 <h2>{post.price} </h2>
-<h3 style={{padding:'0 1rem'}}>{post.bathrooms} Bath | {post.bedrooms} Beds</h3> 
+<h3 style={{padding:'0 1rem'}}>{post.bathrooms} Bath | {post.bedrooms} Beds | {post.square} sqft</h3> 
 </div>
 
 
@@ -231,7 +231,7 @@ width:'15rem'
 
 
 </div>
-<p style={{ margin: '1rem' }}>Last Updated: {new Date().toLocaleString()}</p>
+<p style={{ margin: '1rem' }}>Last Updated: {post.timestamp && moment(post.timestamp.toDate()).format('LLL')}</p>
 
 
 <div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>

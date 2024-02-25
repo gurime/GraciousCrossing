@@ -183,21 +183,21 @@ cover_showcase3: cover_showcase3,
 cover_showcase4: cover_showcase4
 });
 setSuccessMessage('Listing updated successfully');
-window.location.reload();
+setTimeout(() => {
+setSuccessMessage('');
+}, 3000);
+setUpdatedData(updatedData); // Set the updated data in the state
 } else {
 setErrorMessage('Error: Cannot add a new document without articleId.');
 }
-// Example error handling
 } catch (error) {
-  console.error("Error during Firestore update:", error);
-
-  if (error.code === 'permission-denied') {
-    setErrorMessage('Permission denied: You may not have the necessary permissions.');
-  } else if (error.code === 'not-found') {
-    setErrorMessage('Document not found: The specified document does not exist.');
-  } else {
-    setErrorMessage('Unexpected error occurred. Please try again later.');
-  }
+if (error.code === 'permission-denied') {
+setErrorMessage('Permission denied: You may not have the necessary permissions.');
+} else if (error.code === 'not-found') {
+setErrorMessage('Document not found: The specified document does not exist.');
+}
+} finally {
+setIsLoading(false); // Reset loading state
 }
 
 };
