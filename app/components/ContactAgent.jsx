@@ -8,6 +8,7 @@ padding:'1rem',
 outline:'none',
 border:'1px solid #0059e0',
 fontSize:'16px',
+cursor:'pointer',
 lineHeight:'24px',
 color:'#0059e0'
 }}>Contact Agent</button>

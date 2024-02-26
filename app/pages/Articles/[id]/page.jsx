@@ -49,6 +49,8 @@ export default async function HomeDetailsPage({params}) {
 
   // Fetch article details
   const post = await getArticle(articleId);
+  const address = post.address;
+  const cover_image = post.cover_image
 
   if (!post) {
     return <div>Article not found</div>;
@@ -101,12 +103,7 @@ placeItems: 'center',
 fontWeight: '300',
 }}
 className="card-category">
-
-
-    <img className='authbox' src={post.authpic} style={{ maxWidth: '100%', height: '70px' }} />
-
-
-
+<img className='authbox' src={post.authpic} style={{ maxWidth: '100%', height: '70px' }} />
 </h3>
 </div>
 {/**block for category and author */}
@@ -121,8 +118,8 @@ className="card-category">
 display:'grid'
 }}>
 
-
-{/* <Schedule/>
+{/* 
+<Schedule post={post}/>
 <ContactAgent/> */}
 </div>
 

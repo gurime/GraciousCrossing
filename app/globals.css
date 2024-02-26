@@ -864,6 +864,20 @@ padding: 0 1rem;
   place-content: space-evenly;
   }
 
+.scheduletour{
+  display: flex;
+  align-items: center;
+}
+
+  .scheduletour img{
+width: 120px;
+border-radius: 8px;
+  }
+
+  .scheduletour p{
+    font-size: 93.75%;
+  }
+
   @media(max-width:768px){
     .imgbox{
       grid-template-columns: repeat(2,1fr);
@@ -879,17 +893,15 @@ padding: 0 1rem;
     }
 
     .details_header_title h3{
-      font-size: 14px;
+      font-size: 13px;
     }
     .details_header_title h2{
-      font-size: 14px;
+      font-size: 13px;
     }
 
-    /* .authbox {
-      max-width: 50% !important;
-      height: auto !important
-    } */
+  
   }
+
   
   .cover_showcase img{
   width: 200px;
