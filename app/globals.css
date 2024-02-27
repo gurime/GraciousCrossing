@@ -881,6 +881,15 @@ border-radius: 8px;
     padding: 2rem;
 }
 
+.react-datepicker__input-container{
+  margin-bottom: 1rem;
+}
+
+.react-datepicker__input-container input{
+  padding: 1rem;
+  width: 100%;
+}
+
 @keyframes bounceIn {
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
@@ -899,6 +908,8 @@ border-radius: 8px;
     }  .scheduletour img{
       width: 100%;
     }
+
+
 }
 
 
@@ -929,6 +940,10 @@ border-radius: 8px;
 
   .sm-ba p{
     font-size: 15px;
+  }
+
+  .sm-houlo{
+    font-size: 9px !important;
   }
   }
 

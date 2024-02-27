@@ -3,7 +3,8 @@ import { getAuth } from 'firebase/auth';
 import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 export default function Schedule({post}) {
@@ -13,10 +14,13 @@ export default function Schedule({post}) {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [time, setTime] = useState({
-      raw: '', // store the raw 24-hour format
-      formatted: '', // store the formatted 12-hour format
-    });    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().substring(0, 16));
+   
+    const initialDate = new Date();
+    initialDate.setHours(9, 0, 0, 0);
+  
+    const [selectedDate, setSelectedDate] = useState(initialDate);
+
+
 const router = useRouter()
   
     const openModal = () => {
@@ -41,11 +45,11 @@ const user = auth.currentUser;
 setIsLoading(true);
 const db = getFirestore();
 const docRef = await addDoc(collection(db, 'scheduletour'), {
-time: time.formatted,
 timestamp: new Date(),
 userId: user.uid,
 userEmail: user.email,
-names:names
+names:names,
+
 });
       
 setNames('');
@@ -83,13 +87,12 @@ border: 'none',
 background: '#0059e0',
 color: '#fff',
 cursor:'pointer',
-fontSize: '16px',
-lineHeight: '24px',
 fontWeight: '600',
 margin: '0 0 1rem 0',}}
 onClick={openModal}
 >
-Schedule a Tour 
+Schedule a Tour <br />
+<small style={{letterSpacing:'1px',fontSize:'9px'}}>as early as 9:00 AM tomorrow</small>
 
 
 </button>
@@ -137,46 +140,23 @@ borderRadius: '8px',}}>
 </div>
 </div>
 <p style={{textAlign:'center'}}>Select a Date & Time:</p>
-<div style={{display:'grid',alignItems:'center'}}>            
-  <input style={{marginBottom:'1rem',  
-  padding:'1rem',
-  borderRadius: '5px',
-  border: '1px solid #6d1ffa',
-  color: '#000',
-  backgroundColor:'#fff',
-  outline:'none',
-  textIndent: '7px'}} 
-  required
-              type="date"
-              value={selectedDate || ''}
-              onChange={(e) => handleDateChange(e.target.value)}
-            />
-<input
-  style={{
-    marginBottom: '1rem',
-    padding: '1rem',
-    borderRadius: '5px',
-    border: '1px solid #6d1ffa',
-    outline: 'none',
-    textIndent: '7px',
-    color: '#000',
-    backgroundColor:'#fff'
-  }}
-  required
-  type="time"
-  placeholder='Time Between 11AM & 3PM'
-  value={time.raw}
-  onChange={(e) => {
-    const rawTime = e.target.value;
-    const formattedTime = new Date(`2000-01-01T${rawTime}`);
-    setTime({
-      raw: rawTime,
-      formatted: formattedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    });
-  }}
+<div style={{display:'grid',alignItems:'center'}}> 
+<div style={{marginLeft:'10px',maxWidth:'90%'}}>
+  <DatePicker
+  selected={selectedDate}
+  onChange={handleDateChange}
+  minDate={new Date()} 
+  showTimeSelect
+  timeFormat="HH:mm"
+  timeIntervals={15}
+  timeCaption="Time"
+  dateFormat="MMMM d, yyyy h:mm aa"
 />
+  </div>           
 
-<input
+
+<div style={{marginLeft:'10px',maxWidth:'90%'}}>
+  <input
 type="text"
 name="fname"
 style={{
@@ -186,17 +166,22 @@ style={{
   border: '1px solid #6d1ffa',
   outline: 'none',
   textIndent: '7px',
+  width:'100%'
 }}
 placeholder='Full Name'
 value={names} onChange={(e) => setNames(e.target.value)} required/>
-            {/* Convert post data to JSON string */}
+         </div>
+
+
+
+
 <button 
-disabled={!time || !names || !selectedDate ||   isLoading}
+disabled={ !names || !selectedDate ||   isLoading}
 
 style={{marginBottom:'1rem',
-cursor: !time || !names || !selectedDate ||  isLoading ?  'none' : 'pointer',
-backgroundColor: !time || !names || !selectedDate ||  isLoading ? '#9e9e9e' : '#00a8ff',
-color: !time || !names || !selectedDate  || isLoading ? 'grey' : '#fff',
+cursor: !names || !selectedDate ||  isLoading ?  'none' : 'pointer',
+backgroundColor: !names || !selectedDate ||  isLoading ? '#9e9e9e' : '#00a8ff',
+color: !names || !selectedDate  || isLoading ? 'grey' : '#fff',
 }} className='edit-btn' onClick={handleScheduleTour}>Schedule Tour</button>
 
 <button className='delete-btn' onClick={closeModal}>Close Modal</button></div>
