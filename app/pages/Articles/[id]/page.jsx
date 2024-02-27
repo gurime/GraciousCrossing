@@ -49,8 +49,8 @@ export default async function HomeDetailsPage({params}) {
 
   // Fetch article details
   const post = await getArticle(articleId);
-  const address = post.address;
-  const cover_image = post.cover_image
+  const sanitizedPost = JSON.parse(JSON.stringify(post));
+
 
   if (!post) {
     return <div>Article not found</div>;
@@ -118,9 +118,9 @@ className="card-category">
 display:'grid'
 }}>
 
-{/* 
-<Schedule post={post}/>
-<ContactAgent/> */}
+
+<Schedule post={sanitizedPost}/>
+<ContactAgent/>
 </div>
 
 </div>
