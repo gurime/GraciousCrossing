@@ -142,6 +142,8 @@ borderRadius: '8px',}}>
   padding:'1rem',
   borderRadius: '5px',
   border: '1px solid #6d1ffa',
+  color: '#000',
+  backgroundColor:'#fff',
   outline:'none',
   textIndent: '7px'}} 
   required
@@ -157,6 +159,8 @@ borderRadius: '8px',}}>
     border: '1px solid #6d1ffa',
     outline: 'none',
     textIndent: '7px',
+    color: '#000',
+    backgroundColor:'#fff'
   }}
   required
   type="time"
