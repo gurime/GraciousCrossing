@@ -16,7 +16,6 @@ import Image from 'next/image';
 import AdminHeader from '@/app/components/AdminHeader';
 import Schedule from '@/app/components/Schedule';
 import ContactAgent from '@/app/components/ContactAgent';
-import moment from 'moment';
 
 export async function generateMetadata({ params }) {
   const articleId = params.id;
@@ -55,6 +54,9 @@ export default async function HomeDetailsPage({params}) {
   if (!post) {
     return <div>Article not found</div>;
   }
+  const lastUpdatedDate = post.timestamp && post.timestamp.toDate();
+  const formattedDate = lastUpdatedDate && `${lastUpdatedDate.toLocaleString('en-US', { timeZone: 'America/New_York', day: 'numeric', month: 'long', year: 'numeric' })} ${lastUpdatedDate.toLocaleString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: 'numeric', hour12: true })}`;
+  
 
 return (
 <>
@@ -220,10 +222,11 @@ width:'15rem'
 </div>
 
 
-
-
 </div>
-<p style={{ margin: '1rem' }}>Last Updated: {post.timestamp && moment(post.timestamp.toDate()).format('LLL')}</p>
+<p style={{ margin: '1rem' }}>
+  Last Updated: {formattedDate}
+</p>
+
 
 
 <div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>

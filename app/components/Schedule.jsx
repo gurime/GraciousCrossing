@@ -53,11 +53,8 @@ names:names,
 });
       
 setNames('');
-setTime({
-  raw: '',
-  formatted: '',
-});
-setSelectedDate(new Date().toISOString().substring(0, 16));
+    setSelectedDate(new Date());
+
 
     
     //  router.push('/pages/Contact/Confirmation')
@@ -73,7 +70,7 @@ setSelectedDate(new Date().toISOString().substring(0, 16));
   setErrorMessage('');
   }, 3000);
   } finally {
-  setIsLoading(false);
+
   }
   };
 
@@ -92,7 +89,7 @@ margin: '0 0 1rem 0',}}
 onClick={openModal}
 >
 Schedule a Tour <br />
-<small style={{letterSpacing:'1px',fontSize:'9px'}}>as early as 9:00 AM tomorrow</small>
+<small style={{letterSpacing:'1px',fontSize:'9px'}}>as early as 11:00 AM tomorrow</small>
 
 
 </button>
@@ -131,7 +128,8 @@ borderRadius: '8px',}}>
 </div>
 <div style={{display:'grid',alignItems:'center'}}>
 <div className='sm-ba'> 
-<p >{post.address.slice(0,12)}</p>
+<p >{post.address}</p>
+{/* <p>{post.address.slice(-12)}</p> */}
 
 </div>
 
@@ -155,7 +153,7 @@ borderRadius: '8px',}}>
   </div>           
 
 
-<div style={{marginLeft:'10px',maxWidth:'90%'}}>
+<div className='sm-schedule' style={{marginLeft:'10px',maxWidth:'90%'}}>
   <input
 type="text"
 name="fname"
@@ -186,7 +184,7 @@ color: !names || !selectedDate  || isLoading ? 'grey' : '#fff',
 
 <button className='delete-btn' onClick={closeModal}>Close Modal</button></div>
 
-{successMessage && successMessage}
+{successMessage && <p>{successMessage}</p>}
 
 </div>
 </div>

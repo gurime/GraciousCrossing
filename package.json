@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "firebase": "^10.7.1",
-    "moment": "^2.30.1",
     "next": "14.0.4",
     "react": "^18",
     "react-datepicker": "^6.1.0",

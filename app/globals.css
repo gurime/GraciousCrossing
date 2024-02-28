@@ -943,7 +943,15 @@ border-radius: 8px;
   }
 
   .sm-houlo{
-    font-size: 9px !important;
+    font-size: 11px !important;
+  }
+
+  .sm-schedule input{
+    width: 95% !important;
+  }
+
+  .modal-content{
+    width: 67%;
   }
   }
 
