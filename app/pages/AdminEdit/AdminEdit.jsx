@@ -14,6 +14,8 @@ export default function AdminEdit({ comment,  onCancel }) {
   const [articleId, setArticleId] = useState("");  
 
 const [isSignedIn, setIsSignedIn] = useState(false);
+const [tourTime, setTourTime] = useState(comment ? comment.tourTime : "");
+
 const [content, setContent] = useState(comment ? comment.content : "");
 const [title, setTitle] = useState(comment ? comment.title : "");
 const [owner, setOwner] = useState(comment ? comment.owner : "");
@@ -233,6 +235,7 @@ const handleSubmit = async (e) => {
         billingFrequency2: billingFrequency2,
         water: water,
         lights: lights,
+        tourTime: tourTime,
         cable: cable,
         laundry: laundry,
         airConditioning: airConditioning,
@@ -310,6 +313,19 @@ const inputValue = e.target.value;
 const formattedPrice = formatPrice1(inputValue);
 setPriceextra(formattedPrice);
 };
+
+const handleTourTimeChange = (e) => {
+  setTourTime(e.target.value);
+};
+
+
+const timeOptions = [
+  "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
+  "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
+  "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
+  "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
+  
+];
   
 return (
 <>
@@ -449,7 +465,7 @@ onChange={(e) => setBathrooms(e.target.value)}
 required
 /></div>
 
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px', }}>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}>
 <label htmlFor="authpic">Property Size</label>
 <input
 type="number"
@@ -464,6 +480,22 @@ required/>
   
 
 </div>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center', borderBottom: 'solid 1px' }}>
+        <label htmlFor="tourTime">Tour Time</label>
+        <select
+          id="tourTime"
+          name="tourTime"
+          value={tourTime}
+          onChange={handleTourTimeChange}
+          required
+        >
+          <option value="" disabled>Select tour time</option>
+          {timeOptions.map((option) => (
+            <option key={option} value={option}>{option}</option>
+          ))}
+        </select>
+      </div>
 
 
 <label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
