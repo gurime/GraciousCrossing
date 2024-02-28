@@ -10,12 +10,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 export default function Schedule({post}) {
   const [names, setNames] = useState('');
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date()); // Initialize with the current date
-    const [selectedTime, setSelectedTime] = useState("12:00"); // Set a default time if needed
+const [isLoading, setIsLoading] = useState(false);
+const [errorMessage, setErrorMessage] = useState('');
+const [successMessage, setSuccessMessage] = useState('');
+const [isModalOpen, setIsModalOpen] = useState(false);
+const [selectedDate, setSelectedDate] = useState(new Date()); 
+const [selectedTime, setSelectedTime] = useState("");
     
 
 
@@ -52,7 +52,8 @@ timestamp: new Date(),
 userId: user.uid,
 userEmail: user.email,
 names:names,
-
+selectedDate:selectedDate,
+selectedTime:selectedTime
 });
       
 setNames('');
