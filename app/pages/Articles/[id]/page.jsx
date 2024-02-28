@@ -223,7 +223,7 @@ width:'15rem'
 
 
 </div>
-<p style={{ margin: '1rem' }}>
+<p className='formatdate' style={{ margin: '1rem' }}>
   Last Updated: {formattedDate}
 </p>
 

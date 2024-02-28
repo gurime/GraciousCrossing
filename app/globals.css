@@ -909,7 +909,23 @@ border-radius: 8px;
       width: 100%;
     }
 
+  .sm-schedule input{
+    width: 90% !important;
+  }
 
+  .modal-content{
+    width: 67%;
+  }
+
+  .react-datepicker__input-container input{
+    width: 98%;
+  }
+
+  .formatdate{
+    font-size: 15px;
+  } .sm-ba p{
+    font-size: 11px;
+  }
 }
 
 
@@ -938,20 +954,20 @@ border-radius: 8px;
       font-size: 13px;
     }
 
-  .sm-ba p{
-    font-size: 15px;
-  }
+ 
 
   .sm-houlo{
     font-size: 11px !important;
   }
-
   .sm-schedule input{
     width: 95% !important;
   }
 
   .modal-content{
     width: 67%;
+  }
+  .react-datepicker__input-container input{
+    width: 100%;
   }
   }
 
