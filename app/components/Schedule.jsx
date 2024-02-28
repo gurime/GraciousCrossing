@@ -77,6 +77,7 @@ setNames('');
 return (
 <>
 <button
+className='openmodal'
 style={{
 padding: '1rem',
 outline: 'none',

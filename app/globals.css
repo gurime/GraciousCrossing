@@ -869,6 +869,11 @@ padding: 0 1rem;
   align-items: center;
 }
 
+.schedulecontact{
+  display: grid;
+  align-items: center;
+}
+
   .scheduletour img{
 width: 120px;
 border-radius: 8px;
@@ -888,6 +893,13 @@ border-radius: 8px;
 .react-datepicker__input-container input{
   padding: 1rem;
   width: 100%;
+}
+
+.openmodal:hover{
+background-color: #1d09d5 !important;
+}
+.openmodalcontact:hover{
+color: #09a5d5 !important;
 }
 
 @keyframes bounceIn {
@@ -922,9 +934,9 @@ border-radius: 8px;
   }
 
   .formatdate{
-    font-size: 15px;
+    font-size: 14px;
   } .sm-ba p{
-    font-size: 11px;
+    font-size: 10px;
   }
 }
 
