@@ -477,7 +477,7 @@ required
         </select>
       </div>
 
-
+<div style={{overflow:'auto'}}>
 <label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
 <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
 <input
@@ -565,7 +565,7 @@ onChange={(e) => setWifi(e.target.checked)}
 <label htmlFor="wifi">Wifi</label>
 </div>
 
-
+</div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="cover_image">Featured Image</label>
 <input
 type="file"
