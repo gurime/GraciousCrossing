@@ -477,9 +477,10 @@ required
         </select>
       </div>
 
-<div style={{overflow:'auto'}}>
+<div style={{ display: 'flex', flexDirection: 'column' }}>
+
 <label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
 <input
 type="checkbox"
 id="water"
@@ -490,7 +491,7 @@ onChange={(e) => setWater(e.target.checked)}
 <label htmlFor="water">Water</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
 <input
 type="checkbox"
 id="lights"
@@ -501,7 +502,7 @@ onChange={(e) => setLights(e.target.checked)}
 <label htmlFor="lights">Lights</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
 <input
 type="checkbox"
 id="cable"
@@ -512,7 +513,7 @@ onChange={(e) => setCable(e.target.checked)}
 <label htmlFor="cable">Cable</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
 <input
 type="checkbox"
 id="laundry"
@@ -523,7 +524,7 @@ onChange={(e) => setLaundry(e.target.checked)}
 <label htmlFor="laundry">Laundry</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
 <input
 type="checkbox"
 id="airConditioning"
@@ -534,7 +535,7 @@ onChange={(e) => setAirConditioning(e.target.checked)}
 <label htmlFor="airConditioning">AC</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse'}}>
 <input
 type="checkbox"
 id="heating"
@@ -544,7 +545,7 @@ onChange={(e) => setHeating(e.target.checked)}
 />
 <label htmlFor="heating">Heating</label>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse'}}>
 <input
 type="checkbox"
 id="pool"
@@ -554,7 +555,7 @@ onChange={(e) => setPool(e.target.checked)}
 />
 <label htmlFor="pool">Pool</label>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', marginBottom: '1rem', borderBottom: 'solid 1px ' }}>
+<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', justifyContent:'space-evenly',marginBottom: '1rem', borderBottom: 'solid 1px ' }}>
 <input
 type="checkbox"
 id="wifi"

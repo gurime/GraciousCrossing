@@ -49,6 +49,7 @@ export default async function HomeDetailsPage({params}) {
   // Fetch article details
   const post = await getArticle(articleId);
   const sanitizedPost = JSON.parse(JSON.stringify(post));
+  const sanitiPost = JSON.parse(JSON.stringify(post));
 
 
   if (!post) {
@@ -122,7 +123,7 @@ display:'grid'
 
 
 <Schedule post={sanitizedPost}/>
-<ContactAgent/>
+<ContactAgent post={sanitiPost}/>
 </div>
 
 </div>

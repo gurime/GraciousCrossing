@@ -48,7 +48,7 @@ return (
     <li><Link href='/pages/Houses'>Homes for Sale & Rent</Link></li>
     <li><Link href='/pages/Apartments'>Apartments for Rent</Link></li>
     <li><Link href='/pages/NewConstruction'>New Construction</Link></li>
-    <li><Link href='/pages/MortageCalculator'>Mortgage Calculator</Link></li>
+    <li><Link href='/pages/Motel'>Motel</Link></li>
     <li><Link href='#!'>Home Values</Link></li>
     <li><Link href='#!'>Real Estate Agents</Link></li>
     <li><Link href='#!'>Home Design</Link></li>

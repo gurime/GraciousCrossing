@@ -14,11 +14,9 @@ export default function Schedule({post}) {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-   
-    const initialDate = new Date();
-    initialDate.setHours(9, 0, 0, 0);
-  
-    const [selectedDate, setSelectedDate] = useState(initialDate);
+    const [selectedDate, setSelectedDate] = useState(new Date()); // Initialize with the current date
+    const [selectedTime, setSelectedTime] = useState("12:00"); // Set a default time if needed
+    
 
 
 const router = useRouter()
@@ -35,6 +33,11 @@ const router = useRouter()
   
     const handleDateChange = (date) => {
       setSelectedDate(date);
+      setSelectedTime
+    };
+
+    const handleTimeChange = (event) => {
+      setSelectedTime(event.target.value);
     };
   
 const handleScheduleTour = async (e) => {
@@ -90,7 +93,7 @@ margin: '0 0 1rem 0',}}
 onClick={openModal}
 >
 Schedule a Tour <br />
-<small style={{letterSpacing:'1px',fontSize:'9px'}}>as early as 11:00 AM tomorrow</small>
+<small style={{letterSpacing:'1px',fontSize:'9px'}}>as early as {post.tourTime} tomorrow</small>
 
 
 </button>
@@ -140,19 +143,61 @@ borderRadius: '8px',}}>
 </div>
 <p style={{textAlign:'center'}}>Select a Date & Time:</p>
 <div style={{display:'grid',alignItems:'center'}}> 
-<div style={{marginLeft:'10px',maxWidth:'90%'}}>
-  <DatePicker
-  selected={selectedDate}
-  onChange={handleDateChange}
-  minDate={new Date()} 
-  showTimeSelect
-  timeFormat="HH:mm"
-  timeIntervals={15}
-  timeCaption="Time"
-  dateFormat="MMMM d, yyyy h:mm aa"
-/>
-  </div>           
+<div style={{ marginLeft: '10px', maxWidth: '90%' }}>
+  <label style={{marginBottom:'1rem'}}>Date:</label>
+  <input
+    style={{
+      width:'100%',
+      padding:'1rem',
+      marginBottom:'10px',
+      border:'1px solid #1057d4',
+      borderRadius:'4px',
+      outline:'none'
+    }}
+    type="date"
+    value={selectedDate.toISOString().split('T')[0]}
+    onChange={(e) => handleDateChange(new Date(e.target.value))}
+    min={new Date().toISOString().split('T')[0]}
+  />
 
+  <label style={{marginBottom:'1rem'}}>Time:</label>
+  <select
+  style={{
+    width:'100%',
+    padding:'1rem',
+    marginBottom:'10px',
+    border:'1px solid #1057d4',
+    borderRadius:'4px',
+    outline:'none'
+  }}
+  value={selectedTime} onChange={handleTimeChange}>
+   <option value="9:00 AM">9:00 AM</option>
+  <option value="9:30 AM">9:30 AM</option>
+  <option value="9:40 AM">9:40 AM</option>
+  <option value="10:00 AM">10:00 AM</option>
+  <option value="10:30 AM">10:30 AM</option>
+  <option value="10:40 AM">10:40 AM</option>
+  <option value="11:00 AM">11:00 AM</option>
+  <option value="11:30 AM">11:30 AM</option>
+  <option value="11:40 AM">11:40 AM</option>
+  <option value="12:00 PM">12:00 PM</option>
+  <option value="12:30 PM">12:30 PM</option>
+  <option value="12:40 PM">12:40 PM</option>
+  <option value="1:00 PM">1:00 PM</option>
+  <option value="1:30 PM">1:30 PM</option>
+  <option value="1:40 PM">1:40 PM</option>
+  <option value="2:00 PM">2:00 PM</option>
+  <option value="2:30 PM">2:30 PM</option>
+  <option value="2:40 PM">2:40 PM</option>
+  <option value="3:00 PM">3:00 PM</option>
+  <option value="3:30 PM">3:30 PM</option>
+  <option value="3:40 PM">3:40 PM</option>
+  <option value="4:00 PM">4:00 PM</option>
+  <option value="4:30 PM">4:30 PM</option>
+  <option value="4:40 PM">4:40 PM</option>
+  </select>
+
+</div>
 
 <div className='sm-schedule' style={{marginLeft:'10px',maxWidth:'90%'}}>
   <input

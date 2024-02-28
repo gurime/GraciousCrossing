@@ -330,7 +330,7 @@ const timeOptions = [
 return (
 <>
 <div style={{position: 'relative'}}>
-<form className="postform" onSubmit={handleSubmit}>
+<form className="postform" onSubmit={handleSubmit} style={{margin:'auto'}}>
 <h1 style={{padding:'0 1rem'}}>Admin Form</h1>
 
 {/* post form start here here */}
