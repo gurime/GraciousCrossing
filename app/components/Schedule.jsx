@@ -14,7 +14,7 @@ const [isLoading, setIsLoading] = useState(false);
 const [errorMessage, setErrorMessage] = useState('');
 const [successMessage, setSuccessMessage] = useState('');
 const [isModalOpen, setIsModalOpen] = useState(false);
-const [selectedDate, setSelectedDate] = useState(new Date()); 
+const [selectedDate, setSelectedDate] = useState(new Date());
 const [selectedTime, setSelectedTime] = useState("");
     
 
@@ -145,7 +145,7 @@ borderRadius: '8px',}}>
 <p style={{textAlign:'center'}}>Select a Date & Time:</p>
 <div style={{display:'grid',alignItems:'center'}}> 
 <div style={{ marginLeft: '10px', maxWidth: '90%' }}>
-  <label style={{marginBottom:'1rem'}}>Date:</label>
+  <div> <label style={{marginBottom:'1rem'}}>Date:</label>
   <input
     style={{
       width:'100%',
@@ -156,12 +156,12 @@ borderRadius: '8px',}}>
       outline:'none'
     }}
     type="date"
-    value={selectedDate.toISOString().split('T')[0]}
+    value={selectedDate ? selectedDate.toISOString().split('T')[0] : ''}
     onChange={(e) => handleDateChange(new Date(e.target.value))}
     min={new Date().toISOString().split('T')[0]}
-  />
-
-  <label style={{marginBottom:'1rem'}}>Time:</label>
+  /></div>
+ 
+<div>  <label style={{marginBottom:'1rem'}}>Time:</label>
   <select
   style={{
     width:'100%',
@@ -197,6 +197,7 @@ borderRadius: '8px',}}>
   <option value="4:30 PM">4:30 PM</option>
   <option value="4:40 PM">4:40 PM</option>
   </select>
+</div>
 
 </div>
 
