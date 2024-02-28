@@ -1179,7 +1179,6 @@ font-weight: 400;
   --gradient-from: #2365c3;
   --gradient-stops: var(--gradient-from),var(--gradient-to);
   --gradient-to: #2a347b;  max-width: 600px;
-  margin: auto;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -1187,7 +1186,7 @@ font-weight: 400;
 }
 
 .postform select{
-  width: 100%;
+
   padding: 8px;
   margin-bottom: 30px;
   border: 1px solid #ccc;
