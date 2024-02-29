@@ -144,12 +144,12 @@ value={phone} onChange={(e) => setPhone(e.target.value)} required/>
 
 
          </div>
-<div className='sm-schedulecontacttextarea' 
-style={{marginLeft:'10px',maxWidth:'90%'}}>        <textarea
+<div className='sm-schedulecontacttextarea' style={{marginLeft:'10px',maxWidth:'90%'}}>        <textarea
          style={{
           padding:'1rem',
           resize:'none',
-          marginBottom:'1rem'
+          marginBottom:'1rem',
+          outline:'none'
          }}
   rows="5"
   cols="50"
