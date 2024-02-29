@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import React, { useState } from 'react'
 
-export default function ContactAgent() {
+export default function ContactAgent({post}) {
     const [names, setNames] = useState('');
     const [phone, setPhone] = useState('');
     const [content, setContent] = useState("");
@@ -18,6 +18,12 @@ export default function ContactAgent() {
     
       const closeModal = () => {
         setIsModalOpen(false);
+      
+     
+     setContent('')
+      
+    
+        setNames('');
       };
 
       const handleScheduleTour = async (e) => {
@@ -104,7 +110,7 @@ borderRadius: '8px',}}>
         <h4 style={{fontSize:'20px',textAlign:'center'}}>Contact Agent</h4>
 
 
-<div className='sm-schedule' style={{marginLeft:'10px',maxWidth:'90%'}}>
+<div className='sm-schedulecontact' style={{marginLeft:'10px',maxWidth:'90%'}}>
   <input
 type="text"
 name="fname"
@@ -138,16 +144,21 @@ value={phone} onChange={(e) => setPhone(e.target.value)} required/>
 
 
          </div>
-
-         <textarea
-rows="10"
-cols="50"
-placeholder='Describe your property'
-required
-value={content}
-onChange={(e) => setContent(e.target.value)}
-
+<div className='sm-schedulecontacttextarea' 
+style={{marginLeft:'10px',maxWidth:'90%'}}>        <textarea
+         style={{
+          padding:'1rem',
+          resize:'none',
+          marginBottom:'1rem'
+         }}
+  rows="5"
+  cols="50"
+  required
+  value={post && post.address ? post.address : content}
+  onChange={(e) => setContent(e.target.value)}
 ></textarea>
+</div>
+ 
 
 
 <button 

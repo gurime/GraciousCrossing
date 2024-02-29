@@ -3,8 +3,6 @@ import { getAuth } from 'firebase/auth';
 import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
 
 export default function Schedule({post}) {
@@ -15,7 +13,7 @@ const [errorMessage, setErrorMessage] = useState('');
 const [successMessage, setSuccessMessage] = useState('');
 const [isModalOpen, setIsModalOpen] = useState(false);
 const [selectedDate, setSelectedDate] = useState(new Date());
-const [selectedTime, setSelectedTime] = useState("");
+const [selectedTime, setSelectedTime] = useState("9:00 AM");
     
 
 
@@ -27,9 +25,15 @@ const router = useRouter()
   
     const closeModal = () => {
       setIsModalOpen(false);
-      // Reset the selected date when closing the modal
-      setSelectedDate(null);
+    
+   
+      setSelectedDate(new Date());
+      setSelectedTime("9:00 AM");
+    
+  
+      setNames('');
     };
+    
   
     const handleDateChange = (date) => {
       setSelectedDate(date);
@@ -41,43 +45,37 @@ const router = useRouter()
     };
   
 const handleScheduleTour = async (e) => {
-e.preventDefault();
-try {
-const auth = getAuth();
-const user = auth.currentUser;
-setIsLoading(true);
-const db = getFirestore();
-const docRef = await addDoc(collection(db, 'scheduletour'), {
-timestamp: new Date(),
-userId: user.uid,
-userEmail: user.email,
-names:names,
-selectedDate:selectedDate,
-selectedTime:selectedTime
-});
-      
-setNames('');
+  e.preventDefault();
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    setIsLoading(true);
+    const db = getFirestore();
+    const docRef = await addDoc(collection(db, 'scheduletour'), {
+      timestamp: new Date(),
+      userId: user.uid,
+      userEmail: user.email,
+      names: names,
+      selectedDate: selectedDate,
+      selectedTime: selectedTime
+    });
+
+ 
+    // router.push('/pages/Contact/Confirmation');
+
+       setNames('');
     setSelectedDate(new Date());
+    setSelectedTime('');
 
-
-    
-    //  router.push('/pages/Contact/Confirmation')
-  setSuccessMessage('Thank you for your message')
-   setTimeout(() => {
-  setSuccessMessage('');
-  }, 3000);
+    setIsModalOpen(false); // Close the modal after successful form submission
 
   } catch (error) {
-        
-  setErrorMessage('Error submitting form. Please try again.');
-  setTimeout(() => {
-  setErrorMessage('');
-  }, 3000);
+    setErrorMessage('Error submitting form. Please try again.');
+  
   } finally {
-
+    setIsLoading(false); // Ensure isLoading is set to false regardless of success or failure
   }
-  };
-
+};
 return (
 <>
 <button
@@ -118,11 +116,8 @@ className="modal-content"
 style={{
 background: '#fff',
 padding: '2rem',
-animation: 'bounceIn 0.5s', // Add animation property
-
-
+animation: 'bounceIn 0.5s', 
 borderRadius: '8px',}}>
-{/* Your modal content goes here */}
 
 
 <div className='scheduletour'>
@@ -145,7 +140,8 @@ borderRadius: '8px',}}>
 <p style={{textAlign:'center'}}>Select a Date & Time:</p>
 <div style={{display:'grid',alignItems:'center'}}> 
 <div style={{ marginLeft: '10px', maxWidth: '90%' }}>
-  <div> <label style={{marginBottom:'1rem'}}>Date:</label>
+  <div className='sm-date' style={{display:'grid'}}> 
+    <label style={{marginBottom:'1rem'}}>Date:</label>
   <input
     style={{
       width:'100%',
@@ -161,7 +157,8 @@ borderRadius: '8px',}}>
     min={new Date().toISOString().split('T')[0]}
   /></div>
  
-<div>  <label style={{marginBottom:'1rem'}}>Time:</label>
+<div className='sm-time'  style={{display:'grid', alignItems:'center'}}>  
+  <label style={{marginBottom:'1rem'}}>Time:</label>
   <select
   style={{
     width:'100%',
@@ -201,10 +198,11 @@ borderRadius: '8px',}}>
 
 </div>
 
-<div className='sm-schedule' style={{marginLeft:'10px',maxWidth:'90%'}}>
+<div className='sm-schedule' style={{marginLeft:'10px',maxWidth:'93%',display:'grid'}}>
+  <label htmlFor="fullname">Full Name:</label>
   <input
 type="text"
-name="fname"
+name="fullname"
 style={{
   marginBottom: '1rem',
   padding: '1rem',
@@ -214,7 +212,6 @@ style={{
   textIndent: '7px',
   width:'100%'
 }}
-placeholder='Full Name'
 value={names} onChange={(e) => setNames(e.target.value)} required/>
          </div>
 
@@ -235,6 +232,7 @@ color: !names || !selectedDate  || isLoading ? 'grey' : '#fff',
 {successMessage && <p>{successMessage}</p>}
 
 </div>
+
 </div>
 )}
 </>

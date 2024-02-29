@@ -925,13 +925,27 @@ color: #09a5d5 !important;
     width: 90% !important;
   }
 
+  .sm-date input{
+    width: 90% !important;
+  }
+  .sm-time select{
+    width: 104% !important;
+  }
+
   .modal-content{
     width: 67%;
   }
 
-  .react-datepicker__input-container input{
-    width: 98%;
-  }
+.sm-schedulecontact{
+  width: 100% !important;
+}
+
+.schedulecontact button{
+  width: 100% !important;
+}
+.schedulecontact textarea{
+  width: 100% !important;
+}
 
   .formatdate{
     font-size: 14px;
@@ -971,9 +985,7 @@ color: #09a5d5 !important;
   .sm-houlo{
     font-size: 11px !important;
   }
-  .sm-schedule input{
-    width: 95% !important;
-  }
+
 
   .modal-content{
     width: 67%;
