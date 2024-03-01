@@ -17,6 +17,7 @@ import AdminHeader from '@/app/components/AdminHeader';
 import Schedule from '@/app/components/Schedule';
 import ContactAgent from '@/app/components/ContactAgent';
 
+
 export async function generateMetadata({ params }) {
   const articleId = params.id;
   try {
@@ -50,7 +51,7 @@ export default async function HomeDetailsPage({params}) {
   const post = await getArticle(articleId);
   const sanitizedPost = JSON.parse(JSON.stringify(post));
   const sanitiPost = JSON.parse(JSON.stringify(post));
-
+ 
 
   if (!post) {
     return <div>Article not found</div>;
@@ -123,7 +124,7 @@ display:'grid'
 
 
 <Schedule post={sanitizedPost}/>
-<ContactAgent post={sanitiPost}/>
+<ContactAgent post={sanitiPost} />
 </div>
 
 </div>

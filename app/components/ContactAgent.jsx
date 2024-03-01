@@ -1,68 +1,70 @@
 'use client'
 import { getAuth } from 'firebase/auth';
 import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
 export default function ContactAgent({post}) {
-    const [names, setNames] = useState('');
-    const [phone, setPhone] = useState('');
-    const [content, setContent] = useState("");
+const [names, setNames] = useState('');
+const [phone, setPhone] = useState('');
+const [initialContent, setInitialContent] = useState(`I'm interested in ${post && post.address ? post.address : ''}`);
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const openModal = () => {
-        setIsModalOpen(true);
-      };
-    
-      const closeModal = () => {
-        setIsModalOpen(false);
-      
-     
-     setContent('')
-      
-    
-        setNames('');
-      };
+const [content, setContent] = useState(initialContent);
 
-      const handleScheduleTour = async (e) => {
-        e.preventDefault();
-        try {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        setIsLoading(true);
-        const db = getFirestore();
-        const docRef = await addDoc(collection(db, 'contactagent'), {
-        timestamp: new Date(),
-        userId: user.uid,
-        userEmail: user.email,
-        names:names,
-        content:content,
-        phone:phone
-        });
-              
-        setNames('');
-        setPhone('');
-        
-        
-            
-            //  router.push('/pages/Contact/Confirmation')
-          setSuccessMessage('Thank you for your message')
-           setTimeout(() => {
-          setSuccessMessage('');
-          }, 3000);
-        
-          } catch (error) {
+
+const [isLoading, setIsLoading] = useState(false);
+const [errorMessage, setErrorMessage] = useState('');
+const [successMessage, setSuccessMessage] = useState('');
+const [isModalOpen, setIsModalOpen] = useState(false);
+const router = useRouter();
+const openModal = () => {
+setIsModalOpen(true);
+setContent(initialContent);
+
+};
+    
+const closeModal = () => {
+setIsModalOpen(false);
+setContent('')
+setNames('');
+};
+
+const handleScheduleTour = async (e) => {
+e.preventDefault();
+try {
+const auth = getAuth();
+const user = auth.currentUser;
+setIsLoading(true);
+const db = getFirestore();
+const docRef = await addDoc(collection(db, 'contactagent'), {
+timestamp: new Date(),
+userId: user.uid,
+userEmail: user.email,
+names:names,
+content:content,
+phone:phone
+});
+setNames('');
+setPhone('');
+setSuccessMessage('Thank You')
+
+
+
+//router.push('/pages/ScheduleTour')
+setTimeout(() => {
+}, 3000);
+
+
+setIsModalOpen(false)
+} catch (error) {
                 
-          setErrorMessage('Error submitting form. Please try again.');
-          setTimeout(() => {
-          setErrorMessage('');
-          }, 3000);
-          } finally {
-        
-          }
-          };
+setErrorMessage('Error submitting form. Please try again.');
+setTimeout(() => {
+setErrorMessage('');
+}, 3000);
+} finally {
+}
+};
     
 return (
 <>
@@ -113,7 +115,6 @@ borderRadius: '8px',}}>
 <div className='sm-schedulecontact' style={{marginLeft:'10px',maxWidth:'90%'}}>
   <input
 type="text"
-name="fname"
 style={{
   marginBottom: '1rem',
   padding: '1rem',
@@ -121,13 +122,14 @@ style={{
   border: '1px solid #6d1ffa',
   outline: 'none',
   textIndent: '7px',
+  fontSize:'14px',
   width:'100%'
 }}
 placeholder='Full Name'
 value={names} onChange={(e) => setNames(e.target.value)} required/>
   <input
-type="text"
-name="fname"
+type="phone "
+
 style={{
   marginBottom: '1rem',
   padding: '1rem',
@@ -135,6 +137,7 @@ style={{
   border: '1px solid #6d1ffa',
   outline: 'none',
   textIndent: '7px',
+  fontSize:'14px',
   width:'100%'
 }}
 placeholder='Phone Number'
@@ -144,17 +147,24 @@ value={phone} onChange={(e) => setPhone(e.target.value)} required/>
 
 
          </div>
-<div className='sm-schedulecontacttextarea' style={{marginLeft:'10px',maxWidth:'90%'}}>        <textarea
-         style={{
-          padding:'1rem',
-          resize:'none',
-          marginBottom:'1rem',
-          outline:'none'
-         }}
-  rows="5"
-  cols="50"
+<div className='sm-schedulecontacttextarea' style={{marginLeft:'10px',maxWidth:'90%'}}>        
+
+
+<textarea
+className='sc-contacttextarea'
+style={{
+padding:'1rem',
+resize:'none',
+marginBottom:'1rem',
+outline:'none',
+fontSize:'14px',
+letterSpacing:'2px',
+width:'100%'
+}}
+  rows="2"
   required
-  value={post && post.address ? post.address : content}
+  value={content}
+
   onChange={(e) => setContent(e.target.value)}
 ></textarea>
 </div>
@@ -162,7 +172,7 @@ value={phone} onChange={(e) => setPhone(e.target.value)} required/>
 
 
 <button 
-disabled={ !names || !phone || !content ||  isLoading}
+disabled={!names || !phone || !content.trim() || isLoading}
 
 style={{marginBottom:'1rem',
 cursor: !names || !phone || !content || isLoading ?  'none' : 'pointer',

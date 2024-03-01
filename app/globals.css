@@ -886,14 +886,25 @@ border-radius: 8px;
     padding: 2rem;
 }
 
-.react-datepicker__input-container{
-  margin-bottom: 1rem;
-}
+ .confirmation-container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
 
-.react-datepicker__input-container input{
-  padding: 1rem;
-  width: 100%;
-}
+        .confirmation-message {
+          font-size: 1.2em;
+          margin-bottom: 20px;
+      }
+      .property-details {
+          text-align: left;
+          margin-bottom: 20px;
+      }
+      .next-steps {
+          margin-top: 20px;
+      }
+
+
 
 .openmodal:hover{
 background-color: #1d09d5 !important;
@@ -924,6 +935,11 @@ color: #09a5d5 !important;
   .sm-schedule input{
     width: 90% !important;
   }
+
+  .sc-contacttextarea{
+   
+    height: 80px;
+    }
 
   .sm-date input{
     width: 90% !important;
@@ -990,9 +1006,7 @@ color: #09a5d5 !important;
   .modal-content{
     width: 67%;
   }
-  .react-datepicker__input-container input{
-    width: 100%;
-  }
+
   }
 
   
