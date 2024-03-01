@@ -92,7 +92,7 @@ margin: '0 0 1rem 0',}}
 onClick={openModal}
 >
 Schedule a Tour <br />
-<small style={{letterSpacing:'1px',fontSize:'9px'}}>as early as {post.tourTime} tomorrow</small>
+<small style={{letterSpacing:'1px',fontSize:'9px'}}>as early as {post.tourTime}</small>
 
 
 </button>
