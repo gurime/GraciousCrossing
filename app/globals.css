@@ -280,6 +280,7 @@ grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
 
 gap: 1rem;
 padding: .8rem 1rem;
+border-bottom: 1px solid #6d6df8;
 }
 
 .card{
@@ -410,7 +411,7 @@ font-size:15px;
 
 @media(max-width:968px){
 .card-block{
-flex-direction: column;
+flex-direction: column !important;
 }
 .card-block-reverse{
 flex-direction: column-reverse;

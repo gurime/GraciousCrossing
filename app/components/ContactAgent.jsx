@@ -141,6 +141,7 @@ style={{
   width:'100%'
 }}
 placeholder='Phone Number'
+pattern='[0-9]*'
 value={phone} onChange={(e) => setPhone(e.target.value)} required/>
 
 

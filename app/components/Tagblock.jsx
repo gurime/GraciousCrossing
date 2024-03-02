@@ -93,29 +93,9 @@ quality homes.</p>
 <Image height={300} src={cardimg1} alt="" priority/>
 </div>
 
-<div className="card-block card-block-reverse">
-<Image height={300} src={cardimg2} alt="" priority/>
-<div className="tagline-header tagline-header-reverse">
-<h1>List your property</h1>
-<p>Reach millions of renters by listing your property.</p>
 
 
-{isSignedIn ? (
-<div>
-{isAdmin ? (
-<Link href='/pages/Admin'>Add your listings</Link>
-) : (
-<Link href='/pages/PropertyForm'>Add your listings</Link>
-)}
-</div>
-) : (
-  <p>Please sign in or register to add listings.</p>
-)}
-
-</div>
-</div>
-
-<div className="card-block">
+<div style={{flexDirection:'row-reverse'}} className="card-block ">
 <div className="tagline-header">
 <h1>Tips for new House owners</h1>
 <p>Check out our guides for tips on owning your first home.</p>

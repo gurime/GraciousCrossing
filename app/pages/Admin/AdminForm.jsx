@@ -24,6 +24,8 @@ const [bedrooms, setBedrooms] = useState("1");
 const [bathrooms, setBathrooms] = useState("1");
 const [square, setSquare] = useState( "");
 
+
+
 const [cable, setCable] = useState("");
 const [laundry, setLaundry] = useState("");
 const [lights, setLights] = useState("");
@@ -292,16 +294,7 @@ setPhone(formattedPhone);
 };
   
   
-const handlePriceChange = (e) => {
-const inputValue = e.target.value;
-const formattedPrice = formatPrice(inputValue);
-setPrice(formattedPrice);
-};
-const handlePriceChange1 = (e) => {
-const inputValue = e.target.value;
-const formattedPrice = formatPrice1(inputValue);
-setPriceextra(formattedPrice);
-};
+
 
 const handleTourTimeChange = (e) => {
   setTourTime(e.target.value);
@@ -372,10 +365,12 @@ required
 type="text"  // Change the type to text to allow non-numeric characters
 name="price"
 value={price}
-onChange={handlePriceChange}
+onChange={(e) => setPrice(e.target.value)}
 required
 />
 </div>
+
+
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
 <select
 style={{marginLeft:'1px'}}
@@ -387,6 +382,7 @@ className='billingselect'
 >
 <option value="Monthly">Monthly</option>
 <option value="Weekly">Weekly</option>
+<option value="Rent">Rent</option>
 <option value="For Sale">For Sale</option>
 </select></div>
 
@@ -395,8 +391,7 @@ className='billingselect'
 type="text" 
 name="price"
 value={priceextra}
-onChange={handlePriceChange1}
-required
+onChange={(e) => setPriceextra(e.target.value)}
 />
 </div>
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency2 ">Seller Financing</label>
@@ -405,7 +400,6 @@ style={{marginLeft:'1px'}}
 name="billingFrequency2"
 value={billingFrequency2}
 onChange={(e) => setBillingFrequency2(e.target.value)}
-required
 className='billingselect'
 >
 <option value="Monthly">Monthly</option>
@@ -421,7 +415,7 @@ onChange={(e) => setSelectedCollection(e.target.value)}
 required
 >  
 <option value="FeaturedHouse">Featured Houses</option>
-<option value="FeaturedApartment">Featured Apartments</option>
+<option value="Featured Apartments">Featured Apartments</option>
 <option value="Houses">Houses</option>
 <option value="Apartments">Apartments</option>
 <option value="NewConstruction">New Construction</option>
@@ -450,7 +444,6 @@ required
 <input
   type="number"
   id="square"
-  required
 
   name="square"
   onChange={(e) => setSquare(e.target.value)}
@@ -586,7 +579,7 @@ type="file"
 id="showcase1"
 name="showcase1"
 accept="image/*"
-required
+
 
 onChange={handleShowcase1Change}
 /></div>
@@ -598,7 +591,7 @@ type="file"
 id="showcase2"
 name="showcase2"
 accept="image/*"
-required
+
 
 onChange={handleShowcase2Change}
 /></div>
@@ -609,7 +602,7 @@ type="file"
 id="showcase3"
 name="showcase3"
 accept="image/*"
-required
+
 
 onChange={handleShowcase3Change}
 /></div>
@@ -621,7 +614,7 @@ type="file"
 id="showcase4"
 name="showcase4"
 accept="image/*"
-required
+
 
 onChange={handleShowcase4Change}
 /></div>
@@ -631,7 +624,7 @@ type="file"
 id="showcase5"
 name="showcase5"
 accept="image/*"
-required
+
 
 onChange={handleShowcase5Change}
 /></div>
@@ -641,7 +634,7 @@ type="file"
 id="showcase6"
 name="showcase6"
 accept="image/*"
-required
+
 
 onChange={handleShowcase6Change}
 /></div>
@@ -651,7 +644,7 @@ type="file"
 id="showcase7"
 name="showcase7"
 accept="image/*"
-required
+
 
 onChange={handleShowcase7Change}
 /></div>
@@ -661,7 +654,7 @@ type="file"
 id="showcase8"
 name="showcase8"
 accept="image/*"
-required
+
 
 onChange={handleShowcase8Change}
 /></div>
@@ -671,7 +664,6 @@ type="file"
 id="showcase9"
 name="showcase9"
 accept="image/*"
-required
 
 onChange={handleShowcase9Change}
 /></div>
@@ -682,7 +674,6 @@ type="file"
 id="showcase10"
 name="showcase10"
 accept="image/*"
-required
 
 onChange={handleShowcase10Change}
 />
@@ -694,7 +685,7 @@ type="file"
 id="showcase11"
 name="showcase11"
 accept="image/*"
-required
+
 
 onChange={handleShowcase11Change}
 />
@@ -706,7 +697,6 @@ type="file"
 id="showcase12"
 name="showcase12"
 accept="image/*"
-required
 
 onChange={handleShowcase12Change}
 />

@@ -20,6 +20,8 @@ const [content, setContent] = useState(comment ? comment.content : "");
 const [title, setTitle] = useState(comment ? comment.title : "");
 const [owner, setOwner] = useState(comment ? comment.owner : "");
 const [price, setPrice] = useState(comment ? comment.price : "");
+
+
 const [priceextra, setPriceextra] = useState(comment ? comment.priceextra : "");
 const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'Monthly');
 const [billingFrequency2, setBillingFrequency2] = useState(comment ? comment.billingFrequency2 : 'Monthly');
@@ -227,6 +229,7 @@ const handleSubmit = async (e) => {
         title: title,
         owner: owner,
         price: price,
+   
         priceextra: priceextra,
         bedrooms: bedrooms,
         bathrooms: bathrooms,
@@ -391,6 +394,8 @@ onChange={handlePriceChange}
 required
 />
 </div>
+
+
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
 <select
   style={{ marginLeft: '1px' }}
