@@ -470,7 +470,7 @@ required
         </select>
       </div>
 
-<div style={{ display: 'flex', flexDirection: 'column' }}>
+<div style={{ display: 'grid' }}>
 
 <label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
 <div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
