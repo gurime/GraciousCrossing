@@ -49,8 +49,8 @@ return (
     <li><Link href='/pages/Apartments'>Apartments for Rent</Link></li>
     <li><Link href='/pages/NewConstruction'>New Construction</Link></li>
     <li><Link href='/pages/Motel'>Motel</Link></li>
-    <li><Link href='#!'>/pages/Green Homes</Link></li>
-    <li><Link href='#!'>/pages/Historic Homes</Link></li>
+    <li><Link href='/pages/GreenHomes'>Green Homes</Link></li>
+    <li><Link href='/pages/HistoricHomes'>Historic Homes</Link></li>
     <li><Link href='#!'>Home Design</Link></li>
     <li><Link href='#!'>Neighborhoods</Link></li>
     <li><Link href='#!'>Commercial Real Estate</Link></li>
