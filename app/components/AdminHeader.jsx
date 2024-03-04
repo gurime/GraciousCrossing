@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { auth } from '../Config/firebase';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import Footer from './Footer'
 import Link from 'next/link';
 
 export default function AdminHeader() {
