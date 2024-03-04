@@ -16,7 +16,7 @@ const [title, setTitle] = useState("");
 const [owner, setOwner] = useState("");
 const [phone, setPhone] = useState("");
 const [price, setPrice] = useState("");
-const [billingFrequency, setBillingFrequency] = useState('monthly');
+const [billingFrequency, setBillingFrequency] = useState('Monthly');
 const [bedrooms, setBedrooms] = useState("1");
 const [bathrooms, setBathrooms] = useState("1");
 const [cable, setCable] = useState("");
@@ -290,9 +290,10 @@ onChange={(e) => setBillingFrequency(e.target.value)}
 required
 className='billingselect'
 >
-<option value="monthly">Monthly</option>
-<option value="weekly">Weekly</option>
-<option value="sale">Sale</option>
+<option value="Monthly">Monthly</option>
+<option value="Weekly">Weekly</option>
+<option value="Rent">Rent</option>
+<option value="For Sale">For Sale</option>
 </select></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="selectedCollection">Property Category</label>
@@ -306,6 +307,7 @@ required
 <option value="Houses">Houses</option>
 <option value="Apartments">Apartments</option>
 <option value="NewConstruction">New Construction</option>
+<option value="Motel">Motel</option>
 </select></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',margin: '1rem 0', borderBottom: 'solid 1px'  }}><label htmlFor="bedrooms">Bedrooms</label>
@@ -327,8 +329,10 @@ required
 /></div>
 
 
+<div style={{ display: 'grid' }}>
+
 <label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
 <input
 type="checkbox"
 id="water"
@@ -339,7 +343,7 @@ onChange={(e) => setWater(e.target.checked)}
 <label htmlFor="water">Water</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
 <input
 type="checkbox"
 id="lights"
@@ -350,7 +354,7 @@ onChange={(e) => setLights(e.target.checked)}
 <label htmlFor="lights">Lights</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
 <input
 type="checkbox"
 id="cable"
@@ -361,7 +365,7 @@ onChange={(e) => setCable(e.target.checked)}
 <label htmlFor="cable">Cable</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
 <input
 type="checkbox"
 id="laundry"
@@ -372,7 +376,7 @@ onChange={(e) => setLaundry(e.target.checked)}
 <label htmlFor="laundry">Laundry</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
 <input
 type="checkbox"
 id="airConditioning"
@@ -383,7 +387,7 @@ onChange={(e) => setAirConditioning(e.target.checked)}
 <label htmlFor="airConditioning">AC</label>
 </div>
 
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse'}}>
 <input
 type="checkbox"
 id="heating"
@@ -393,7 +397,7 @@ onChange={(e) => setHeating(e.target.checked)}
 />
 <label htmlFor="heating">Heating</label>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse'}}>
 <input
 type="checkbox"
 id="pool"
@@ -403,7 +407,7 @@ onChange={(e) => setPool(e.target.checked)}
 />
 <label htmlFor="pool">Pool</label>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0', borderBottom: 'solid 1px' }}>
+<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', justifyContent:'space-evenly',marginBottom: '1rem', borderBottom: 'solid 1px ' }}>
 <input
 type="checkbox"
 id="wifi"
@@ -412,6 +416,8 @@ checked={wifi}
 onChange={(e) => setWifi(e.target.checked)}
 />
 <label htmlFor="wifi">Wifi</label>
+</div>
+
 </div>
 
 

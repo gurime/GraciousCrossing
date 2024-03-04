@@ -1258,9 +1258,7 @@ letter-spacing: 1px;
 outline: none;
 }
 
-.postform :checked{
-  width: 10%;
-}
+
 
 .postform textarea{
 width: 100%;
