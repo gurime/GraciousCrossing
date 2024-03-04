@@ -7,6 +7,8 @@ import Link from 'next/link';
 
 export default function AdminHeader() {
     const [adminisSignedIn, setIsSignedIn] = useState(false);
+    const [isFooterVisible, setIsFooterVisible] = useState(false);
+
 const [adminnames, setNames] = useState([]);
 const router = useRouter()
 const isAdmin = adminisSignedIn && adminnames.length === 2;
@@ -20,7 +22,6 @@ useEffect(() => {
             setNames([userData.firstName, userData.lastName]);
             setIsSignedIn(true);
           } catch (error) {
-            console.error(error.message);
           }
         } else {
           setIsSignedIn(false);
@@ -43,7 +44,6 @@ useEffect(() => {
     return null;
     }
     } catch (error) {
-    console.error('Error fetching user data:', error.message);
     throw error;
     }
     };
@@ -60,6 +60,11 @@ useEffect(() => {
       } catch (error) {
       }
       };
+
+      
+const toggleFooter = () => {
+  setIsFooterVisible(!isFooterVisible);
+  };
 return (
 <>
 
@@ -74,6 +79,7 @@ return (
 <>
 <span className="sm-name" >{adminnames[0]}</span>
 <span className="sm-name">{adminnames[1]}</span>
+<Link href='#!' onClick={toggleFooter}>More:</Link>
 <button onClick={handleLogout}>Logout</button>
 </>
 )}
@@ -90,7 +96,12 @@ return (
   </div>
 )} </ul>
 </div>
-
+<div style={{position:'relative',width:'100%'}}>
+<div style={{position:'absolute',width:'100%',zIndex:'1'}}>
+{isFooterVisible && <Footer />}
+</div>
+</div>
+{/* footer dropdown */}
 </>
 )
 }

@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import cardimg1 from '../img/home-card1.jpeg'
-import cardimg2 from '../img/home-card2.jpg'
 import cardimg3 from '../img/home-card3.jpg'
 import card1 from "../img/card1-img.jpeg" 
 import card2 from "../img/bg-card3.jpg"

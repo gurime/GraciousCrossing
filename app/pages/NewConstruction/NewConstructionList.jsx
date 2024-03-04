@@ -6,6 +6,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, updateDoc, where } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import EditModalForm from '../EditModalForm';
+import { BeatLoader } from 'react-spinners';
 
 
 async function getArticles(orderBy) {
@@ -206,29 +207,43 @@ return (
     onCancel={() => setEditModalOpen(false)}
   />
 )}
-<div className='property-grid'>
-{useArticle.map((blog) => (
-<Link key={blog.id} href={`/pages/Articles/${blog.id}`}>
-<div className='property-card'>
+
+{loading ? (
+  <div style={{ textAlign: 'center' }}>
+    <BeatLoader color='blue' />
+  </div>
+) : (
+  <div className='property-grid' style={{ borderBottom: 'solid 1px' }}>
+    {useArticle.length === 0 ? (
+      <p>No listings available.</p>
+    ) : (
+      useArticle.map((blog) => (
+        <Link key={blog.id} href={`/pages/Articles/${blog.id}`}>
+          <div ref={commentsRef} className='property-card'>
 <div
 style={{
 backgroundImage: `url(${blog.cover_image})`,
 backgroundSize: 'cover',
 backgroundPosition: 'center',
 height: '0',
-paddingTop: '56.25%', // 16:9 aspect ratio for responsive height
+paddingTop: '56.25%',
 width: '100%'
 }}
-></div><div className='property-details'>
-<div className='property-price'>{blog.price} <small>{blog.billingFrequency}</small></div>
-<div className='property-type'>
-<div style={{ marginRight: 'auto' }}>{blog.bathrooms}bds | {blog.bedrooms}ba</div>
-<div>{blog.propertyType}</div>
+></div>
+<div className='property-details'>
+<div className='property-price'>
+{blog.price} <small>{blog.billingFrequency}</small>
 </div>
-{/* <p className='property-description'>{blog.content.slice(0, 100)}...</p> */}
+<div className='property-type'>
+<div className='sm-houlo' style={{fontSize:'13px' }}>{blog.bathrooms}ba | {blog.bedrooms}bds |</div>
+<div className='sm-houlo' style={{fontSize:'13px' }}> {blog.square} sqft |</div>
+
+<div className='sm-houlo' style={{fontSize:'13px' }}>{blog.propertyType}</div>
+
+</div>
+
 </div>
 <div className='property-address'>{blog.address}</div>
-
 <div className='property-owner_name'>Listing by {blog.owner}</div>
 <div className="edit-delBlock">
 <button
@@ -253,10 +268,13 @@ Delete
 </button>
 </div>
 </div>
+        </Link>
+      ))
+    )}
+  </div>
+)}
 
-</Link>
-))}
-</div>
+
 
 </>
 )

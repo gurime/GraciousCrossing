@@ -1,44 +1,44 @@
+
 'use client'
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react'
 import { auth, db } from '@/app/Config/firebase';
+
+import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, updateDoc, where } from 'firebase/firestore';
-import { useRouter } from 'next/navigation';
 import EditModalForm from '../EditModalForm';
 import { BeatLoader } from 'react-spinners';
 
 
 async function getArticles(orderBy) {
-const querySnapshot = await getDocs(collection(db, "Apartments"));
+const querySnapshot = await getDocs(collection(db, "Motel"));
 const data = [];
 
 querySnapshot.forEach((doc) => {
 data.push({ id: doc.id, ...doc.data() });
 });
+return data;
+}
 
 
-  
-    return data;
-  }
-
-
-export default function ApartmentList() {
-  const [fetchError, setFetchError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [useArticle, setUseArticle] = useState([]);
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const [comments, setComments] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState();
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editingComment, setEditingComment] = useState(null);
-  const router = useRouter()
+export default function MotelListing() {
+const [fetchError, setFetchError] = useState(null);
+const [loading, setLoading] = useState(true);
+const [useArticle, setUseArticle] = useState([]);
+const [isSignedIn, setIsSignedIn] = useState(false);
+const [comments, setComments] = useState([]);
+const [errorMessage, setErrorMessage] = useState('');
+const [successMessage, setSuccessMessage] = useState();
+const [editModalOpen, setEditModalOpen] = useState(false);
+const [editingComment, setEditingComment] = useState(null);
+const router = useRouter()
+const commentsRef = useRef(null);
 
 const fetchComments = async (articleId) => {
 try {
 const db = getFirestore();
-const commentsRef = collection(db, 'Apartments');
+const commentsRef = collection(db, 'Motel');
 const queryRef = query(commentsRef, where('articleId', '==', articleId),   orderBy('timestamp', 'desc'));
 const querySnapshot = await getDocs(queryRef);
 const newComments = querySnapshot.docs.map((doc) => {
@@ -117,9 +117,9 @@ const isAuthenticated = await userIsAuthenticated();
 if (currentUser) {
 if (currentUser.uid === UserId) {
 const db = getFirestore();
-const commentDoc = await getDoc(doc(db, 'Apartments', postId));
+const commentDoc = await getDoc(doc(db, 'Motel', postId));
 if (commentDoc.exists()) {
-await deleteDoc(doc(db, 'Apartments', postId));
+await deleteDoc(doc(db, 'Motel', postId));
 setUseArticle((prevArticles) =>prevArticles.filter((article) => article.id !== postId)
 );
 setSuccessMessage('Listing deleted successfully');
@@ -148,7 +148,6 @@ setErrorMessage('');
 };
     
     // deletepost stops here
-
 
 
 
@@ -187,15 +186,15 @@ setErrorMessage('');
         unsubscribe();
       };
     }, [auth]);
-    
+  
 return (
 <>
 
 
 
-<div className='ApartmentArticleHero'>
+<div className='MotelArticleHero'>
 <div>
-  <h1>Apartments for Rent</h1>
+  <h1>Motels For Rent</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>
@@ -216,8 +215,6 @@ return (
 </div>
 
 </div>
-
-
 {editModalOpen && (
   <EditModalForm
     comment={editingComment}
@@ -225,6 +222,7 @@ return (
     onCancel={() => setEditModalOpen(false)}
   />
 )}
+
 
 {loading ? (
   <div style={{ textAlign: 'center' }}>
@@ -291,6 +289,7 @@ Delete
     )}
   </div>
 )}
+
 
 
 

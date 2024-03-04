@@ -28,6 +28,8 @@ const [address, setAddress] = useState(comment ? comment.address : "");
 const [isLoading, setIsLoading] = useState(false);
 const [wifi, setWifi] = useState(comment ? comment.wifi : "");
 const [phone, setPhone] = useState(comment ? comment.phone : "");
+const [square, setSquare] = useState(comment ? comment.square : "");
+const [tourTime, setTourTime] = useState(comment ? comment.tourTime : "");
 const [authpicFile, setAuthPicFile] = useState(comment ? null : comment.authpic);  
 
 const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image : null  );
@@ -170,6 +172,8 @@ cable: cable,
 laundry: laundry,
 airConditioning: airConditioning,
 heating: heating,
+tourTime: tourTime,
+square:square,
 pool: pool,
 phone:phone,
 wifi:wifi,
@@ -182,10 +186,10 @@ cover_showcase2: cover_showcase2,
 cover_showcase3: cover_showcase3,
 cover_showcase4: cover_showcase4
 });
-setSuccessMessage('Listing updated successfully');
-setTimeout(() => {
-setSuccessMessage('');
-}, 3000);
+window.location.reload()
+      window.scrollTo(0, 0); // Scroll to the top of the page
+
+      setUpdatedData(updatedData); // Set the updated data in the state
 setUpdatedData(updatedData); // Set the updated data in the state
 } else {
 setErrorMessage('Error: Cannot add a new document without articleId.');
@@ -202,33 +206,23 @@ setIsLoading(false); // Reset loading state
 
 };
   
-const formatPrice = (input,) => {
-  const numericValue = input.replace(/[^0-9.]/g, '').trim();
-  const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); 
-  const priceWithSymbol = `$${formattedNumericValue}`;
-  return priceWithSymbol;
-  };
-    
+const handleTourTimeChange = (e) => {
+  setTourTime(e.target.value);
+};
+
+
+const timeOptions = [
+  "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
+  "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
+  "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
+  "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
   
-  
-  const handlePhoneChange = (e) => {
-  const inputValue = e.target.value;
-  const formattedPhone = inputValue
-  .replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3').trim().slice(0,12);
-  setPhone(formattedPhone);
-  };
-    
-    
-  const handlePriceChange = (e) => {
-  const inputValue = e.target.value;
-  const formattedPrice = formatPrice(inputValue);
-  setPrice(formattedPrice);
-  };
+];
   
 return (
 <>
 <div style={{position:'relative'}}>
-<form className="postform" onSubmit={handleSubmit}>
+<form style={{margin:'auto'}} className="postform" onSubmit={handleSubmit}>
 
 {/* post form start here here */}
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="title">Property Name</label>
@@ -257,12 +251,12 @@ accept="image/*"
 onChange={handleAuthPicChange}
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="number">Phone Number</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="number">Phone Number</label>
 <input
 type="text"
 name="number"
 value={phone}
-onChange={handlePhoneChange}
+onChange={(e) => setPhone(e.target.value)}
 inputMode="numeric"  
 autoComplete="off"   
 required
@@ -277,23 +271,26 @@ required
 type="text"  // Change the type to text to allow non-numeric characters
 name="price"
 value={price}
-onChange={handlePriceChange}
+onChange={(e) => setPrice(e.target.value)}
 required
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
 <select
-style={{marginLeft:'1px'}}
-name="billingFrequency"
-value={billingFrequency}
-onChange={(e) => setBillingFrequency(e.target.value)}
-required
-className='billingselect'
+  style={{ marginLeft: '1px' }}
+  name="billingFrequency"
+  value={billingFrequency}
+  onChange={(e) => setBillingFrequency(e.target.value)}
+  required
+  className='billingselect'
 >
-<option value="monthly">Monthly</option>
-<option value="weekly">Weekly</option>
-<option value="sale">Sale</option>
-</select></div>
+  <option value="Monthly">Monthly</option>
+  <option value="Weekly">Weekly</option>
+  <option value="For Sale">For Sale</option>
+  <option value="Sold">Sold</option>
+</select>
+
+</div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="selectedCollection">Property Category</label>
 
@@ -306,6 +303,7 @@ required
 <option value="Houses">Houses</option>
 <option value="Apartments">Apartments</option>
 <option value="NewConstruction">New Construction</option>
+<option value="Motel">Motel</option>
 </select></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="bedrooms">Bedrooms</label>
@@ -326,6 +324,37 @@ onChange={(e) => setBathrooms(e.target.value)}
 required
 /></div>
 
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}>
+<label htmlFor="authpic">Property Size</label>
+<input
+type="number"
+id="square"
+name="square"
+
+onChange={(e) => setSquare(e.target.value)}
+required/>
+     
+
+
+  
+
+</div>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center', borderBottom: 'solid 1px' }}>
+        <label htmlFor="tourTime">Tour Time</label>
+        <select
+          id="tourTime"
+          name="tourTime"
+          value={tourTime}
+          onChange={handleTourTimeChange}
+          required
+        >
+          <option value="" disabled>Select tour time</option>
+          {timeOptions.map((option) => (
+            <option key={option} value={option}>{option}</option>
+          ))}
+        </select>
+      </div>
 
 <label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
 <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>

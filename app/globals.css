@@ -1050,6 +1050,19 @@ color: #fff;
 padding: 1rem;
 height: 600px;
 }
+.MotelArticleHero{
+background-image: linear-gradient(to bottom, #9191914d, #0000004d), url('./img/motel_bg.jpg');
+background-size: cover;
+background-position: 50%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+place-items: center;
+text-align: center;
+color: #fff;
+padding: 1rem;
+height: 600px;
+}
 .ApartmentArticleHero{
 background-image: linear-gradient(to bottom, #9191914d, #0000004d), url('./img/bg-wall.jpg');
 background-size: cover;
@@ -1103,6 +1116,19 @@ cursor: pointer;
 }
 
 .ApartmentArticleHero button{
+background-color: #17a2f6;
+color: #fff;
+padding: 10px 20px;
+text-decoration: none;
+display: inline-block;
+border-radius: 5px;
+transition: .5s;
+border: none;
+margin-bottom: 5rem;
+font-size: 17px;
+cursor: pointer;
+}
+.MotelArticleHero button{
 background-color: #17a2f6;
 color: #fff;
 padding: 10px 20px;

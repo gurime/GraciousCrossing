@@ -9,6 +9,7 @@ doc(db, 'Apartments', id),
 doc(db, 'NewConstruction', id),
 doc(db, 'Featured Houses', id),
 doc(db, 'Featured Apartment', id),
+doc(db, 'Motel', id),
 
 
 ];

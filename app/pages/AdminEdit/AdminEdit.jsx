@@ -270,7 +270,7 @@ const handleSubmit = async (e) => {
       setErrorMessage('Error: Cannot add a new document without articleId.');
     }
   } catch (error) {
-    console.error('Error:', error);
+   
 
     if (error.code === 'permission-denied') {
       setErrorMessage('Permission denied: You may not have the necessary permissions.');
