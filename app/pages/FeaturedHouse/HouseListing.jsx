@@ -166,9 +166,6 @@ return (
 
 {editModalOpen && (<AdminEdit comment={editingComment} onSave={handleEditModalSave} onCancel={() => setEditModalOpen(false)}/>)}
 
-<div style={{ textAlign: 'center', color: 'blue', fontWeight: '300' }}>
-  <h1>Featured Homes</h1>
-</div>
 
 {loading ? (
   <div style={{ textAlign: 'center' }}>

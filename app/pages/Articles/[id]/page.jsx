@@ -236,7 +236,7 @@ width:'15rem'
 
 
 <div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>
-<div className="body-content" style={{whiteSpace:'pre-line'}}><p>{post.content}</p></div>
+<div className="body-content" ><p>{post.content}</p></div>
 
 
 

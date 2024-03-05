@@ -2,6 +2,7 @@ import Footer from '@/app/components/Footer'
 import Navbar from '@/app/components/Navbar'
 import React from 'react'
 import NewConstructionList from './NewConstructionList'
+import AdminHeader from '@/app/components/AdminHeader';
 
 export const metadata = {
     title: 'New Construction Homes - Gracious Crossing',
@@ -14,6 +15,7 @@ export const metadata = {
 export default function page() {
 return (
 <>
+<AdminHeader/>
 <Navbar/>
 <NewConstructionList/>
 <Footer/>

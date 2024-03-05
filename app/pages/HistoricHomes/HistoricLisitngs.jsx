@@ -10,7 +10,7 @@ import { BeatLoader } from 'react-spinners';
 
 
 async function getArticles(orderBy) {
-const querySnapshot = await getDocs(collection(db, "NewConstruction"));
+const querySnapshot = await getDocs(collection(db, "Historic Homes"));
 const data = [];
 
 querySnapshot.forEach((doc) => {
@@ -23,7 +23,7 @@ data.push({ id: doc.id, ...doc.data() });
   }
 
 
-export default function NewConstructionList() {
+export default function HistoricLisitngs() {
   const [fetchError, setFetchError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [useArticle, setUseArticle] = useState([]);
@@ -38,7 +38,7 @@ export default function NewConstructionList() {
 const fetchComments = async (articleId) => {
 try {
 const db = getFirestore();
-const commentsRef = collection(db, 'NewConstruction');
+const commentsRef = collection(db, 'Historic Homes');
 const queryRef = query(commentsRef, where('articleId', '==', articleId),   orderBy('timestamp', 'desc'));
 const querySnapshot = await getDocs(queryRef);
 const newComments = querySnapshot.docs.map((doc) => {
@@ -117,9 +117,9 @@ const isAuthenticated = await userIsAuthenticated();
 if (currentUser) {
 if (currentUser.uid === UserId) {
 const db = getFirestore();
-const commentDoc = await getDoc(doc(db, 'NewConstruction', postId));
+const commentDoc = await getDoc(doc(db, 'Historic Homes', postId));
 if (commentDoc.exists()) {
-await deleteDoc(doc(db, 'NewConstruction', postId));
+await deleteDoc(doc(db, 'Apartments', postId));
 setUseArticle((prevArticles) =>prevArticles.filter((article) => article.id !== postId)
 );
 setSuccessMessage('Listing deleted successfully');
@@ -148,6 +148,7 @@ setErrorMessage('');
 };
     
     // deletepost stops here
+
 
 
 
@@ -192,9 +193,9 @@ return (
 
 
 
-<div className='NewConstructionHero'>
+<div className='HistoricArticleHero'>
 <div>
-  <h1>New Construction Homes For Sale & Rent</h1>
+  <h1>Historic Homes for Sale & Rent</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>
@@ -244,7 +245,7 @@ backgroundSize: 'cover',
 backgroundPosition: 'center',
 height: '0',
 paddingTop: '56.25%',
-width: '100%'
+width: '100%',
 }}
 ></div>
 <div className='property-details'>

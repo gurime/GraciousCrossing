@@ -78,9 +78,12 @@ return (
     
 {adminnames.length === 2 && (
 <>
-<span className="sm-name" >{adminnames[0]}</span>
-<span className="sm-name">{adminnames[1]}</span>
+<span className="sm-name" style={{padding:'0'}}>
+{adminnames[0]}
+{adminnames[1]}
 <Link href='#!' onClick={toggleFooter}>More:</Link>
+
+</span>
 <button onClick={handleLogout}>Logout</button>
 </>
 )}

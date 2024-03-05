@@ -418,7 +418,11 @@ required
 <option value="Featured Apartments">Featured Apartments</option>
 <option value="Houses">Houses</option>
 <option value="Apartments">Apartments</option>
+<option value="Motel">Motel</option>
 <option value="NewConstruction">New Construction</option>
+<option value="GreenHomes">Green Homes</option>
+<option value="HistoricHomes">Historic Homes</option>
+
 </select></div>
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}><label htmlFor="bedrooms">Bedrooms</label>
