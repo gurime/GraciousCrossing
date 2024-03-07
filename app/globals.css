@@ -14,6 +14,122 @@ letter-spacing: 2px;
   padding: 1rem;
 }
 
+.adminform{
+    margin: auto;
+    width: 100%;
+    padding: 1rem 0;
+    
+}
+
+.sm-adminform{
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.adminform_bg{
+
+  
+    background-color: #151516;
+    background-image: linear-gradient(43deg, #151516 0%, #443f3f 46%, #333333 100%);
+    width: 100%;
+  
+}
+
+.adminform label{
+  color: #fff;
+  line-height: 40px;
+
+}
+
+.adminform input{ 
+  
+    height: 46px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    outline: none;
+    background: transparent;
+    border: none;
+    margin-bottom: 24px;
+color: #fff;
+ border-bottom: solid 1px #fff;
+}
+.adminform select{ 
+  
+    height: 46px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    outline: none;
+    background: transparent;
+    border: none;
+    margin-bottom: 24px;
+color: #fff;
+ border-bottom: solid 1px #fff;
+}
+.adminform option{ 
+  
+  
+color: #000000;
+
+}
+
+.adminform input[type="radio"] {
+  width: 20px; /* Adjust the size as needed */
+  height: 20px; /* Adjust the size as needed */
+  border-radius: 50%;
+}
+
+.adminform textarea {
+  border: none;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #fff;
+  font-size: 16px;
+  resize: none;
+  letter-spacing: 1px;
+  outline: none;
+  background: transparent;
+  color: #fff;
+}
+
+.adminform button{
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  background-color: #009fdd;
+  width: 50% !important;
+text-align: center;
+color: white;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+}
+
+
+
+@media(max-width:768px){
+  .sm-adminform{
+    flex-direction: column;
+    align-items: normal;
+  }
+
+  .adminform textarea {
+    width: 100%;
+  }
+  .adminform button{
+    width: 100% !important;
+  }
+
+  .sm-adminform-checkbox{
+    display: grid !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
+
 .contribute-box {
   display: flex;
   margin: 3rem auto;
