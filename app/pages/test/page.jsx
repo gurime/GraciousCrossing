@@ -11,7 +11,9 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
 
-export default function page() {const [isSignedIn, setIsSignedIn] = useState(false);
+export default function page() 
+    {
+      //const [isSignedIn, setIsSignedIn] = useState(false);
     const [content, setContent] = useState("");
     const [contentfeatures, setcontentFeatures] = useState("");
     const [contentamenities, setcontentAmenities] = useState("");
@@ -853,7 +855,7 @@ onChange={handleCoverImageChange}
 </div>
 
 
-<button
+{/* <button
 type="submit"
 disabled={!isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price  ||  isLoading}
 style={{
@@ -865,7 +867,7 @@ color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !s
   
 >
 {isLoading ? <BeatLoader color='blue' /> : 'Submit'}
-</button>
+</button> */}
 </form>
 </div>
 <Footer/>
