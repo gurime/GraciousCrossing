@@ -14,7 +14,6 @@ const [isSignedIn, setIsSignedIn] = useState(false);
 
   const [content, setContent] = useState("");
   const [contentfeatures, setcontentFeatures] = useState("");
-  const [contentamenities, setcontentAmenities] = useState("");
   const [title, setTitle] = useState("");
   const [owner, setOwner] = useState("");
   const [phone, setPhone] = useState("");
@@ -221,7 +220,6 @@ const [isSignedIn, setIsSignedIn] = useState(false);
   const docRef = await addDoc(collection(db, selectedCollection), {
   userId: user.uid,
   content: content,
-  contentamenities:contentamenities,
   contentfeatures:contentfeatures,
   title: title,
   owner: owner,
@@ -838,17 +836,6 @@ onChange={handleCoverImageChange}
       placeholder='E.g., Hardwood floors, modern kitchen, spacious living room...'
       value={contentfeatures}
       onChange={(e) => setcontentFeatures(e.target.value)}
-    ></textarea>
-  </div>
-
-  <div style={{ display: 'grid', gap: '1rem', width: '100%' }}>
-    <label htmlFor="propertyAmenities">Amenities:</label>
-    <textarea
-      rows="5"
-      id="propertyAmenities"
-      placeholder='E.g., Swimming pool, gym, on-site laundry...'
-      value={contentamenities}
-      onChange={(e) => setcontentAmenities(e.target.value)}
     ></textarea>
   </div>
 </div>
