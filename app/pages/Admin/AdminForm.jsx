@@ -13,7 +13,6 @@ export default function AdminForm() {
 const [isSignedIn, setIsSignedIn] = useState(false);
 
   const [content, setContent] = useState("");
-  const [contentfeatures, setcontentFeatures] = useState("");
   const [title, setTitle] = useState("");
   const [owner, setOwner] = useState("");
   const [phone, setPhone] = useState("");
@@ -824,18 +823,6 @@ onChange={handleCoverImageChange}
       required
       value={content}
       onChange={(e) => setContent(e.target.value)}
-    ></textarea>
-  </div>
-
-  {/* Add more specific details as needed */}
-  <div style={{ display: 'grid', gap: '1rem', width: '100%' }}>
-    <label htmlFor="propertyFeatures">Features:</label>
-    <textarea
-      rows="5"
-      id="propertyFeatures"
-      placeholder='E.g., Hardwood floors, modern kitchen, spacious living room...'
-      value={contentfeatures}
-      onChange={(e) => setcontentFeatures(e.target.value)}
     ></textarea>
   </div>
 </div>
