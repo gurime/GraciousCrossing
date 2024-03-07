@@ -10,6 +10,8 @@ import React, { useEffect, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
 
 export default function AdminForm() {
+const [isSignedIn, setIsSignedIn] = useState(false);
+
   const [content, setContent] = useState("");
   const [contentfeatures, setcontentFeatures] = useState("");
   const [contentamenities, setcontentAmenities] = useState("");
