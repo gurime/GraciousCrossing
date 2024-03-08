@@ -128,8 +128,8 @@ borderRadius: '8px',}}>
 </div>
 <div style={{display:'grid',alignItems:'center'}}>
 <div className='sm-ba'> 
-<p >{post.address}</p>
-{/* <p>{post.address.slice(-12)}</p> */}
+<address>{post.address}, {post.city}, {post.state.slice(0,2)}, {post.zip}</address>
+
 
 </div>
 

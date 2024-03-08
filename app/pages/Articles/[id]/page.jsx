@@ -143,11 +143,11 @@ lineHeight:'2'
 
 {post.billingFrequency2 ? (
   <p style={{fontWeight:'600'}}>
-    {post.priceextra}/<small>{post.billingFrequency2.slice(0,2)}</small>
+    {post.priceextra}/<small>{post.billingFrequency2}</small>
   </p>
 ) : null}
 <p>{post.property_type}</p>
-<p>{post.address}</p>
+<address>{post.address}, {post.city}, {post.state.slice(0,2)}, {post.zip}</address>
 <div style={{
 display:'flex',
 alignItems:'center',

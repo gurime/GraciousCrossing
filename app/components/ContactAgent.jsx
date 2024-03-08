@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 export default function ContactAgent({post}) {
 const [names, setNames] = useState('');
 const [phone, setPhone] = useState('');
-const [initialContent, setInitialContent] = useState(`I'm interested in ${post && post.address ? post.address : ''}`);
+const [initialContent, setInitialContent] = useState(`I'm interested in ${post.address || ''}, ${post.city || ''}, ${post.state?.slice(0, 2) || ''}, ${post.zip || ''}`);
 
 const [content, setContent] = useState(initialContent);
 

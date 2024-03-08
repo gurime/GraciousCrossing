@@ -29,16 +29,22 @@ const [billingFrequency2, setBillingFrequency2] = useState(comment ? comment.bil
 const [bedrooms, setBedrooms] = useState(comment ? comment.bedrooms : "1");
 const [bathrooms, setBathrooms] = useState(comment ? comment.bathrooms : "1");
 const [square, setSquare] = useState(comment ? comment.square : "");
-const [cable, setCable] = useState(comment ? comment.cable : "");
-const [laundry, setLaundry] = useState(comment ? comment.laundry : "");
-const [lights, setLights] = useState(comment ? comment.lights : "");
-const [water, setWater] = useState(comment ? comment.water : "");
-const [heating, setHeating] = useState(comment ? comment.heating : "");
-const [pool, setPool] = useState(comment ? comment.pool : "");
-const [airConditioning, setAirConditioning] = useState(comment ? comment.airConditioning : "");
+
 const [address, setAddress] = useState(comment ? comment.address : "");
+const [city, setCity] = useState(comment ? comment.city : "");
+  const [state, setState] = useState(comment ? comment.state : "");
+  const [zip, setZip] = useState(comment ? comment.zip : "");
 const [isLoading, setIsLoading] = useState(false);
-const [wifi, setWifi] = useState(comment ? comment.wifi : "");
+const [cable, setCable] = useState(comment ? comment.cable :false);
+const [laundry, setLaundry] = useState(comment ? comment.laundry :false);
+const [lights, setLights] = useState(comment ? comment.lights :false);
+const [water, setWater] = useState(comment ? comment.water : false);
+const [heating, setHeating] = useState(comment ? comment.heating : false);
+const [pool, setPool] = useState(comment ? comment.pool : false);
+const [airConditioning, setAirConditioning] = useState(comment ? comment.airConditioning : false);
+const [wifi, setWifi] = useState(comment ? comment.wifi : false);
+const [gym, setGym] = useState(comment ? comment.gym :false);
+const [parking, setParking] = useState(false);
 const [phone, setPhone] = useState(comment ? comment.phone : "");
 const [authpicFile, setAuthPicFile] = useState(comment ? comment.authpic : "" );  
 const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image   : "" );
@@ -54,6 +60,7 @@ const [showcase9File, setShowcase9File] = useState(comment ? comment.cover_showc
 const [showcase10File, setShowcase10File] = useState(comment ? comment.cover_showcase10 : ""   );   
 const [showcase11File, setShowcase11File] = useState(comment ? comment.cover_showcase11 : ""   );   
 const [showcase12File, setShowcase12File] = useState(comment ? comment.cover_showcase12 : ""   );   
+const [editModalOpen, setEditModalOpen] = useState(false);
 
 const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Featured Houses");
 const [successMessage, setSuccessMessage] = useState("");
@@ -222,14 +229,12 @@ const handleSubmit = async (e) => {
     if (isUpdate && comment.id && selectedCollection) {
       const docRef = doc(db, selectedCollection, comment.id);
       await updateDoc(docRef, {
-        articleId:articleId,
         userId: user.uid,
-        timestamp: new Date(),
         content: content,
         title: title,
         owner: owner,
+        phone:phone,
         price: price,
-   
         priceextra: priceextra,
         bedrooms: bedrooms,
         bathrooms: bathrooms,
@@ -238,16 +243,22 @@ const handleSubmit = async (e) => {
         billingFrequency2: billingFrequency2,
         water: water,
         lights: lights,
-        tourTime: tourTime,
         cable: cable,
         laundry: laundry,
         airConditioning: airConditioning,
         heating: heating,
         pool: pool,
-        phone: phone,
         wifi: wifi,
-        authpic: authpic,
         address: address,
+        city:city,
+        state:state,
+        zip:zip,
+        gym: gym,
+        parking: parking,
+        tourTime: tourTime,
+        timestamp: new Date(),
+        userEmail: user.email,
+        authpic: authpic,
         cover_image: cover_image,
         cover_showcase1: cover_showcase1,
         cover_showcase2: cover_showcase2,
@@ -261,17 +272,17 @@ const handleSubmit = async (e) => {
         cover_showcase10: cover_showcase10,
         cover_showcase11: cover_showcase11,
         cover_showcase12: cover_showcase12,
+        propertyType: selectedCollection, 
       });
-      window.location.reload()
-      window.scrollTo(0, 0); // Scroll to the top of the page
-
-      setUpdatedData(updatedData); // Set the updated data in the state
+     window.location.reload()
+  
+      window.scrollTo(0, 0); 
     } else {
       setErrorMessage('Error: Cannot add a new document without articleId.');
     }
   } catch (error) {
    
-
+console.log(error)
     if (error.code === 'permission-denied') {
       setErrorMessage('Permission denied: You may not have the necessary permissions.');
     } else if (error.code === 'not-found') {
@@ -282,40 +293,9 @@ const handleSubmit = async (e) => {
   }
 };
 
-  
-const formatPrice = (input,) => {
-const numericValue = input.replace(/[^0-9.]/g, '').trim();
-const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); 
-const priceWithSymbol = `$${formattedNumericValue}`;
-return priceWithSymbol;
-};
-  
-const formatPrice1 = (input,) => {
-const numericValue = input.replace(/[^0-9.]/g, '').trim();
-const formattedNumericValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Add commas to the integer part
-const priceWithSymbol = `$${formattedNumericValue}`;
-return priceWithSymbol;
-};
-      
-  
-const handlePhoneChange = (e) => {
-const inputValue = e.target.value;
-const formattedPhone = inputValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3').trim().slice(0,12);
-setPhone(formattedPhone);
-};
-    
-    
-const handlePriceChange = (e) => {
-const inputValue = e.target.value;
-const formattedPrice = formatPrice(inputValue);
-setPrice(formattedPrice);
-};
 
-const handlePriceChange1 = (e) => {
-const inputValue = e.target.value;
-const formattedPrice = formatPrice1(inputValue);
-setPriceextra(formattedPrice);
-};
+    
+
 
 const handleTourTimeChange = (e) => {
   setTourTime(e.target.value);
@@ -332,30 +312,302 @@ const timeOptions = [
   
 return (
 <>
-<div style={{position: 'relative'}}>
-<form className="postform" onSubmit={handleSubmit} style={{margin:'auto'}}>
-<h1 style={{padding:'0 1rem'}}>Admin Form</h1>
+<div className='adminform_bg'>
+<form className="adminform" onSubmit={handleSubmit}>
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Provide Your Contact Information</h2>
+</div>
 
-{/* post form start here here */}
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="title">Property Name</label>
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="property-name">Property Name:</label>
 <input
 type="text"
+id="property-name"
 name="title"
 value={title}
 onChange={(e) => setTitle(e.target.value)}
 required
 />
+</div>
 
-<label htmlFor="owner">Owner</label>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="owner-name">Owner Name:</label>
 <input
 type="text"
+id="owner-name"
 name="owner"
 value={owner}
 onChange={(e) => setOwner(e.target.value)}
 required
-/></div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}>
-<label htmlFor="authpic">Profile Picture</label>
+/>
+</div>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="phone-number">Phone Number:</label>
+<input
+type="tel"
+id="phone-number"
+name="phone"
+value={phone}
+onChange={(e) => setPhone(e.target.value)}
+required
+/>
+</div>
+</div>
+
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Provide Property Pricing Information</h2>
+</div>
+
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="price">Property Price:</label>
+    <input
+      type="text"
+      id="price"
+      name="price"
+      value={price}
+      onChange={(e) => setPrice(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="billingFrequency">Payment Frequency:</label>
+    <select
+      name="billingFrequency"
+      value={billingFrequency}
+      onChange={(e) => setBillingFrequency(e.target.value)}
+      required
+      className='billingselect'
+    >
+      <option value="Monthly">Monthly</option>
+      <option value="Weekly">Weekly</option>
+      <option value="Rent">Rent</option>
+      <option value="For Sale">For Sale</option>
+    </select>
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="priceextra">Financing Price: </label>
+    <input
+      type="text"
+      name="priceextra"
+      value={priceextra}
+      onChange={(e) => setPriceextra(e.target.value)}
+    />
+    <label htmlFor="billingFrequency2">Financing Type:</label>
+    <select
+      style={{ marginLeft: '1px' }}
+      name="billingFrequency2"
+      value={billingFrequency2}
+      onChange={(e) => setBillingFrequency2(e.target.value)}
+      className='billingselect'
+    >
+      <option value="Monthly">Monthly</option>
+      <option value="Weekly">Weekly</option>
+      <option value="RentToOwn">Rent to Own</option>
+      <option value="For Sale">For Sale</option>
+    </select>
+  </div>
+
+</div>
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Provide Property Information</h2>
+</div>
+
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="selectedCollection">Property Type:</label>
+    <select
+      name="selectedCollection"
+      value={selectedCollection}
+      onChange={(e) => setSelectedCollection(e.target.value)}
+      required
+      className='billingselect'
+    >
+     <option value="FeaturedHouse">Featured Houses</option>
+<option value="Featured Apartments">Featured Apartments</option>
+<option value="Houses">Houses</option>
+<option value="Apartments">Apartments</option>
+<option value="Motel">Motel</option>
+<option value="NewConstruction">New Construction</option>
+<option value="GreenHomes">Green Homes</option>
+<option value="HistoricHomes">Historic Homes</option>
+    </select>
+  </div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="bedrooms">Bedrooms:</label>
+<input
+type="number"
+name="bedrooms"
+value={bedrooms}
+onChange={(e) => setBedrooms(e.target.value)}
+required
+/>
+  </div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="bathrooms">Bathrooms:</label>
+<input
+type="number"
+name="bathrooms"
+value={bathrooms}
+onChange={(e) => setBathrooms(e.target.value)}
+required
+/>
+</div>
+
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="square">Property Size:</label>
+<input
+type="number"
+id="square"
+name="square"
+onChange={(e) => setSquare(e.target.value)}
+/> 
+</div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="tourTime">Tour Time</label>
+<select
+id="tourTime"
+name="tourTime"
+value={tourTime}
+onChange={handleTourTimeChange}
+required
+>
+<option value="" disabled>Select tour time</option>
+{timeOptions.map((option) => (
+<option key={option} value={option}>{option}</option>
+))}
+</select>
+</div>
+
+</div>
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Select Amenities</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="water"style={{ color: water ? 'skyblue' : '#fff' }}
+>Water:</label>
+<input
+type="radio"
+id="water"
+name="water"
+checked={water}
+onChange={(e) => setWater(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="lights" style={{ color: lights ? 'yellow' : '#fff' }}>Lights:</label>
+<input
+type="radio"
+id="lights"
+name="lights"
+checked={lights}
+onChange={(e) => setLights(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="cable" style={{ color: cable ? 'purple' : '#fff' }}>Cable:</label>
+<input
+type="radio"
+id="cable"
+name="cable"
+checked={cable}
+onChange={(e) => setCable(e.target.value)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="laundry" style={{ color: laundry ? '#5AB60D' : '#fff' }}>laundry:</label>
+<input
+type="radio"
+id="laundry"
+name="laundry"
+checked={laundry}
+onChange={(e) => setLaundry(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="airConditioning" style={{ color: airConditioning ? '#5DE2E7' : '#fff' }}>AC:</label>
+<input
+type="radio"
+id="airConditioning"
+name="airConditioning"
+checked={airConditioning}
+onChange={(e) => setAirConditioning(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="heating" style={{ color: heating ? '#ff0808' : '#fff' }}>Heating:</label>
+<input
+type="radio"
+id="heating"
+name="heating"
+checked={heating}
+onChange={(e) => setHeating(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="pool" style={{ color: pool ? '#2877ff' : '#fff' }}>Swimming Pool:</label>
+<input
+type="radio"
+id="pool"
+name="pool"
+checked={pool}
+onChange={(e) => setPool(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="wifi" style={{ color: wifi ? '#007fff' : '#fff' }}>Wifi:</label>
+<input
+type="radio"
+id="wifi"
+name="wifi"
+checked={wifi}
+onChange={(e) => setWifi(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="gym" style={{ color: gym ? '#ff9900' : '#fff' }}>Gym:</label>
+  <input
+    type="radio"
+    id="gym"
+    name="gym"
+    checked={gym}
+    onChange={(e) => setGym(e.target.checked)}
+  />
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="parking" style={{ color: parking ? '#cb6464' : '#fff' }}>Parking:</label>
+  <input
+    type="radio"
+    id="parking"
+    name="parking"
+    checked={parking}
+    onChange={(e) => setParking(e.target.checked)}
+  />
+</div>
+
+</div>
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Property Images</h2>
+</div>
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="authpic">Property Logo:</label>
 <input
 type="file"
 id="authpic"
@@ -364,426 +616,242 @@ accept="image/*"
 required
 onChange={handleAuthPicChange}
 />
-     
+</div> 
 
-
-  
-
-</div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="number">Phone Number</label>
-<input
-type="text"
-name="number"
-value={phone}
-onChange={handlePhoneChange}
-inputMode="numeric"  
-autoComplete="off"   
-required
-/>
-
-</div>
-
-
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Price</label>
-<input
-type="text"  
-name="price"
-value={price}
-onChange={handlePriceChange}
-required
-/>
-</div>
-
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency ">Billing Frequency</label>
-<select
-  style={{ marginLeft: '1px' }}
-  name="billingFrequency"
-  value={billingFrequency}
-  onChange={(e) => setBillingFrequency(e.target.value)}
-  required
-  className='billingselect'
->
-  <option value="Monthly">Monthly</option>
-  <option value="Weekly">Weekly</option>
-  <option value="For Sale">For Sale</option>
-  <option value="Sold">Sold</option>
-</select>
-
-</div>
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Financing Price </label>
-<input
-type="text"  
-name="price"
-value={priceextra}
-onChange={handlePriceChange1}
-required
-/>
-</div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="billingFrequency2 ">Seller Financing</label>
-<select
-  style={{ marginLeft: '1px' }}
-  name="billingFrequency2"
-  value={billingFrequency2}
-  onChange={(e) => setBillingFrequency2(e.target.value)}
-  required
-  className='billingselect'
->
-  <option value="Monthly">Monthly</option>
-  <option value="Weekly">Weekly</option>
-</select>
-</div>
-
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="selectedCollection">Property Category</label>
-
-<select
-name="selectedCollection"
-value={selectedCollection}
-onChange={(e) => setSelectedCollection(e.target.value)}
-required
->  
-<option value="FeaturedHouse">Featured Houses</option>
-<option value="FeaturedApartment">Featured Apartments</option>
-<option value="Houses">Houses</option>
-<option value="Apartments">Apartments</option>
-<option value="NewConstruction">New Construction</option>
-</select></div>
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}><label htmlFor="bedrooms">Bedrooms</label>
-<input
-type="number"
-name="bedrooms"
-value={bedrooms}
-onChange={(e) => setBedrooms(e.target.value)}
-required
-/>
-
-<label htmlFor="bathrooms">Bathrooms</label>
-<input
-type="number"
-name="bathrooms"
-value={bathrooms}
-onChange={(e) => setBathrooms(e.target.value)}
-required
-/></div>
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}>
-<label htmlFor="authpic">Property Size</label>
-<input
-type="number"
-id="square"
-name="square"
-
-onChange={(e) => setSquare(e.target.value)}
-required/>
-     
-
-
-  
-
-</div>
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center', borderBottom: 'solid 1px' }}>
-        <label htmlFor="tourTime">Tour Time</label>
-        <select
-          id="tourTime"
-          name="tourTime"
-          value={tourTime}
-          onChange={handleTourTimeChange}
-          required
-        >
-          <option value="" disabled>Select tour time</option>
-          {timeOptions.map((option) => (
-            <option key={option} value={option}>{option}</option>
-          ))}
-        </select>
-      </div>
-
-
-<label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
-<input
-type="checkbox"
-id="water"
-name="water"
-checked={water}
-onChange={(e) => setWater(e.target.checked)}
-/>
-<label htmlFor="water">Water</label>
-</div>
-
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
-<input
-type="checkbox"
-id="lights"
-name="lights"
-checked={lights}
-onChange={(e) => setLights(e.target.checked)}
-/>
-<label htmlFor="lights">Lights</label>
-</div>
-
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
-<input
-type="checkbox"
-id="cable"
-name="cable"
-checked={cable}
-onChange={(e) => setCable(e.target.checked)}
-/>
-<label htmlFor="cable">Cable</label>
-</div>
-
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
-<input
-type="checkbox"
-id="laundry"
-name="laundry"
-checked={laundry}
-onChange={(e) => setLaundry(e.target.checked)}
-/>
-<label htmlFor="laundry">Laundry</label>
-</div>
-
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse' }}>
-<input
-type="checkbox"
-id="airConditioning"
-name="airConditioning"
-checked={airConditioning}
-onChange={(e) => setAirConditioning(e.target.checked)}
-/>
-<label htmlFor="airConditioning">AC</label>
-</div>
-
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
-<input
-type="checkbox"
-id="heating"
-name="heating"
-checked={heating}
-onChange={(e) => setHeating(e.target.checked)}
-/>
-<label htmlFor="heating">Heating</label>
-</div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0'}}>
-<input
-type="checkbox"
-id="pool"
-name="pool"
-checked={pool}
-onChange={(e) => setPool(e.target.checked)}
-/>
-<label htmlFor="pool">Pool</label>
-</div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', margin: '1rem 0', borderBottom: 'solid 1px ' }}>
-<input
-type="checkbox"
-id="wifi"
-name="wifi"
-checked={wifi}
-onChange={(e) => setWifi(e.target.checked)}
-/>
-<label htmlFor="wifi">Wifi</label>
-</div>
-
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="cover_image">Featured Image</label>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="cover_image">Property Featured Image:</label>
 <input
 type="file"
 id="cover_image"
 name="cover_image"
 accept="image/*"
 required
+
 onChange={handleCoverImageChange}
 />
-
-</div>
-
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase1">Showcase Image </label>
+</div> 
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase1">Property Showcase Image 1: </label>
 <input
-type="file"
-id="showcase1"
-name="showcase1"
-accept="image/*"
-required
-onChange={handleShowcase1Change}
+  type="file"
+  id="showcase1"
+  name="showcase1"
+  accept="image/*"
+  onChange={handleShowcase1Change}
 />
+</div> 
 
-</div>
-
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase2">Showcase Image </label>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase2">Property Showcase Image 2: </label>
 <input
-type="file"
-id="showcase2"
-name="showcase2"
-accept="image/*"
-required
-onChange={handleShowcase2Change}
+  type="file"
+  id="showcase2"
+  name="showcase2"
+  accept="image/*"
+  onChange={handleShowcase2Change}
 />
+</div> 
 
-</div>
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase3">Showcase Image </label>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase3">Property Showcase Image 3: </label>
 <input
-type="file"
-id="showcase3"
-name="showcase3"
-accept="image/*"
-required
-onChange={handleShowcase3Change}
+  type="file"
+  id="showcase3"
+  name="showcase3"
+  accept="image/*"
+  onChange={handleShowcase3Change}
 />
+</div> 
 
-</div>
-
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase4">Showcase Image </label>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase4">Property Showcase Image 4: </label>
 <input
-type="file"
-id="showcase4"
-name="showcase4"
-accept="image/*"
-required
-onChange={handleShowcase4Change}
+  type="file"
+  id="showcase4"
+  name="showcase4"
+  accept="image/*"
+  onChange={handleShowcase4Change}
 />
+</div> 
 
-</div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase5">Showcase Image </label>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase5">Property Showcase Image 5: </label>
 <input
-type="file"
-id="showcase5"
-name="showcase5"
-accept="image/*"
-required
-onChange={handleShowcase5Change}
-/>
-
-</div>
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase6">Showcase Image </label>
-<input
-type="file"
-id="showcase6"
-name="showcase6"
-accept="image/*"
-required
-onChange={handleShowcase6Change}
-/>
-
-</div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase7">Showcase Image </label>
-<input
-type="file"
-id="showcase7"
-name="showcase7"
-accept="image/*"
-required
-onChange={handleShowcase7Change}
-/>
-
-</div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center', }}><label htmlFor="showcase8">Showcase Image </label>
-<input
-type="file"
-id="showcase8"
-name="showcase8"
-accept="image/*"
-required
-onChange={handleShowcase8Change}
-/>
-
-</div>
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}><label htmlFor="showcase9">Showcase Image </label>
-<input
-type="file"
-id="showcase9"
-name="showcase9"
-accept="image/*"
-required
-onChange={handleShowcase9Change}
-/>
-
-</div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}><label htmlFor="showcase10">Showcase Image </label>
-<input
-type="file"
-id="showcase10"
-name="showcase10"
-accept="image/*"
-required
-onChange={handleShowcase10Change}
-/>
-
-</div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}><label htmlFor="showcase11">Showcase Image </label>
-<input
-type="file"
-id="showcase11"
-name="showcase11"
-accept="image/*"
-required
-onChange={handleShowcase11Change}
-/>
-
-</div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',borderBottom:'solid 1px',marginBottom:'1rem' }}><label htmlFor="showcase12">Showcase Image </label>
-<input
-type="file"
-id="showcase12"
-name="showcase12"
-accept="image/*"
-required
-onChange={handleShowcase12Change}
-/>
-
-</div>
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="category">Address</label>
-<input
-type="address"
-name="address"
-value={address}
-onChange={(e) => setAddress(e.target.value)}
-required
+  type="file"
+  id="showcase5"
+  name="showcas5"
+  accept="image/*"
+  onChange={handleShowcase5Change}
 />
 </div>
 
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase6">Property Showcase Image 6: </label>
+<input
+  type="file"
+  id="showcase6"
+  name="showcas6"
+  accept="image/*"
+  onChange={handleShowcase6Change}
+/>
+</div> 
 
-<textarea
-rows="10"
-cols="50"
-placeholder='Describe your property'
-required
-value={content}
-onChange={(e) => setContent(e.target.value)}
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase7">Property Showcase Image 7: </label>
+<input
+  type="file"
+  id="showcase7"
+  name="showcas7"
+  accept="image/*"
+  onChange={handleShowcase7Change}
+/>
+</div> 
 
-></textarea>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase8">Property Showcase Image 8: </label>
+<input
+  type="file"
+  id="showcase8"
+  name="showcas8"
+  accept="image/*"
+  onChange={handleShowcase8Change}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase9">Property Showcase Image 9: </label>
+<input
+  type="file"
+  id="showcase9"
+  name="showcas9"
+  accept="image/*"
+  onChange={handleShowcase9Change}
+/>
+</div> 
+
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase10">Property Showcase Image 10: </label>
+<input
+  type="file"
+  id="showcase10"
+  name="showcas10"
+  accept="image/*"
+  onChange={handleShowcase10Change}
+/>
+</div> 
+
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase11">Property Showcase Image 11: </label>
+<input
+  type="file"
+  id="showcase11"
+  name="showcas11"
+  accept="image/*"
+  onChange={handleShowcase11Change}
+/>
+</div> 
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase12">Property Showcase Image 12: </label>
+<input
+  type="file"
+  id="showcase12"
+  name="showcas12"
+  accept="image/*"
+  onChange={handleShowcase12Change}
+/>
+</div> 
+</div>
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Property Location</h2>
+</div>
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="address">Address:</label>
+    <input
+      type="text"
+      id="address"
+      name="address"
+      value={address}
+      onChange={(e) => setAddress(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="city">City:</label>
+    <input
+      type="text"
+      id="city"
+      name="city"
+      value={city}
+      onChange={(e) => setCity(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="state">State:</label>
+    <input
+      type="text"
+      id="state"
+      name="state"
+      value={state}
+      onChange={(e) => setState(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="zip">ZIP Code:</label>
+    <input
+      type="text"
+      id="zip"
+      name="zip"
+      value={zip}
+      onChange={(e) => setZip(e.target.value)}
+      required
+    />
+  </div>
+
+</div>
+<hr />
+
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Property Details</h2>
+</div>
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+  <div  style={{ display: 'grid', gap: '1rem', width: '100%' }}>
+    <textarea
+      rows="10"
+      id="propertyDescription"
+      placeholder='E.g., A charming two-bedroom apartment with scenic views...'
+      required
+      value={content}
+      onChange={(e) => setContent(e.target.value)}
+    ></textarea>
+  </div>
+</div>
+
 
 <button
 type="submit"
-disabled={!isSignedIn || !content || !selectedCollection  ||  isLoading}
+disabled={!isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price  ||  isLoading}
 style={{
-margin:'1rem 0',
-cursor: !isSignedIn || !content || !selectedCollection ||  isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection ||  isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !content || !selectedCollection  || isLoading ? 'grey' : '#fff',
-}}
-  
->
-{isLoading ? <BeatLoader color='blue' /> : 'Update'}
-</button>
-<button style={{backgroundColor:'red'}} onClick={handleCancel}>Cancel</button>
+cursor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price || isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !state || !city || !price || isLoading ? 'grey' : '#fff',
 
-{successMessage && <p className="success">{successMessage}</p>}
+}}>
+
+{isLoading ? <BeatLoader color='blue' /> : 'Submit'}
+</button> 
+ <button style={{backgroundColor:'red'}} onClick={handleCancel}>Cancel</button>
 
 </form>
 </div>
+
 </>
 )
 }

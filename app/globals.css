@@ -80,8 +80,9 @@ color: #000000;
 
 .adminform textarea {
   border: none;
-  width: 100%;
+  width: 50%;
   padding: 10px;
+  margin: auto;
   margin-bottom: 20px;
   border-bottom: 1px solid #fff;
   font-size: 16px;
@@ -94,7 +95,7 @@ color: #000000;
 
 .adminform button{
   display: flex;
-  margin: auto;
+  margin: 1rem auto;
   justify-content: center;
   background-color: #009fdd;
   width: 50% !important;
@@ -127,6 +128,10 @@ width: 100%;
     display: grid !important;
     justify-content: center !important;
     align-items: center !important;
+  }
+
+  .sm-adminform-input{
+    width: 100%;
   }
 }
 
@@ -249,6 +254,12 @@ font-size: 13px;
 @media(max-width:500px){
   .navlinks button{
     margin-left: 30px;
+  }
+}
+
+@media(max-width:768px){
+  .sm-navlinks12 a{
+    font-size: 11px;
   }
 }
 /* navbar stops here */
@@ -1382,7 +1393,7 @@ place-items: center;
   
 .property-address {
 font-weight: 400;
-font-size: 15px;
+font-size: 13px;
 padding: 5px 20px;
 }
   

@@ -27,42 +27,45 @@ const [isSignedIn, setIsSignedIn] = useState(false);
   const [city, setCity] = useState( "");
   const [state, setState] = useState( "");
   const [zip, setZip] = useState( "");
-  
-  
-  
-  const [cable, setCable] = useState("");
-  const [laundry, setLaundry] = useState("");
-  const [lights, setLights] = useState("");
-  const [water, setWater] = useState("");
-  const [heating, setHeating] = useState("");
-  const [pool, setPool] = useState("");
-  const [wifi, setWifi] = useState("");
-  const [airConditioning, setAirConditioning] = useState("");
-  const [gym, setGym] = useState("");
-  const [parking, setParking] = useState("");
   const [address, setAddress] = useState("");
-  const [ isLoading, setIsLoading] = useState(false)
-  const [coverImageFile, setCoverImageFile] = useState(null);
-  const [showcase1File, setShowcase1File] = useState(null);  
-  const [showcase2File, setShowcase2File] = useState(null);  
-  const [showcase3File, setShowcase3File] = useState(null);  
-  const [showcase4File, setShowcase4File] = useState(null);  
-  const [showcase5File, setShowcase5File] = useState(null);  
-  const [showcase6File, setShowcase6File] = useState(null);  
-  const [showcase7File, setShowcase7File] = useState(null);  
-  const [showcase8File, setShowcase8File] = useState(null);  
-  const [showcase9File, setShowcase9File] = useState(null);  
-  const [showcase10File, setShowcase10File] = useState(null   );   
-  const [showcase11File, setShowcase11File] = useState(null   );   
-  const [showcase12File, setShowcase12File] = useState(null   );   
-  const [authpicFile, setAuthPicFile] = useState(null);  
-  const [articleId, setArticleId] = useState("");  
-  const [ selectedCollection, setSelectedCollection] = useState("Featured Houses")
-  const [successMessage, setSuccessMessage] = useState("");
+
   
-  const [names, setNames] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter();
+//amenities
+const [cable, setCable] = useState(false);
+const [laundry, setLaundry] = useState(false);
+const [lights, setLights] = useState(false);
+const [water, setWater] = useState(false);
+const [heating, setHeating] = useState(false);
+const [pool, setPool] = useState(false);
+const [wifi, setWifi] = useState(false);
+const [airConditioning, setAirConditioning] = useState(false);
+const [gym, setGym] = useState(false);
+const [parking, setParking] = useState(false);
+//amenities
+const [ isLoading, setIsLoading] = useState(false)
+//pictures
+const [coverImageFile, setCoverImageFile] = useState(null);
+const [showcase1File, setShowcase1File] = useState(null);  
+const [showcase2File, setShowcase2File] = useState(null);  
+const [showcase3File, setShowcase3File] = useState(null);  
+const [showcase4File, setShowcase4File] = useState(null);  
+const [showcase5File, setShowcase5File] = useState(null);  
+const [showcase6File, setShowcase6File] = useState(null);  
+const [showcase7File, setShowcase7File] = useState(null);  
+const [showcase8File, setShowcase8File] = useState(null);  
+const [showcase9File, setShowcase9File] = useState(null);  
+const [showcase10File, setShowcase10File] = useState(null   );   
+const [showcase11File, setShowcase11File] = useState(null   );   
+const [showcase12File, setShowcase12File] = useState(null   );   
+const [authpicFile, setAuthPicFile] = useState(null);  
+//pictures
+const [articleId, setArticleId] = useState("");  
+const [ selectedCollection, setSelectedCollection] = useState("Featured Houses")
+const [successMessage, setSuccessMessage] = useState("");
+
+const [names, setNames] = useState([]);
+const [errorMessage, setErrorMessage] = useState('');
+const router = useRouter();
     
   useEffect(() => {
   const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -219,7 +222,6 @@ const [isSignedIn, setIsSignedIn] = useState(false);
   const docRef = await addDoc(collection(db, selectedCollection), {
   userId: user.uid,
   content: content,
-  contentfeatures:contentfeatures,
   title: title,
   owner: owner,
   phone:phone,
@@ -311,7 +313,7 @@ return (
 </div>
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-<div style={{ display: 'grid', gap: '1rem' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="property-name">Property Name:</label>
 <input
 type="text"
@@ -323,7 +325,7 @@ required
 />
 </div>
 
-<div style={{ display: 'grid', gap: '1rem' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="owner-name">Owner Name:</label>
 <input
 type="text"
@@ -335,7 +337,7 @@ required
 />
 </div>
 
-<div style={{ display: 'grid', gap: '1rem' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="phone-number">Phone Number:</label>
 <input
 type="tel"
@@ -355,7 +357,7 @@ required
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
-  <div style={{ display: 'grid', gap: '1rem' }}>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="price">Property Price:</label>
     <input
       type="text"
@@ -367,7 +369,7 @@ required
     />
   </div>
 
-  <div style={{ display: 'grid', gap: '1rem' }}>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="billingFrequency">Payment Frequency:</label>
     <select
       name="billingFrequency"
@@ -383,7 +385,7 @@ required
     </select>
   </div>
 
-  <div style={{ display: 'grid', gap: '1rem' }}>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="priceextra">Financing Price: </label>
     <input
       type="text"
@@ -414,7 +416,7 @@ required
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
-<div style={{ display: 'grid', gap: '1rem' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="selectedCollection">Property Type:</label>
     <select
       name="selectedCollection"
@@ -433,7 +435,7 @@ required
 <option value="HistoricHomes">Historic Homes</option>
     </select>
   </div>
-<div style={{ display: 'grid', gap: '1rem' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="bedrooms">Bedrooms:</label>
 <input
 type="number"
@@ -443,7 +445,7 @@ onChange={(e) => setBedrooms(e.target.value)}
 required
 />
   </div>
-<div style={{ display: 'grid', gap: '1rem' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 
 <label htmlFor="bathrooms">Bathrooms:</label>
 <input
@@ -456,7 +458,7 @@ required
 </div>
 
 
-<div style={{ display: 'grid', gap: '1rem' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 
 <label htmlFor="square">Property Size:</label>
 <input
@@ -466,7 +468,7 @@ name="square"
 onChange={(e) => setSquare(e.target.value)}
 /> 
 </div>
-<div style={{ display: 'grid', gap: '1rem' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="tourTime">Tour Time</label>
 <select
 id="tourTime"
@@ -516,7 +518,7 @@ type="radio"
 id="cable"
 name="cable"
 checked={cable}
-onChange={(e) => setCable(e.target.checked)}
+onChange={(e) => setCable(e.target.value)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
@@ -759,7 +761,7 @@ onChange={handleCoverImageChange}
 </div>
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
-  <div style={{ display: 'grid', gap: '1rem' }}>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="address">Address:</label>
     <input
       type="text"
@@ -771,7 +773,7 @@ onChange={handleCoverImageChange}
     />
   </div>
 
-  <div style={{ display: 'grid', gap: '1rem' }}>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="city">City:</label>
     <input
       type="text"
@@ -783,7 +785,7 @@ onChange={handleCoverImageChange}
     />
   </div>
 
-  <div style={{ display: 'grid', gap: '1rem' }}>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="state">State:</label>
     <input
       type="text"
@@ -795,7 +797,7 @@ onChange={handleCoverImageChange}
     />
   </div>
 
-  <div style={{ display: 'grid', gap: '1rem' }}>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="zip">ZIP Code:</label>
     <input
       type="text"
@@ -814,8 +816,7 @@ onChange={handleCoverImageChange}
   <h2>Property Details</h2>
 </div>
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-  <div style={{ display: 'grid', gap: '1rem', width: '100%' }}>
-    <label htmlFor="propertyDescription">Description:</label>
+  <div  style={{ display: 'grid', gap: '1rem', width: '100%' }}>
     <textarea
       rows="10"
       id="propertyDescription"

@@ -164,7 +164,6 @@ fetchData();
 return (
 <>
 
-{editModalOpen && (<AdminEdit comment={editingComment} onSave={handleEditModalSave} onCancel={() => setEditModalOpen(false)}/>)}
 
 
 {loading ? (
@@ -202,8 +201,8 @@ width: '100%'
 </div>
 
 </div>
-<div className='property-address'>{blog.address}</div>
-<div className='property-owner_name'>Listing by {blog.owner}</div>
+<address className='property-address'>{blog.address}, {blog.city}, {blog.state.slice(0,2)}, {blog.zip}</address>
+<address className='property-owner_name'>Listing by {blog.owner}</address>
 <div className="edit-delBlock">
 <button
 className="edit-btn"
@@ -234,6 +233,7 @@ Delete
 )}
 
 
+{editModalOpen && (<AdminEdit comment={editingComment} onSave={handleEditModalSave} onCancel={() => setEditModalOpen(false)}/>)}
 
 
 

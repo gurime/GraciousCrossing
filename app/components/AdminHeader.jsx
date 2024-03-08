@@ -70,7 +70,7 @@ return (
 <>
 
 <div className='adminnav'>
-<ul className='navlinks'>
+<ul className='navlinks sm-navlinks12'>
 <Link href='/'>Home</Link>
 {/* <Link href='/pages/test'>test</Link> */}
 {adminisSignedIn ? (
