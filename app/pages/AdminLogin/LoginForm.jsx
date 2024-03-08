@@ -45,17 +45,17 @@ setIsInputValid(email !== '' && password !== '');
 
 return (
 <>
-<div className='contribute-box'>
-<div className='contribute-leftbox' style={{ marginBottom: '10rem' }}>
-<Image style={{ backgroundColor: '#a67eef', padding: '20px', cursor: 'none' }} src={itcontribte} alt='...' />
-<form className='formbox' onSubmit={handleLogin}>
+<div style={{height:'100vh', display:'grid',alignItems:'center'}} className='adminform_bg'>
+<form  className="adminform admin_login"  onSubmit={handleLogin}>
+
+
+<h1>Admin Login</h1>
 <label htmlFor='email'>Email</label>
 <input
 type='email'
 id='email'
 value={email}
 onChange={(e) => {setEmail(e.target.value);validateInputs();}}/>
-
 <label htmlFor='password'>Password</label>
 <input
 type='password'
@@ -76,7 +76,7 @@ color: !isInputValid || isLoading ? '#a9a9a9' : '#fff',
 </button>
 </form>
 </div>
-</div>
+
 </>
 );
 }

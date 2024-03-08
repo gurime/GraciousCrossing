@@ -10,34 +10,55 @@ import React, { useEffect, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
 
 export default function PropertyForm() {
-const [isSignedIn, setIsSignedIn] = useState(false);
-const [content, setContent] = useState("");
-const [title, setTitle] = useState("");
-const [owner, setOwner] = useState("");
-const [phone, setPhone] = useState("");
-const [price, setPrice] = useState("");
-const [billingFrequency, setBillingFrequency] = useState('Monthly');
-const [bedrooms, setBedrooms] = useState("1");
-const [bathrooms, setBathrooms] = useState("1");
-const [cable, setCable] = useState("");
-const [laundry, setLaundry] = useState("");
-const [lights, setLights] = useState("");
-const [water, setWater] = useState("");
-const [heating, setHeating] = useState("");
-const [pool, setPool] = useState("");
-const [wifi, setWifi] = useState("");
-const [square, setSquare] = useState( "");
-const [tourTime, setTourTime] = useState("");
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
-const [airConditioning, setAirConditioning] = useState("");
-const [address, setAddress] = useState("");
+  const [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
+  const [owner, setOwner] = useState("");
+  const [phone, setPhone] = useState("");
+  const [price, setPrice] = useState("");
+  const [tourTime, setTourTime] = useState("");
+  const [priceextra, setPriceextra] = useState("");
+  const [billingFrequency, setBillingFrequency] = useState('Monthly');
+  const [billingFrequency2, setBillingFrequency2] = useState('Monthly');
+  const [bedrooms, setBedrooms] = useState("1");
+  const [bathrooms, setBathrooms] = useState("1");
+  const [square, setSquare] = useState( "");
+  const [city, setCity] = useState( "");
+  const [state, setState] = useState( "");
+  const [zip, setZip] = useState( "");
+  const [address, setAddress] = useState("");
+
+  
+//amenities
+const [cable, setCable] = useState(false);
+const [laundry, setLaundry] = useState(false);
+const [lights, setLights] = useState(false);
+const [water, setWater] = useState(false);
+const [heating, setHeating] = useState(false);
+const [pool, setPool] = useState(false);
+const [wifi, setWifi] = useState(false);
+const [airConditioning, setAirConditioning] = useState(false);
+const [gym, setGym] = useState(false);
+const [parking, setParking] = useState(false);
+//amenities
 const [ isLoading, setIsLoading] = useState(false)
+//pictures
 const [coverImageFile, setCoverImageFile] = useState(null);
 const [showcase1File, setShowcase1File] = useState(null);  
 const [showcase2File, setShowcase2File] = useState(null);  
 const [showcase3File, setShowcase3File] = useState(null);  
 const [showcase4File, setShowcase4File] = useState(null);  
+const [showcase5File, setShowcase5File] = useState(null);  
+const [showcase6File, setShowcase6File] = useState(null);  
+const [showcase7File, setShowcase7File] = useState(null);  
+const [showcase8File, setShowcase8File] = useState(null);  
+const [showcase9File, setShowcase9File] = useState(null);  
+const [showcase10File, setShowcase10File] = useState(null   );   
+const [showcase11File, setShowcase11File] = useState(null   );   
+const [showcase12File, setShowcase12File] = useState(null   );   
 const [authpicFile, setAuthPicFile] = useState(null);  
+//pictures
 const [articleId, setArticleId] = useState("");  
 const [ selectedCollection, setSelectedCollection] = useState("Houses")
 const [successMessage, setSuccessMessage] = useState("");
@@ -45,98 +66,99 @@ const [successMessage, setSuccessMessage] = useState("");
 const [names, setNames] = useState([]);
 const [errorMessage, setErrorMessage] = useState('');
 const router = useRouter();
+    
+  useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged(async (user) => {
+  const getUserData = async (userId) => {
+  try {
+  const db = getFirestore();
+  const userDocRef = doc(db, 'users', userId);
+  const userDocSnapshot = await getDoc(userDocRef);
+  if (userDocSnapshot.exists()) {
+  const userData = userDocSnapshot.data();
+  return userData;
+  } else {
+  return null;
+  }
+  } catch (error) {
+  throw error;
+  }
+  };
+  setIsSignedIn(!!user);
+  if (user) {
+  try {
+  const userData = await getUserData(user.uid);
+  setNames([userData.firstName, userData.lastName]);
+  } catch (error) {
+  handleError(error);
+  } finally {
+  setIsLoading(false)
+  }
+  }
+  });
+  return () => unsubscribe();
+  }, []);
   
-useEffect(() => {
-const unsubscribe = auth.onAuthStateChanged(async (user) => {
-const getUserData = async (userId) => {
-try {
-const db = getFirestore();
-const userDocRef = doc(db, 'users', userId);
-const userDocSnapshot = await getDoc(userDocRef);
-if (userDocSnapshot.exists()) {
-const userData = userDocSnapshot.data();
-return userData;
-} else {
-return null;
-}
-} catch (error) {
-throw error;
-}
-};
-setIsSignedIn(!!user);
-if (user) {
-try {
-const userData = await getUserData(user.uid);
-setNames([userData.firstName, userData.lastName]);
-} catch (error) {
-handleError(error);
-} finally {
-setIsLoading(false)
-}
-}
-});
-return () => unsubscribe();
-}, []);
-
-const handleError = (error) => {
-if (error.code === 'network-error') {
-setErrorMessage('Network error: Please check your internet connection.');
-} else if (error.code === 'invalid-content') {
-setErrorMessage('Invalid comment content. Please try again.');
-} else {
-setErrorMessage('Unexpected error occurred. Please try again later.');
-}
-};
-
-
+  const handleError = (error) => {
+  if (error.code === 'network-error') {
+  setErrorMessage('Network error: Please check your internet connection.');
+  } else if (error.code === 'invalid-content') {
+  setErrorMessage('Invalid comment content. Please try again.');
+  } else {
+  setErrorMessage('Unexpected error occurred. Please try again later.');
+  }
+  };
   
-const handleAuthPicChange = (e) => {
-// Set the selected cover image file to state
-const file = e.target.files[0];
-setAuthPicFile(file);
-};
-const handleCoverImageChange = (e) => {
-// Set the selected cover image file to state
-const file = e.target.files[0];
-setCoverImageFile(file);
-};
   
-
-const handleShowcase1Change = (e) => {
-const file = e.target.files[0];
-setShowcase1File(file);
-};
-
-const handleShowcase2Change = (e) => {
-const file = e.target.files[0];
-setShowcase2File(file);
-};
-
-const handleShowcase3Change = (e) => {
-const file = e.target.files[0];
-setShowcase3File(file);
-};
-const handleShowcase4Change = (e) => {
-const file = e.target.files[0];
-setShowcase4File(file);
-};
-
-
+    
+  const handleAuthPicChange = (e) => {
+  // Set the selected cover image file to state
+  const file = e.target.files[0];
+  setAuthPicFile(file);
+  };
+  const handleCoverImageChange = (e) => {
+  // Set the selected cover image file to state
+  const file = e.target.files[0];
+  setCoverImageFile(file);
+  };
+    
   
-const storage = getStorage(); // Initialize Firebase Storage
-const handleFileUpload = async (file, storagePath) => {
-try {
-const storageRef = ref(storage, storagePath);
-await uploadBytes(storageRef, file);
-const downloadURL = await getDownloadURL(storageRef);
-return downloadURL;
-} catch (error) {
-throw error;
-}
-};
+  const handleShowcase1Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase1File(file);
+  };
+  
+  const handleShowcase2Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase2File(file);
+  };
+  
+  const handleShowcase3Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase3File(file);
+  };
+  const handleShowcase4Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase4File(file);
+  };
+  const handleShowcase5Change = (e) => {
+  const file = e.target.files[0];
+  setShowcase5File(file);
+  };
 
-// Log relevant information for debugging
-
+  const storage = getStorage(); // Initialize Firebase Storage
+  const handleFileUpload = async (file, storagePath) => {
+  try {
+  const storageRef = ref(storage, storagePath);
+  await uploadBytesResumable(storageRef, file);
+  const downloadURL = await getDownloadURL(storageRef);
+  return downloadURL;
+  } catch (error) {
+  throw error;
+  }
+  };
+  
+  
 const handleSubmit = async (e) => {
 e.preventDefault();
 try {
@@ -145,46 +167,47 @@ const user = auth.currentUser;
 setIsLoading(true);
 const uniqueArticleId = uuidv4();
 setArticleId(uniqueArticleId);
-// Upload files to Firebase Storage if they exist
-const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}_authpic.jpg`) : null;
+const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
+const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
+const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
+const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
+const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
+const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null; 
+const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
 
-const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}_cover_image.jpg`) : null;
-
-const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}_cover_showcase1.jpg`) : null;
-      
-const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}_cover_showcase2.jpg`) : null;
-      
-const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}_cover_showcase3.jpg`) : null;
-
-const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}_cover_showcase4.jpg`) : null;
-
-      
   
+        
+    
 const db = getFirestore();
 const docRef = await addDoc(collection(db, selectedCollection), {
-articleId: articleId,
 userId: user.uid,
 content: content,
 title: title,
 owner: owner,
 phone:phone,
 price: price,
+priceextra: priceextra,
 bedrooms: bedrooms,
 bathrooms: bathrooms,
+square: square,
 billingFrequency: billingFrequency,
+billingFrequency2: billingFrequency2,
 water: water,
 lights: lights,
 cable: cable,
 laundry: laundry,
-tourTime: tourTime,
-square:square,
 airConditioning: airConditioning,
 heating: heating,
 pool: pool,
 wifi: wifi,
 address: address,
+city:city,
+state:state,
+zip:zip,
+gym: gym,
+parking: parking,
+tourTime: tourTime,
 timestamp: new Date(),
-userName: user.displayName,
 userEmail: user.email,
 authpic: authpic,
 cover_image: cover_image,
@@ -192,6 +215,7 @@ cover_showcase1: cover_showcase1,
 cover_showcase2: cover_showcase2,
 cover_showcase3: cover_showcase3,
 cover_showcase4: cover_showcase4,
+cover_showcase5: cover_showcase5,
 propertyType: selectedCollection,  
 });
   
@@ -206,11 +230,12 @@ setErrorMessage('');
 setIsLoading(false);
 }
 };
+  
 
-
-
-
-const handleTourTimeChange = (e) => {
+    
+  
+  
+  const handleTourTimeChange = (e) => {
     setTourTime(e.target.value);
   };
   
@@ -223,97 +248,143 @@ const handleTourTimeChange = (e) => {
     
   ];
   
-
   
   
 
 
 return (
     <>
-<div className="property-hero">
-<form className="postform" onSubmit={handleSubmit}>
-<h1 style={{padding:'0 1rem'}}>Propery Form</h1>
-{/* post form start here here */}
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="title">Property Name</label>
+<div className='adminform_bg'>
+<form className="adminform" onSubmit={handleSubmit}>
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Provide Your Contact Information</h2>
+</div>
+
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="property-name">Property Name:</label>
 <input
 type="text"
+id="property-name"
 name="title"
 value={title}
 onChange={(e) => setTitle(e.target.value)}
 required
 />
+</div>
 
-<label htmlFor="owner">Owner</label>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="owner-name">Owner Name:</label>
 <input
 type="text"
+id="owner-name"
 name="owner"
 value={owner}
 onChange={(e) => setOwner(e.target.value)}
 required
-/></div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="authpic">Profile Picture</label>
-<input
-type="file"
-id="authpic"
-name="authpic"
-accept="image/*"
-onChange={handleAuthPicChange}
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',margin: '1rem 0', borderBottom: 'solid 1px'  }}><label htmlFor="number">Phone Number</label>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="phone-number">Phone Number:</label>
 <input
-type="text"
-name="number"
+type="tel"
+id="phone-number"
+name="phone"
 value={phone}
 onChange={(e) => setPhone(e.target.value)}
-inputMode="numeric"  
-autoComplete="off"   
-required
-/>
-
-</div>
-
-
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="price">Price</label>
-<input
-type="text"  // Change the type to text to allow non-numeric characters
-name="price"
-value={price}
-onChange={(e) => setPrice(e.target.value)}
 required
 />
 </div>
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',margin: '1rem 0', borderBottom: 'solid 1px'  }}><label htmlFor="billingFrequency ">Billing Frequency</label>
-<select
-style={{marginLeft:'1px'}}
-name="billingFrequency"
-value={billingFrequency}
-onChange={(e) => setBillingFrequency(e.target.value)}
-required
-className='billingselect'
->
-<option value="Monthly">Monthly</option>
-<option value="Weekly">Weekly</option>
-<option value="Rent">Rent</option>
-<option value="For Sale">For Sale</option>
-</select></div>
+</div>
 
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="selectedCollection">Property Category</label>
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Provide Property Pricing Information</h2>
+</div>
 
-<select
-name="selectedCollection"
-value={selectedCollection}
-onChange={(e) => setSelectedCollection(e.target.value)}
-required
->  
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="price">Property Price:</label>
+    <input
+      type="text"
+      id="price"
+      name="price"
+      value={price}
+      onChange={(e) => setPrice(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="billingFrequency">Payment Frequency:</label>
+    <select
+      name="billingFrequency"
+      value={billingFrequency}
+      onChange={(e) => setBillingFrequency(e.target.value)}
+      required
+      className='billingselect'
+    >
+      <option value="Monthly">Monthly</option>
+      <option value="Weekly">Weekly</option>
+      <option value="Rent">Rent</option>
+      <option value="For Sale">For Sale</option>
+    </select>
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="priceextra">Financing Price: </label>
+    <input
+      type="text"
+      name="priceextra"
+      value={priceextra}
+      onChange={(e) => setPriceextra(e.target.value)}
+    />
+    <label htmlFor="billingFrequency2">Financing Type:</label>
+    <select
+      style={{ marginLeft: '1px' }}
+      name="billingFrequency2"
+      value={billingFrequency2}
+      onChange={(e) => setBillingFrequency2(e.target.value)}
+      className='billingselect'
+    >
+      <option value="Monthly">Monthly</option>
+      <option value="Weekly">Weekly</option>
+      <option value="RentToOwn">Rent to Own</option>
+      <option value="For Sale">For Sale</option>
+    </select>
+  </div>
+
+</div>
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Provide Property Information</h2>
+</div>
+
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="selectedCollection">Property Type:</label>
+    <select
+      name="selectedCollection"
+      value={selectedCollection}
+      onChange={(e) => setSelectedCollection(e.target.value)}
+      required
+      className='billingselect'
+    >
+     <option value="FeaturedHouse">Featured Houses</option>
+<option value="Featured Apartments">Featured Apartments</option>
 <option value="Houses">Houses</option>
 <option value="Apartments">Apartments</option>
-<option value="NewConstruction">New Construction</option>
 <option value="Motel">Motel</option>
-</select></div>
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',margin: '1rem 0', borderBottom: 'solid 1px'  }}><label htmlFor="bedrooms">Bedrooms</label>
+<option value="NewConstruction">New Construction</option>
+<option value="GreenHomes">Green Homes</option>
+<option value="HistoricHomes">Historic Homes</option>
+    </select>
+  </div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="bedrooms">Bedrooms:</label>
 <input
 type="number"
 name="bedrooms"
@@ -321,226 +392,329 @@ value={bedrooms}
 onChange={(e) => setBedrooms(e.target.value)}
 required
 />
+  </div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 
-<label htmlFor="bathrooms">Bathrooms</label>
+<label htmlFor="bathrooms">Bathrooms:</label>
 <input
 type="number"
 name="bathrooms"
 value={bathrooms}
 onChange={(e) => setBathrooms(e.target.value)}
 required
-/></div>
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center',marginBottom:'1rem' }}>
-<label htmlFor="square">Property Size</label>
-<input
-  type="number"
-  id="square"
-
-  name="square"
-  onChange={(e) => setSquare(e.target.value)}
-/> 
-
-
-  
-
+/>
 </div>
 
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center', borderBottom: 'solid 1px' }}>
-        <label htmlFor="tourTime">Tour Time</label>
-        <select
-          id="tourTime"
-          name="tourTime"
-          value={tourTime}
-          onChange={handleTourTimeChange}
-          required
-        >
-          <option value="" disabled>Select tour time</option>
-          {timeOptions.map((option) => (
-            <option key={option} value={option}>{option}</option>
-          ))}
-        </select>
-      </div>
 
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 
-<div style={{ display: 'grid' }}>
-
-<label style={{ fontWeight: '600' }} htmlFor="amenities">Amenities</label>
-<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
+<label htmlFor="square">Property Size:</label>
 <input
-type="checkbox"
+type="number"
+id="square"
+name="square"
+onChange={(e) => setSquare(e.target.value)}
+/> 
+</div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="tourTime">Tour Time</label>
+<select
+id="tourTime"
+name="tourTime"
+value={tourTime}
+onChange={handleTourTimeChange}
+required
+>
+<option value="" disabled>Select tour time</option>
+{timeOptions.map((option) => (
+<option key={option} value={option}>{option}</option>
+))}
+</select>
+</div>
+
+</div>
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Select Amenities</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="water"style={{ color: water ? 'skyblue' : '#fff' }}
+>Water:</label>
+<input
+type="radio"
 id="water"
 name="water"
 checked={water}
 onChange={(e) => setWater(e.target.checked)}
 />
-<label htmlFor="water">Water</label>
 </div>
-
-<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="lights" style={{ color: lights ? 'yellow' : '#fff' }}>Lights:</label>
 <input
-type="checkbox"
+type="radio"
 id="lights"
 name="lights"
 checked={lights}
 onChange={(e) => setLights(e.target.checked)}
 />
-<label htmlFor="lights">Lights</label>
 </div>
-
-<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="cable" style={{ color: cable ? 'purple' : '#fff' }}>Cable:</label>
 <input
-type="checkbox"
+type="radio"
 id="cable"
 name="cable"
 checked={cable}
-onChange={(e) => setCable(e.target.checked)}
+onChange={(e) => setCable(e.target.value)}
 />
-<label htmlFor="cable">Cable</label>
 </div>
-
-<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="laundry" style={{ color: laundry ? '#5AB60D' : '#fff' }}>laundry:</label>
 <input
-type="checkbox"
+type="radio"
 id="laundry"
 name="laundry"
 checked={laundry}
 onChange={(e) => setLaundry(e.target.checked)}
 />
-<label htmlFor="laundry">Laundry</label>
 </div>
-
-<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse' }}>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="airConditioning" style={{ color: airConditioning ? '#5DE2E7' : '#fff' }}>AC:</label>
 <input
-type="checkbox"
+type="radio"
 id="airConditioning"
 name="airConditioning"
 checked={airConditioning}
 onChange={(e) => setAirConditioning(e.target.checked)}
 />
-<label htmlFor="airConditioning">AC</label>
 </div>
-
-<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse'}}>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="heating" style={{ color: heating ? '#ff0808' : '#fff' }}>Heating:</label>
 <input
-type="checkbox"
+type="radio"
 id="heating"
 name="heating"
 checked={heating}
 onChange={(e) => setHeating(e.target.checked)}
 />
-<label htmlFor="heating">Heating</label>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-evenly',flexDirection: 'row-reverse'}}>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="pool" style={{ color: pool ? '#2877ff' : '#fff' }}>Swimming Pool:</label>
 <input
-type="checkbox"
+type="radio"
 id="pool"
 name="pool"
 checked={pool}
 onChange={(e) => setPool(e.target.checked)}
 />
-<label htmlFor="pool">Pool</label>
 </div>
-<div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', justifyContent:'space-evenly',marginBottom: '1rem', borderBottom: 'solid 1px ' }}>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="wifi" style={{ color: wifi ? '#007fff' : '#fff' }}>Wifi:</label>
 <input
-type="checkbox"
+type="radio"
 id="wifi"
 name="wifi"
 checked={wifi}
 onChange={(e) => setWifi(e.target.checked)}
 />
-<label htmlFor="wifi">Wifi</label>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="gym" style={{ color: gym ? '#ff9900' : '#fff' }}>Gym:</label>
+  <input
+    type="radio"
+    id="gym"
+    name="gym"
+    checked={gym}
+    onChange={(e) => setGym(e.target.checked)}
+  />
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="parking" style={{ color: parking ? '#cb6464' : '#fff' }}>Parking:</label>
+  <input
+    type="radio"
+    id="parking"
+    name="parking"
+    checked={parking}
+    onChange={(e) => setParking(e.target.checked)}
+  />
 </div>
 
 </div>
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Property Images</h2>
+</div>
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="authpic">Property Logo:</label>
+<input
+type="file"
+id="authpic"
+name="authpic"
+accept="image/*"
+required
+onChange={handleAuthPicChange}
+/>
+</div> 
 
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="cover_image">Featured Image</label>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="cover_image">Property Featured Image:</label>
 <input
 type="file"
 id="cover_image"
 name="cover_image"
 accept="image/*"
+required
+
 onChange={handleCoverImageChange}
 />
-</div>
-
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase1">Showcase Image </label>
+</div> 
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase1">Property Showcase Image 1: </label>
 <input
-type="file"
-id="showcase1"
-name="showcase1"
-accept="image/*"
-onChange={handleShowcase1Change}
-/></div>
+  type="file"
+  id="showcase1"
+  name="showcase1"
+  accept="image/*"
+  onChange={handleShowcase1Change}
+/>
+</div> 
 
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase2">Showcase Image </label>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase2">Property Showcase Image 2: </label>
 <input
-type="file"
-id="showcase2"
-name="showcase2"
-accept="image/*"
-onChange={handleShowcase2Change}
-/></div>
+  type="file"
+  id="showcase2"
+  name="showcase2"
+  accept="image/*"
+  onChange={handleShowcase2Change}
+/>
+</div> 
 
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase3">Shocase Image </label>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase3">Property Showcase Image 3: </label>
 <input
-type="file"
-id="showcase3"
-name="showcase3"
-accept="image/*"
-onChange={handleShowcase3Change}
-/></div>
+  type="file"
+  id="showcase3"
+  name="showcase3"
+  accept="image/*"
+  onChange={handleShowcase3Change}
+/>
+</div> 
 
-
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="showcase3">Shocase Image </label>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase4">Property Showcase Image 4: </label>
 <input
-type="file"
-id="showcase4"
-name="showcase4"
-accept="image/*"
-onChange={handleShowcase4Change}
-/></div>
+  type="file"
+  id="showcase4"
+  name="showcase4"
+  accept="image/*"
+  onChange={handleShowcase4Change}
+/>
+</div> 
 
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'center' }}><label htmlFor="category">Address</label>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<label htmlFor="showcase5">Property Showcase Image 5: </label>
 <input
-type="address"
-name="address"
-value={address}
-onChange={(e) => setAddress(e.target.value)}
-required
+  type="file"
+  id="showcase5"
+  name="showcas5"
+  accept="image/*"
+  onChange={handleShowcase5Change}
 />
 </div>
 
+</div>
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Property Location</h2>
+</div>
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
-<textarea
-rows="5"
-cols="50"
-placeholder='Describe your property'
-required
-value={content}
-onChange={(e) => setContent(e.target.value)}
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="address">Address:</label>
+    <input
+      type="text"
+      id="address"
+      name="address"
+      value={address}
+      onChange={(e) => setAddress(e.target.value)}
+      required
+    />
+  </div>
 
-></textarea>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="city">City:</label>
+    <input
+      type="text"
+      id="city"
+      name="city"
+      value={city}
+      onChange={(e) => setCity(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="state">State:</label>
+    <input
+      type="text"
+      id="state"
+      name="state"
+      value={state}
+      onChange={(e) => setState(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="zip">ZIP Code:</label>
+    <input
+      type="text"
+      id="zip"
+      name="zip"
+      value={zip}
+      onChange={(e) => setZip(e.target.value)}
+      required
+    />
+  </div>
+
+</div>
+<hr />
+
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Property Details</h2>
+</div>
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+  <div  style={{ display: 'grid', gap: '1rem', width: '100%' }}>
+    <textarea
+      rows="10"
+      id="propertyDescription"
+      placeholder='E.g., A charming two-bedroom apartment with scenic views...'
+      required
+      value={content}
+      onChange={(e) => setContent(e.target.value)}
+    ></textarea>
+  </div>
+</div>
+
 
 <button
 type="submit"
-disabled={!isSignedIn || !content || !selectedCollection || isLoading}
+disabled={!isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price  ||  isLoading}
 style={{
-cursor: !isSignedIn || !content || !selectedCollection || isLoading ? 'none' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !content || !selectedCollection || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price || isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !state || !city || !price || isLoading ? 'grey' : '#fff',
+
 }}
   
 >
 {isLoading ? <BeatLoader color='blue' /> : 'Submit'}
 </button>
-
-{errorMessage && <p className="error">{errorMessage}</p>}
-{successMessage && <p className="success">{successMessage}</p>}
-
 </form>
 </div>
 </>

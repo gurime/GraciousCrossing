@@ -111,12 +111,19 @@ setErrorMessage('Unexpected error occurred. Please try again later.');
 }
 };
 
-const handleCancel = () => {
-onCancel(); 
-window.scrollTo(0, 0); 
+let originalScrollPosition;
 
+const openModal = () => {
+  // Store the original scroll position before opening the modal
+  originalScrollPosition = window.scrollY;
+  // Code to open the modal
 };
 
+const handleCancel = () => {
+  onCancel();
+  // Restore the original scroll position when the modal is closed
+  window.scrollTo(0, originalScrollPosition);
+};
 
 
 
