@@ -217,15 +217,7 @@ return (
 </div>
 
 
-{editModalOpen && (
-  <EditModalForm
-    comment={editingComment}
-    onSave={handleEditModalSave}
-    onCancel={() => setEditModalOpen(false)}
-  />
-)}
-
-{loading ? (
+{loading && useArticle.length === 0 && isSignedIn ? (
   <div style={{ textAlign: 'center' }}>
     <BeatLoader color='blue' />
   </div>
@@ -243,7 +235,7 @@ backgroundImage: `url(${blog.cover_image})`,
 backgroundSize: 'cover',
 backgroundPosition: 'center',
 height: '0',
-paddingTop: '56.25%',
+paddingTop: '56.25%', // 16:9 aspect ratio for responsive height
 width: '100%'
 }}
 ></div>
@@ -260,8 +252,8 @@ width: '100%'
 </div>
 
 </div>
-<div className='property-address'>{blog.address}</div>
-<div className='property-owner_name'>Listing by {blog.owner}</div>
+<address className='property-address'>{blog.address}, {blog.city}, {blog.state.slice(0,2)}, {blog.zip}</address>
+<address className='property-owner_name'>Listing by {blog.owner}</address>
 <div className="edit-delBlock">
 <button
 className="edit-btn"
@@ -290,6 +282,9 @@ Delete
     )}
   </div>
 )}
+
+
+{editModalOpen && (<AdminEdit comment={editingComment} onSave={handleEditModalSave} onCancel={() => setEditModalOpen(false)}/>)}
 
 
 

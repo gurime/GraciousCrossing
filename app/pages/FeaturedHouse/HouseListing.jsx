@@ -166,7 +166,7 @@ return (
 
 
 
-{loading ? (
+{loading && useArticle.length === 0 && isSignedIn ? (
   <div style={{ textAlign: 'center' }}>
     <BeatLoader color='blue' />
   </div>
