@@ -113,6 +113,8 @@ setErrorMessage('Unexpected error occurred. Please try again later.');
 
 const handleCancel = () => {
 onCancel(); 
+window.scrollTo(0, 0); 
+
 };
 
 
