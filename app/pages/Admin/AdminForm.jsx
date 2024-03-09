@@ -21,8 +21,13 @@ const [isSignedIn, setIsSignedIn] = useState(false);
   const [priceextra, setPriceextra] = useState("");
   const [billingFrequency, setBillingFrequency] = useState('');
   const [billingFrequency2, setBillingFrequency2] = useState('');
-  const [bedrooms, setBedrooms] = useState("1");
-  const [bathrooms, setBathrooms] = useState("1");
+  const [units, setUnits] = useState('');
+  const [apartprice, setApartPrice] = useState('');
+  const [apartbillingFrequency2, setApartBillingFrequency2] = useState('Monthly');
+  const [apartsquare, setApartSquare] = useState('');
+  const [apartavailability, setApartAvailability] = useState('');
+  const [bedrooms, setBedrooms] = useState("");
+  const [bathrooms, setBathrooms] = useState("");
   const [square, setSquare] = useState( "");
   const [city, setCity] = useState( "");
   const [state, setState] = useState( "");
@@ -232,6 +237,11 @@ const router = useRouter();
   square: square,
   billingFrequency: billingFrequency,
   billingFrequency2: billingFrequency2,
+  units:units,
+  apartavailability:apartavailability,
+  apartbillingFrequency2:apartbillingFrequency2,
+  apartprice:apartprice,
+  apartsquare:apartsquare,
   water: water,
   lights: lights,
   cable: cable,
@@ -357,7 +367,7 @@ required
 {/* property information starts here */}
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Provide Property Pricing Information</h2>
+  <h2>Housing Property Pricing Information</h2>
 </div>
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
@@ -417,8 +427,82 @@ required
   </div>
 
 </div>
-{/* property information stops here */}
+{/* Housing property information stops here */}
 
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Provide Apartment Information</h2>
+</div>
+
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="unitnumbers">Unit:</label>
+    <select
+      name="unitnumbers"
+      value={units}
+      onChange={(e) => setUnits(e.target.value)}
+      required
+      className='billingselect'
+    >
+      <option value="">Select Unit</option>
+
+      <option value="BUC-1018">BUC-1018</option>
+      <option value="BUC-1818">BUC-1818</option>
+     
+    </select>
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="apartprice">Unit Price:</label>
+    <input
+      type="text"
+      id="apartprice"
+      name="apartprice"
+      value={apartprice}
+      onChange={(e) => setApartPrice(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+  
+    <label htmlFor="billingFrequency2">Financing Type:</label>
+    <select
+      style={{ marginLeft: '1px' }}
+      name="billingFrequency2"
+      value={apartbillingFrequency2}
+      onChange={(e) => setApartBillingFrequency2(e.target.value)}
+      className='billingselect'
+    >
+      <option value="Monthly">Monthly</option>
+   
+    </select>
+  </div>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="apartsquare">Unit Size:</label>
+<input
+type="text"
+id="apartsquare"
+name="apartsquare"
+value={apartsquare}
+onChange={(e) => setApartSquare(e.target.value)}
+/> 
+</div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="Availability">Availability:</label>
+<input
+type="text"
+id="Availability"
+name="Availability"
+value={apartavailability}
+onChange={(e) => setApartAvailability(e.target.value)}
+/> 
+</div>
+</div>
 <hr />
 {/* property pricing information starts here */}
 
@@ -474,9 +558,10 @@ required
 
 <label htmlFor="square">Property Size:</label>
 <input
-type="number"
+type="text"
 id="square"
 name="square"
+value={square}
 onChange={(e) => setSquare(e.target.value)}
 /> 
 </div>

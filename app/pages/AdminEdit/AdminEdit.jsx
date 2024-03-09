@@ -46,6 +46,12 @@ const [wifi, setWifi] = useState(comment ? comment.wifi : false);
 const [gym, setGym] = useState(comment ? comment.gym :false);
 const [parking, setParking] = useState(false);
 const [phone, setPhone] = useState(comment ? comment.phone : "");
+const [units, setUnits] = useState(comment ? comment.units : '');
+const [apartprice, setApartPrice] = useState(comment ? comment.apartprice : '');
+const [apartavailability, setApartAvailability] = useState(comment ? comment.apartavailability : '');
+const [apartsquare, setApartSquare] = useState(comment ? comment.apartsquare : '');
+const [apartbillingFrequency2, setApartBillingFrequency2] = useState(comment ? comment.apartbillingFrequency2 : '');
+
 const [authpicFile, setAuthPicFile] = useState(comment ? comment.authpic : "" );  
 const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image   : "" );
 const [showcase1File, setShowcase1File] = useState(comment ? comment.cover_showcase1 : ""  );
@@ -251,6 +257,11 @@ const handleSubmit = async (e) => {
         billingFrequency: billingFrequency,
         billingFrequency2: billingFrequency2,
         water: water,
+        units:units,
+        apartavailability:apartavailability,
+        apartbillingFrequency2:apartbillingFrequency2,
+        apartprice:apartprice,
+        apartsquare:apartsquare,
         lights: lights,
         cable: cable,
         laundry: laundry,
@@ -423,6 +434,81 @@ required
     </select>
   </div>
 
+</div>
+
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Provide Apartment Information</h2>
+</div>
+
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="unitnumbers">Unit:</label>
+    <select
+      name="unitnumbers"
+      value={units}
+      onChange={(e) => setUnits(e.target.value)}
+      required
+      className='billingselect'
+    >
+      <option value="">Select Unit</option>
+
+      <option value="BUC-1018">BUC-1018</option>
+      <option value="BUC-1818">BUC-1818</option>
+     
+    </select>
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="apartprice">Unit Price:</label>
+    <input
+      type="text"
+      id="apartprice"
+      name="apartprice"
+      value={apartprice}
+      onChange={(e) => setApartPrice(e.target.value)}
+      required
+    />
+  </div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+  
+    <label htmlFor="billingFrequency2">Financing Type:</label>
+    <select
+      style={{ marginLeft: '1px' }}
+      name="billingFrequency2"
+      value={apartbillingFrequency2}
+      onChange={(e) => setApartBillingFrequency2(e.target.value)}
+      className='billingselect'
+    >
+      <option value="Monthly">Monthly</option>
+   
+    </select>
+  </div>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="apartsquare">Unit Size:</label>
+<input
+type="text"
+id="apartsquare"
+name="apartsquare"
+value={apartsquare}
+onChange={(e) => setApartSquare(e.target.value)}
+/> 
+</div>
+
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="Availability">Availability:</label>
+<input
+type="text"
+id="Availability"
+name="Availability"
+value={apartavailability}
+onChange={(e) => setApartAvailability(e.target.value)}
+/> 
+</div>
 </div>
 <hr />
 <div style={{ color: '#fff', textAlign: 'center' }}>
