@@ -445,7 +445,7 @@ required
       required
       className='billingselect'
     >
-      <option value="">Select Unit</option>
+      <option value="">Select Unit#</option>
 
       <option value="BUC-1018">BUC-1018</option>
       <option value="BUC-1818">BUC-1818</option>
