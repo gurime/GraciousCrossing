@@ -1,7 +1,7 @@
 'use client'
 import { auth } from '@/app/Config/firebase';
 import { addDoc, collection, doc, getDoc, getFirestore } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL, getStorage } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 import { getAuth } from 'firebase/auth';
@@ -19,8 +19,8 @@ export default function PropertyForm() {
   const [price, setPrice] = useState("");
   const [tourTime, setTourTime] = useState("");
   const [priceextra, setPriceextra] = useState("");
-  const [billingFrequency, setBillingFrequency] = useState('Monthly');
-  const [billingFrequency2, setBillingFrequency2] = useState('Monthly');
+  const [billingFrequency, setBillingFrequency] = useState('');
+  const [billingFrequency2, setBillingFrequency2] = useState('');
   const [bedrooms, setBedrooms] = useState("1");
   const [bathrooms, setBathrooms] = useState("1");
   const [square, setSquare] = useState( "");
@@ -50,13 +50,6 @@ const [showcase2File, setShowcase2File] = useState(null);
 const [showcase3File, setShowcase3File] = useState(null);  
 const [showcase4File, setShowcase4File] = useState(null);  
 const [showcase5File, setShowcase5File] = useState(null);  
-const [showcase6File, setShowcase6File] = useState(null);  
-const [showcase7File, setShowcase7File] = useState(null);  
-const [showcase8File, setShowcase8File] = useState(null);  
-const [showcase9File, setShowcase9File] = useState(null);  
-const [showcase10File, setShowcase10File] = useState(null   );   
-const [showcase11File, setShowcase11File] = useState(null   );   
-const [showcase12File, setShowcase12File] = useState(null   );   
 const [authpicFile, setAuthPicFile] = useState(null);  
 //pictures
 const [articleId, setArticleId] = useState("");  
@@ -326,6 +319,8 @@ required
       required
       className='billingselect'
     >
+      <option value="">Select Payment Frequency</option>
+
       <option value="Monthly">Monthly</option>
       <option value="Weekly">Weekly</option>
       <option value="Rent">Rent</option>
@@ -349,6 +344,8 @@ required
       onChange={(e) => setBillingFrequency2(e.target.value)}
       className='billingselect'
     >
+                  <option value="">Select Payment Frequency</option>
+
       <option value="Monthly">Monthly</option>
       <option value="Weekly">Weekly</option>
       <option value="RentToOwn">Rent to Own</option>
@@ -373,8 +370,8 @@ required
       required
       className='billingselect'
     >
-     <option value="FeaturedHouse">Featured Houses</option>
-<option value="Featured Apartments">Featured Apartments</option>
+            <option value="">Select Property</option>
+
 <option value="Houses">Houses</option>
 <option value="Apartments">Apartments</option>
 <option value="Motel">Motel</option>
@@ -660,14 +657,64 @@ onChange={handleCoverImageChange}
 
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="state">State:</label>
-    <input
-      type="text"
-      id="state"
-      name="state"
-      value={state}
-      onChange={(e) => setState(e.target.value)}
-      required
-    />
+    <select
+id="state"
+name="state"
+value={state}
+onChange={(e) => setState(e.target.value)}
+required>
+<option value="">Select a state</option> 
+<option value="Alabama">Alabama</option> 
+<option value="Alaska">Alaska</option> 
+<option value="Arizona">Arizona</option> 
+<option value="Arkansas">Arkansas</option> 
+<option value="California">California</option> 
+<option value="Colorado">Colorado</option> 
+<option value="Connecticut">Connecticut</option> 
+<option value="Delaware">Delaware</option> 
+<option value="Florida">Florida</option> 
+<option value="Georgia">Georgia</option> 
+<option value="Hawaii">Hawaii</option> 
+<option value="Idaho">Idaho</option> 
+<option value="Illinois">Illinois</option> 
+<option value="Indiana">Indiana</option> 
+<option value="Iowa">Iowa</option> 
+<option value="Kansas">Kansas</option> 
+<option value="Kentucky">Kentucky</option> 
+<option value="Louisiana">Louisiana</option> 
+<option value="Maine">Maine</option> 
+<option value="Maryland">Maryland</option> 
+<option value="Massachusetts">Massachusetts</option> 
+<option value="Michigan">Michigan</option> 
+<option value="Minnesota">Minnesota</option> 
+<option value="Mississippi">Mississippi</option> 
+<option value="Missouri">Missouri</option> 
+<option value="Montana">Montana</option> 
+<option value="Nebraska">Nebraska</option> 
+<option value="Nevada">Nevada</option> 
+<option value="New Hampshire">New Hampshire</option> 
+<option value="New Jersey">New Jersey</option> 
+<option value="New Mexico">New Mexico</option> 
+<option value="New York">New York</option> 
+<option value="North Carolina">North Carolina</option> 
+<option value="North Dakota">North Dakota</option> 
+<option value="Ohio">Ohio</option> 
+<option value="Oklahoma">Oklahoma</option> 
+<option value="Oregon">Oregon</option> 
+<option value="Pennsylvania">Pennsylvania</option> 
+<option value="Rhode Island">Rhode Island</option> 
+<option value="South Carolina">South Carolina</option> 
+<option value="South Dakota">South Dakota</option> 
+<option value="Tennessee">Tennessee</option> 
+<option value="Texas">Texas</option> 
+<option value="Utah">Utah</option> 
+<option value="Vermont">Vermont</option> 
+<option value="Virginia">Virginia</option> 
+<option value="Washington">Washington</option> 
+<option value="West Virginia">West Virginia</option> 
+<option value="Wisconsin">Wisconsin</option> 
+<option value="Wyoming">Wyoming</option>
+</select>
   </div>
 
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>

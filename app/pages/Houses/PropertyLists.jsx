@@ -249,7 +249,7 @@ width: '100%'
 </div>
 
 </div>
-<address className='property-address'>{blog.address}, {blog.city}, {blog.state.slice(0,2)}, {blog.zip}</address>
+<address className='property-address'>{blog.address}, {blog.city}, {blog.state[0]}{blog.state.slice(-1)}, {blog.zip}</address>
 <address className='property-owner_name'>Listing by {blog.owner}</address>
 <div className="edit-delBlock">
 <button

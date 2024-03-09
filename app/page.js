@@ -21,9 +21,9 @@ export default function Home() {
 <Navbar/>
 <HeroHome/>
 <HouseListing/>
+<ApartmentListing/>
 
 <Tagblock/>
-<ApartmentListing/>
 <Footer/>
     </>
   )

@@ -191,14 +191,14 @@ width: '100%'
 </div>
 <div className='property-type'>
 <div className='sm-houlo' style={{fontSize:'13px' }}>{blog.bathrooms}ba | {blog.bedrooms}bds |</div>
-<div className='sm-houlo' style={{fontSize:'13px' }}> {blog.square} sqft |</div>
+<div className='sm-houlo' style={{fontSize:'12px' }}> {blog.square} sqft |</div>
 
 <div className='sm-houlo' style={{fontSize:'13px' }}>{blog.propertyType}</div>
 
 </div>
 
 </div>
-<address className='property-address'>{blog.address}, {blog.city}, {blog.state.slice(0,2)}, {blog.zip}</address>
+<address className='property-address'>{blog.address}, {blog.city}, {blog.state[0]}{blog.state.slice(-1)}, {blog.zip}</address>
 <address className='property-owner_name'>Listing by {blog.owner}</address>
 <div className="edit-delBlock">
 <button

@@ -116,7 +116,10 @@ className="card-category">
 <div className='details_header_title'>
 <div style={{fontWeight:'100',display:'flex',alignItems:'center'}}>
 <li style={{color:'red'}}></li>
-<span style={{marginRight:'auto',fontSize:'20px',fontWeight:'600'}}>{post.billingFrequency}</span>
+{post.billingFrequency ? (
+  <span style={{marginRight:'auto',fontSize:'20px',fontWeight:'600'}}>{post.billingFrequency}</span>
+
+) : null}
 
 <div style={{
 display:'grid'
@@ -147,7 +150,8 @@ lineHeight:'2'
   </p>
 ) : null}
 <p>{post.property_type}</p>
-<address>{post.address}, {post.city}, {post.state.slice(0,2)}, {post.zip}</address>
+<address>{post.address}, {post.city}, {post.state[0]}{post.state.slice(-1)}, {post.zip}</address>
+
 <div style={{
 display:'flex',
 alignItems:'center',
