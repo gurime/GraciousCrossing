@@ -114,12 +114,17 @@ className="card-category">
 
 
 <div className='details_header_title'>
-<div style={{fontWeight:'100',display:'flex',alignItems:'center'}}>
+<div style={{fontWeight:'100',display:'flex',alignItems:'center',margin:'0 0 1rem 0'}}>
 <li style={{color:'red'}}></li>
 {post.billingFrequency ? (
   <span style={{marginRight:'auto',fontSize:'20px',fontWeight:'600'}}>{post.billingFrequency}</span>
 
 ) : null}
+{post.apartbillingFrequency2 ? (
+  <span style={{marginRight:'auto',fontSize:'20px',fontWeight:'600'}}>{post.apartbillingFrequency2}</span>
+
+) : null}
+
 
 <div style={{
 display:'grid'
@@ -131,6 +136,10 @@ display:'grid'
 </div>
 
 </div>
+{post.apartavailability ? (
+  <span style={{marginRight:'auto',fontSize:'20px',fontWeight:'300'}}><span style={{letterSpacing:'4px'}}>Availability</span> {post.apartavailability}</span>
+
+) : null}
 
 <div style={{
 display:'flex',
@@ -138,19 +147,24 @@ alignItems:'center',
 lineHeight:'2'
 }}>
   
-<h2>{post.price} </h2>
-<h3 style={{padding:'0 1rem'}}>{post.bathrooms} Bath | {post.bedrooms} Beds | {post.square} sqft</h3> 
+<h2>{post.price} {post.apartprice}</h2>
+<h3 style={{padding:'0 1rem'}}>{post.bathrooms} {post.apartbathrooms} Bath | {post.apartbedrooms} Beds | {post.square} {post.apartsquare}sqft</h3> 
 </div>
 
 
+{post.units ? (
+  <span style={{marginRight:'auto',fontSize:'20px',fontWeight:'300'}}>Unit# {post.units}</span>
 
+) : null}
 {post.billingFrequency2 ? (
   <p style={{fontWeight:'600'}}>
     {post.priceextra}/<small>{post.billingFrequency2}</small>
   </p>
+
 ) : null}
 <p>{post.property_type}</p>
 <address>{post.address}, {post.city}, {post.state[0]}{post.state.slice(-1)}, {post.zip}</address>
+
 
 <div style={{
 display:'flex',
@@ -166,73 +180,7 @@ width:'15rem'
 
 
 </div>
-<div style={{ display: (post.heating || post.lights || post.laundry || post.cable || post.airConditioning || post.water || post.pool || post.wifi) ? 'flex' : 'none', justifyContent: 'space-between', alignItems: 'center' }}>
-  <h3 style={{ padding: '0 1rem' }}>Popular Amenities</h3>
-</div>
 
-<div className='ameities-flex'>
-
-<div className='amenities-grid'>
-{post.heating &&
-  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
-    <Image style={{ padding: '0 1rem' }} width={30} src={heat} alt='...' />
-    <span>Heating is available</span>
-  </div>
-}
-
-{post.lights &&
-  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
-    <Image style={{ padding: '0 1rem' }} width={30} src={lights} alt='...' />
-    <span>Lights are available</span>
-  </div>
-}
-
-{post.laundry &&
-  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
-    <Image style={{ padding: '0 1rem' }} width={30} src={laundry} alt='...' />
-    <span>Laundry is available</span>
-  </div>
-}
-
-{post.cable &&
-  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
-    <Image style={{ padding: '0 1rem' }} width={30} src={cable} alt='...' />
-    <span>Cable is available</span>
-  </div>
-}
-
-{post.airConditioning &&
-  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
-    <Image style={{ padding: '0 1rem' }} width={30} src={ac} alt='...' />
-    <span>AC is available</span>
-  </div>
-}
-
-{post.water &&
-  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
-    <Image style={{ padding: '0 1rem' }} width={30} src={water} alt='...' />
-    <span>Water is available</span>
-  </div>
-}
-
-{post.pool &&
-  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
-    <Image style={{ padding: '0 1rem' }} width={30} src={pool} alt='...' />
-    <span>Pool is available</span>
-  </div>
-}
-
-{post.wifi &&
-  <div style={{ display: 'flex', margin: '1rem 0', alignItems: 'center' }}>
-    <Image style={{ padding: '0 1rem' }} width={30} src={wifi} alt='...' />
-    <span>WiFi is available</span>
-  </div>
-}
-
-</div>
-
-
-</div>
 <p className='formatdate' style={{ margin: '1rem' }}>
   Last Updated: {formattedDate}
 </p>
@@ -240,6 +188,63 @@ width:'15rem'
 
 
 <div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>
+
+<span style={{ padding: '0 1rem'}} >Highlights</span>
+
+
+<div style={{ display: (post.heating || post.lights || post.laundry || post.cable || post.airConditioning || post.water || post.pool || post.wifi) ? 'flex' : 'none', justifyContent: 'space-between', alignItems: 'center' }}>
+  <h3 style={{ padding: '0 1rem' }}>Popular Amenities</h3>
+</div>
+
+
+<div className='amenities-grid'>
+{post.heating &&
+    <li>Heating</li>
+
+}
+
+{post.lights &&
+    <li>Lights are available</li>
+
+}
+
+{post.laundry &&
+    <li>Washer/Dryer</li>
+
+}
+
+{post.cable &&
+    <li>Cable ready</li>
+
+}
+
+{post.airConditioning &&
+    <li>Air Conditioning</li>
+
+}
+
+{post.water &&
+    <li>Water is available</li>
+
+}
+
+{post.pool &&
+    <li>Pool is available</li>
+ 
+}
+
+{post.wifi &&
+    <li>WiFi </li>
+ 
+}
+
+</div>
+
+
+
+
+
+<div style={{padding:'0 1rem'}}><h2>About {post.title}</h2></div>
 <div className="body-content" ><p>{post.content}</p></div>
 
 

@@ -4,7 +4,6 @@ import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
 import { auth } from '../../Config/firebase';
@@ -51,7 +50,9 @@ const [apartprice, setApartPrice] = useState(comment ? comment.apartprice : '');
 const [apartavailability, setApartAvailability] = useState(comment ? comment.apartavailability : '');
 const [apartsquare, setApartSquare] = useState(comment ? comment.apartsquare : '');
 const [apartbillingFrequency2, setApartBillingFrequency2] = useState(comment ? comment.apartbillingFrequency2 : '');
-
+const [aparttourTime, setApartTourTime] = useState(comment ? comment.aparttourTime : "");
+const [apartbathrooms, setApartBathrooms] = useState(comment ? comment.apartbathrooms : '');
+  const [apartbedrooms, setApartBedrooms] = useState(comment ? comment.apartbedrooms : "");
 const [authpicFile, setAuthPicFile] = useState(comment ? comment.authpic : "" );  
 const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image   : "" );
 const [showcase1File, setShowcase1File] = useState(comment ? comment.cover_showcase1 : ""  );
@@ -66,13 +67,10 @@ const [showcase9File, setShowcase9File] = useState(comment ? comment.cover_showc
 const [showcase10File, setShowcase10File] = useState(comment ? comment.cover_showcase10 : ""   );   
 const [showcase11File, setShowcase11File] = useState(comment ? comment.cover_showcase11 : ""   );   
 const [showcase12File, setShowcase12File] = useState(comment ? comment.cover_showcase12 : ""   );   
-const [editModalOpen, setEditModalOpen] = useState(false);
-
 const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Featured Houses");
 const [successMessage, setSuccessMessage] = useState("");
-const [autoFocus, setAutoFocus] = useState(true);
+
 const [errorMessage, setErrorMessage] = useState('');
-const router = useRouter();
 
 
 useEffect(() => {
@@ -258,10 +256,13 @@ const handleSubmit = async (e) => {
         billingFrequency2: billingFrequency2,
         water: water,
         units:units,
-        apartavailability:apartavailability,
-        apartbillingFrequency2:apartbillingFrequency2,
-        apartprice:apartprice,
-        apartsquare:apartsquare,
+  apartavailability:apartavailability,
+  apartbillingFrequency2:apartbillingFrequency2,
+  apartprice:apartprice,
+  apartsquare:apartsquare,
+  apartbathrooms:apartbathrooms,
+  apartbedrooms:apartbedrooms,
+  aparttourTime:aparttourTime,
         lights: lights,
         cable: cable,
         laundry: laundry,
@@ -316,7 +317,6 @@ console.log(error)
 
     
 
-
 const handleTourTimeChange = (e) => {
   setTourTime(e.target.value);
 };
@@ -329,11 +329,50 @@ const timeOptions = [
   "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
   
 ];
+
+ const handleApartTourTimeChange = (e) => {
+  setApartTourTime(e.target.value);
+};
+
+const aparttimeOptions = [
+  "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
+  "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
+  "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
+  "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
+  
+];
   
 return (
 <>
 <div className='adminform_bg'>
 <form className="adminform" onSubmit={handleSubmit}>
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Select the type of property you are interested in:</h2>
+</div>
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="selectedCollection">Property Type:</label>
+    <select
+      name="selectedCollection"
+      value={selectedCollection}
+      onChange={(e) => setSelectedCollection(e.target.value)}
+      required
+      className='billingselect'
+    >
+      <option value="FeaturedHouse">Featured Houses</option>
+      <option value="Featured Apartments">Featured Apartments</option>
+      <option value="Houses">Houses</option>
+      <option value="Apartments">Apartments</option>
+      <option value="Motel">Motel</option>
+      <option value="NewConstruction">New Construction</option>
+      <option value="GreenHomes">Green Homes</option>
+      <option value="HistoricHomes">Historic Homes</option>
+    </select>
+  </div>
+</div>
+   <hr />
+     {/* property information starts here */}
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Provide Your Contact Information</h2>
 </div>
@@ -375,10 +414,13 @@ required
 />
 </div>
 </div>
+{/* property contact information stops here */}
 
 <hr />
+{/* property information starts here */}
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Provide Property Pricing Information</h2>
+<h2>Housing & Information Provider: Motels, Homes, New Construction, Green Homes, Historic Homes</h2>
 </div>
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
@@ -391,7 +433,6 @@ required
       name="price"
       value={price}
       onChange={(e) => setPrice(e.target.value)}
-      required
     />
   </div>
 
@@ -401,9 +442,11 @@ required
       name="billingFrequency"
       value={billingFrequency}
       onChange={(e) => setBillingFrequency(e.target.value)}
-      required
+      
       className='billingselect'
     >
+            <option value="">Select Payment Frequency</option>
+
       <option value="Monthly">Monthly</option>
       <option value="Weekly">Weekly</option>
       <option value="Rent">Rent</option>
@@ -411,7 +454,58 @@ required
     </select>
   </div>
 
-  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="bedrooms">Bedrooms:</label>
+<input
+type="number"
+name="bedrooms"
+value={bedrooms}
+onChange={(e) => setBedrooms(e.target.value)}
+
+/>
+  </div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="bathrooms">Bathrooms:</label>
+<input
+type="number"
+name="bathrooms"
+value={bathrooms}
+onChange={(e) => setBathrooms(e.target.value)}
+
+/>
+</div>
+
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="square">Property Size:</label>
+<input
+type="text"
+id="square"
+name="square"
+value={square}
+onChange={(e) => setSquare(e.target.value)}
+/> 
+</div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="tourTime">Tour Time</label>
+<select
+id="tourTime"
+name="tourTime"
+value={tourTime}
+onChange={handleTourTimeChange}
+>
+<option value="" disabled>Select tour time</option>
+{timeOptions.map((option) => (
+<option key={option} value={option}>{option}</option>
+))}
+</select>
+</div>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="priceextra">Financing Price: </label>
     <input
       type="text"
@@ -427,6 +521,7 @@ required
       onChange={(e) => setBillingFrequency2(e.target.value)}
       className='billingselect'
     >
+      <option value="">Select Payment Frequency</option>
       <option value="Monthly">Monthly</option>
       <option value="Weekly">Weekly</option>
       <option value="RentToOwn">Rent to Own</option>
@@ -435,8 +530,10 @@ required
   </div>
 
 </div>
-
+{/* Housing property information stops here */}
 <hr />
+
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Provide Apartment Information</h2>
 </div>
@@ -449,7 +546,6 @@ required
       name="unitnumbers"
       value={units}
       onChange={(e) => setUnits(e.target.value)}
-      required
       className='billingselect'
     >
       <option value="">Select Unit #</option>
@@ -468,16 +564,15 @@ required
       name="apartprice"
       value={apartprice}
       onChange={(e) => setApartPrice(e.target.value)}
-      required
     />
   </div>
 
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
   
-    <label htmlFor="billingFrequency2">Financing Type:</label>
+    <label htmlFor="apartbillingFrequency2">Financing Type:</label>
     <select
       style={{ marginLeft: '1px' }}
-      name="billingFrequency2"
+      name="apartbillingFrequency2"
       value={apartbillingFrequency2}
       onChange={(e) => setApartBillingFrequency2(e.target.value)}
       className='billingselect'
@@ -498,6 +593,26 @@ onChange={(e) => setApartSquare(e.target.value)}
 /> 
 </div>
 
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="apartbedrooms">Bedrooms:</label>
+<input
+type="number"
+name="apartbedrooms"
+value={apartbedrooms}
+onChange={(e) => setApartBedrooms(e.target.value)}
+/>
+  </div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<label htmlFor="apartbathrooms">Bathrooms:</label>
+<input
+type="number"
+name="apartbathrooms"
+value={apartbathrooms}
+onChange={(e) => setApartBathrooms(e.target.value)}
+/>
+</div>
+
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 
 <label htmlFor="Availability">Availability:</label>
@@ -509,84 +624,27 @@ value={apartavailability}
 onChange={(e) => setApartAvailability(e.target.value)}
 /> 
 </div>
-</div>
-<hr />
-<div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Provide Property Information</h2>
-</div>
-
-<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-    <label htmlFor="selectedCollection">Property Type:</label>
-    <select
-      name="selectedCollection"
-      value={selectedCollection}
-      onChange={(e) => setSelectedCollection(e.target.value)}
-      required
-      className='billingselect'
-    >
-     <option value="FeaturedHouse">Featured Houses</option>
-<option value="Featured Apartments">Featured Apartments</option>
-<option value="Houses">Houses</option>
-<option value="Apartments">Apartments</option>
-<option value="Motel">Motel</option>
-<option value="NewConstruction">New Construction</option>
-<option value="GreenHomes">Green Homes</option>
-<option value="HistoricHomes">Historic Homes</option>
-    </select>
-  </div>
-<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="bedrooms">Bedrooms:</label>
-<input
-type="number"
-name="bedrooms"
-value={bedrooms}
-onChange={(e) => setBedrooms(e.target.value)}
-required
-/>
-  </div>
-<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-
-<label htmlFor="bathrooms">Bathrooms:</label>
-<input
-type="number"
-name="bathrooms"
-value={bathrooms}
-onChange={(e) => setBathrooms(e.target.value)}
-required
-/>
-</div>
-
-
-<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-
-<label htmlFor="square">Property Size:</label>
-<input
-type="number"
-id="square"
-name="square"
-onChange={(e) => setSquare(e.target.value)}
-/> 
-</div>
-<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="tourTime">Tour Time</label>
+<label htmlFor="aparttourTime">Tour Time</label>
 <select
-id="tourTime"
-name="tourTime"
-value={tourTime}
-onChange={handleTourTimeChange}
-required
+id="aparttourTime"
+name="aparttourTime"
+value={aparttourTime}
+onChange={handleApartTourTimeChange}
 >
 <option value="" disabled>Select tour time</option>
-{timeOptions.map((option) => (
+{aparttimeOptions.map((option) => (
 <option key={option} value={option}>{option}</option>
 ))}
 </select>
 </div>
-
 </div>
 <hr />
+
+
+
+{/* amenities information starts here */}
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Select Amenities</h2>
 </div>
@@ -696,7 +754,11 @@ onChange={(e) => setWifi(e.target.checked)}
 </div>
 
 </div>
+{/* amenities information stops here */}
+
 <hr />
+{/* property images information starts here */}
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Property Images</h2>
 </div>
@@ -708,7 +770,6 @@ type="file"
 id="authpic"
 name="authpic"
 accept="image/*"
-required
 onChange={handleAuthPicChange}
 />
 </div> 
@@ -720,7 +781,7 @@ type="file"
 id="cover_image"
 name="cover_image"
 accept="image/*"
-required
+
 
 onChange={handleCoverImageChange}
 />
@@ -856,7 +917,12 @@ onChange={handleCoverImageChange}
 />
 </div> 
 </div>
+{/* property images information stops here */}
+
 <hr />
+
+{/* property location information starts here */}
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Property Location</h2>
 </div>
@@ -870,7 +936,7 @@ onChange={handleCoverImageChange}
       name="address"
       value={address}
       onChange={(e) => setAddress(e.target.value)}
-      required
+      
     />
   </div>
 
@@ -882,18 +948,18 @@ onChange={handleCoverImageChange}
       name="city"
       value={city}
       onChange={(e) => setCity(e.target.value)}
-      required
+      
     />
   </div>
 
-  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-    <label htmlFor="state">State:</label>
-    <select
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="state">State:</label>
+<select
 id="state"
 name="state"
 value={state}
 onChange={(e) => setState(e.target.value)}
-required>
+>
 <option value="">Select a state</option> 
 <option value="Alabama">Alabama</option> 
 <option value="Alaska">Alaska</option> 
@@ -946,7 +1012,7 @@ required>
 <option value="Wisconsin">Wisconsin</option> 
 <option value="Wyoming">Wyoming</option>
 </select>
-  </div>
+</div>
 
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="zip">ZIP Code:</label>
@@ -956,11 +1022,13 @@ required>
       name="zip"
       value={zip}
       onChange={(e) => setZip(e.target.value)}
-      required
+      
     />
   </div>
 
 </div>
+{/* property location information starts here */}
+
 <hr />
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
@@ -972,7 +1040,7 @@ required>
       rows="10"
       id="propertyDescription"
       placeholder='E.g., A charming two-bedroom apartment with scenic views...'
-      required
+      
       value={content}
       onChange={(e) => setContent(e.target.value)}
     ></textarea>
@@ -982,18 +1050,17 @@ required>
 
 <button
 type="submit"
-disabled={!isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price  ||  isLoading}
+disabled={!isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
 style={{
-cursor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price || isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !state || !city || !price || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city  || isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city  || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !state || !city  || isLoading ? 'grey' : '#fff',
 
-}}>
-
+}}
+  
+>
 {isLoading ? <BeatLoader color='blue' /> : 'Submit'}
-</button> 
- <button style={{backgroundColor:'red'}} onClick={handleCancel}>Cancel</button>
-
+</button>
 </form>
 </div>
 
