@@ -1164,13 +1164,12 @@ color: #09a5d5 !important;
   
   .details_header_title{
   padding: 0 1rem;
+  line-height: 6;
   }
   
   .amenities-grid{
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(2, 1fr);
-  line-height: 30px;
+
+  line-height: 6;
   padding: 0 0 0 1rem;
   border: solid 1px #c3c3c3;
   width: 100%;

@@ -181,67 +181,51 @@ width:'15rem'
 
 </div>
 
-<p className='formatdate' style={{ margin: '1rem' }}>
+<p className='formatdate' style={{ margin: '1rem',lineHeight:'6' }}>
   Last Updated: {formattedDate}
 </p>
 
 
 
-<div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>
+<div style={{  margin: '1rem',lineHeight:'6' }}>Listing By: {post.owner}</div>
 
-<span style={{ padding: '0 1rem'}} >Highlights</span>
+
+
+
+
+{(post.heating || post.lights || post.laundry || post.cable || post.airConditioning || post.water || post.pool || post.wifi) && (
+  <div className='amenities-grid'>
+    <span style={{ padding: '0 1rem' }}>Highlights</span>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+      {post.heating && <li>Heating</li>}
+      {post.lights && <li>Lights are available</li>}
+      {post.laundry && <li>Washer/Dryer</li>}
+      {post.cable && <li>Cable ready</li>}
+      {post.airConditioning && <li>Air Conditioning</li>}
+      {post.water && <li>Water is available</li>}
+      {post.pool && <li>Pool is available</li>}
+      {post.wifi && <li>WiFi</li>}
+    </div>
+    <span style={{ padding: '0 1rem' }}>Kitchen Features & Appliances</span>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+      {post.heating && <li>Heating</li>}
+      {post.lights && <li>Lights are available</li>}
+      {post.laundry && <li>Washer/Dryer</li>}
+      {post.cable && <li>Cable ready</li>}
+      {post.airConditioning && <li>Air Conditioning</li>}
+      {post.water && <li>Water is available</li>}
+      {post.pool && <li>Pool is available</li>}
+      {post.wifi && <li>WiFi</li>}
+    </div>
+  </div>
+)}
 
 
 <div style={{ display: (post.heating || post.lights || post.laundry || post.cable || post.airConditioning || post.water || post.pool || post.wifi) ? 'flex' : 'none', justifyContent: 'space-between', alignItems: 'center' }}>
   <h3 style={{ padding: '0 1rem' }}>Popular Amenities</h3>
-</div>
-
-
-<div className='amenities-grid'>
-{post.heating &&
-    <li>Heating</li>
-
-}
-
-{post.lights &&
-    <li>Lights are available</li>
-
-}
-
-{post.laundry &&
-    <li>Washer/Dryer</li>
-
-}
-
-{post.cable &&
-    <li>Cable ready</li>
-
-}
-
-{post.airConditioning &&
-    <li>Air Conditioning</li>
-
-}
-
-{post.water &&
-    <li>Water is available</li>
-
-}
-
-{post.pool &&
-    <li>Pool is available</li>
- 
-}
-
-{post.wifi &&
-    <li>WiFi </li>
- 
-}
+  
 
 </div>
-
-
-
 
 
 <div style={{padding:'0 1rem'}}><h2>About {post.title}</h2></div>
