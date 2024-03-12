@@ -1,7 +1,7 @@
 'use client'
 import { getAuth } from 'firebase/auth';
-import { doc, getFirestore, updateDoc } from 'firebase/firestore';
-import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { collection, doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore';
+import {  getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 import React, { useEffect, useRef, useState } from 'react'
@@ -10,10 +10,14 @@ import { auth } from '../../Config/firebase';
 
 export default function AdminEdit({ comment,  onCancel }) {
 
+  const [uniqueArticleId, setuniqueArticleId] = useState("");  
+  const [userId, setuserId] = useState("");  
   const [articleId, setArticleId] = useState("");  
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [tourTime, setTourTime] = useState(comment ? comment.tourTime : "");
+const [opentime, setOpentime] = useState(comment ? comment.opentime : "");
 
 const [content, setContent] = useState(comment ? comment.content : "");
 const [title, setTitle] = useState(comment ? comment.title : "");
@@ -127,7 +131,10 @@ useEffect(() => {
   }
   };
   
-  
+  const handleEditModalOpen = () => {
+    setEditModalOpen(true);
+  };
+
     
   const handleAuthPicChange = (e) => {
   // Set the selected cover image file to state
@@ -213,9 +220,8 @@ useEffect(() => {
       const auth = getAuth();
       const user = auth.currentUser;
       setIsLoading(true);
-      const uniqueArticleId = uuidv4();
-      setArticleId(uniqueArticleId);
-  
+      
+
       const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
   
   
@@ -236,7 +242,8 @@ useEffect(() => {
       
             
       const db = getFirestore();
-      const docRef = await addDoc(collection(db, selectedCollection), {
+      const docRef = await updateDoc(getDoc(db, selectedCollection, uniqueArticleId), {
+
         userId: user.uid,
         content,
         opentime,
@@ -289,7 +296,6 @@ useEffect(() => {
         authpic,
         cover_image,
         cover_showcase1,
-        cover_showcase1,
         cover_showcase2,
         cover_showcase3,
         cover_showcase4,
@@ -304,15 +310,13 @@ useEffect(() => {
         propertyType: selectedCollection,
       });
   
-      if (selectedCollection === "FeaturedHouse" || "FeaturedApartment") {
-        router.push('/');
-        } else {
-        const formattedPageName = selectedCollection.charAt(0).toUpperCase() + selectedCollection.slice(1);
-        router.push(`/pages/${formattedPageName}`);
-        }
+      window.location.reload()
+      window.location(0,0)
         } catch (error) {
               console.error("Error:", error);
-        
+              console.log("Collection Path:", selectedCollection);
+              console.log("Document ID:", uniqueArticleId);
+
         setErrorMessage('Error. Please try again.');
         setTimeout(() => {
         setErrorMessage('');
@@ -1252,9 +1256,12 @@ color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !s
 }}
   
 >
-{isLoading ? <BeatLoader color='blue' /> : 'Submit'}
+{isLoading ? <BeatLoader color='blue' /> : 'Update'}
 </button>
+<button onClick={onCancel}>Cancel</button>
+
 </form>
+
 </div>
 </>
 )
