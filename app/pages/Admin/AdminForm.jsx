@@ -14,7 +14,6 @@ const [isSignedIn, setIsSignedIn] = useState(false);
 
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
-  const [opentime, setOpentime] = useState("");
   const [owner, setOwner] = useState("");
   const [phone, setPhone] = useState("");
   const [price, setPrice] = useState("");
@@ -43,24 +42,13 @@ const [isSignedIn, setIsSignedIn] = useState(false);
 const [cable, setCable] = useState(false);
 const [laundry, setLaundry] = useState(false);
 const [lights, setLights] = useState(false);
+const [water, setWater] = useState(false);
 const [heating, setHeating] = useState(false);
 const [pool, setPool] = useState(false);
 const [wifi, setWifi] = useState(false);
 const [airConditioning, setAirConditioning] = useState(false);
 const [gym, setGym] = useState(false);
 const [parking, setParking] = useState(false);
-const [ceiling, setCeiling] = useState(false);
-const [smoke, setSmoke] = useState(false);
-const [sprink, setSprink] = useState(false);
-const [tub, setTub] = useState(false);
-const [stoorage, setStoorage] = useState(false);
-const [dish, setDish] = useState(false);
-const [wheel, setWheel] = useState(false);
-const [frame, setFrame] = useState(false);
-const [disposal, setDisposal] = useState(false);
-const [stainless, setStainless] = useState(false);
-const [island, setIsland] = useState(false);
-const [kitchen, setKitchen] = useState(false);
 //amenities
 const [ isLoading, setIsLoading] = useState(false)
 //pictures
@@ -210,119 +198,108 @@ const router = useRouter();
   // Log relevant information for debugging
   
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const auth = getAuth();
-      const user = auth.currentUser;
-      setIsLoading(true);
-      const uniqueArticleId = uuidv4();
-      setArticleId(uniqueArticleId);
+  e.preventDefault();
+  try {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  setIsLoading(true);
+  const uniqueArticleId = uuidv4();
+  setArticleId(uniqueArticleId);
+  // Upload files to Firebase Storage if they exist
+  const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
   
-      const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
   
+  const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
   
-      const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
-      
-      const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
-      const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
-      const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
-      const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null; 
-      const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
-      const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
-      const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}cover_showcase7.jpg`) : null;
-      const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${uniqueArticleId}cover_showcase8.jpg`) : null;
-      const cover_showcase9 = showcase9File ? await handleFileUpload(showcase9File, `images/${uniqueArticleId}cover_showcase9.jpg`) : null;
-      const cover_showcase10 = showcase10File ? await handleFileUpload(showcase10File, `images/${uniqueArticleId}cover_showcase10.jpg`) : null;
-      const cover_showcase11 = showcase11File ? await handleFileUpload(showcase11File, `images/${uniqueArticleId}cover_showcase11.jpg`) : null;
-      const cover_showcase12 = showcase12File ? await handleFileUpload(showcase12File, `images/${uniqueArticleId}cover_showcase12.jpg`) : null;
-      
-            
-      const db = getFirestore();
-      const docRef = await addDoc(collection(db, selectedCollection), {
-        userId: user.uid,
-        content,
-        opentime,
-        title,
-        owner,
-        phone,
-        price,
-        priceextra,
-        bedrooms,
-        bathrooms,
-        square,
-        billingFrequency,
-        billingFrequency2,
-        units,
-        apartavailability,
-        apartbillingFrequency2,
-        apartprice,
-        apartsquare,
-        apartbathrooms,
-        apartbedrooms,
-        aparttourTime,
-        lights,
-        cable,
-        laundry,
-        airConditioning,
-        heating,
-        pool,
-        wifi,
-        address,
-        city,
-        state,
-        zip,
-        gym,
-        parking,
-        ceiling,
-        disposal,
-        smoke,
-        sprink,
-        tub,
-        wheel,
-        frame,
-        stoorage,
-        dish,
-        stainless,
-        kitchen,
-        island,
-        tourTime,
-        timestamp: new Date(),
-        userEmail: user.email,
-        authpic,
-        cover_image,
-        cover_showcase1,
-        cover_showcase1,
-        cover_showcase2,
-        cover_showcase3,
-        cover_showcase4,
-        cover_showcase5,
-        cover_showcase6,
-        cover_showcase7,
-        cover_showcase8,
-        cover_showcase9,
-        cover_showcase10,
-        cover_showcase11,
-        cover_showcase12,
-        propertyType: selectedCollection,
-      });
+  const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
+  const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
+  const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
+  const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null; 
+  const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
+  const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
+  const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}cover_showcase7.jpg`) : null;
+  const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${uniqueArticleId}cover_showcase8.jpg`) : null;
+  const cover_showcase9 = showcase9File ? await handleFileUpload(showcase9File, `images/${uniqueArticleId}cover_showcase9.jpg`) : null;
+  const cover_showcase10 = showcase10File ? await handleFileUpload(showcase10File, `images/${uniqueArticleId}cover_showcase10.jpg`) : null;
+  const cover_showcase11 = showcase11File ? await handleFileUpload(showcase11File, `images/${uniqueArticleId}cover_showcase11.jpg`) : null;
+  const cover_showcase12 = showcase12File ? await handleFileUpload(showcase12File, `images/${uniqueArticleId}cover_showcase12.jpg`) : null;
   
-      if (selectedCollection === "FeaturedHouse" || "FeaturedApartment") {
-        router.push('/');
-        } else {
-        const formattedPageName = selectedCollection.charAt(0).toUpperCase() + selectedCollection.slice(1);
-        router.push(`/pages/${formattedPageName}`);
-        }
-        } catch (error) {
-              console.error("Error:", error);
         
-        setErrorMessage('Error. Please try again.');
-        setTimeout(() => {
-        setErrorMessage('');
-        }, 3000);
-        } finally {
-        setIsLoading(false);
-        }
-        };
+    
+  const db = getFirestore();
+  const docRef = await addDoc(collection(db, selectedCollection), {
+  userId: user.uid,
+  content: content,
+  title: title,
+  owner: owner,
+  phone:phone,
+  price: price,
+  priceextra: priceextra,
+  bedrooms: bedrooms,
+  bathrooms: bathrooms,
+  square: square,
+  billingFrequency: billingFrequency,
+  billingFrequency2: billingFrequency2,
+  units:units,
+  apartavailability:apartavailability,
+  apartbillingFrequency2:apartbillingFrequency2,
+  apartprice:apartprice,
+  apartsquare:apartsquare,
+  apartbathrooms:apartbathrooms,
+  apartbedrooms:apartbedrooms,
+  aparttourTime:aparttourTime,
+  water: water,
+  lights: lights,
+  cable: cable,
+  laundry: laundry,
+  airConditioning: airConditioning,
+  heating: heating,
+  pool: pool,
+  wifi: wifi,
+  address: address,
+  city:city,
+  state:state,
+  zip:zip,
+  gym: gym,
+  parking: parking,
+  tourTime: tourTime,
+  timestamp: new Date(),
+  userEmail: user.email,
+  authpic: authpic,
+  cover_image: cover_image,
+  cover_showcase1: cover_showcase1,
+  cover_showcase2: cover_showcase2,
+  cover_showcase3: cover_showcase3,
+  cover_showcase4: cover_showcase4,
+  cover_showcase5: cover_showcase5,
+  cover_showcase6: cover_showcase6,
+  cover_showcase7: cover_showcase7,
+  cover_showcase8: cover_showcase8,
+  cover_showcase9: cover_showcase9,
+  cover_showcase10: cover_showcase10,
+  cover_showcase11: cover_showcase11,
+  cover_showcase12: cover_showcase12,
+  propertyType: selectedCollection,  
+  });
+    
+  if (selectedCollection === "FeaturedHouse" || "FeaturedApartment") {
+  router.push('/');
+  } else {
+  const formattedPageName = selectedCollection.charAt(0).toUpperCase() + selectedCollection.slice(1);
+  router.push(`/pages/${formattedPageName}`);
+  }
+  } catch (error) {
+        console.error("Error:", error);
+  
+  setErrorMessage('Error. Please try again.');
+  setTimeout(() => {
+  setErrorMessage('');
+  }, 3000);
+  } finally {
+  setIsLoading(false);
+  }
+  };
+  
 
     
   
@@ -340,32 +317,20 @@ const router = useRouter();
     
   ];
 
-  const handleApartTourTimeChange = (e) => {
+   const handleApartTourTimeChange = (e) => {
     setApartTourTime(e.target.value);
   };
   
-  const timeRanges = [
-    { start: "9:00 AM", end: "10:00 AM" },
-    { start: "10:30 AM", end: "12:00 PM" },
-    { start: "1:00 PM", end: "4:00 PM" },
-  
+  const aparttimeOptions = [
+    "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
+    "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
+    "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
+    "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
+    
   ];
-
-
-
-  const handleApartOpenTimeChange = (e) => {
-    setOpentime(e.target.value);
-  };
   
-  const openTimeRanges = [
-    { day: "Monday", open: "9:00 AM", close: "6:00 PM" },
-    { day: "Tuesday", open: "9:00 AM", close: "6:00 PM" },
-    { day: "Wednesday", open: "9:00 AM", close: "6:00 PM" },
-    { day: "Thursday", open: "9:00 AM", close: "6:00 PM" },
-    { day: "Friday", open: "9:00 AM", close: "6:00 PM" },
-    { day: "Saturday", open: "10:00 AM", close: "4:00 PM" },
-    { day: "Sunday", open: "11:00 AM", close: "3:00 PM" }
-  ];
+
+
 
 return (
     <>
@@ -437,22 +402,6 @@ value={phone}
 onChange={(e) => setPhone(e.target.value)}
 required
 />
-</div>
-<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="tourTime">Days you are open</label>
-  <select
-    id="tourTime"
-    name="tourTime"
-    value={opentime}
-    onChange={handleApartOpenTimeChange}
-  >
-    <option value="" disabled>Select opening hours</option>
-    {openTimeRanges.map((range) => (
-      <option key={range.day} value={` ${range.open} ${range.close}`}>
-        {range.day}: {range.open} - {range.close}
-      </option>
-    ))}
-  </select>
 </div>
 </div>
 {/* property contact information stops here */}
@@ -666,24 +615,19 @@ onChange={(e) => setApartAvailability(e.target.value)}
 /> 
 </div>
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="tourTime">Tour Time</label>
-  <select
-    id="tourTime"
-    name="tourTime"
-    value={aparttourTime}
-    onChange={handleApartTourTimeChange}
-  >
-    <option value="" disabled>Select tour time range</option>
-    {timeRanges.map((range) => (
-      <option key={range.start + range.end} value={`${range.start}-${range.end}`}>
-        {range.start} - {range.end}
-      </option>
-    ))}
-  </select>
+<label htmlFor="aparttourTime">Tour Time</label>
+<select
+id="aparttourTime"
+name="aparttourTime"
+value={aparttourTime}
+onChange={handleApartTourTimeChange}
+>
+<option value="" disabled>Select tour time</option>
+{aparttimeOptions.map((option) => (
+<option key={option} value={option}>{option}</option>
+))}
+</select>
 </div>
-
-
-
 </div>
 <hr />
 
@@ -695,9 +639,19 @@ onChange={(e) => setApartAvailability(e.target.value)}
   <h2>Select Highlights</h2>
 </div>
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="lights" >Lights:</label>
+<label htmlFor="water"style={{ color: water ? 'skyblue' : '#fff' }}
+>Water:</label>
+<input
+type="radio"
+id="water"
+name="water"
+checked={water}
+onChange={(e) => setWater(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="lights" style={{ color: lights ? 'yellow' : '#fff' }}>Lights:</label>
 <input
 type="radio"
 id="lights"
@@ -707,7 +661,7 @@ onChange={(e) => setLights(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="cable" >Cable:</label>
+<label htmlFor="cable" style={{ color: cable ? 'purple' : '#fff' }}>Cable:</label>
 <input
 type="radio"
 id="cable"
@@ -717,7 +671,7 @@ onChange={(e) => setCable(e.target.value)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="laundry" >laundry:</label>
+<label htmlFor="laundry" style={{ color: laundry ? '#5AB60D' : '#fff' }}>laundry:</label>
 <input
 type="radio"
 id="laundry"
@@ -727,7 +681,7 @@ onChange={(e) => setLaundry(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="airConditioning" >AC:</label>
+<label htmlFor="airConditioning" style={{ color: airConditioning ? '#5DE2E7' : '#fff' }}>AC:</label>
 <input
 type="radio"
 id="airConditioning"
@@ -737,7 +691,7 @@ onChange={(e) => setAirConditioning(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="heating" >Heating:</label>
+<label htmlFor="heating" style={{ color: heating ? '#ff0808' : '#fff' }}>Heating:</label>
 <input
 type="radio"
 id="heating"
@@ -748,7 +702,7 @@ onChange={(e) => setHeating(e.target.checked)}
 </div>
 
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="wifi" >Wifi:</label>
+<label htmlFor="wifi" style={{ color: wifi ? '#007fff' : '#fff' }}>Wifi:</label>
 <input
 type="radio"
 id="wifi"
@@ -760,7 +714,7 @@ onChange={(e) => setWifi(e.target.checked)}
 
 
 <div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="parking" >Parking:</label>
+  <label htmlFor="parking" style={{ color: parking ? '#cb6464' : '#fff' }}>Parking:</label>
   <input
     type="radio"
     id="parking"
@@ -769,176 +723,99 @@ onChange={(e) => setWifi(e.target.checked)}
     onChange={(e) => setParking(e.target.checked)}
   />
 </div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="ceiling" >Ceiling Fans:</label>
-  <input
-    type="radio"
-    id="ceiling"
-    name="ceiling"
-    checked={ceiling}
-    onChange={(e) => setCeiling(e.target.checked)}
-  />
-</div>
-
-
-</div>
-
-<hr />
-<div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Select Highlights</h2>
-</div>
-<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-
-
-
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="smoke free" >Smoke Free:</label>
-  <input
-    type="radio"
-    id="smoke free"
-    name="smoke free"
-    checked={smoke}
-    onChange={(e) => setSmoke(e.target.checked)}
-  />
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="storage" >Storage Space:</label>
-  <input
-    type="radio"
-    id="storage"
-    name="storage"
-    checked={stoorage}
-    onChange={(e) => setStoorage(e.target.checked)}
-  />
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="tub" >Tub/Shower:</label>
-  <input
-    type="radio"
-    id="tub"
-    name="tub"
-    checked={tub}
-    onChange={(e) => setTub(e.target.checked)}
-  />
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="sprink" >Sprinkler System:</label>
-  <input
-    type="radio"
-    id="sprink"
-    name="sprink"
-    checked={sprink}
-    onChange={(e) => setSprink(e.target.checked)}
-  />
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="frame" >Framed Mirrors:</label>
-  <input
-    type="radio"
-    id="frame"
-    name="frame"
-    checked={frame}
-    onChange={(e) => setFrame(e.target.checked)}
-  />
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="wheel" >Wheelchair Accessible:</label>
-  <input
-    type="radio"
-    id="wheel"
-    name="wherl"
-    checked={wheel}
-    onChange={(e) => setWheel(e.target.checked)}
-  />
-</div>
 
 </div>
 
 <hr />
 {/* amenities information stops here */}
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Kitchen Features & Appliances
-</h2>
+  <h2>Select Amenties</h2>
 </div>
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-
-
 <div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="dish" >Dishwasher:</label>
-  <input
-    type="radio"
-    id="dish"
-    name="dish"
-    checked={dish}
-    onChange={(e) => setDish(e.target.checked)}
-  />
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="disposal" >Disposal:</label>
-  <input
-    type="radio"
-    id="disposal"
-    name="disposal"
-    checked={disposal}
-    onChange={(e) => setDisposal(e.target.checked)}
-  />
+<label htmlFor="water"style={{ color: water ? 'skyblue' : '#fff' }}
+>Water:</label>
+<input
+type="radio"
+id="water"
+name="water"
+checked={water}
+onChange={(e) => setWater(e.target.checked)}
+/>
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="stainless" >Stainless Steel Appliances:</label>
-  <input
-    type="radio"
-    id="stainless"
-    name="stainless"
-    checked={stainless}
-    onChange={(e) => setStainless(e.target.checked)}
-  />
+<label htmlFor="lights" style={{ color: lights ? 'yellow' : '#fff' }}>Lights:</label>
+<input
+type="radio"
+id="lights"
+name="lights"
+checked={lights}
+onChange={(e) => setLights(e.target.checked)}
+/>
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="island" >Island Kitchen:</label>
-  <input
-    type="radio"
-    id="island"
-    name="island"
-    checked={island}
-    onChange={(e) => setIsland(e.target.checked)}
-  />
+<label htmlFor="cable" style={{ color: cable ? 'purple' : '#fff' }}>Cable:</label>
+<input
+type="radio"
+id="cable"
+name="cable"
+checked={cable}
+onChange={(e) => setCable(e.target.value)}
+/>
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="kitc" >Kitchen:</label>
-  <input
-    type="radio"
-    id="kitc"
-    name="kitc"
-    checked={kitchen}
-    onChange={(e) => setKitchen(e.target.checked)}
-  />
+<label htmlFor="laundry" style={{ color: laundry ? '#5AB60D' : '#fff' }}>laundry:</label>
+<input
+type="radio"
+id="laundry"
+name="laundry"
+checked={laundry}
+onChange={(e) => setLaundry(e.target.checked)}
+/>
 </div>
-
-
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="airConditioning" style={{ color: airConditioning ? '#5DE2E7' : '#fff' }}>AC:</label>
+<input
+type="radio"
+id="airConditioning"
+name="airConditioning"
+checked={airConditioning}
+onChange={(e) => setAirConditioning(e.target.checked)}
+/>
 </div>
-<hr />
-{/* amenities information stops here */}
-<div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Community Activities
-</h2>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="heating" style={{ color: heating ? '#ff0808' : '#fff' }}>Heating:</label>
+<input
+type="radio"
+id="heating"
+name="heating"
+checked={heating}
+onChange={(e) => setHeating(e.target.checked)}
+/>
 </div>
-<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="pool" style={{ color: pool ? '#2877ff' : '#fff' }}>Swimming Pool:</label>
+<input
+type="radio"
+id="pool"
+name="pool"
+checked={pool}
+onChange={(e) => setPool(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="wifi" style={{ color: wifi ? '#007fff' : '#fff' }}>Wifi:</label>
+<input
+type="radio"
+id="wifi"
+name="wifi"
+checked={wifi}
+onChange={(e) => setWifi(e.target.checked)}
+/>
+</div>
 
 <div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="pool" >Swimming Pool:</label>
-  <input
-    type="radio"
-    id="pool"
-    name="pool"
-    checked={pool}
-    onChange={(e) => setPool(e.target.checked)}
-  />
-</div>
-
-
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="gym" >Fitness Center:</label>
+  <label htmlFor="gym" style={{ color: gym ? '#ff9900' : '#fff' }}>Gym:</label>
   <input
     type="radio"
     id="gym"
@@ -948,7 +825,16 @@ onChange={(e) => setWifi(e.target.checked)}
   />
 </div>
 
-
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="parking" style={{ color: parking ? '#cb6464' : '#fff' }}>Parking:</label>
+  <input
+    type="radio"
+    id="parking"
+    name="parking"
+    checked={parking}
+    onChange={(e) => setParking(e.target.checked)}
+  />
+</div>
 
 </div>
 <hr />
