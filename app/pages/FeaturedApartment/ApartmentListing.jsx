@@ -187,7 +187,7 @@ width: '100%'
 ></div>
 <div className='property-details'>
 <div className='property-price'>
-{blog.price} <small>{blog.billingFrequency}</small>
+{blog.apartprice} <small>{blog.apartbillingFrequency2}</small>
 </div>
 <div className='property-type'>
 <div className='sm-houlo' style={{fontSize:'13px' }}>{blog.apartbathrooms}{blog.bathrooms}ba| {blog.apartbedrooms}{blog.bedrooms}bds|</div>

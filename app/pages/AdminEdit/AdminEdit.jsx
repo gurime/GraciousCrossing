@@ -43,7 +43,19 @@ const [pool, setPool] = useState(comment ? comment.pool : false);
 const [airConditioning, setAirConditioning] = useState(comment ? comment.airConditioning : false);
 const [wifi, setWifi] = useState(comment ? comment.wifi : false);
 const [gym, setGym] = useState(comment ? comment.gym :false);
-const [parking, setParking] = useState(false);
+const [parking, setParking] = useState(comment ? comment.parking: false);
+const [ceiling, setCeiling] = useState(comment ? comment.ceiling: false);
+const [smoke, setSmoke] = useState(comment ? comment.smoke :false);
+const [sprink, setSprink] = useState(comment ? comment.sprink: false);
+const [tub, setTub] = useState(comment ? comment.tub:false);
+const [stoorage, setStoorage] = useState(comment ? comment.stoorage : false);
+const [dish, setDish] = useState(comment ? comment.dish :false);
+const [wheel, setWheel] = useState(comment ? comment.wheel : false);
+const [frame, setFrame] = useState(comment ? comment.frame : false);
+const [disposal, setDisposal] = useState(comment? comment.disposal : false);
+const [stainless, setStainless] = useState(comment ? comment.stainless : false);
+const [island, setIsland] = useState(comment ? comment.island :false);
+const [kitchen, setKitchen] = useState(comment ? comment.kitchen : false);
 const [phone, setPhone] = useState(comment ? comment.phone : "");
 const [units, setUnits] = useState(comment ? comment.units : '');
 const [apartprice, setApartPrice] = useState(comment ? comment.apartprice : '');
@@ -74,65 +86,50 @@ const [errorMessage, setErrorMessage] = useState('');
 
 
 useEffect(() => {
-const unsubscribe = auth.onAuthStateChanged(async (user) => {
-const getUserData = async (userId) => {
-try {
-const db = getFirestore();
-const userDocRef = doc(db, 'adminusers', userId);
-const userDocSnapshot = await getDoc(userDocRef);
-if (userDocSnapshot.exists()) {
-const userData = userDocSnapshot.data();
-return userData;
-} else {
-return null;
-}
-} catch (error) {
-throw error;
-}
-};
-setIsSignedIn(!!user);
-if (user) {
-try {
-const userData = await getUserData(user.uid);
-setNames([userData.firstName, userData.lastName]);
-} catch (error) {
-handleError(error);
-} finally {
-setIsLoading(false)
-}
-}
-});
-return () => unsubscribe();
-}, []);
-
-const handleError = (error) => {
-if (error.code === 'network-error') {
-setErrorMessage('Network error: Please check your internet connection.');
-} else if (error.code === 'invalid-content') {
-setErrorMessage('Invalid comment content. Please try again.');
-} else {
-setErrorMessage('Unexpected error occurred. Please try again later.');
-}
-};
-
-let originalScrollPosition;
-
-const openModal = () => {
-  // Store the original scroll position before opening the modal
-  originalScrollPosition = window.scrollY;
-  // Code to open the modal
-};
-
-const handleCancel = () => {
-  onCancel();
-  // Restore the original scroll position when the modal is closed
-  window.scrollTo(0, originalScrollPosition);
-};
-
-
-
-const storage = getStorage(); 
-const handleAuthPicChange = (e) => {
+  const unsubscribe = auth.onAuthStateChanged(async (user) => {
+  const getUserData = async (userId) => {
+  try {
+  const db = getFirestore();
+  const userDocRef = doc(db, 'adminusers', userId);
+  const userDocSnapshot = await getDoc(userDocRef);
+  if (userDocSnapshot.exists()) {
+  const userData = userDocSnapshot.data();
+  return userData;
+  } else {
+  return null;
+  }
+  } catch (error) {
+  throw error;
+  }
+  };
+  setIsSignedIn(!!user);
+  if (user) {
+  try {
+  const userData = await getUserData(user.uid);
+  setNames([userData.firstName, userData.lastName]);
+  } catch (error) {
+  handleError(error);
+  } finally {
+  setIsLoading(false)
+  }
+  }
+  });
+  return () => unsubscribe();
+  }, []);
+  
+  const handleError = (error) => {
+  if (error.code === 'network-error') {
+  setErrorMessage('Network error: Please check your internet connection.');
+  } else if (error.code === 'invalid-content') {
+  setErrorMessage('Invalid comment content. Please try again.');
+  } else {
+  setErrorMessage('Unexpected error occurred. Please try again later.');
+  }
+  };
+  
+  
+    
+  const handleAuthPicChange = (e) => {
   // Set the selected cover image file to state
   const file = e.target.files[0];
   setAuthPicFile(file);
@@ -182,165 +179,191 @@ const handleAuthPicChange = (e) => {
   const file = e.target.files[0];
   setShowcase9File(file);
   };
+  
   const handleShowcase10Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase10File(file);
-  };
-  const handleShowcase11Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase11File(file);
-  };
-  const handleShowcase12Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase12File(file);
-  };
-  
-  const handleFileUpload = async (file, storagePath, uniqueId) => {
-    try {
-      const storageRef = ref(storage, `${storagePath}${uniqueId}`);
-      await uploadBytesResumable(storageRef, file);
-      const downloadURL = await getDownloadURL(storageRef);
-      return downloadURL;
-    } catch (error) {
-      handleError(error);
-      throw error; // Rethrow the error for the caller to handle
-    }
-  };
-  
-
-
-// Log relevant information for debugging
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
+    const file = e.target.files[0];
+    setShowcase10File(file);
+    };
+    const handleShowcase11Change = (e) => {
+    const file = e.target.files[0];
+    setShowcase11File(file);
+    };
+    const handleShowcase12Change = (e) => {
+    const file = e.target.files[0];
+    setShowcase12File(file);
+    };
+    
+  const storage = getStorage(); // Initialize Firebase Storage
+  const handleFileUpload = async (file, storagePath) => {
   try {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    setIsLoading(true);
-    const uniqueArticleId = uuidv4();
-    setArticleId(uniqueArticleId);
-    const isUpdate = !!comment.id;
-    const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
-
-
-    const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
-
-    const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
-    const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
-    const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
-    const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null; 
-    const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
-    const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
-    const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}cover_showcase7.jpg`) : null;
-    const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${uniqueArticleId}cover_showcase8.jpg`) : null;
-    const cover_showcase9 = showcase9File ? await handleFileUpload(showcase9File, `images/${uniqueArticleId}cover_showcase9.jpg`) : null;
-    const cover_showcase10 = showcase10File ? await handleFileUpload(showcase10File, `images/${uniqueArticleId}cover_showcase10.jpg`) : null;
-    const cover_showcase11 = showcase11File ? await handleFileUpload(showcase11File, `images/${uniqueArticleId}cover_showcase11.jpg`) : null;
-    const cover_showcase12 = showcase12File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase12.jpg`) : null;
-    const db = getFirestore();
-    if (isUpdate && comment.id && selectedCollection) {
-      const docRef = doc(db, selectedCollection, comment.id);
-      await updateDoc(docRef, {
+  const storageRef = ref(storage, storagePath);
+  await uploadBytesResumable(storageRef, file);
+  const downloadURL = await getDownloadURL(storageRef);
+  return downloadURL;
+  } catch (error) {
+  throw error;
+  }
+  };
+  
+  // Log relevant information for debugging
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      setIsLoading(true);
+      const uniqueArticleId = uuidv4();
+      setArticleId(uniqueArticleId);
+  
+      const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
+  
+  
+      const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
+      
+      const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
+      const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
+      const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
+      const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null; 
+      const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
+      const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
+      const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}cover_showcase7.jpg`) : null;
+      const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${uniqueArticleId}cover_showcase8.jpg`) : null;
+      const cover_showcase9 = showcase9File ? await handleFileUpload(showcase9File, `images/${uniqueArticleId}cover_showcase9.jpg`) : null;
+      const cover_showcase10 = showcase10File ? await handleFileUpload(showcase10File, `images/${uniqueArticleId}cover_showcase10.jpg`) : null;
+      const cover_showcase11 = showcase11File ? await handleFileUpload(showcase11File, `images/${uniqueArticleId}cover_showcase11.jpg`) : null;
+      const cover_showcase12 = showcase12File ? await handleFileUpload(showcase12File, `images/${uniqueArticleId}cover_showcase12.jpg`) : null;
+      
+            
+      const db = getFirestore();
+      const docRef = await addDoc(collection(db, selectedCollection), {
         userId: user.uid,
-        content: content,
-        title: title,
-        owner: owner,
-        phone:phone,
-        price: price,
-        priceextra: priceextra,
-        bedrooms: bedrooms,
-        bathrooms: bathrooms,
-        square: square,
-        billingFrequency: billingFrequency,
-        billingFrequency2: billingFrequency2,
-        water: water,
-        units:units,
-  apartavailability:apartavailability,
-  apartbillingFrequency2:apartbillingFrequency2,
-  apartprice:apartprice,
-  apartsquare:apartsquare,
-  apartbathrooms:apartbathrooms,
-  apartbedrooms:apartbedrooms,
-  aparttourTime:aparttourTime,
-        lights: lights,
-        cable: cable,
-        laundry: laundry,
-        airConditioning: airConditioning,
-        heating: heating,
-        pool: pool,
-        wifi: wifi,
-        address: address,
-        city:city,
-        state:state,
-        zip:zip,
-        gym: gym,
-        parking: parking,
-        tourTime: tourTime,
+        content,
+        opentime,
+        title,
+        owner,
+        phone,
+        price,
+        priceextra,
+        bedrooms,
+        bathrooms,
+        square,
+        billingFrequency,
+        billingFrequency2,
+        units,
+        apartavailability,
+        apartbillingFrequency2,
+        apartprice,
+        apartsquare,
+        apartbathrooms,
+        apartbedrooms,
+        aparttourTime,
+        lights,
+        cable,
+        laundry,
+        airConditioning,
+        heating,
+        pool,
+        wifi,
+        address,
+        city,
+        state,
+        zip,
+        gym,
+        parking,
+        ceiling,
+        disposal,
+        smoke,
+        sprink,
+        tub,
+        wheel,
+        frame,
+        stoorage,
+        dish,
+        stainless,
+        kitchen,
+        island,
+        tourTime,
         timestamp: new Date(),
         userEmail: user.email,
-        authpic: authpic,
-        cover_image: cover_image,
-        cover_showcase1: cover_showcase1,
-        cover_showcase2: cover_showcase2,
-        cover_showcase3: cover_showcase3,
-        cover_showcase4: cover_showcase4,
-        cover_showcase5: cover_showcase5,
-        cover_showcase6: cover_showcase6,
-        cover_showcase7: cover_showcase7,
-        cover_showcase8: cover_showcase8,
-        cover_showcase9: cover_showcase9,
-        cover_showcase10: cover_showcase10,
-        cover_showcase11: cover_showcase11,
-        cover_showcase12: cover_showcase12,
-        propertyType: selectedCollection, 
+        authpic,
+        cover_image,
+        cover_showcase1,
+        cover_showcase1,
+        cover_showcase2,
+        cover_showcase3,
+        cover_showcase4,
+        cover_showcase5,
+        cover_showcase6,
+        cover_showcase7,
+        cover_showcase8,
+        cover_showcase9,
+        cover_showcase10,
+        cover_showcase11,
+        cover_showcase12,
+        propertyType: selectedCollection,
       });
-     window.location.reload()
   
-      window.scrollTo(0, 0); 
-    } else {
-      setErrorMessage('Error: Cannot add a new document without articleId.');
-    }
-  } catch (error) {
-   
-console.log(error)
-    if (error.code === 'permission-denied') {
-      setErrorMessage('Permission denied: You may not have the necessary permissions.');
-    } else if (error.code === 'not-found') {
-      setErrorMessage('Document not found: The specified document does not exist.');
-    } 
-  } finally {
-    setIsLoading(false); // Reset loading state
-  }
-};
-
+      if (selectedCollection === "FeaturedHouse" || "FeaturedApartment") {
+        router.push('/');
+        } else {
+        const formattedPageName = selectedCollection.charAt(0).toUpperCase() + selectedCollection.slice(1);
+        router.push(`/pages/${formattedPageName}`);
+        }
+        } catch (error) {
+              console.error("Error:", error);
+        
+        setErrorMessage('Error. Please try again.');
+        setTimeout(() => {
+        setErrorMessage('');
+        }, 3000);
+        } finally {
+        setIsLoading(false);
+        }
+        };
 
     
-
-const handleTourTimeChange = (e) => {
-  setTourTime(e.target.value);
-};
-
-
-const timeOptions = [
-  "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
-  "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
-  "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
-  "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
   
-];
-
- const handleApartTourTimeChange = (e) => {
-  setApartTourTime(e.target.value);
-};
-
-const aparttimeOptions = [
-  "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
-  "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
-  "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
-  "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
   
-];
+  const handleTourTimeChange = (e) => {
+    setTourTime(e.target.value);
+  };
+  
+ 
+  const timeOptions = [
+    "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
+    "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
+    "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
+    "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
+    
+  ];
+
+  const handleApartTourTimeChange = (e) => {
+    setApartTourTime(e.target.value);
+  };
+  
+  const timeRanges = [
+    { start: "9:00 AM", end: "10:00 AM" },
+    { start: "10:30 AM", end: "12:00 PM" },
+    { start: "1:00 PM", end: "4:00 PM" },
+  
+  ];
+
+
+
+  const handleApartOpenTimeChange = (e) => {
+    setOpentime(e.target.value);
+  };
+  
+  const openTimeRanges = [
+    { day: "Monday", open: "9:00 AM", close: "6:00 PM" },
+    { day: "Tuesday", open: "9:00 AM", close: "6:00 PM" },
+    { day: "Wednesday", open: "9:00 AM", close: "6:00 PM" },
+    { day: "Thursday", open: "9:00 AM", close: "6:00 PM" },
+    { day: "Friday", open: "9:00 AM", close: "6:00 PM" },
+    { day: "Saturday", open: "10:00 AM", close: "4:00 PM" },
+    { day: "Sunday", open: "11:00 AM", close: "3:00 PM" }
+  ];
   
 return (
 <>
@@ -412,6 +435,22 @@ value={phone}
 onChange={(e) => setPhone(e.target.value)}
 required
 />
+</div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="tourTime">Days you are open</label>
+  <select
+    id="tourTime"
+    name="tourTime"
+    value={opentime}
+    onChange={handleApartOpenTimeChange}
+  >
+    <option value="" disabled>Select opening hours</option>
+    {openTimeRanges.map((range) => (
+      <option key={range.day} value={` ${range.open} ${range.close}`}>
+        {range.day}: {range.open} - {range.close}
+      </option>
+    ))}
+  </select>
 </div>
 </div>
 {/* property contact information stops here */}
@@ -625,19 +664,24 @@ onChange={(e) => setApartAvailability(e.target.value)}
 /> 
 </div>
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="aparttourTime">Tour Time</label>
-<select
-id="aparttourTime"
-name="aparttourTime"
-value={aparttourTime}
-onChange={handleApartTourTimeChange}
->
-<option value="" disabled>Select tour time</option>
-{aparttimeOptions.map((option) => (
-<option key={option} value={option}>{option}</option>
-))}
-</select>
+  <label htmlFor="tourTime">Tour Time</label>
+  <select
+    id="tourTime"
+    name="tourTime"
+    value={aparttourTime}
+    onChange={handleApartTourTimeChange}
+  >
+    <option value="" disabled>Select tour time range</option>
+    {timeRanges.map((range) => (
+      <option key={range.start + range.end} value={`${range.start}-${range.end}`}>
+        {range.start} - {range.end}
+      </option>
+    ))}
+  </select>
 </div>
+
+
+
 </div>
 <hr />
 
@@ -646,22 +690,12 @@ onChange={handleApartTourTimeChange}
 {/* amenities information starts here */}
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Select Amenities</h2>
+  <h2>Select Highlights</h2>
 </div>
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="water"style={{ color: water ? 'skyblue' : '#fff' }}
->Water:</label>
-<input
-type="radio"
-id="water"
-name="water"
-checked={water}
-onChange={(e) => setWater(e.target.checked)}
-/>
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="lights" style={{ color: lights ? 'yellow' : '#fff' }}>Lights:</label>
+<label htmlFor="lights" >Lights:</label>
 <input
 type="radio"
 id="lights"
@@ -671,7 +705,7 @@ onChange={(e) => setLights(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="cable" style={{ color: cable ? 'purple' : '#fff' }}>Cable:</label>
+<label htmlFor="cable" >Cable:</label>
 <input
 type="radio"
 id="cable"
@@ -681,7 +715,7 @@ onChange={(e) => setCable(e.target.value)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="laundry" style={{ color: laundry ? '#5AB60D' : '#fff' }}>laundry:</label>
+<label htmlFor="laundry" >laundry:</label>
 <input
 type="radio"
 id="laundry"
@@ -691,7 +725,7 @@ onChange={(e) => setLaundry(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="airConditioning" style={{ color: airConditioning ? '#5DE2E7' : '#fff' }}>AC:</label>
+<label htmlFor="airConditioning" >AC:</label>
 <input
 type="radio"
 id="airConditioning"
@@ -701,7 +735,7 @@ onChange={(e) => setAirConditioning(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="heating" style={{ color: heating ? '#ff0808' : '#fff' }}>Heating:</label>
+<label htmlFor="heating" >Heating:</label>
 <input
 type="radio"
 id="heating"
@@ -710,18 +744,9 @@ checked={heating}
 onChange={(e) => setHeating(e.target.checked)}
 />
 </div>
+
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="pool" style={{ color: pool ? '#2877ff' : '#fff' }}>Swimming Pool:</label>
-<input
-type="radio"
-id="pool"
-name="pool"
-checked={pool}
-onChange={(e) => setPool(e.target.checked)}
-/>
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="wifi" style={{ color: wifi ? '#007fff' : '#fff' }}>Wifi:</label>
+<label htmlFor="wifi" >Wifi:</label>
 <input
 type="radio"
 id="wifi"
@@ -731,8 +756,187 @@ onChange={(e) => setWifi(e.target.checked)}
 />
 </div>
 
+
 <div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="gym" style={{ color: gym ? '#ff9900' : '#fff' }}>Gym:</label>
+  <label htmlFor="parking" >Parking:</label>
+  <input
+    type="radio"
+    id="parking"
+    name="parking"
+    checked={parking}
+    onChange={(e) => setParking(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="ceiling" >Ceiling Fans:</label>
+  <input
+    type="radio"
+    id="ceiling"
+    name="ceiling"
+    checked={ceiling}
+    onChange={(e) => setCeiling(e.target.checked)}
+  />
+</div>
+
+
+</div>
+
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Select Highlights</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="smoke free" >Smoke Free:</label>
+  <input
+    type="radio"
+    id="smoke free"
+    name="smoke free"
+    checked={smoke}
+    onChange={(e) => setSmoke(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="storage" >Storage Space:</label>
+  <input
+    type="radio"
+    id="storage"
+    name="storage"
+    checked={stoorage}
+    onChange={(e) => setStoorage(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="tub" >Tub/Shower:</label>
+  <input
+    type="radio"
+    id="tub"
+    name="tub"
+    checked={tub}
+    onChange={(e) => setTub(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="sprink" >Sprinkler System:</label>
+  <input
+    type="radio"
+    id="sprink"
+    name="sprink"
+    checked={sprink}
+    onChange={(e) => setSprink(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="frame" >Framed Mirrors:</label>
+  <input
+    type="radio"
+    id="frame"
+    name="frame"
+    checked={frame}
+    onChange={(e) => setFrame(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="wheel" >Wheelchair Accessible:</label>
+  <input
+    type="radio"
+    id="wheel"
+    name="wherl"
+    checked={wheel}
+    onChange={(e) => setWheel(e.target.checked)}
+  />
+</div>
+
+</div>
+
+<hr />
+{/* amenities information stops here */}
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Kitchen Features & Appliances
+</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="dish" >Dishwasher:</label>
+  <input
+    type="radio"
+    id="dish"
+    name="dish"
+    checked={dish}
+    onChange={(e) => setDish(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="disposal" >Disposal:</label>
+  <input
+    type="radio"
+    id="disposal"
+    name="disposal"
+    checked={disposal}
+    onChange={(e) => setDisposal(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="stainless" >Stainless Steel Appliances:</label>
+  <input
+    type="radio"
+    id="stainless"
+    name="stainless"
+    checked={stainless}
+    onChange={(e) => setStainless(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="island" >Island Kitchen:</label>
+  <input
+    type="radio"
+    id="island"
+    name="island"
+    checked={island}
+    onChange={(e) => setIsland(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="kitc" >Kitchen:</label>
+  <input
+    type="radio"
+    id="kitc"
+    name="kitc"
+    checked={kitchen}
+    onChange={(e) => setKitchen(e.target.checked)}
+  />
+</div>
+
+
+</div>
+<hr />
+{/* amenities information stops here */}
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Community Activities
+</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="pool" >Swimming Pool:</label>
+  <input
+    type="radio"
+    id="pool"
+    name="pool"
+    checked={pool}
+    onChange={(e) => setPool(e.target.checked)}
+  />
+</div>
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="gym" >Fitness Center:</label>
   <input
     type="radio"
     id="gym"
@@ -742,20 +946,9 @@ onChange={(e) => setWifi(e.target.checked)}
   />
 </div>
 
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="parking" style={{ color: parking ? '#cb6464' : '#fff' }}>Parking:</label>
-  <input
-    type="radio"
-    id="parking"
-    name="parking"
-    checked={parking}
-    onChange={(e) => setParking(e.target.checked)}
-  />
-</div>
+
 
 </div>
-{/* amenities information stops here */}
-
 <hr />
 {/* property images information starts here */}
 
@@ -1063,7 +1256,6 @@ color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !s
 </button>
 </form>
 </div>
-
 </>
 )
 }

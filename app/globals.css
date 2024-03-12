@@ -2,7 +2,7 @@ body,html {
 margin: 0;
 overflow-x: hidden;
 box-sizing: border-box;
-background-color: azure;
+background-color: #e2f4f4;
 letter-spacing: 2px;
 }
 
@@ -1173,6 +1173,12 @@ color: #09a5d5 !important;
   padding: 0 0 0 1rem;
   border: solid 1px #c3c3c3;
   width: 100%;
+  }
+
+  @media(max-width:768px){
+    .amenities-grid{
+      font-size: 11px;
+    }
   }
 
   .ameities-flex {

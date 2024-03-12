@@ -174,11 +174,10 @@ width:'15rem'
 }}>
 <Image src={phone} width={20} height={38} alt='...'/>
 <div style={{width:'1rem'}}></div>
-<p>{post.phone}</p>
-</div>
+<a href="tel:{post.phone}">{post.phone}</a></div>
 
 
-
+open {post.opentime}
 </div>
 
 <p className='formatdate' style={{ margin: '1rem',lineHeight:'6' }}>
@@ -195,35 +194,42 @@ width:'15rem'
 
 {(post.heating || post.lights || post.laundry || post.cable || post.airConditioning || post.water || post.pool || post.wifi) && (
   <div className='amenities-grid'>
-    <span style={{ padding: '0 1rem' }}>Highlights</span>
+    <span style={{ padding: '0 1rem',fontWeight:'600'  }}>Highlights</span>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
       {post.heating && <li>Heating</li>}
       {post.lights && <li>Lights are available</li>}
+      {post.celieng && <li>Ceiling Fans</li>}
       {post.laundry && <li>Washer/Dryer</li>}
+      {post.tub && <li>Tub/Shower</li>}
+      {post.sprink && <li>Sprinkler System</li>}
       {post.cable && <li>Cable ready</li>}
+      {post.smoke && <li>Smoke Free</li>}
+      {post.stoorage && <li>Storage Space</li>}
       {post.airConditioning && <li>Air Conditioning</li>}
       {post.water && <li>Water is available</li>}
-      {post.pool && <li>Pool is available</li>}
+      {post.frame && <li>Framed Mirrors</li>}
+      {post.wheel && <li>Wheelchair Accessible</li>}
       {post.wifi && <li>WiFi</li>}
     </div>
-    <span style={{ padding: '0 1rem' }}>Kitchen Features & Appliances</span>
+    <span style={{ padding: '0 1rem',fontWeight:'600' }}>Kitchen Features & Appliances</span>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
-      {post.heating && <li>Heating</li>}
-      {post.lights && <li>Lights are available</li>}
-      {post.laundry && <li>Washer/Dryer</li>}
-      {post.cable && <li>Cable ready</li>}
-      {post.airConditioning && <li>Air Conditioning</li>}
-      {post.water && <li>Water is available</li>}
-      {post.pool && <li>Pool is available</li>}
-      {post.wifi && <li>WiFi</li>}
+      {post.dish && <li>Dishwasher</li>}
+      {post.disposal && <li>Disposal</li>}
+      {post.stainless && <li>Stainless Steel</li>}
+      {post.kitchen && <li>Kitchen</li>}
+      {post.island && <li>Island Kitchen</li>}
+   
+   
     </div>
   </div>
 )}
 
 
-<div style={{ display: (post.heating || post.lights || post.laundry || post.cable || post.airConditioning || post.water || post.pool || post.wifi) ? 'flex' : 'none', justifyContent: 'space-between', alignItems: 'center' }}>
+<div style={{ display: ( post.pool || post.gym) ? 'flex' : 'none', justifyContent: 'space-between', alignItems: 'center' }}>
   <h3 style={{ padding: '0 1rem' }}>Popular Amenities</h3>
-  
+        {post.pool && <li>Swimming Pool</li>}
+        {post.gym && <li>Fitness Center</li>}
+
 
 </div>
 
