@@ -1,7 +1,7 @@
 'use client'
 import { getAuth } from 'firebase/auth';
-import { collection, doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore';
-import {  getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { doc, getFirestore, updateDoc } from 'firebase/firestore';
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 import React, { useEffect, useRef, useState } from 'react'
@@ -10,14 +10,10 @@ import { auth } from '../../Config/firebase';
 
 export default function AdminEdit({ comment,  onCancel }) {
 
-  const [uniqueArticleId, setuniqueArticleId] = useState("");  
-  const [userId, setuserId] = useState("");  
   const [articleId, setArticleId] = useState("");  
-  const [editModalOpen, setEditModalOpen] = useState(false);
 
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [tourTime, setTourTime] = useState(comment ? comment.tourTime : "");
-const [opentime, setOpentime] = useState(comment ? comment.opentime : "");
 
 const [content, setContent] = useState(comment ? comment.content : "");
 const [title, setTitle] = useState(comment ? comment.title : "");
@@ -1047,12 +1043,9 @@ color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !s
 }}
   
 >
-{isLoading ? <BeatLoader color='blue' /> : 'Update'}
+{isLoading ? <BeatLoader color='blue' /> : 'Submit'}
 </button>
-<button onClick={onCancel}>Cancel</button>
-
 </form>
-
 </div>
 
 </>
