@@ -51,6 +51,7 @@ const [wifi, setWifi] = useState(false);
 const [airConditioning, setAirConditioning] = useState(false);
 const [gym, setGym] = useState(false);
 const [parking, setParking] = useState(false);
+const [sprink, setSprink] = useState(false);
 //amenities
 const [ isLoading, setIsLoading] = useState(false)
 //pictures
@@ -703,7 +704,7 @@ onChange={(e) => setApartAvailability(e.target.value)}
 </div>
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="water"style={{ color: water ? 'skyblue' : '#fff' }}
+<label htmlFor="water"
 >Water:</label>
 <input
 type="radio"
@@ -714,17 +715,17 @@ onChange={(e) => setWater(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="lights" style={{ color: lights ? 'yellow' : '#fff' }}>Lights:</label>
+<label htmlFor="lights" >Sprinkler:</label>
 <input
 type="radio"
-id="lights"
-name="lights"
-checked={lights}
-onChange={(e) => setLights(e.target.checked)}
+id="sprink"
+name="sprink"
+checked={sprink}
+onChange={(e) => setSprink(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="cable" style={{ color: cable ? 'purple' : '#fff' }}>Cable:</label>
+<label htmlFor="cable" >Cable:</label>
 <input
 type="radio"
 id="cable"
@@ -734,7 +735,7 @@ onChange={(e) => setCable(e.target.value)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="laundry" style={{ color: laundry ? '#5AB60D' : '#fff' }}>laundry:</label>
+<label htmlFor="laundry" >laundry:</label>
 <input
 type="radio"
 id="laundry"
@@ -744,7 +745,7 @@ onChange={(e) => setLaundry(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="airConditioning" style={{ color: airConditioning ? '#5DE2E7' : '#fff' }}>AC:</label>
+<label htmlFor="airConditioning" >AC:</label>
 <input
 type="radio"
 id="airConditioning"
@@ -754,7 +755,7 @@ onChange={(e) => setAirConditioning(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="heating" style={{ color: heating ? '#ff0808' : '#fff' }}>Heating:</label>
+<label htmlFor="heating" >Heating:</label>
 <input
 type="radio"
 id="heating"
@@ -765,7 +766,7 @@ onChange={(e) => setHeating(e.target.checked)}
 </div>
 
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="wifi" style={{ color: wifi ? '#007fff' : '#fff' }}>Wifi:</label>
+<label htmlFor="wifi" >Wifi:</label>
 <input
 type="radio"
 id="wifi"
@@ -777,7 +778,7 @@ onChange={(e) => setWifi(e.target.checked)}
 
 
 <div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="parking" style={{ color: parking ? '#cb6464' : '#fff' }}>Parking:</label>
+  <label htmlFor="parking" >Parking:</label>
   <input
     type="radio"
     id="parking"
