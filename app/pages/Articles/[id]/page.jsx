@@ -245,7 +245,7 @@ width:'15rem'
 
 
 
-<div className='artilceGoUpbtn'><Goup/></div>
+<div className='artilceGoUpbtn'><Goup/>
 
 </div>
 <Footer/>
