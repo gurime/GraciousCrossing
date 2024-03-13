@@ -1,0 +1,124 @@
+[33ma787dbc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: reset: moving to a787dbc
+[33me9cf9fe[m HEAD@{1}: reset: moving to HEAD~2
+[33m4068439[m HEAD@{2}: reset: moving to HEAD~2
+[33m4190fd9[m HEAD@{3}: reset: moving to HEAD~2
+[33m7853327[m HEAD@{4}: reset: moving to HEAD~2
+[33m00840db[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{5}: commit: Update AdminEdit.jsx
+[33m0f07807[m HEAD@{6}: commit: Revert "update"
+[33m7853327[m HEAD@{7}: commit: Update AdminEdit.jsx
+[33mcf6bace[m HEAD@{8}: commit: update
+[33m4190fd9[m HEAD@{9}: commit: update
+[33m738745c[m HEAD@{10}: commit: update
+[33m4068439[m HEAD@{11}: commit: update
+[33ma787dbc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{12}: commit: Update AdminForm.jsx
+[33me9cf9fe[m HEAD@{13}: commit: Update AdminEdit.jsx
+[33mcd65762[m HEAD@{14}: commit: update
+[33m10ce270[m HEAD@{15}: commit: update
+[33mbda8b4e[m HEAD@{16}: commit: update
+[33m6e05a86[m HEAD@{17}: commit: update
+[33m29ca4ff[m HEAD@{18}: commit: Update AdminEdit.jsx
+[33m9187efd[m HEAD@{19}: commit: update
+[33mdc7849d[m HEAD@{20}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m78e5038[m HEAD@{21}: commit: Update AdminForm.jsx
+[33mb6476fc[m HEAD@{22}: commit: Update page.jsx
+[33m5972094[m HEAD@{23}: commit: update
+[33m0df9bb6[m HEAD@{24}: commit: update
+[33mb42d1a5[m HEAD@{25}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m2de8d90[m HEAD@{26}: commit: update
+[33mf7f01e5[m HEAD@{27}: commit: update
+[33mb371aaa[m HEAD@{28}: commit: Update AdminForm.jsx
+[33m4136d98[m HEAD@{29}: commit: update
+[33mc569918[m HEAD@{30}: commit: update
+[33m642b331[m HEAD@{31}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33med79d0c[m HEAD@{32}: commit: update
+[33m3922770[m HEAD@{33}: commit: update
+[33m09d2f5a[m HEAD@{34}: commit: Update Schedule.jsx
+[33m9aa3fff[m HEAD@{35}: commit: Update Schedule.jsx
+[33m1b2cccf[m HEAD@{36}: commit: update
+[33ma015a70[m HEAD@{37}: commit: Update globals.css
+[33m1e46863[m HEAD@{38}: commit: update
+[33mcd89a5c[m HEAD@{39}: commit: Update globals.css
+[33m77416ab[m HEAD@{40}: commit: update
+[33m46f0d9a[m HEAD@{41}: commit: update
+[33medd977b[m HEAD@{42}: commit: update
+[33m23c13a2[m HEAD@{43}: commit: update
+[33m251d8de[m HEAD@{44}: commit: update
+[33m9cefb30[m HEAD@{45}: commit: update
+[33mde44784[m HEAD@{46}: commit: update
+[33md58e148[m HEAD@{47}: commit: update
+[33mf89eb70[m HEAD@{48}: commit: update
+[33medf3294[m HEAD@{49}: commit: Update globals.css
+[33m7809090[m HEAD@{50}: commit: update
+[33m4878d57[m HEAD@{51}: commit: Update page.jsx
+[33m274ae41[m HEAD@{52}: commit: Update page.jsx
+[33m2108625[m HEAD@{53}: commit: Update page.jsx
+[33m1b524bf[m HEAD@{54}: commit: update
+[33mc5a0d0c[m HEAD@{55}: commit: update
+[33m8a81061[m HEAD@{56}: commit: Update page.jsx
+[33md858ff7[m HEAD@{57}: commit: Update page.jsx
+[33mbecfc40[m HEAD@{58}: commit: update
+[33m1b066ab[m HEAD@{59}: commit: update
+[33m1a7db5d[m HEAD@{60}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33mf50dbc8[m HEAD@{61}: commit: Versioning untracked files
+[33me1d51d8[m HEAD@{62}: commit: update
+[33m5496367[m HEAD@{63}: commit: Update page.js
+[33m32ff562[m HEAD@{64}: commit: update
+[33mce74a6e[m HEAD@{65}: commit: update
+[33m4f5aaee[m HEAD@{66}: commit: update
+[33m15de891[m HEAD@{67}: commit: update
+[33mf1c61ef[m HEAD@{68}: commit: update
+[33mdeada61[m HEAD@{69}: commit: update
+[33m6767cef[m HEAD@{70}: commit: update
+[33m90e28e2[m HEAD@{71}: commit: Update AdminForm.jsx
+[33mb468963[m HEAD@{72}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m2a3095c[m HEAD@{73}: commit: Update page.jsx
+[33mfffc3df[m HEAD@{74}: commit: update
+[33mdcf47db[m HEAD@{75}: commit: update
+[33ma162689[m HEAD@{76}: commit: update
+[33m8ff905b[m HEAD@{77}: commit: update
+[33m1bbc768[m HEAD@{78}: commit: update
+[33m51dae4d[m HEAD@{79}: commit: Update globals.css
+[33mc280a3e[m HEAD@{80}: commit: update
+[33m18da031[m HEAD@{81}: commit: update
+[33mf593cb5[m HEAD@{82}: commit: update
+[33me8568bf[m HEAD@{83}: commit: update
+[33m5906b23[m HEAD@{84}: commit: update
+[33m75a72ff[m HEAD@{85}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m55dc192[m HEAD@{86}: commit: update
+[33m459ebf1[m HEAD@{87}: commit: update
+[33m7a8574f[m HEAD@{88}: commit: update
+[33m8ff66d5[m HEAD@{89}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33md60fe9e[m HEAD@{90}: commit: update
+[33m07c70b9[m HEAD@{91}: commit: update
+[33m4bfc5b0[m HEAD@{92}: commit: update
+[33md31dfbb[m HEAD@{93}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m3d861ab[m HEAD@{94}: commit: update
+[33mb91028c[m HEAD@{95}: commit: update
+[33m2e7b7e7[m HEAD@{96}: commit: update
+[33m316e803[m HEAD@{97}: commit: update
+[33m4feea88[m HEAD@{98}: commit: Update ProfileList.jsx
+[33m6c2f387[m HEAD@{99}: commit: update
+[33mbd3c8e2[m HEAD@{100}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m6ff47c8[m HEAD@{101}: commit: Update ProfileList.jsx
+[33m4f037d4[m HEAD@{102}: commit: update
+[33mb97574e[m HEAD@{103}: commit: update
+[33m3876cba[m HEAD@{104}: commit: update
+[33mc8d172d[m HEAD@{105}: commit: update
+[33m2df8008[m HEAD@{106}: commit: Update globals.css
+[33m291fb35[m HEAD@{107}: commit: update
+[33m9eae1f5[m HEAD@{108}: commit: Update Footer.jsx
+[33mb79c9b9[m HEAD@{109}: commit: Update PropertyLists.jsx
+[33m36ded69[m HEAD@{110}: commit: update
+[33m62ed253[m HEAD@{111}: commit: Update Footer.jsx
+[33me3095cd[m HEAD@{112}: commit: update
+[33m8f73422[m HEAD@{113}: commit: update
+[33mcfc96e7[m HEAD@{114}: commit: update
+[33m19aea72[m HEAD@{115}: commit: update
+[33m898bd92[m HEAD@{116}: commit: update
+[33m1511c19[m HEAD@{117}: commit: update
+[33m189d2af[m HEAD@{118}: commit: update
+[33mb49a5db[m HEAD@{119}: commit: update
+[33m9946545[m HEAD@{120}: commit: update
+[33mf9d0068[m HEAD@{121}: commit: Update globals.css
+[33ma00453a[m HEAD@{122}: commit: update
+[33m1c2b718[m HEAD@{123}: commit: update
