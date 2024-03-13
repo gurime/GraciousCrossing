@@ -117,17 +117,15 @@ useEffect(() => {
   };
   
   
-let originalScrollPosition;
 
 
 const handleCancel = () => {
   onCancel();
-  // Restore the original scroll position when the modal is closed
-  window.scrollTo(0, originalScrollPosition);
 };
 
 
-    
+const storage = getStorage(); 
+
   const handleAuthPicChange = (e) => {
   // Set the selected cover image file to state
   const file = e.target.files[0];
@@ -213,7 +211,7 @@ const handleCancel = () => {
       setIsLoading(true);
       const uniqueArticleId = uuidv4();
       setArticleId(uniqueArticleId);
-  
+      const isUpdate = !!comment.id;  
       const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
   
   
@@ -271,6 +269,7 @@ const handleCancel = () => {
           gym,
           parking,
           tourTime,
+          opentime,
           timestamp: new Date(),
           userEmail: user.email,
           authpic,
@@ -328,22 +327,39 @@ const timeOptions = [
 };
 
 const aparttimeOptions = [
-  "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
-  "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
-  "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
-  "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
+
+  { day: 'Tour', time: '9:00 AM - 9:30 AM' },
+  { day: 'Tour', time: '9:30 AM - 10:00 AM' },
+  { day: 'Tour', time: '10:00 AM - 10:30 AM' },
+  { day: 'Tour', time: '10:30 AM - 11:00 AM' },
+  { day: 'Tour', time: '11:00 AM - 11:30 AM' },
+  { day: 'Tour', time: '11:30 AM - 12:00 PM' },
+  { day: 'Tour', time: '12:00 PM - 12:30 PM' },
+  { day: 'Tour', time: '12:30 PM - 1:00 PM' },
+  { day: 'Tour', time: '1:00 PM - 1:30 PM' },
+  { day: 'Tour', time: '1:30 PM - 2:00 PM' },
+  { day: 'Tour', time: '2:00 PM - 2:30 PM' },
+  { day: 'Tour', time: '2:30 PM - 3:00 PM' },
+  { day: 'Tour', time: '3:00 PM - 3:30 PM' },
+  { day: 'Tour', time: '3:30 PM - 4:00 PM' },
+  { day: 'Tour', time: '4:00 PM - 4:30 PM' },
+  { day: 'Tour', time: '4:30 PM - 5:00 PM' },
+  { day: 'Tour', time: '5:00 PM - 5:30 PM' },
+  { day: 'Tour', time: '5:30 PM - 6:00 PM' }
   
 ];
- const handleOpenTimeChange = (e) => {
+
+const handleOpenTimeChange = (e) => {
   setOpentime(e.target.value);
 };
 
-const opentimeOptions = [
-  "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
-  "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
-  "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
-  "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
-  
+const openTimeOptions = [
+  { day: 'Monday', time: '9:00 AM - 6:00 PM' },
+  { day: 'Tuesday', time: '9:00 AM - 6:00 PM' },
+  { day: 'Wednesday', time: '9:00 AM - 6:00 PM' },
+  { day: 'Thursday', time: '9:00 AM - 6:00 PM' },
+  { day: 'Friday', time: '9:00 AM - 6:00 PM' },
+  { day: 'Sunday', time: 'Closed' }
 ];
   
 return (
@@ -418,19 +434,22 @@ required
 />
 </div>
 
+
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="aparttourTime">Times you are open</label>
-<select
-id="aparttourTime"
-name="aparttourTime"
-value={opentime}
-onChange={handleOpenTimeChange}
->
-<option value="" disabled>Select tour time</option>
-{opentimeOptions.map((option) => (
-<option key={option} value={option}> {option} </option>
-))}
-</select>
+  <label htmlFor="apartOpenTime">Select time you are open</label>
+  <select
+    id="apartOpenTime"
+    name="apartOpenTime"
+    value={opentime}
+    onChange={handleOpenTimeChange}
+  >
+    <option value="" disabled>Select open time</option>
+    {openTimeOptions.map((option) => (
+      <option key={`${option.day} - ${option.time}`} value={option.time}>
+        {option.day} {option.time}
+      </option>
+    ))}
+  </select>
 </div>
 </div>
 {/* property contact information stops here */}
@@ -519,7 +538,7 @@ onChange={handleTourTimeChange}
 >
 <option value="" disabled>Select tour time</option>
 {timeOptions.map((option) => (
-<option key={option} value={option}>{option}</option>
+<option key={`${option.day} - ${option.time}`} value={option}>{option}</option>
 ))}
 </select>
 </div>
@@ -644,18 +663,20 @@ onChange={(e) => setApartAvailability(e.target.value)}
 /> 
 </div>
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="aparttourTime">Tour Time</label>
-<select
-id="aparttourTime"
-name="aparttourTime"
-value={aparttourTime}
-onChange={handleApartTourTimeChange}
->
-<option value="" disabled>Select tour time</option>
-{aparttimeOptions.map((option) => (
-<option key={option} value={option}> {option} </option>
-))}
-</select>
+  <label htmlFor="aparttourTime">Tour Time</label>
+  <select
+    id="aparttourTime"
+    name="aparttourTime"
+    value={aparttourTime}
+    onChange={handleApartTourTimeChange}
+  >
+    <option value="" disabled>Select tour time</option>
+    {aparttimeOptions.map((option) => (
+      <option key={option.time} value={option.time}>
+        {option.tour} {option.time}
+      </option>
+    ))}
+  </select>
 </div>
 </div>
 <hr />

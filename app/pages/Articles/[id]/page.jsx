@@ -134,8 +134,8 @@ display:'grid'
 
 <Schedule post={sanitizedPost}/>
 <ContactAgent post={sanitiPost} />
-{post.opentimes ? (
-  <span style={{fontSize:'20px',fontWeight:'300'}}><span style={{letterSpacing:'4px'}}>Open from</span> {post.opentimes}</span>
+{post.opentime ? (
+  <span style={{fontSize:'20px',fontWeight:'300'}}><span style={{letterSpacing:'4px'}}>Open from</span> {post.opentime}</span>
 
 ) : null}
 </div>
@@ -242,7 +242,7 @@ width:'15rem'
 
 
 <div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>
-<h2 style={{  margin: '1rem' }}>{post.title}</h2>
+<h2 style={{  margin: '1rem' }}>About {post.title}</h2>
 <div className="body-content" ><p>{post.content}</p></div>
 
 

@@ -32,6 +32,7 @@ const router = useRouter()
     
   
       setNames('');
+      window.scrollTo(0,0)
     };
     
   
