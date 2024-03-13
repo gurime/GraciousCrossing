@@ -149,7 +149,8 @@ lineHeight:'2'
 }}>
   
 <h2>{post.price} </h2>
-<h3 style={{padding:'0 1rem'}}>{post.bathrooms} Bath | {post.bedrooms} Beds | {post.square} sqft</h3> 
+<h2>{post.apartprice} </h2>
+<h3 style={{padding:'0 1rem'}}>{post.bathrooms} {post.apartbathrooms} Bath | {post.bedrooms} {post.apartbathrooms} Beds | {post.square} {post.apartbathrooms} bath | {post.apartsquare} sqft</h3> 
 </div>
 
 
@@ -242,9 +243,10 @@ width:'15rem'
 
 
 
-</div>
+
 <div className='artilceGoUpbtn'><Goup/>
 
+</div>
 </div>
 <Footer/>
 </>
