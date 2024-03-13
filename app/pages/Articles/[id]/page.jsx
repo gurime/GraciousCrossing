@@ -134,10 +134,7 @@ display:'grid'
 
 <Schedule post={sanitizedPost}/>
 <ContactAgent post={sanitiPost} />
-{post.opentime ? (
-  <span style={{fontSize:'20px',fontWeight:'300'}}><span style={{letterSpacing:'4px'}}>Open from</span> {post.opentime}</span>
 
-) : null}
 </div>
 
 </div>
@@ -168,7 +165,10 @@ lineHeight:'2'
   </p>
 
 ) : null}
-<p>{post.property_type}</p>
+{post.opentime ? (
+  <span className='sm-span' style={{display:'flex',color:'#4c4c4c'}}>Open {post.opentime}</span>
+
+) : null}
 <address>{post.address}, {post.city}, {post.state[0]}{post.state.slice(-1)}, {post.zip}</address>
 
 
@@ -199,39 +199,71 @@ width:'15rem'
 
 
 
-{(post.heating || post.lights || post.laundry || post.cable || post.airConditioning || post.water || post.pool || post.wifi) && (
+{(post.heating || post.sprink || post.laundry || post.cable || post.airConditioning || post.water || post.stoorage || post.wifi || post.walkin || post.framme || post.wheel) && (
   <div className='amenities-grid'>
-    <span style={{ padding: '0 1rem' }}>Highlights</span>
+    <span style={{ padding: '0 1rem',fontWeight:'bold' }}>Highlights</span>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
       {post.heating && <li>Heating</li>}
-      {post.lights && <li>Lights are available</li>}
       {post.laundry && <li>Washer/Dryer</li>}
       {post.cable && <li>Cable ready</li>}
       {post.airConditioning && <li>Air Conditioning</li>}
       {post.water && <li>Water is available</li>}
-      {post.pool && <li>Pool is available</li>}
+      {post.walkin && <li>Walk-In Shower</li>}
+      {post.sprink && <li>Sprinkler System</li>}
+      {post.smoke && <li>Smoke Free</li>}
+      {post.stoorage && <li>Closet Storage</li>}
       {post.wifi && <li>WiFi</li>}
+      {post.framme && <li>Framed Mirrors</li>}
+      {post.wheel && <li>Wheelchair Accessible</li>}
     </div>
     <span style={{ padding: '0 1rem' }}>Kitchen Features & Appliances</span>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
-      {post.heating && <li>Heating</li>}
-      {post.lights && <li>Lights are available</li>}
-      {post.laundry && <li>Washer/Dryer</li>}
-      {post.cable && <li>Cable ready</li>}
-      {post.airConditioning && <li>Air Conditioning</li>}
-      {post.water && <li>Water is available</li>}
-      {post.pool && <li>Pool is available</li>}
-      {post.wifi && <li>WiFi</li>}
+    
     </div>
   </div>
 )}
 
 
-<div style={{ display: (post.heating || post.lights || post.laundry || post.cable || post.airConditioning || post.water || post.pool || post.wifi) ? 'flex' : 'none', justifyContent: 'space-between', alignItems: 'center' }}>
-  <h3 style={{ padding: '0 1rem' }}>Popular Amenities</h3>
-  
+{
+ (post.heating ||
+   post.lights ||
+   post.laundry ||
+   post.cable ||
+   post.airConditioning ||
+   post.water ||
+   post.pool ||
+   post.wifi) && (
+  <div className='amenities-grid'>
+    <span style={{ padding: '0 1rem',fontWeight:'bold'  }}>Popular Amenities</span>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+    {post.heating && <li>Heating</li>}
+       {post.lights && <li>Lights are available</li>}
+       {post.laundry && <li>Washer/Dryer</li>}
+       {post.cable && <li>Cable ready</li>}
+       {post.airConditioning && <li>Air Conditioning</li>}
+       {post.water && <li>Water is available</li>}
+       {post.pool && <li>Pool is available</li>}
+       {post.wifi && <li>WiFi</li>}
+    </div>
+   
+  </div>
+)}
+{
+ (post.gym ||
+   post.pool 
+   ) && (
+  <div className='amenities-grid'>
+    <span style={{ padding: '0 1rem',fontWeight:'bold'  }}>Community Amenities</span>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+    {post.gym && <li>Fitness Center</li>}
+     
+       {post.pool && <li>Swimming Pool</li>}
+    
+    </div>
+   
+  </div>
+)}
 
-</div>
 
 
 

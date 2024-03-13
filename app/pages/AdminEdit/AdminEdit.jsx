@@ -15,6 +15,7 @@ export default function AdminEdit({ comment,  onCancel }) {
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [tourTime, setTourTime] = useState(comment ? comment.tourTime : "");
 const [opentime, setOpentime] = useState(comment ? comment.opentime : "");
+const [aboutcontent, setAboutContent] = useState(comment ? comment.aboutcontent : "");
 
 const [content, setContent] = useState(comment ? comment.content : "");
 const [title, setTitle] = useState(comment ? comment.title : "");
@@ -44,7 +45,15 @@ const [pool, setPool] = useState(comment ? comment.pool : false);
 const [airConditioning, setAirConditioning] = useState(comment ? comment.airConditioning : false);
 const [wifi, setWifi] = useState(comment ? comment.wifi : false);
 const [gym, setGym] = useState(comment ? comment.gym :false);
-const [parking, setParking] = useState(false);
+const [parking, setParking] = useState(comment ? comment.parking : false);
+const [sprink, setSprink] = useState(comment ? comment.sprink : false);
+const [tub, setTub] = useState(comment ? comment.tub :false);
+const [smoke, setSmoke] = useState(comment ? comment.smoke : false);
+const [stoorage, setStoorage] = useState(comment ? comment.stoorage : false);
+const [framme, setFramme] = useState(comment ? comment.framme :false);
+const [wheel, setWheel] = useState(comment ? comment.wheel :false);
+const [ceiling, setCeiling] = useState(comment ? comment.ceiling : false);
+const [walkin, setWalkin] = useState(comment ? comment.walkin : false);
 const [phone, setPhone] = useState(comment ? comment.phone : "");
 const [units, setUnits] = useState(comment ? comment.units : '');
 const [apartprice, setApartPrice] = useState(comment ? comment.apartprice : '');
@@ -267,6 +276,14 @@ const storage = getStorage();
           state,
           zip,
           gym,
+          sprink,
+          tub,
+          walkin,
+          smoke,
+          stoorage,
+          wheel,
+          framme,
+          ceiling,
           parking,
           tourTime,
           opentime,
@@ -309,58 +326,48 @@ const storage = getStorage();
 
     
 
-const handleTourTimeChange = (e) => {
-  setTourTime(e.target.value);
-};
-
-
-const timeOptions = [
-  "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
-  "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
-  "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
-  "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
   
-];
-
- const handleApartTourTimeChange = (e) => {
-  setApartTourTime(e.target.value);
-};
-
-const aparttimeOptions = [
-
-  { day: 'Tour', time: '9:00 AM - 9:30 AM' },
-  { day: 'Tour', time: '9:30 AM - 10:00 AM' },
-  { day: 'Tour', time: '10:00 AM - 10:30 AM' },
-  { day: 'Tour', time: '10:30 AM - 11:00 AM' },
-  { day: 'Tour', time: '11:00 AM - 11:30 AM' },
-  { day: 'Tour', time: '11:30 AM - 12:00 PM' },
-  { day: 'Tour', time: '12:00 PM - 12:30 PM' },
-  { day: 'Tour', time: '12:30 PM - 1:00 PM' },
-  { day: 'Tour', time: '1:00 PM - 1:30 PM' },
-  { day: 'Tour', time: '1:30 PM - 2:00 PM' },
-  { day: 'Tour', time: '2:00 PM - 2:30 PM' },
-  { day: 'Tour', time: '2:30 PM - 3:00 PM' },
-  { day: 'Tour', time: '3:00 PM - 3:30 PM' },
-  { day: 'Tour', time: '3:30 PM - 4:00 PM' },
-  { day: 'Tour', time: '4:00 PM - 4:30 PM' },
-  { day: 'Tour', time: '4:30 PM - 5:00 PM' },
-  { day: 'Tour', time: '5:00 PM - 5:30 PM' },
-  { day: 'Tour', time: '5:30 PM - 6:00 PM' }
   
-];
+  const handleTourTimeChange = (e) => {
+    setTourTime(e.target.value);
+  };
+  
+ 
+  const timeOptions = [
+    { day: 'Tour', time: '9:00 AM - 9:30 AM' },
+    { day: 'Tour', time: '11:00 AM - 11:30 AM' },
+    { day: 'Tour', time: '12:30 PM - 1:00 PM' },
+    { day: 'Tour', time: '2:00 PM - 2:30 PM' },
+    { day: 'Tour', time: '2:30 PM - 3:00 PM' },
+    { day: 'Tour', time: '3:00 PM - 3:30 PM' },
+    { day: 'Tour', time: '3:30 PM - 4:00 PM' },
+    { day: 'Tour', time: '4:00 PM - 4:30 PM' },
+ 
+    
+  ];
 
-const handleOpenTimeChange = (e) => {
-  setOpentime(e.target.value);
-};
+  const handleApartTourTimeChange = (e) => {
+    setApartTourTime(e.target.value);
+  };
+  
+  const aparttimeOptions = [
+  
+    { day: 'Tour', time: '9:00 AM - 9:30 AM' },
+    { day: 'Tour', time: '11:00 AM - 11:30 AM' },
+    { day: 'Tour', time: '12:30 PM - 1:00 PM' },
+    { day: 'Tour', time: '2:00 PM - 2:30 PM' },
+    { day: 'Tour', time: '2:30 PM - 3:00 PM' },
+    { day: 'Tour', time: '3:00 PM - 3:30 PM' },
+    { day: 'Tour', time: '3:30 PM - 4:00 PM' },
+    { day: 'Tour', time: '4:00 PM - 4:30 PM' },
+ 
+    
+  ];
 
-const openTimeOptions = [
-  { day: 'Monday', time: '9:00 AM - 6:00 PM' },
-  { day: 'Tuesday', time: '9:00 AM - 6:00 PM' },
-  { day: 'Wednesday', time: '9:00 AM - 6:00 PM' },
-  { day: 'Thursday', time: '9:00 AM - 6:00 PM' },
-  { day: 'Friday', time: '9:00 AM - 6:00 PM' },
-  { day: 'Sunday', time: 'Closed' }
-];
+  const handleOpenTimeChange = (e) => {
+    setOpentime(e.target.value);
+  };
+
   
 return (
 <>
@@ -437,18 +444,17 @@ required
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="apartOpenTime">Select time you are open</label>
-  <select
-    id="apartOpenTime"
-    name="apartOpenTime"
-    value={opentime}
-    onChange={handleOpenTimeChange}
-  >
+  <select id="apartOpenTime" name="apartOpenTime" value={opentime} onChange={handleOpenTimeChange}>
     <option value="" disabled>Select open time</option>
-    {openTimeOptions.map((option) => (
-      <option key={`${option.day} - ${option.time}`} value={option.time}>
-        {option.day} {option.time}
-      </option>
-    ))}
+    <optgroup label="Monday - Friday">
+      <option value="9:00 AM - 6:00 PM">9:00 AM - 6:00 PM</option>
+    </optgroup>
+    <optgroup label="Saturday">
+      <option value="11:30 AM - 4:00 PM">11:30 AM - 4:00 PM</option>
+    </optgroup>
+    <optgroup label="Sunday">
+      <option value="Closed">Closed</option>
+    </optgroup>
   </select>
 </div>
 </div>
@@ -538,8 +544,9 @@ onChange={handleTourTimeChange}
 >
 <option value="" disabled>Select tour time</option>
 {timeOptions.map((option) => (
-<option key={`${option.day} - ${option.time}`} value={option}>{option}</option>
-))}
+  <option key={option.time} value={option.time}>
+        {option.tour} {option.time}
+      </option>))}
 </select>
 </div>
 
@@ -586,7 +593,7 @@ onChange={handleTourTimeChange}
       onChange={(e) => setUnits(e.target.value)}
       className='billingselect'
     >
-      <option value="">Select Unit #</option>
+      <option value="">Select Unit#</option>
 
       <option value="BUC-1018">BUC-1018</option>
       <option value="BUC-1818">BUC-1818</option>
@@ -685,8 +692,147 @@ onChange={(e) => setApartAvailability(e.target.value)}
 
 {/* amenities information starts here */}
 
+
+
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Select Amenities</h2>
+  <h2>Select Highlights</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="lights" >Sprinkler:</label>
+<input
+type="radio"
+id="sprink"
+name="sprink"
+checked={sprink}
+onChange={(e) => setSprink(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="cable" >Cable:</label>
+<input
+type="radio"
+id="cable"
+name="cable"
+checked={cable}
+onChange={(e) => setCable(e.target.value)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="tub" >Tub/Shower:</label>
+<input
+type="radio"
+id="tub"
+name="tub"
+checked={tub}
+onChange={(e) => setTub(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="smoke" >Smoke Free</label>
+<input
+type="radio"
+id="smoke"
+name="smoke"
+checked={smoke}
+onChange={(e) => setSmoke(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="framme" >Framed Windows:</label>
+<input
+type="radio"
+id="framme"
+name="framme"
+checked={framme}
+onChange={(e) => setFramme(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="wifi" >Wifi:</label>
+<input
+type="radio"
+id="wifi"
+name="wifi"
+checked={wifi}
+onChange={(e) => setWifi(e.target.checked)}
+/>
+</div>
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="parking" >Parking:</label>
+  <input
+    type="radio"
+    id="parking"
+    name="parking"
+    checked={parking}
+    onChange={(e) => setParking(e.target.checked)}
+  />
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="wheel" >Wheelchair Accessible:</label>
+  <input
+    type="radio"
+    id="wheel"
+    name="wheel"
+    checked={wheel}
+    onChange={(e) => setWheel(e.target.checked)}
+  />
+</div>
+
+
+
+</div>
+
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Select Highlights</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="storage" >Storage Space:</label>
+  <input
+    type="radio"
+    id="storage"
+    name="storage"
+    checked={stoorage}
+    onChange={(e) => setStoorage(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="ceiling" >Ceiling Fans:</label>
+  <input
+    type="radio"
+    id="ceiling"
+    name="ceiling"
+    checked={ceiling}
+    onChange={(e) => setCeiling(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="walkin" >Walk-In Shower:</label>
+  <input
+    type="radio"
+    id="walkin"
+    name="walkin"
+    checked={walkin}
+    onChange={(e) => setWalkin(e.target.checked)}
+  />
+</div>
+
+</div>
+<hr />
+{/* amenities information stops here */}
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Select Amenties</h2>
 </div>
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 <div style={{ display: 'grid', gap: '1rem' }}>
@@ -710,16 +856,7 @@ checked={lights}
 onChange={(e) => setLights(e.target.checked)}
 />
 </div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="cable" >Cable:</label>
-<input
-type="radio"
-id="cable"
-name="cable"
-checked={cable}
-onChange={(e) => setCable(e.target.value)}
-/>
-</div>
+
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="laundry" >laundry:</label>
 <input
@@ -750,6 +887,22 @@ checked={heating}
 onChange={(e) => setHeating(e.target.checked)}
 />
 </div>
+
+
+
+</div>
+<hr />
+
+
+
+
+
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Commuinty Activites</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="pool" >Swimming Pool:</label>
 <input
@@ -760,16 +913,7 @@ checked={pool}
 onChange={(e) => setPool(e.target.checked)}
 />
 </div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="wifi" >Wifi:</label>
-<input
-type="radio"
-id="wifi"
-name="wifi"
-checked={wifi}
-onChange={(e) => setWifi(e.target.checked)}
-/>
-</div>
+
 
 <div style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="gym" >Gym:</label>
@@ -782,20 +926,9 @@ onChange={(e) => setWifi(e.target.checked)}
   />
 </div>
 
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="parking" >Parking:</label>
-  <input
-    type="radio"
-    id="parking"
-    name="parking"
-    checked={parking}
-    onChange={(e) => setParking(e.target.checked)}
-  />
-</div>
+
 
 </div>
-{/* amenities information stops here */}
-
 <hr />
 {/* property images information starts here */}
 
@@ -1087,6 +1220,21 @@ onChange={(e) => setState(e.target.value)}
   </div>
 </div>
 
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>About Your Property</h2>
+</div>
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+  <div  style={{ display: 'grid', gap: '1rem', width: '100%' }}>
+    <textarea
+      rows="10"
+      id="aboutDescription"
+      placeholder='E.g., provide a brief description of yourself and your property...'
+      
+      value={aboutcontent}
+      onChange={(e) => setAboutContent(e.target.value)}
+    ></textarea>
+  </div>
+</div>
 
 <button
 type="submit"

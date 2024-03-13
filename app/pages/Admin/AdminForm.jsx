@@ -13,6 +13,7 @@ export default function AdminForm() {
 const [isSignedIn, setIsSignedIn] = useState(false);
 
   const [content, setContent] = useState("");
+  const [aboutcontent, setAboutContent] = useState("");
   const [title, setTitle] = useState("");
   const [owner, setOwner] = useState("");
   const [phone, setPhone] = useState("");
@@ -52,6 +53,13 @@ const [airConditioning, setAirConditioning] = useState(false);
 const [gym, setGym] = useState(false);
 const [parking, setParking] = useState(false);
 const [sprink, setSprink] = useState(false);
+const [tub, setTub] = useState(false);
+const [smoke, setSmoke] = useState(false);
+const [stoorage, setStoorage] = useState(false);
+const [framme, setFramme] = useState(false);
+const [wheel, setWheel] = useState(false);
+const [ceiling, setCeiling] = useState(false);
+const [walkin, setWalkin] = useState(false);
 //amenities
 const [ isLoading, setIsLoading] = useState(false)
 //pictures
@@ -258,6 +266,14 @@ const router = useRouter();
   airConditioning,
   heating,
   pool,
+  sprink,
+  tub,
+  walkin,
+  smoke,
+  stoorage,
+  wheel,
+  framme,
+  ceiling,
   wifi,
   address,
   city,
@@ -315,23 +331,14 @@ const router = useRouter();
  
   const timeOptions = [
     { day: 'Tour', time: '9:00 AM - 9:30 AM' },
-    { day: 'Tour', time: '9:30 AM - 10:00 AM' },
-    { day: 'Tour', time: '10:00 AM - 10:30 AM' },
-    { day: 'Tour', time: '10:30 AM - 11:00 AM' },
     { day: 'Tour', time: '11:00 AM - 11:30 AM' },
-    { day: 'Tour', time: '11:30 AM - 12:00 PM' },
-    { day: 'Tour', time: '12:00 PM - 12:30 PM' },
     { day: 'Tour', time: '12:30 PM - 1:00 PM' },
-    { day: 'Tour', time: '1:00 PM - 1:30 PM' },
-    { day: 'Tour', time: '1:30 PM - 2:00 PM' },
     { day: 'Tour', time: '2:00 PM - 2:30 PM' },
     { day: 'Tour', time: '2:30 PM - 3:00 PM' },
     { day: 'Tour', time: '3:00 PM - 3:30 PM' },
     { day: 'Tour', time: '3:30 PM - 4:00 PM' },
     { day: 'Tour', time: '4:00 PM - 4:30 PM' },
-    { day: 'Tour', time: '4:30 PM - 5:00 PM' },
-    { day: 'Tour', time: '5:00 PM - 5:30 PM' },
-    { day: 'Tour', time: '5:30 PM - 6:00 PM' }
+ 
     
   ];
 
@@ -342,38 +349,21 @@ const router = useRouter();
   const aparttimeOptions = [
   
     { day: 'Tour', time: '9:00 AM - 9:30 AM' },
-    { day: 'Tour', time: '9:30 AM - 10:00 AM' },
-    { day: 'Tour', time: '10:00 AM - 10:30 AM' },
-    { day: 'Tour', time: '10:30 AM - 11:00 AM' },
     { day: 'Tour', time: '11:00 AM - 11:30 AM' },
-    { day: 'Tour', time: '11:30 AM - 12:00 PM' },
-    { day: 'Tour', time: '12:00 PM - 12:30 PM' },
     { day: 'Tour', time: '12:30 PM - 1:00 PM' },
-    { day: 'Tour', time: '1:00 PM - 1:30 PM' },
-    { day: 'Tour', time: '1:30 PM - 2:00 PM' },
     { day: 'Tour', time: '2:00 PM - 2:30 PM' },
     { day: 'Tour', time: '2:30 PM - 3:00 PM' },
     { day: 'Tour', time: '3:00 PM - 3:30 PM' },
     { day: 'Tour', time: '3:30 PM - 4:00 PM' },
     { day: 'Tour', time: '4:00 PM - 4:30 PM' },
-    { day: 'Tour', time: '4:30 PM - 5:00 PM' },
-    { day: 'Tour', time: '5:00 PM - 5:30 PM' },
-    { day: 'Tour', time: '5:30 PM - 6:00 PM' }
+ 
     
   ];
 
   const handleOpenTimeChange = (e) => {
     setOpentime(e.target.value);
   };
-  
-  const openTimeOptions = [
-    { day: 'Monday', time: '9:00 AM - 6:00 PM' },
-    { day: 'Tuesday', time: '9:00 AM - 6:00 PM' },
-    { day: 'Wednesday', time: '9:00 AM - 6:00 PM' },
-    { day: 'Thursday', time: '9:00 AM - 6:00 PM' },
-    { day: 'Friday', time: '9:00 AM - 6:00 PM' },
-    { day: 'Sunday', time: 'Closed' }
-  ];
+
 
 return (
     <>
@@ -450,18 +440,11 @@ required
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="apartOpenTime">Select time you are open</label>
-  <select
-    id="apartOpenTime"
-    name="apartOpenTime"
-    value={opentime}
-    onChange={handleOpenTimeChange}
-  >
+  <select id="apartOpenTime" name="apartOpenTime" value={opentime} onChange={handleOpenTimeChange}>
     <option value="" disabled>Select open time</option>
-    {openTimeOptions.map((option) => (
-      <option key={option.time} value={option.time}>
-       {option.day} {option.time}
-      </option>
-    ))}
+    <option value="Monday - Friday 9:00 AM - 6:00 PM">Monday - Friday, 9:00 AM - 6:00 PM</option>
+    <option value="Saturday 11:30 AM - 4:00 PM">Saturday, 11:30 AM - 4:00 PM</option>
+    <option value="Sunday Closed">Sunday, Closed</option>
   </select>
 </div>
 </div>
@@ -699,21 +682,14 @@ onChange={(e) => setApartAvailability(e.target.value)}
 
 {/* amenities information starts here */}
 
+
+
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Select Highlights</h2>
 </div>
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="water"
->Water:</label>
-<input
-type="radio"
-id="water"
-name="water"
-checked={water}
-onChange={(e) => setWater(e.target.checked)}
-/>
-</div>
+
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="lights" >Sprinkler:</label>
 <input
@@ -735,33 +711,33 @@ onChange={(e) => setCable(e.target.value)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="laundry" >laundry:</label>
+<label htmlFor="tub" >Tub/Shower:</label>
 <input
 type="radio"
-id="laundry"
-name="laundry"
-checked={laundry}
-onChange={(e) => setLaundry(e.target.checked)}
+id="tub"
+name="tub"
+checked={tub}
+onChange={(e) => setTub(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="airConditioning" >AC:</label>
+<label htmlFor="smoke" >Smoke Free</label>
 <input
 type="radio"
-id="airConditioning"
-name="airConditioning"
-checked={airConditioning}
-onChange={(e) => setAirConditioning(e.target.checked)}
+id="smoke"
+name="smoke"
+checked={smoke}
+onChange={(e) => setSmoke(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="heating" >Heating:</label>
+<label htmlFor="framme" >Framed Windows:</label>
 <input
 type="radio"
-id="heating"
-name="heating"
-checked={heating}
-onChange={(e) => setHeating(e.target.checked)}
+id="framme"
+name="framme"
+checked={framme}
+onChange={(e) => setFramme(e.target.checked)}
 />
 </div>
 
@@ -788,8 +764,61 @@ onChange={(e) => setWifi(e.target.checked)}
   />
 </div>
 
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="wheel" >Wheelchair Accessible:</label>
+  <input
+    type="radio"
+    id="wheel"
+    name="wheel"
+    checked={wheel}
+    onChange={(e) => setWheel(e.target.checked)}
+  />
 </div>
 
+
+
+</div>
+
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Select Highlights</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="storage" >Storage Space:</label>
+  <input
+    type="radio"
+    id="storage"
+    name="storage"
+    checked={stoorage}
+    onChange={(e) => setStoorage(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="ceiling" >Ceiling Fans:</label>
+  <input
+    type="radio"
+    id="ceiling"
+    name="ceiling"
+    checked={ceiling}
+    onChange={(e) => setCeiling(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="walkin" >Walk-In Shower:</label>
+  <input
+    type="radio"
+    id="walkin"
+    name="walkin"
+    checked={walkin}
+    onChange={(e) => setWalkin(e.target.checked)}
+  />
+</div>
+
+</div>
 <hr />
 {/* amenities information stops here */}
 <div style={{ color: '#fff', textAlign: 'center' }}>
@@ -817,16 +846,7 @@ checked={lights}
 onChange={(e) => setLights(e.target.checked)}
 />
 </div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="cable" >Cable:</label>
-<input
-type="radio"
-id="cable"
-name="cable"
-checked={cable}
-onChange={(e) => setCable(e.target.value)}
-/>
-</div>
+
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="laundry" >laundry:</label>
 <input
@@ -857,6 +877,22 @@ checked={heating}
 onChange={(e) => setHeating(e.target.checked)}
 />
 </div>
+
+
+
+</div>
+<hr />
+
+
+
+
+
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Commuinty Activites</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="pool" >Swimming Pool:</label>
 <input
@@ -867,16 +903,7 @@ checked={pool}
 onChange={(e) => setPool(e.target.checked)}
 />
 </div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="wifi">Wifi:</label>
-<input
-type="radio"
-id="wifi"
-name="wifi"
-checked={wifi}
-onChange={(e) => setWifi(e.target.checked)}
-/>
-</div>
+
 
 <div style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="gym" >Gym:</label>
@@ -889,16 +916,7 @@ onChange={(e) => setWifi(e.target.checked)}
   />
 </div>
 
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="parking" >Parking:</label>
-  <input
-    type="radio"
-    id="parking"
-    name="parking"
-    checked={parking}
-    onChange={(e) => setParking(e.target.checked)}
-  />
-</div>
+
 
 </div>
 <hr />
@@ -909,7 +927,7 @@ onChange={(e) => setWifi(e.target.checked)}
 </div>
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 <div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
-<label htmlFor="authpic">Property Logo:</label>
+<label htmlFor="authpic">Property Logo/Personal Picture:</label>
 <input
 type="file"
 id="authpic"
@@ -1188,6 +1206,21 @@ onChange={(e) => setState(e.target.value)}
       
       value={content}
       onChange={(e) => setContent(e.target.value)}
+    ></textarea>
+  </div>
+</div>
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>About Your Property</h2>
+</div>
+<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+  <div  style={{ display: 'grid', gap: '1rem', width: '100%' }}>
+    <textarea
+      rows="10"
+      id="aboutDescription"
+      placeholder='E.g., provide a brief description of yourself and your property...'
+      
+      value={aboutcontent}
+      onChange={(e) => setAboutContent(e.target.value)}
     ></textarea>
   </div>
 </div>

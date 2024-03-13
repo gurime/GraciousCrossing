@@ -133,6 +133,7 @@ setErrorMessage('');
 }, 3000);
 }
 }
+setEditModalOpen('')
 } catch (error) {
 setTimeout(() => {
 setErrorMessage('');

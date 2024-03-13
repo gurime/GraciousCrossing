@@ -1078,6 +1078,9 @@ color: #09a5d5 !important;
     }  .scheduletour img{
       width: 100%;
     }
+     .sm-span{
+      font-size: 13px;
+     }
 
   .sm-schedule input{
     width: 90% !important;
@@ -1164,7 +1167,7 @@ color: #09a5d5 !important;
   
   .details_header_title{
   padding: 0 1rem;
-  line-height: 6;
+  line-height: 4;
   }
   
   .amenities-grid{
