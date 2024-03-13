@@ -193,7 +193,7 @@ width: '100%'
 {blog.price} <small>{blog.billingFrequency}</small>
 </div>
 <div className='property-type'>
-<div className='sm-houlo' style={{fontSize:'13px' }}>{blog.bathrooms}ba | {blog.bedrooms}bds |</div>
+<div className='sm-houlo' style={{fontSize:'13px' }}>{blog.bathrooms}ba| {blog.bedrooms}bds|</div>
 <div className='sm-houlo' style={{fontSize:'13px' }}> {blog.square} sqft |</div>
 
 <div className='sm-houlo' style={{fontSize:'13px' }}>{blog.propertyType}</div>

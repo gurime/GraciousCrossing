@@ -92,7 +92,7 @@ margin: '0 0 1rem 0',}}
 onClick={openModal}
 >
 Schedule a Tour <br />
-<small style={{letterSpacing:'1px',fontSize:'9px'}}>as early as {post.tourTime}</small>
+<small style={{letterSpacing:'1px',fontSize:'9px'}}>as early as {post.tourTime} {post.aparttourTime}</small>
 
 
 </button>
@@ -128,12 +128,12 @@ borderRadius: '8px',}}>
 </div>
 <div style={{display:'grid',alignItems:'center'}}>
 <div className='sm-ba'> 
-<address>{post.address}, {post.city}, {post.state.slice(0,2)}, {post.zip}</address>
+<address>{post.address}, {post.city}, {post.state[0]}{post.state.slice(-1)}, {post.zip}</address>
 
 
 </div>
 
-<div className='sm-ba'><p  ><b>{post.bathrooms}</b> Bath | <b>{post.bedrooms}</b> Beds | <b>{post.square} </b>sqft</p></div>
+<div className='sm-ba'><p  ><b>{post.bathrooms}</b> <b>{post.apartbathrooms}</b>Bath | <b>{post.bedrooms}</b> <b>{post.apartbedrooms}</b>Beds | <b>{post.square} </b><b>{post.apartsquare}</b>sqft</p></div>
    </div>            
 </div>
 </div>
