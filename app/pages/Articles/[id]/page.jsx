@@ -124,10 +124,7 @@ className="card-category">
   <span style={{marginRight:'auto',fontSize:'20px',fontWeight:'600'}}>{post.apartbillingFrequency2}</span>
 
 ) : null}
-{post.apartbillingFrequency2 ? (
-  <span style={{marginRight:'auto',fontSize:'20px',fontWeight:'600'}}>{post.apartbillingFrequency2}</span>
 
-) : null}
 
 
 <div style={{
@@ -232,7 +229,7 @@ width:'15rem'
 </div>
 
 
-</div>
+
 <p className='formatdate' style={{ margin: '1rem' }}>
   Last Updated: {formattedDate}
 </p>
@@ -240,11 +237,12 @@ width:'15rem'
 
 
 <div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>
+<h2 style={{  margin: '1rem' }}>{post.title}</h2>
 <div className="body-content" ><p>{post.content}</p></div>
 
 
 
-
+</div>
 <div className='artilceGoUpbtn'><Goup/>
 
 </div>
