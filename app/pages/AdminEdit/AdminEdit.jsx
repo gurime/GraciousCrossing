@@ -14,6 +14,7 @@ export default function AdminEdit({ comment,  onCancel }) {
 
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [tourTime, setTourTime] = useState(comment ? comment.tourTime : "");
+const [opentime, setOpentime] = useState(comment ? comment.opentime : "");
 
 const [content, setContent] = useState(comment ? comment.content : "");
 const [title, setTitle] = useState(comment ? comment.title : "");
@@ -116,6 +117,16 @@ useEffect(() => {
   };
   
   
+let originalScrollPosition;
+
+
+const handleCancel = () => {
+  onCancel();
+  // Restore the original scroll position when the modal is closed
+  window.scrollTo(0, originalScrollPosition);
+};
+
+
     
   const handleAuthPicChange = (e) => {
   // Set the selected cover image file to state
@@ -221,83 +232,81 @@ useEffect(() => {
       const cover_showcase11 = showcase11File ? await handleFileUpload(showcase11File, `images/${uniqueArticleId}cover_showcase11.jpg`) : null;
       const cover_showcase12 = showcase12File ? await handleFileUpload(showcase12File, `images/${uniqueArticleId}cover_showcase12.jpg`) : null;
       
-            
       const db = getFirestore();
-      const docRef = await addDoc(collection(db, selectedCollection), {
-        userId: user.uid,
-        content: content,
-        title: title,
-        owner: owner,
-        phone:phone,
-        price: price,
-        priceextra: priceextra,
-        bedrooms: bedrooms,
-        bathrooms: bathrooms,
-        square: square,
-        billingFrequency: billingFrequency,
-        billingFrequency2: billingFrequency2,
-        water: water,
-        units:units,
-  apartavailability:apartavailability,
-  apartbillingFrequency2:apartbillingFrequency2,
-  apartprice:apartprice,
-  apartsquare:apartsquare,
-  apartbathrooms:apartbathrooms,
-  apartbedrooms:apartbedrooms,
-  aparttourTime:aparttourTime,
-        lights: lights,
-        cable: cable,
-        laundry: laundry,
-        airConditioning: airConditioning,
-        heating: heating,
-        pool: pool,
-        wifi: wifi,
-        address: address,
-        city:city,
-        state:state,
-        zip:zip,
-        gym: gym,
-        parking: parking,
-        tourTime: tourTime,
-        timestamp: new Date(),
-        userEmail: user.email,
-        authpic,
-        cover_image,
-        cover_showcase1,
-        cover_showcase1,
-        cover_showcase2,
-        cover_showcase3,
-        cover_showcase4,
-        cover_showcase5,
-        cover_showcase6,
-        cover_showcase7,
-        cover_showcase8,
-        cover_showcase9,
-        cover_showcase10,
-        cover_showcase11,
-        cover_showcase12,
+      if (isUpdate && comment.id && selectedCollection) {
+        const docRef = doc(db, selectedCollection, comment.id);
+        await updateDoc(docRef, {
+          userId: user.uid,
+          content,
+          title,
+          owner,
+          phone,
+          price,
+          priceextra,
+          bedrooms,
+          bathrooms,
+          square,
+          billingFrequency,
+          billingFrequency2,
+          units,
+          apartavailability,
+          apartbillingFrequency2,
+          apartprice,
+          apartsquare,
+          apartbathrooms,
+          apartbedrooms,
+          aparttourTime,
+          water,
+          lights,
+          cable,
+          laundry,
+          airConditioning,
+          heating,
+          pool,
+          wifi,
+          address,
+          city,
+          state,
+          zip,
+          gym,
+          parking,
+          tourTime,
+          timestamp: new Date(),
+          userEmail: user.email,
+          authpic,
+          cover_image,
+          cover_showcase1,
+          cover_showcase2,
+          cover_showcase3,
+          cover_showcase4,
+          cover_showcase5,
+          cover_showcase6,
+          cover_showcase7,
+          cover_showcase8,
+          cover_showcase9,
+          cover_showcase10,
+          cover_showcase11,
+          cover_showcase12,
         propertyType: selectedCollection,
       });
-     window.location.reload()
+        window.location.reload()
   
-      if (selectedCollection === "FeaturedHouse" || "FeaturedApartment") {
-        router.push('/');
-        } else {
-        const formattedPageName = selectedCollection.charAt(0).toUpperCase() + selectedCollection.slice(1);
-        router.push(`/pages/${formattedPageName}`);
-        }
-        } catch (error) {
-              console.error("Error:", error);
-        
-        setErrorMessage('Error. Please try again.');
-        setTimeout(() => {
-        setErrorMessage('');
-        }, 3000);
-        } finally {
-        setIsLoading(false);
-        }
-        };
-
+        window.scrollTo(0, 0); 
+      } else {
+        setErrorMessage('Error: Cannot add a new document without articleId.');
+      }
+    } catch (error) {
+     
+  console.log(error)
+      if (error.code === 'permission-denied') {
+        setErrorMessage('Permission denied: You may not have the necessary permissions.');
+      } else if (error.code === 'not-found') {
+        setErrorMessage('Document not found: The specified document does not exist.');
+      } 
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
+  };
 
     
 
@@ -319,6 +328,17 @@ const timeOptions = [
 };
 
 const aparttimeOptions = [
+  "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
+  "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
+  "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
+  "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
+  
+];
+ const handleOpenTimeChange = (e) => {
+  setOpentime(e.target.value);
+};
+
+const opentimeOptions = [
   "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
   "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
   "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
@@ -396,6 +416,21 @@ value={phone}
 onChange={(e) => setPhone(e.target.value)}
 required
 />
+</div>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="aparttourTime">Times you are open</label>
+<select
+id="aparttourTime"
+name="aparttourTime"
+value={opentime}
+onChange={handleOpenTimeChange}
+>
+<option value="" disabled>Select tour time</option>
+{opentimeOptions.map((option) => (
+<option key={option} value={option}> {option} </option>
+))}
+</select>
 </div>
 </div>
 {/* property contact information stops here */}
@@ -618,7 +653,7 @@ onChange={handleApartTourTimeChange}
 >
 <option value="" disabled>Select tour time</option>
 {aparttimeOptions.map((option) => (
-<option key={option} value={option}>{option}</option>
+<option key={option} value={option}> {option} </option>
 ))}
 </select>
 </div>
@@ -1036,15 +1071,16 @@ onChange={(e) => setState(e.target.value)}
 type="submit"
 disabled={!isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
 style={{
-cursor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city  || isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city  || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !state || !city  || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city ||  isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !state || !city || isLoading ? 'grey' : '#fff',
 
-}}
-  
->
-{isLoading ? <BeatLoader color='blue' /> : 'Submit'}
-</button>
+}}>
+
+{isLoading ? <BeatLoader color='blue' /> : 'update'}
+</button> 
+ <button style={{backgroundColor:'red'}} onClick={handleCancel}>Cancel</button>
+
 </form>
 </div>
 

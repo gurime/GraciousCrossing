@@ -19,6 +19,8 @@ const [isSignedIn, setIsSignedIn] = useState(false);
   const [price, setPrice] = useState("");
   const [tourTime, setTourTime] = useState("");
   const [aparttourTime, setApartTourTime] = useState("");
+  const [opentime, setOpentime] = useState( "");
+
   const [priceextra, setPriceextra] = useState("");
   const [billingFrequency, setBillingFrequency] = useState('');
   const [billingFrequency2, setBillingFrequency2] = useState('');
@@ -229,60 +231,60 @@ const router = useRouter();
   const db = getFirestore();
   const docRef = await addDoc(collection(db, selectedCollection), {
   userId: user.uid,
-  content: content,
-  title: title,
-  owner: owner,
-  phone:phone,
-  price: price,
-  priceextra: priceextra,
-  bedrooms: bedrooms,
-  bathrooms: bathrooms,
-  square: square,
-  billingFrequency: billingFrequency,
-  billingFrequency2: billingFrequency2,
-  units:units,
-  apartavailability:apartavailability,
-  apartbillingFrequency2:apartbillingFrequency2,
-  apartprice:apartprice,
-  apartsquare:apartsquare,
-  apartbathrooms:apartbathrooms,
-  apartbedrooms:apartbedrooms,
-  aparttourTime:aparttourTime,
-  water: water,
-  lights: lights,
-  cable: cable,
-  laundry: laundry,
-  airConditioning: airConditioning,
-  heating: heating,
-  pool: pool,
-  wifi: wifi,
-  address: address,
-  city:city,
-  state:state,
-  zip:zip,
-  gym: gym,
-  parking: parking,
-  tourTime: tourTime,
+  content,
+  title,
+  owner,
+  phone,
+  price,
+  priceextra,
+  bedrooms,
+  bathrooms,
+  square,
+  billingFrequency,
+  billingFrequency2,
+  units,
+  apartavailability,
+  apartbillingFrequency2,
+  apartprice,
+  apartsquare,
+  apartbathrooms,
+  apartbedrooms,
+  aparttourTime,
+  water,
+  lights,
+  cable,
+  laundry,
+  airConditioning,
+  heating,
+  pool,
+  wifi,
+  address,
+  city,
+  state,
+  zip,
+  gym,
+  parking,
+  tourTime,
   timestamp: new Date(),
   userEmail: user.email,
-  authpic: authpic,
-  cover_image: cover_image,
-  cover_showcase1: cover_showcase1,
-  cover_showcase2: cover_showcase2,
-  cover_showcase3: cover_showcase3,
-  cover_showcase4: cover_showcase4,
-  cover_showcase5: cover_showcase5,
-  cover_showcase6: cover_showcase6,
-  cover_showcase7: cover_showcase7,
-  cover_showcase8: cover_showcase8,
-  cover_showcase9: cover_showcase9,
-  cover_showcase10: cover_showcase10,
-  cover_showcase11: cover_showcase11,
-  cover_showcase12: cover_showcase12,
+  authpic,
+  cover_image,
+  cover_showcase1,
+  cover_showcase2,
+  cover_showcase3,
+  cover_showcase4,
+  cover_showcase5,
+  cover_showcase6,
+  cover_showcase7,
+  cover_showcase8,
+  cover_showcase9,
+  cover_showcase10,
+  cover_showcase11,
+  cover_showcase12,
   propertyType: selectedCollection,  
   });
-    
-  if (selectedCollection === "FeaturedHouse" || "FeaturedApartment") {
+
+  if (selectedCollection === "Featured Houses" || "Featured Apartments") {
   router.push('/');
   } else {
   const formattedPageName = selectedCollection.charAt(0).toUpperCase() + selectedCollection.slice(1);
@@ -330,7 +332,17 @@ const router = useRouter();
   ];
   
 
-
+  const handleOpenTimeChange = (e) => {
+    setOpentime(e.target.value);
+  };
+  
+  const opentimeOptions = [
+    "9:00 AM", "9:30 AM", "9:40 AM", "10:00 AM", "10:30 AM", "10:40 AM",
+    "11:00 AM", "11:30 AM", "11:40 AM", "12:00 PM", "12:30 PM", "12:40 PM",
+    "1:00 PM", "1:30 PM", "1:40 PM", "2:00 PM", "2:30 PM", "2:40 PM",
+    "3:00 PM", "3:30 PM", "3:40 PM", "4:00 PM", "4:30 PM", "4:40 PM",
+    
+  ];
 
 return (
     <>
@@ -402,6 +414,21 @@ value={phone}
 onChange={(e) => setPhone(e.target.value)}
 required
 />
+</div>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="aparttourTime">Times you are open</label>
+<select
+id="aparttourTime"
+name="aparttourTime"
+value={opentime}
+onChange={handleOpenTimeChange}
+>
+<option value="" disabled>Select tour time</option>
+{opentimeOptions.map((option) => (
+<option key={option} value={option}> {option} </option>
+))}
+</select>
 </div>
 </div>
 {/* property contact information stops here */}

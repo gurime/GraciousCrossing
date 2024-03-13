@@ -134,6 +134,10 @@ display:'grid'
 
 <Schedule post={sanitizedPost}/>
 <ContactAgent post={sanitiPost} />
+{post.opentimes ? (
+  <span style={{fontSize:'20px',fontWeight:'300'}}><span style={{letterSpacing:'4px'}}>Open from</span> {post.opentimes}</span>
+
+) : null}
 </div>
 
 </div>
@@ -150,7 +154,7 @@ lineHeight:'2'
   
 <h2>{post.price} </h2>
 <h2>{post.apartprice} </h2>
-<h3 style={{padding:'0 1rem'}}>{post.bathrooms} {post.apartbathrooms} Bath | {post.bedrooms} {post.apartbathrooms} Beds | {post.square} {post.apartbathrooms} bath | {post.apartsquare} sqft</h3> 
+<h3 style={{padding:'0 1rem'}}>{post.bathrooms} {post.apartbathrooms} Bath | {post.bedrooms} {post.apartbedrooms} Beds | {post.square} {post.apartsquare} sqft</h3> 
 </div>
 
 

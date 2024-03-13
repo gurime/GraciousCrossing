@@ -104,18 +104,11 @@ setErrorMessage('Unexpected error occurred. Please try again later.');
 }
 };
 
-let originalScrollPosition;
 
-const openModal = () => {
-  // Store the original scroll position before opening the modal
-  originalScrollPosition = window.scrollY;
-  // Code to open the modal
-};
 
 const handleCancel = () => {
   onCancel();
-  // Restore the original scroll position when the modal is closed
-  window.scrollTo(0, originalScrollPosition);
+
 };
 
 
@@ -775,15 +768,15 @@ required>
 
 <button
 type="submit"
-disabled={!isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price  ||  isLoading}
+disabled={!isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
 style={{
-cursor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price || isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || !price || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !state || !city || !price || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city ||  isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !state || !city || isLoading ? 'grey' : '#fff',
 
 }}>
 
-{isLoading ? <BeatLoader color='blue' /> : 'Submit'}
+{isLoading ? <BeatLoader color='blue' /> : 'update'}
 </button> 
  <button style={{backgroundColor:'red'}} onClick={handleCancel}>Cancel</button>
 
