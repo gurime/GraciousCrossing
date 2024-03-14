@@ -169,7 +169,7 @@ lineHeight:'2'
   <span className='sm-span' style={{display:'flex',color:'#4c4c4c'}}>Open {post.opentime}</span>
 
 ) : null}
-<address>{post.address}, {post.city}, {post.state[0]}{post.state.slice(-1)}, {post.zip}</address>
+<address className='sm-span'>{post.address}, {post.city}, {post.state[0]}{post.state.slice(-1)}, {post.zip}</address>
 
 
 <div style={{
@@ -202,7 +202,7 @@ width:'15rem'
 {(post.heating || post.sprink || post.laundry || post.cable || post.airConditioning || post.water || post.stoorage || post.wifi || post.walkin || post.framme || post.wheel) && (
   <div className='amenities-grid'>
     <span style={{ padding: '0 1rem',fontWeight:'bold' }}>Highlights</span>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+    <div className='sm-span' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
       {post.heating && <li>Heating</li>}
       {post.laundry && <li>Washer/Dryer</li>}
       {post.cable && <li>Cable ready</li>}
@@ -235,7 +235,7 @@ width:'15rem'
    post.wifi) && (
   <div className='amenities-grid'>
     <span style={{ padding: '0 1rem',fontWeight:'bold'  }}>Popular Amenities</span>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+    <div className='sm-span' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
     {post.heating && <li>Heating</li>}
        {post.lights && <li>Lights are available</li>}
        {post.laundry && <li>Washer/Dryer</li>}
@@ -254,7 +254,7 @@ width:'15rem'
    ) && (
   <div className='amenities-grid'>
     <span style={{ padding: '0 1rem',fontWeight:'bold'  }}>Community Amenities</span>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+    <div className='sm-span' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
     {post.gym && <li>Fitness Center</li>}
      
        {post.pool && <li>Swimming Pool</li>}
@@ -266,15 +266,15 @@ width:'15rem'
 
 
 
-
-<p className='formatdate' style={{ margin: '1rem' }}>
-  Last Updated: {formattedDate}
-</p>
-
+<div style={{lineHeight:'4'}}>
+<div className='formatdate' style={{ margin: '1rem' }}>Last Updated: {formattedDate}</div>
+<div style={{  margin: '1rem' }}>Listing By: {post.owner}</div></div>
 
 
-<div style={{  margin: '1rem' }}>Listing By: {post.owner}</div>
-<h2 style={{  margin: '1rem' }}>About {post.title}</h2>
+
+<div className="body-content" ><p>{post.aboutcontent}</p></div>
+
+<h2 className='sm-aboutspan' style={{  margin: '1rem',fontSize:'1.875rem',color:'#5a5a5a' }}>About {post.title}</h2>
 <div className="body-content" ><p>{post.content}</p></div>
 
 

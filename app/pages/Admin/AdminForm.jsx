@@ -240,6 +240,7 @@ const router = useRouter();
   const db = getFirestore();
   const docRef = await addDoc(collection(db, selectedCollection), {
   userId: user.uid,
+  aboutcontent,
   content,
   title,
   owner,

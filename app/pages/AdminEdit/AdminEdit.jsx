@@ -244,6 +244,7 @@ const storage = getStorage();
         const docRef = doc(db, selectedCollection, comment.id);
         await updateDoc(docRef, {
           userId: user.uid,
+          aboutcontent,
           content,
           title,
           owner,
