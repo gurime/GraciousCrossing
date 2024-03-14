@@ -112,12 +112,14 @@ alignItems: 'center',
 justifyContent: 'center',
 }}
 >
+<div className="modal-container" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+
 <div
 className="modal-content"
 style={{
 background: '#fff',
 padding: '2rem',
-animation: 'bounceIn 0.5s', 
+animation: 'fadeIn 0.5s', 
 borderRadius: '8px',}}>
 
 
@@ -138,14 +140,18 @@ borderRadius: '8px',}}>
    </div>            
 </div>
 </div>
+
+
+
+
+
 <p style={{textAlign:'center'}}>Select a Date & Time:</p>
 <div style={{display:'grid',alignItems:'center'}}> 
-<div style={{ marginLeft: '10px', maxWidth: '90%' }}>
+<div >
   <div className='sm-date' style={{display:'grid'}}> 
     <label style={{marginBottom:'1rem'}}>Date:</label>
   <input
     style={{
-      width:'100%',
       padding:'1rem',
       marginBottom:'10px',
       border:'1px solid #1057d4',
@@ -162,7 +168,6 @@ borderRadius: '8px',}}>
   <label style={{marginBottom:'1rem'}}>Time:</label>
   <select
   style={{
-    width:'100%',
     padding:'1rem',
     marginBottom:'10px',
     border:'1px solid #1057d4',
@@ -199,19 +204,17 @@ borderRadius: '8px',}}>
 
 </div>
 
-<div className='sm-schedule' style={{marginLeft:'10px',maxWidth:'93%',display:'grid'}}>
+<div className='sm-schedule' style={{display:'grid'}}>
   <label htmlFor="fullname">Full Name:</label>
   <input
 type="text"
 name="fullname"
 style={{
-  marginBottom: '1rem',
-  padding: '1rem',
-  borderRadius: '5px',
-  border: '1px solid #6d1ffa',
-  outline: 'none',
-  textIndent: '7px',
-  width:'100%'
+  padding:'1rem',
+  marginBottom:'10px',
+  border:'1px solid #1057d4',
+  borderRadius:'4px',
+  outline:'none'
 }}
 value={names} onChange={(e) => setNames(e.target.value)} required/>
          </div>
@@ -233,9 +236,10 @@ color: !names || !selectedDate  || isLoading ? 'grey' : '#fff',
 {successMessage && <p>{successMessage}</p>}
 
 </div>
-
+</div>
 </div>
 )}
+
 </>
 );
 }

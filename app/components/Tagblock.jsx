@@ -6,8 +6,7 @@ import cardimg3 from '../img/home-card3.jpg'
 import card1 from "../img/card1-img.jpeg" 
 import card2 from "../img/bg-card3.jpg"
 import card3 from "../img/bg-card2.jpg"
-import sellhome from '../img/sellhome.JPG'
-import apartrent from '../img/apart_rent.JPG'
+
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -57,28 +56,7 @@ const router = useRouter()
 return (
 <>
 
-<div className="property-grid">
-<div className='card' style={{display:'grid',maxWidth:'20rem'}}>
-<Image src={sellhome} alt='...'/>
-<h1 style={{fontWeight:'100',textAlign:'center',fontSize:'24px'}}>Sell Your Home</h1>
-<p >
-Unlocke the Door to Your Next Chapter</p>
-<button onClick={() => router.push('/pages/Houses')}>Sell</button>
-</div>
-<div className='card'  style={{display:'grid',maxWidth:'20rem'}}>
 
-
-<Image src={apartrent}  alt='...'/>
-<h1 style={{fontWeight:'100',textAlign:'center',fontSize:'24px'}}>Apartments For Rent</h1>
-<p >
-Discover Your Ideal Space</p>
-
-
-<button onClick={() => router.push('/pages/Apartments')}>Rent</button>
-</div>
-
-
-</div>
 
 
 <div className="card-block">
@@ -93,7 +71,7 @@ quality homes.</p>
 <Image height={300} src={cardimg1} alt="" priority/>
 </div>
 
-<h2 style={{textAlign:'center'}}>Featured Apartments</h2>
+<h2 style={{textAlign:'center',letterSpacing:'6px'}}>Featured Apartments</h2>
 <ApartmentListing/>
 <div style={{flexDirection:'row-reverse'}} className="card-block ">
 <div className="tagline-header">

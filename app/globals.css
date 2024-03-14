@@ -11,7 +11,6 @@ letter-spacing: 2px;
   align-items: center;
   justify-content: center;
   background-color: #3684fa;
-  padding: 1rem;
 }
 
 .adminform{
@@ -1060,15 +1059,12 @@ background-color: #1d09d5 !important;
 color: #09a5d5 !important;
 }
 
-@keyframes bounceIn {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-  40% {
-    transform: translateY(-20px);
-  }
-  60% {
-    transform: translateY(-10px);
+  100% {
+    opacity: 1;
   }
 }
 
@@ -1094,20 +1090,6 @@ color: #09a5d5 !important;
     height: 80px;
     }
 
-  .sm-date input{
-    width: 90% !important;
-  }
-  .sm-time select{
-    width: 104% !important;
-  }
-
-  .modal-content{
-    width: 67%;
-  }
-
-.sm-schedulecontact{
-  width: 100% !important;
-}
 
 .schedulecontact button{
   width: 100% !important;
@@ -1156,9 +1138,7 @@ color: #09a5d5 !important;
   }
 
 
-  .modal-content{
-    width: 67%;
-  }
+ 
 
   }
 

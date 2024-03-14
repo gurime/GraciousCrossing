@@ -114,12 +114,14 @@ className="card-category">
 
 
 <div className='details_header_title'>
-<div style={{fontWeight:'100',display:'flex',alignItems:'center',margin:'0 0 1rem 0'}}>
+<div  style={{display:'flex',alignItems:'center',margin:'0 0 1rem 0'}}>
 <li style={{color:'red'}}></li>
-{post.billingFrequency ? (
-  <span style={{marginRight:'auto',fontSize:'20px',fontWeight:'600'}}>{post.billingFrequency}</span>
+  {post.billingFrequency ? 
+    <span style={{marginRight:'auto', fontSize:'20px', fontWeight:'600'}}>
+      {post.billingFrequency}
+    </span>
+   : null}
 
-) : null}
 {post.apartbillingFrequency2 ? (
   <span style={{marginRight:'auto',fontSize:'20px',fontWeight:'600'}}>{post.apartbillingFrequency2}</span>
 
@@ -266,9 +268,7 @@ width:'15rem'
 
 
 
-<div style={{lineHeight:'4'}}>
-<div className='formatdate' style={{ margin: '1rem' }}>Last Updated: {formattedDate}</div>
-<div style={{  margin: '1rem' }}>Listing By: {post.owner}</div></div>
+
 
 
 

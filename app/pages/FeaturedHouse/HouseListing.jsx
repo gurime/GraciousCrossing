@@ -164,6 +164,7 @@ fetchData();
 return (
 <>
 
+<h2 style={{textAlign:'center',letterSpacing:'6px'}}>Featured Houses</h2>
 
 
 {loading && useArticle.length === 0 && isSignedIn ? (

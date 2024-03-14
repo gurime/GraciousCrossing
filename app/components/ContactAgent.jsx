@@ -27,6 +27,7 @@ const closeModal = () => {
 setIsModalOpen(false);
 setContent('')
 setNames('');
+window.scrollTo(0,0)
 };
 
 const handleScheduleTour = async (e) => {
@@ -78,7 +79,7 @@ lineHeight:'24px',
 color:'#0059e0',
 backgroundColor:'#fff'
 }}
-onClick={openModal}>Contact Agent</button>
+onClick={openModal}>Contact Property</button>
 
 
 {isModalOpen && (
@@ -100,7 +101,7 @@ className="modal-content"
 style={{
 background: '#fff',
 padding: '2rem',
-animation: 'bounceIn 0.5s', // Add animation property
+animation: 'fadeIn 0.5s', 
 
 
 borderRadius: '8px',}}>
@@ -109,7 +110,7 @@ borderRadius: '8px',}}>
 
 <div className='schedulecontact'>
               
-        <h4 style={{fontSize:'20px',textAlign:'center'}}>Contact Agent</h4>
+        <h4 style={{fontSize:'20px',textAlign:'center'}}>Contact Property</h4>
 
 
 <div className='sm-schedulecontact' style={{marginLeft:'10px',maxWidth:'90%'}}>
