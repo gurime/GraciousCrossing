@@ -13,6 +13,7 @@ import Image from 'next/image'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../Config/firebase'
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
+import ApartmentListing from '../pages/FeaturedApartment/ApartmentListing'
 export default function Tagblock() {
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [isAdmin, setIsAdmin] = useState(false);
@@ -92,8 +93,8 @@ quality homes.</p>
 <Image height={300} src={cardimg1} alt="" priority/>
 </div>
 
-
-
+<h2 style={{textAlign:'center'}}>Featured Apartments</h2>
+<ApartmentListing/>
 <div style={{flexDirection:'row-reverse'}} className="card-block ">
 <div className="tagline-header">
 <h1>Tips for new House owners</h1>

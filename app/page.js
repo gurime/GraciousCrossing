@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import HeroHome from "./components/HeroHome";
 import Navbar from "./components/Navbar";
 import Tagblock from "./components/Tagblock";
-import ApartmentListing from "./pages/FeaturedApartment/ApartmentListing";
 import HouseListing from "./pages/FeaturedHouse/HouseListing";
 
 export const metadata = {
@@ -21,7 +20,6 @@ export default function Home() {
 <Navbar/>
 <HeroHome/>
 <HouseListing/>
-<ApartmentListing/>
 
 <Tagblock/>
 <Footer/>
