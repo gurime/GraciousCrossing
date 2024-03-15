@@ -118,7 +118,7 @@ className="card-category">
 <li style={{color:'red'}}></li>
   {post.billingFrequency ? 
     <span style={{marginRight:'auto', fontSize:'20px', fontWeight:'600'}}>
-      {post.billingFrequency}
+      {post.billingFrequency} 
     </span>
    : null}
 
@@ -147,13 +147,13 @@ display:'grid'
 
 <div style={{
 display:'flex',
-alignItems:'center',
-lineHeight:'2'
+flexDirection:'column',
 }}>
-  
-<h2>{post.price} </h2>
-<h2>{post.apartprice} </h2>
-<h3 style={{padding:'0 1rem'}}>{post.bathrooms} {post.apartbathrooms} Bath | {post.bedrooms} {post.apartbedrooms} Beds | {post.square} {post.apartsquare} sqft</h3> 
+
+<span style={{fontSize:'24px',fontWeight:'bold'}}>{post.price}</span>
+<span style={{fontSize:'24px',fontWeight:'bold'}}>{post.apartprice} </span>
+<span style={{fontWeight:'bold'}}>{post.bathrooms} {post.apartbathrooms} Bath | {post.bedrooms} {post.apartbedrooms} Beds | {post.square} {post.apartsquare} sqft</span> 
+
 </div>
 
 

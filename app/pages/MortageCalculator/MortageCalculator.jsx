@@ -78,26 +78,26 @@ return (
 <label htmlFor="loan-amount">Loan Amount:</label>
 <input type="text" id="loan-amount" name="loan-amount" value={loanAmount} onChange={handleLoanAmountChange} required title="The loan amount includes the principal, interest, and fees associated with the mortgage." />
 
-<div style={{lineHeight:'5rem'}}><small>Enter the total amount you want to borrow, including principal, interest, and fees.</small>
+<div style={{marginBottom:'1rem',lineHeight:'2'}}><small>Enter the total amount you want to borrow, including principal, interest, and fees.</small>
 </div>
 
 <label htmlFor="interest-rate">Interest Rate (%):</label>
 <input type="text" id="interest-rate" name="interest-rate" value={interestRate} onChange={handleInterestRateChange} required title="An interest rate is the amount of interest due per period,"/>
 
-<div style={{lineHeight:'5rem'}}>
+<div style={{lineHeight:'2',marginBottom:'1rem'}}>
 <small>Enter the annual interest rate for your mortgage.</small>
 </div>
 
 <label htmlFor="loan-term">Loan Term (years):</label>
 <input type="text" id="loan-term" name="loan-term" value={loanTerm} onChange={(event) => setLoanTerm(event.target.value)} required title='A loan term is the length of time it will take for a loan to be completely paid off '/>
 
-<div style={{lineHeight:'5rem'}}><small>Enter the number of years over which you will repay the loan.</small>
+<div style={{lineHeight:'2'}}><small>Enter the number of years over which you will repay the loan.</small>
 </div>
 
 <label htmlFor="down-payment">Down Payment:</label>
 <input type="text" id="down-payment" name="down-payment" value={downPayment} onChange={handleDownPaymentChange} required title='A down payment is a sum of money that a buyer pays upfront for purchasing a house.'/>
 
-<div style={{lineHeight:'5rem'}}>
+<div style={{lineHeight:'2',marginBottom:'1rem'}}>
 <small>Enter the initial payment made when purchasing the home.</small>
 
 </div>

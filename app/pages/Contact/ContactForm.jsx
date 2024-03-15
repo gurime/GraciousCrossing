@@ -151,7 +151,6 @@ color: !isSignedIn || !content || isLoading ? '#a9a9a9' : '#fff',
 {isLoading ? <BeatLoader color='white' /> : 'Submit'}
 </button>
 </form>
-{errorMessage && <p className='error'>{errorMessage.toString()}</p>}
 {successMessage && <p className="success">{successMessage}</p>}
 </div>
 <Footer/>
