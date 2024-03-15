@@ -218,13 +218,16 @@ width:'15rem'
       {post.framme && <li>Framed Mirrors</li>}
       {post.wheel && <li>Wheelchair Accessible</li>}
     </div>
-    <span style={{ padding: '0 1rem' }}>Kitchen Features & Appliances</span>
+   
+  </div>
+)}
+  <div className='amenities-grid'>
+
+<span style={{ padding: '0 1rem',fontWeight:'bold' }}>Kitchen Features & Appliances</span>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
     
     </div>
-  </div>
-)}
-
+</div>
 
 {
  (post.heating ||
@@ -232,7 +235,6 @@ width:'15rem'
    post.laundry ||
    post.cable ||
    post.airConditioning ||
-   post.water ||
    post.pool ||
    post.wifi) && (
   <div className='amenities-grid'>
@@ -243,8 +245,7 @@ width:'15rem'
        {post.laundry && <li>Washer/Dryer</li>}
        {post.cable && <li>Cable ready</li>}
        {post.airConditioning && <li>Air Conditioning</li>}
-       {post.water && <li>Water is available</li>}
-       {post.pool && <li>Pool is available</li>}
+       {post.pool && <li>Swimming Pool</li>}
        {post.wifi && <li>WiFi</li>}
     </div>
    

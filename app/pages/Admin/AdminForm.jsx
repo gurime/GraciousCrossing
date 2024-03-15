@@ -27,7 +27,7 @@ const [isSignedIn, setIsSignedIn] = useState(false);
   const [billingFrequency2, setBillingFrequency2] = useState('');
   const [units, setUnits] = useState('');
   const [apartprice, setApartPrice] = useState('');
-  const [apartbillingFrequency2, setApartBillingFrequency2] = useState('Monthly');
+  const [apartbillingFrequency2, setApartBillingFrequency2] = useState('');
   const [apartsquare, setApartSquare] = useState('');
   const [apartavailability, setApartAvailability] = useState('');
   const [apartbathrooms, setApartBathrooms] = useState('');
@@ -613,7 +613,9 @@ onChange={handleTourTimeChange}
       onChange={(e) => setApartBillingFrequency2(e.target.value)}
       className='billingselect'
     >
+      <option value="">Select Payment Method</option>
       <option value="Monthly">Monthly</option>
+      <option value="Weekly">Weekly</option>
    
     </select>
   </div>
