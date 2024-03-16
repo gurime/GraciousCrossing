@@ -168,7 +168,9 @@ flexDirection:'column',
   <span className='sm-span' style={{display:'flex',color:'#4c4c4c'}}>Open {post.opentime}</span>
 
 ) : null}
-<address className='sm-span'>{post.address}, {post.city}, {post.state[0]}{post.state.slice(-1)}, {post.zip}</address>
+<address className='sm-span'>
+  {post.address}, {post.city}, {post.state.length > 2 ? `${post.state[0]}${post.state.slice(-1)}` : post.state}, {post.zip}
+</address>
 
 
 <div style={{
