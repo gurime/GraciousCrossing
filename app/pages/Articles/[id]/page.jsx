@@ -3,16 +3,13 @@ import Navbar from '@/app/components/Navbar'
 import Goback from '@/app/components/goback'
 import { getArticle } from '../lib';
 import Goup from '@/app/components/goup';
-import heat from '../../../img/heater_icon.png'
-import lights from '../../../img/light_bulb.png'
-import laundry from '../../../img/washer_icon.png'
-import cable from '../../../img/tv_icon.png'
-import ac from '../../../img/fan_icon.png'
-import water from '../../../img/water_icon.png'
-import pool from '../../../img/swim_icon.png'
-import wifi from '../../../img/wifi_icon.png'
-import phone from '../../../img/portfolio_phone.png'
-import Image from 'next/image';
+import { IoIosFitness } from "react-icons/io";
+import { BsPhone } from "react-icons/bs";
+import { MdOutlinePool } from "react-icons/md";
+import { PiElevator } from "react-icons/pi";
+import { LuConciergeBell } from "react-icons/lu";
+import { GiKidSlide } from "react-icons/gi";
+import { GiFamilyHouse } from "react-icons/gi";
 import AdminHeader from '@/app/components/AdminHeader';
 import Schedule from '@/app/components/Schedule';
 import ContactAgent from '@/app/components/ContactAgent';
@@ -180,7 +177,7 @@ alignItems:'center',
 lineHeight:'2',
 width:'15rem'
 }}>
-<Image src={phone} width={20} height={38} alt='...'/>
+<span style={{fontSize:'24px'}}><BsPhone/></span>
 <div style={{width:'1rem'}}></div>
 <p>{post.phone}</p>
 </div>
@@ -230,41 +227,68 @@ width:'15rem'
 </div>
 
 {
- (post.heating ||
-   post.lights ||
-   post.laundry ||
-   post.cable ||
-   post.airConditioning ||
-   post.pool ||
-   post.wifi) && (
-  <div className='amenities-grid'>
-    <span style={{ padding: '0 1rem',fontWeight:'bold'  }}>Popular Amenities</span>
-    <div className='sm-span' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
-    {post.heating && <li>Heating</li>}
-       {post.lights && <li>Lights are available</li>}
-       {post.laundry && <li>Washer/Dryer</li>}
-       {post.cable && <li>Cable ready</li>}
-       {post.airConditioning && <li>Air Conditioning</li>}
-       {post.pool && <li>Swimming Pool</li>}
-       {post.wifi && <li>WiFi</li>}
-    </div>
-   
+ (post.gym ||
+post.pool ||
+post.elevator ||
+post.concierge ||
+post.play
+) && (
+<>
+<h1 style={{ padding: '0 1rem',color:'#646464' }}>Community Amenities</h1>
+<div style={{borderBottom:'none'}} className='cards'>  
+{post.gym && (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+    <span style={{fontSize:'4.0625rem'}}><IoIosFitness /></span>
+    <span style={{fontSize:'1rem'}}> Fitness Center</span>
   </div>
 )}
-{
- (post.gym ||
-   post.pool 
-   ) && (
-  <div className='amenities-grid'>
-    <span style={{ padding: '0 1rem',fontWeight:'bold'  }}>Community Amenities</span>
-    <div className='sm-span' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
-    {post.gym && <li>Fitness Center</li>}
-     
-       {post.pool && <li>Swimming Pool</li>}
-    
-    </div>
-   
+
+{post.pool && (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+    <span style={{fontSize:'4.0625rem'}}><MdOutlinePool /></span>
+    <span style={{fontSize:'1rem'}}> Pool</span>
   </div>
+)}
+
+{post.elevator && (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+    <span style={{fontSize:'4.0625rem'}}><PiElevator /></span>
+    <span style={{fontSize:'1rem'}}> Elevator</span>
+  </div>
+)}
+
+{post.concierge && (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+    <span style={{fontSize:'4.0625rem'}}><LuConciergeBell /></span>
+    <span style={{fontSize:'1rem'}}> Concierge</span>
+  </div>
+)}
+
+{post.play && (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+    <span style={{fontSize:'4.0625rem'}}><GiKidSlide /></span>
+    <span style={{fontSize:'1rem'}}> Playground</span>
+  </div>
+)}
+
+{post.club && (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+    <span style={{fontSize:'4.0625rem'}}><GiFamilyHouse  /></span>
+    <span style={{fontSize:'1rem'}}> Clubhouse</span>
+  </div>
+)}
+
+
+
+
+</div>
+     
+   
+     
+       
+    
+   
+  </>
 )}
 
 

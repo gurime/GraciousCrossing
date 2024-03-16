@@ -268,15 +268,14 @@ const storage = getStorage();
           lights,
           cable,
           laundry,
+          elevator,
+          play,
+          concierge,
+          club,
+          fireplace,
           airConditioning,
           heating,
           pool,
-          wifi,
-          address,
-          city,
-          state,
-          zip,
-          gym,
           sprink,
           tub,
           walkin,
@@ -285,6 +284,12 @@ const storage = getStorage();
           wheel,
           framme,
           ceiling,
+          wifi,
+          address,
+          city,
+          state,
+          zip,
+          gym,
           parking,
           tourTime,
           opentime,
@@ -304,7 +309,7 @@ const storage = getStorage();
           cover_showcase10,
           cover_showcase11,
           cover_showcase12,
-        propertyType: selectedCollection,
+          propertyType: selectedCollection, 
       });
         window.location.reload()
   
@@ -447,15 +452,9 @@ required
   <label htmlFor="apartOpenTime">Select time you are open</label>
   <select id="apartOpenTime" name="apartOpenTime" value={opentime} onChange={handleOpenTimeChange}>
     <option value="" disabled>Select open time</option>
-    <optgroup label="Monday - Friday">
-      <option value="9:00 AM - 6:00 PM">9:00 AM - 6:00 PM</option>
-    </optgroup>
-    <optgroup label="Saturday">
-      <option value="11:30 AM - 4:00 PM">11:30 AM - 4:00 PM</option>
-    </optgroup>
-    <optgroup label="Sunday">
-      <option value="Closed">Closed</option>
-    </optgroup>
+    <option value="Monday - Friday 9:00 AM - 6:00 PM">Monday - Friday, 9:00 AM - 6:00 PM</option>
+    <option value="Saturday 11:30 AM - 4:00 PM">Saturday, 11:30 AM - 4:00 PM</option>
+    <option value="Sunday Closed">Sunday, Closed</option>
   </select>
 </div>
 </div>
@@ -623,7 +622,9 @@ onChange={handleTourTimeChange}
       onChange={(e) => setApartBillingFrequency2(e.target.value)}
       className='billingselect'
     >
+      <option value="">Select Payment Method</option>
       <option value="Monthly">Monthly</option>
+      <option value="Weekly">Weekly</option>
    
     </select>
   </div>
@@ -829,6 +830,17 @@ onChange={(e) => setWifi(e.target.checked)}
   />
 </div>
 
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="fireplace" >Fire Place:</label>
+  <input
+    type="radio"
+    id="fireplace"
+    name="fireplace"
+    checked={fireplace}
+    onChange={(e) => setFireplace(e.target.checked)}
+  />
+</div>
+
 </div>
 <hr />
 {/* amenities information stops here */}
@@ -879,27 +891,77 @@ onChange={(e) => setAirConditioning(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="heating" >Heating:</label>
+<label htmlFor="elevator" >Elevator:</label>
 <input
 type="radio"
-id="heating"
-name="heating"
-checked={heating}
-onChange={(e) => setHeating(e.target.checked)}
+id="elevator"
+name="elevator"
+checked={elevator}
+onChange={(e) => setElevator(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="concierge" >Concierge:</label>
+<input
+type="radio"
+id="concierge"
+name="concierge"
+checked={concierge}
+onChange={(e) => setConcierge(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="play" >Playground:</label>
+<input
+type="radio"
+id="play"
+name="play"
+checked={play}
+onChange={(e) => setPlay(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="club" >Club House:</label>
+<input
+type="radio"
+id="club"
+name="club"
+checked={club}
+onChange={(e) => setClub(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="pool" >Swimming Pool:</label>
+<input
+type="radio"
+id="pool"
+name="pool"
+checked={pool}
+onChange={(e) => setPool(e.target.checked)}
 />
 </div>
 
 
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="gym" >Gym:</label>
+  <input
+    type="radio"
+    id="gym"
+    name="gym"
+    checked={gym}
+    onChange={(e) => setGym(e.target.checked)}
+  />
+</div>
+
 
 </div>
-<hr />
-
-
-
-
-
+ <hr />
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Commuinty Activites</h2>
+  <h2>Select Amenties</h2>
 </div>
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
@@ -928,8 +990,17 @@ onChange={(e) => setPool(e.target.checked)}
 </div>
 
 
-
 </div>
+
+
+
+
+
+
+
+
+
+
 <hr />
 {/* property images information starts here */}
 
@@ -938,7 +1009,7 @@ onChange={(e) => setPool(e.target.checked)}
 </div>
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 <div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
-<label htmlFor="authpic">Property Logo:</label>
+<label htmlFor="authpic">Property Logo/Personal Picture:</label>
 <input
 type="file"
 id="authpic"
@@ -1220,7 +1291,6 @@ onChange={(e) => setState(e.target.value)}
     ></textarea>
   </div>
 </div>
-
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>About Your Property</h2>
 </div>
@@ -1236,6 +1306,7 @@ onChange={(e) => setState(e.target.value)}
     ></textarea>
   </div>
 </div>
+
 
 <button
 type="submit"

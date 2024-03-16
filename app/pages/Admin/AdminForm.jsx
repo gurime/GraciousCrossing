@@ -60,6 +60,11 @@ const [framme, setFramme] = useState(false);
 const [wheel, setWheel] = useState(false);
 const [ceiling, setCeiling] = useState(false);
 const [walkin, setWalkin] = useState(false);
+const [elevator, setElevator] = useState(false);
+const [concierge, setConcierge] = useState(false);
+const [play, setPlay] = useState(false);
+const [club, setClub] = useState(false);
+const [fireplace, setFireplace] = useState(false);
 //amenities
 const [ isLoading, setIsLoading] = useState(false)
 //pictures
@@ -264,6 +269,11 @@ const router = useRouter();
   lights,
   cable,
   laundry,
+  elevator,
+  play,
+  concierge,
+  club,
+  fireplace,
   airConditioning,
   heating,
   pool,
@@ -821,6 +831,17 @@ onChange={(e) => setWifi(e.target.checked)}
   />
 </div>
 
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="fireplace" >Fire Place:</label>
+  <input
+    type="radio"
+    id="fireplace"
+    name="fireplace"
+    checked={fireplace}
+    onChange={(e) => setFireplace(e.target.checked)}
+  />
+</div>
+
 </div>
 <hr />
 {/* amenities information stops here */}
@@ -871,27 +892,77 @@ onChange={(e) => setAirConditioning(e.target.checked)}
 />
 </div>
 <div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="heating" >Heating:</label>
+<label htmlFor="elevator" >Elevator:</label>
 <input
 type="radio"
-id="heating"
-name="heating"
-checked={heating}
-onChange={(e) => setHeating(e.target.checked)}
+id="elevator"
+name="elevator"
+checked={elevator}
+onChange={(e) => setElevator(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="concierge" >Concierge:</label>
+<input
+type="radio"
+id="concierge"
+name="concierge"
+checked={concierge}
+onChange={(e) => setConcierge(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="play" >Playground:</label>
+<input
+type="radio"
+id="play"
+name="play"
+checked={play}
+onChange={(e) => setPlay(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="club" >Club House:</label>
+<input
+type="radio"
+id="club"
+name="club"
+checked={club}
+onChange={(e) => setClub(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="pool" >Swimming Pool:</label>
+<input
+type="radio"
+id="pool"
+name="pool"
+checked={pool}
+onChange={(e) => setPool(e.target.checked)}
 />
 </div>
 
 
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="gym" >Gym:</label>
+  <input
+    type="radio"
+    id="gym"
+    name="gym"
+    checked={gym}
+    onChange={(e) => setGym(e.target.checked)}
+  />
+</div>
+
 
 </div>
-<hr />
-
-
-
-
-
+ <hr />
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Commuinty Activites</h2>
+  <h2>Select Amenties</h2>
 </div>
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
@@ -920,8 +991,17 @@ onChange={(e) => setPool(e.target.checked)}
 </div>
 
 
-
 </div>
+
+
+
+
+
+
+
+
+
+
 <hr />
 {/* property images information starts here */}
 
