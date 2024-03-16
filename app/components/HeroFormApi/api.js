@@ -26,10 +26,8 @@ if (
   (
     docData.title && docData.title.toLowerCase().includes(searchTerm.toLowerCase().trim())
   ) || (
-    docData.description && docData.description.toLowerCase().includes(searchTerm.toLowerCase().trim())
-  ) || (
-    docData.content && docData.content.toLowerCase().includes(searchTerm.toLowerCase().trim())
-  )
+    docData.state && docData.state.toLowerCase().includes(searchTerm.toLowerCase().trim())
+  ) 
 ) {
   // Add the article data to the result
   data.push({ collection: collectionNames[index], id: doc.id, ...docData });
