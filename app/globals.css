@@ -497,7 +497,7 @@ cursor: pointer;
 
 @media (max-width: 1500px) {
  .search-results-container {
-   width: 93%;
+   width: 92.8%;
  }
 }
 
@@ -521,7 +521,7 @@ font-size:15px;
   }
 
   .search-results-container {
-    width: calc(97% - 0.6%);
+    width: calc(97% - 1%);
   }
 
   .search-result-item {
@@ -541,13 +541,14 @@ font-size:15px;
 }
 
 /* CSS for small screens */
+
 @media only screen and (max-width: 540px) {
   .heroform {
     width: 100%;
   }
 
   .search-results-container {
-    width: calc(97% - 3.7%);
+    width: calc(97% - 5.7%);
   }
 
   .search-result-item {
