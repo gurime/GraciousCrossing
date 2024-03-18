@@ -1311,11 +1311,11 @@ onChange={(e) => setState(e.target.value)}
 
 <button
 type="submit"
-disabled={!isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
+disabled={!isSignedIn || !aboutcontent || !content || !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
 style={{
-cursor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city  || isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city  || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !state || !city  || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn || !aboutcontent || !content || !selectedCollection || !address || !zip || !state || !city  || isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !aboutcontent || !content || !selectedCollection || !address || !zip || !state || !city  || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !aboutcontent || !content || !selectedCollection  || !address || !zip || !state || !city  || isLoading ? 'grey' : '#fff',
 
 }}
   
