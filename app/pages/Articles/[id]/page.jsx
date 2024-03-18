@@ -5,11 +5,11 @@ import { getArticle } from '../lib';
 import Goup from '@/app/components/goup';
 import { IoIosFitness } from "react-icons/io";
 import { BsPhone } from "react-icons/bs";
-import { MdOutlinePool } from "react-icons/md";
+import { MdOutlinePets, MdOutlinePool } from "react-icons/md";
 import { PiElevator } from "react-icons/pi";
 import { LuConciergeBell } from "react-icons/lu";
-import { GiKidSlide } from "react-icons/gi";
-import { GiFamilyHouse } from "react-icons/gi";
+import { GiKidSlide,GiFamilyHouse } from "react-icons/gi";
+import { FaUser } from "react-icons/fa";
 import AdminHeader from '@/app/components/AdminHeader';
 import Schedule from '@/app/components/Schedule';
 import ContactAgent from '@/app/components/ContactAgent';
@@ -71,20 +71,25 @@ return (
 {/**block for img */}
 {post.cover_image && (
   <div className="imgbox">
-    <img className="cover_image" src={post.cover_image} alt="Property Cover" />
-    {[1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12].map((index) => {
-      const showcase = post[`cover_showcase${index}`];
-      return showcase && (
-        <img
-          key={`cover_showcase${index}`}
-          className={`cover_showcase${index}`}
-          src={showcase}
-          alt={`Cover Showcase ${index}`}
-        />
-      );
-    })}
+    <div className="scrolling-wrapper">
+      {post.cover_image && (
+        <img className="cover_image" src={post.cover_image} alt="Property Cover" />
+      )}
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12].map((index) => {
+        const showcase = post[`cover_showcase${index}`];
+        return showcase && (
+          <img
+            key={`cover_showcase${index}`}
+            className={`cover_showcase${index}`}
+            src={showcase}
+            alt={`Cover Showcase ${index}`}
+          />
+        );
+      })}
+    </div>
   </div>
 )}
+
 
 {!post.cover_image && <p>Error loading image</p>}
 
@@ -220,63 +225,97 @@ width:'15rem'
    
   </div>
 )}
-  <div className='amenities-grid'>
-
-<span style={{ padding: '0 1rem',fontWeight:'bold' }}>Kitchen Features & Appliances</span>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
-    
-    </div>
-</div>
+{
+  (post.disposal ||
+    post.dishwasher ||
+    post.island ||
+    post.kitchen ||
+    post.microwave ||
+    post.oven ||
+    post.fridge ||
+    post.freezer) && (
+    <>
+      <div style={{ }} className="amenities-grid"> 
+           <span style={{ padding: '0 1rem',fontWeight:'bold' }}>Kitchen Appliances</span>
+           <div className='sm-span' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+          
+        {post.disposal && <li>Disposal</li>}
+        {post.dishwasher && <li>Dishwasher</li>}
+        {post.island && <li>Kitchen Island</li>}
+        {post.kitchen && <li>Kitchen</li>}
+        {post.microwave && <li>Microwave</li>}
+        {post.oven && <li>Oven</li>}
+        {post.fridge && <li>Fridge</li>}
+        {post.freezer && <li >Freezer</li>}
+         </div>
+      </div>
+    </>
+  )}
 
 {
  (post.gym ||
 post.pool ||
 post.elevator ||
 post.concierge ||
-post.play
+post.play ||
+post.manager ||
+post.pet 
 ) && (
 <>
 <h1 style={{ padding: '0 1rem',color:'#646464' }}>Community Amenities</h1>
-<div style={{borderBottom:'none'}} className='cards'>  
+<div style={{borderBottom:'none'}} className='cards' >  
 {post.gym && (
-  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3',padding:'1rem',width:'50%'}}>
     <span style={{fontSize:'4.0625rem'}}><IoIosFitness /></span>
     <span style={{fontSize:'1rem'}}> Fitness Center</span>
   </div>
 )}
 
 {post.pool && (
-  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3',padding:'1rem',width:'50%'}}>
     <span style={{fontSize:'4.0625rem'}}><MdOutlinePool /></span>
     <span style={{fontSize:'1rem'}}> Pool</span>
   </div>
 )}
 
 {post.elevator && (
-  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3',padding:'1rem',width:'50%'}}>
     <span style={{fontSize:'4.0625rem'}}><PiElevator /></span>
     <span style={{fontSize:'1rem'}}> Elevator</span>
   </div>
 )}
 
 {post.concierge && (
-  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3',padding:'1rem',width:'50%'}}>
     <span style={{fontSize:'4.0625rem'}}><LuConciergeBell /></span>
     <span style={{fontSize:'1rem'}}> Concierge</span>
   </div>
 )}
 
 {post.play && (
-  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3',padding:'1rem',width:'50%'}}>
     <span style={{fontSize:'4.0625rem'}}><GiKidSlide /></span>
     <span style={{fontSize:'1rem'}}> Playground</span>
   </div>
 )}
 
 {post.club && (
-  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3;',padding:'1rem',width:'50%'}}>
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3',padding:'1rem',width:'50%'}}>
     <span style={{fontSize:'4.0625rem'}}><GiFamilyHouse  /></span>
     <span style={{fontSize:'1rem'}}> Clubhouse</span>
+  </div>
+)}
+
+{post.pet && (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3',padding:'1rem',width:'50%'}}>
+    <span style={{fontSize:'4.0625rem'}}><MdOutlinePets   /></span>
+    <span style={{fontSize:'1rem'}}> Pet Friendly</span>
+  </div>
+)}
+{post.manager && (
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3',padding:'1rem',width:'50%'}}>
+    <span style={{fontSize:'4.0625rem'}}><FaUser   /></span>
+    <span style={{fontSize:'1rem'}}> On-Site Manager</span>
   </div>
 )}
 
@@ -299,11 +338,12 @@ post.play
 
 
 
-<div className="body-content" ><p>{post.aboutcontent}</p></div>
 
-<h2 className='sm-aboutspan' style={{  margin: '1rem',fontSize:'1.875rem',color:'#5a5a5a' }}>About {post.title}</h2>
+
+
 <div className="body-content" ><p>{post.content}</p></div>
-
+<h2 className='sm-aboutspan' style={{  margin: '1rem',fontSize:'1.875rem',color:'#5a5a5a' }}>About {post.title}</h2>
+<div className="body-content" ><p>{post.aboutcontent}</p></div>
 
 
 

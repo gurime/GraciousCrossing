@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
 
+
 export default function AdminForm() {
 const [isSignedIn, setIsSignedIn] = useState(false);
 
@@ -65,7 +66,16 @@ const [concierge, setConcierge] = useState(false);
 const [play, setPlay] = useState(false);
 const [club, setClub] = useState(false);
 const [fireplace, setFireplace] = useState(false);
-//amenities
+const [disposal, setDisposal] = useState(false);
+const [dishwasher, setDishwasher] = useState(false);
+const [island, setIsland] = useState(false);
+const [kitchen, setKitchen] = useState(false);
+const [microwave, setMicrowave] = useState(false);
+const [manager, setManager] = useState(false);
+const [pet, setPet] = useState(false);
+const [oven, setOven] = useState(false);
+const [fridge, setFridge] = useState(false);
+const [freezer, setFreezer] = useState(false);//amenities
 const [ isLoading, setIsLoading] = useState(false)
 //pictures
 const [coverImageFile, setCoverImageFile] = useState(null);
@@ -85,7 +95,6 @@ const [authpicFile, setAuthPicFile] = useState(null);
 //pictures
 const [articleId, setArticleId] = useState("");  
 const [ selectedCollection, setSelectedCollection] = useState("Featured Houses")
-const [successMessage, setSuccessMessage] = useState("");
 
 const [names, setNames] = useState([]);
 const [errorMessage, setErrorMessage] = useState('');
@@ -283,6 +292,14 @@ const router = useRouter();
   smoke,
   stoorage,
   wheel,
+  disposal,
+  dishwasher,
+  island,
+  kitchen,
+  microwave,
+  oven,
+  fridge,
+  freezer,
   framme,
   ceiling,
   wifi,
@@ -291,6 +308,8 @@ const router = useRouter();
   state,
   zip,
   gym,
+  pet,
+  manager,
   parking,
   tourTime,
   opentime,
@@ -375,7 +394,21 @@ const router = useRouter();
     setOpentime(e.target.value);
   };
 
+  const formatPhoneNumber = (input) => {
+    // Remove all non-digit characters
+    const cleaned = input.replace(/\D/g, '');
+    
+    // Apply formatting: (XXX) XXX-XXXX
+    const formatted = cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+    
+    return formatted;
+  };
 
+  const handlePhoneChange = (e) => {
+    const inputPhone = e.target.value;
+    const formattedPhone = formatPhoneNumber(inputPhone);
+    setPhone(formattedPhone);
+  };
 return (
     <>
 <div className='adminform_bg'>
@@ -437,16 +470,16 @@ required
 </div>
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="phone-number">Phone Number:</label>
-<input
-type="tel"
-id="phone-number"
-name="phone"
-value={phone}
-onChange={(e) => setPhone(e.target.value)}
-required
-/>
-</div>
+      <label htmlFor="phone-number">Phone Number:</label>
+      <input
+        type="tel"
+        id="phone-number"
+        name="phone"
+        value={phone}
+        onChange={handlePhoneChange}
+        required
+      />
+    </div>
 
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
@@ -465,7 +498,7 @@ required
 {/* property information starts here */}
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
-<h2>Housing & Information Provider: Motels, Homes, New Construction, Green Homes, Historic Homes</h2>
+<h2>Residential Properties</h2>
 </div>
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
@@ -581,7 +614,7 @@ onChange={handleTourTimeChange}
 
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Provide Apartment Information</h2>
+  <h2>Apartment Listings</h2>
 </div>
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
@@ -846,6 +879,101 @@ onChange={(e) => setWifi(e.target.checked)}
 <hr />
 {/* amenities information stops here */}
 <div style={{ color: '#fff', textAlign: 'center' }}>
+        <h2>Kitchen Appliances</h2>
+      </div>
+      <div
+        className="sm-adminform sm-adminform-checkbox"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
+          flexWrap: 'wrap',
+        }}
+      >
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="disposal">Disposal:</label>
+          <input
+            type="radio"
+            id="disposal"
+            name="disposal"
+            checked={disposal}
+            onChange={(e) => setDisposal(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="dishwasher">Dishwasher:</label>
+          <input
+            type="radio"
+            id="dishwasher"
+            name="dishwasher"
+            checked={dishwasher}
+            onChange={(e) => setDishwasher(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="island">Island:</label>
+          <input
+            type="radio"
+            id="island"
+            name="island"
+            checked={island}
+            onChange={(e) => setIsland(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="kitchen">Kitchen:</label>
+          <input
+            type="radio"
+            id="kitchen"
+            name="kitchen"
+            checked={kitchen}
+            onChange={(e) => setKitchen(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="microwave">Microwave:</label>
+          <input
+            type="radio"
+            id="microwave"
+            name="microwave"
+            checked={microwave}
+            onChange={(e) => setMicrowave(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="oven">Oven:</label>
+          <input
+            type="radio"
+            id="oven"
+            name="oven"
+            checked={oven}
+            onChange={(e) => setOven(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="fridge">Fridge:</label>
+          <input
+            type="radio"
+            id="fridge"
+            name="fridge"
+            checked={fridge}
+            onChange={(e) => setFridge(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="freezer">Freezer:</label>
+          <input
+            type="radio"
+            id="freezer"
+            name="freezer"
+            checked={freezer}
+            onChange={(e) => setFreezer(e.target.checked)}
+          />
+        </div>
+      </div>
+
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Select Amenties</h2>
 </div>
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
@@ -967,41 +1095,31 @@ onChange={(e) => setPool(e.target.checked)}
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
 
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="pool" >Swimming Pool:</label>
-<input
-type="radio"
-id="pool"
-name="pool"
-checked={pool}
-onChange={(e) => setPool(e.target.checked)}
-/>
-</div>
 
 
 <div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="gym" >Gym:</label>
+  <label htmlFor="pet" >Pet Friendly:</label>
   <input
     type="radio"
-    id="gym"
-    name="gym"
-    checked={gym}
-    onChange={(e) => setGym(e.target.checked)}
+    id="pet"
+    name="pet"
+    checked={pet}
+    onChange={(e) => setPet(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="manager" >On-Site Manager:</label>
+  <input
+    type="radio"
+    id="manager"
+    name="manager"
+    checked={manager}
+    onChange={(e) => setManager(e.target.checked)}
   />
 </div>
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
 <hr />
 {/* property images information starts here */}
 
@@ -1285,7 +1403,7 @@ onChange={(e) => setState(e.target.value)}
     <textarea
       rows="10"
       id="propertyDescription"
-      placeholder='E.g., A charming two-bedroom apartment with scenic views...'
+      placeholder='E.g., A charming two-bedroom with scenic views...'
       
       value={content}
       onChange={(e) => setContent(e.target.value)}
@@ -1300,7 +1418,7 @@ onChange={(e) => setState(e.target.value)}
     <textarea
       rows="10"
       id="aboutDescription"
-      placeholder='E.g., provide a brief description of yourself and your property...'
+      placeholder='E.g., provide a brief description of yourself and property...'
       
       value={aboutcontent}
       onChange={(e) => setAboutContent(e.target.value)}

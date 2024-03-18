@@ -27,7 +27,7 @@ const closeModal = () => {
 setIsModalOpen(false);
 setContent('')
 setNames('');
-window.scrollTo(0,0)
+window.scrollTo(0,500)
 };
 
 const handleScheduleTour = async (e) => {
