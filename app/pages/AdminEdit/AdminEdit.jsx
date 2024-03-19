@@ -46,6 +46,17 @@ const [airConditioning, setAirConditioning] = useState(comment ? comment.airCond
 const [wifi, setWifi] = useState(comment ? comment.wifi : false);
 const [gym, setGym] = useState(comment ? comment.gym :false);
 const [parking, setParking] = useState(comment ? comment.parking : false);
+const [fireplace, setFireplace] = useState(comment ? comment.fireplace : false);
+const [disposal, setDisposal] = useState(comment ? comment.disposal : false);
+const [dishwasher, setDishwasher] = useState(comment ? comment.dishwasher : false);
+const [island, setIsland] = useState(comment ? comment.island : false);
+const [kitchen, setKitchen] = useState(comment ? comment.kitchen : false);
+const [microwave, setMicrowave] = useState(comment ? comment.microwave : false);
+const [manager, setManager] = useState(comment ? comment.manager : false);
+const [pet, setPet] = useState(comment ? comment.pet : false);
+const [oven, setOven] = useState(comment ? comment.oven : false);
+const [fridge, setFridge] = useState(comment ? comment.fridge : false);
+const [freezer, setFreezer] = useState(comment ? comment.freezer : false);
 const [sprink, setSprink] = useState(comment ? comment.sprink : false);
 const [tub, setTub] = useState(comment ? comment.tub :false);
 const [smoke, setSmoke] = useState(comment ? comment.smoke : false);
@@ -78,7 +89,6 @@ const [showcase10File, setShowcase10File] = useState(comment ? comment.cover_sho
 const [showcase11File, setShowcase11File] = useState(comment ? comment.cover_showcase11 : ""   );   
 const [showcase12File, setShowcase12File] = useState(comment ? comment.cover_showcase12 : ""   );   
 const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Featured Houses");
-const [successMessage, setSuccessMessage] = useState("");
 
 const [errorMessage, setErrorMessage] = useState('');
 
@@ -282,6 +292,14 @@ const storage = getStorage();
           smoke,
           stoorage,
           wheel,
+          disposal,
+          dishwasher,
+          island,
+          kitchen,
+          microwave,
+          oven,
+          fridge,
+          freezer,
           framme,
           ceiling,
           wifi,
@@ -290,6 +308,8 @@ const storage = getStorage();
           state,
           zip,
           gym,
+          pet,
+          manager,
           parking,
           tourTime,
           opentime,
@@ -375,6 +395,21 @@ const storage = getStorage();
   };
 
   
+  const formatPhoneNumber = (input) => {
+    // Remove all non-digit characters
+    const cleaned = input.replace(/\D/g, '');
+    
+    // Apply formatting: (XXX) XXX-XXXX
+    const formatted = cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+    
+    return formatted;
+  };
+
+  const handlePhoneChange = (e) => {
+    const inputPhone = e.target.value;
+    const formattedPhone = formatPhoneNumber(inputPhone);
+    setPhone(formattedPhone);
+  };
 return (
 <>
 <div className='adminform_bg'>
@@ -436,16 +471,16 @@ required
 </div>
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="phone-number">Phone Number:</label>
-<input
-type="tel"
-id="phone-number"
-name="phone"
-value={phone}
-onChange={(e) => setPhone(e.target.value)}
-required
-/>
-</div>
+      <label htmlFor="phone-number">Phone Number:</label>
+      <input
+        type="tel"
+        id="phone-number"
+        name="phone"
+        value={phone}
+        onChange={handlePhoneChange}
+        required
+      />
+    </div>
 
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
@@ -464,7 +499,7 @@ required
 {/* property information starts here */}
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
-<h2>Housing & Information Provider: Motels, Homes, New Construction, Green Homes, Historic Homes</h2>
+<h2>Residential Properties</h2>
 </div>
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
@@ -580,7 +615,7 @@ onChange={handleTourTimeChange}
 
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Provide Apartment Information</h2>
+  <h2>Apartment Listings</h2>
 </div>
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
@@ -705,7 +740,7 @@ onChange={(e) => setApartAvailability(e.target.value)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="lights" >Sprinkler:</label>
 <input
-type="radio"
+type="checkbox"
 id="sprink"
 name="sprink"
 checked={sprink}
@@ -715,7 +750,7 @@ onChange={(e) => setSprink(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="cable" >Cable:</label>
 <input
-type="radio"
+type="checkbox"
 id="cable"
 name="cable"
 checked={cable}
@@ -725,7 +760,7 @@ onChange={(e) => setCable(e.target.value)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="tub" >Tub/Shower:</label>
 <input
-type="radio"
+type="checkbox"
 id="tub"
 name="tub"
 checked={tub}
@@ -735,7 +770,7 @@ onChange={(e) => setTub(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="smoke" >Smoke Free</label>
 <input
-type="radio"
+type="checkbox"
 id="smoke"
 name="smoke"
 checked={smoke}
@@ -745,7 +780,7 @@ onChange={(e) => setSmoke(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="framme" >Framed Windows:</label>
 <input
-type="radio"
+type="checkbox"
 id="framme"
 name="framme"
 checked={framme}
@@ -756,7 +791,7 @@ onChange={(e) => setFramme(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="wifi" >Wifi:</label>
 <input
-type="radio"
+type="checkbox"
 id="wifi"
 name="wifi"
 checked={wifi}
@@ -768,7 +803,7 @@ onChange={(e) => setWifi(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="parking" >Parking:</label>
   <input
-    type="radio"
+    type="checkbox"
     id="parking"
     name="parking"
     checked={parking}
@@ -779,7 +814,7 @@ onChange={(e) => setWifi(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="wheel" >Wheelchair Accessible:</label>
   <input
-    type="radio"
+   type="checkbox"
     id="wheel"
     name="wheel"
     checked={wheel}
@@ -802,7 +837,7 @@ onChange={(e) => setWifi(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="storage" >Storage Space:</label>
   <input
-    type="radio"
+    type="checkbox"
     id="storage"
     name="storage"
     checked={stoorage}
@@ -812,7 +847,7 @@ onChange={(e) => setWifi(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="ceiling" >Ceiling Fans:</label>
   <input
-    type="radio"
+   type="checkbox"
     id="ceiling"
     name="ceiling"
     checked={ceiling}
@@ -822,7 +857,7 @@ onChange={(e) => setWifi(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="walkin" >Walk-In Shower:</label>
   <input
-    type="radio"
+    type="checkbox"
     id="walkin"
     name="walkin"
     checked={walkin}
@@ -833,7 +868,7 @@ onChange={(e) => setWifi(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="fireplace" >Fire Place:</label>
   <input
-    type="radio"
+    type="checkbox"
     id="fireplace"
     name="fireplace"
     checked={fireplace}
@@ -841,9 +876,115 @@ onChange={(e) => setWifi(e.target.checked)}
   />
 </div>
 
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="heating" >Heating:</label>
+  <input
+   type="checkbox"
+    id="heating"
+    name="heating"
+    checked={heating}
+    onChange={(e) => setHeating(e.target.checked)}
+  />
+</div>
+
 </div>
 <hr />
 {/* amenities information stops here */}
+<div style={{ color: '#fff', textAlign: 'center' }}>
+        <h2>Kitchen Appliances</h2>
+      </div>
+      <div
+        className="sm-adminform sm-adminform-checkbox"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
+          flexWrap: 'wrap',
+        }}
+      >
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="disposal">Disposal:</label>
+          <input
+            type="checkbox"
+            id="disposal"
+            name="disposal"
+            checked={disposal}
+            onChange={(e) => setDisposal(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="dishwasher">Dishwasher:</label>
+          <input
+            type="checkbox"
+            id="dishwasher"
+            name="dishwasher"
+            checked={dishwasher}
+            onChange={(e) => setDishwasher(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="island">Island:</label>
+          <input
+           type="checkbox"
+            id="island"
+            name="island"
+            checked={island}
+            onChange={(e) => setIsland(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="kitchen">Kitchen:</label>
+          <input
+           type="checkbox"
+            id="kitchen"
+            name="kitchen"
+            checked={kitchen}
+            onChange={(e) => setKitchen(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="microwave">Microwave:</label>
+          <input
+            type="checkbox"
+            id="microwave"
+            name="microwave"
+            checked={microwave}
+            onChange={(e) => setMicrowave(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="oven">Oven:</label>
+          <input
+            type="checkbox"
+            id="oven"
+            name="oven"
+            checked={oven}
+            onChange={(e) => setOven(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="fridge">Fridge:</label>
+          <input
+          type="checkbox"
+            id="fridge"
+            name="fridge"
+            checked={fridge}
+            onChange={(e) => setFridge(e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          <label htmlFor="freezer">Freezer:</label>
+          <input
+            type="checkbox"
+            id="freezer"
+            name="freezer"
+            checked={freezer}
+            onChange={(e) => setFreezer(e.target.checked)}
+          />
+        </div>
+      </div>
+
+<hr />
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Select Amenties</h2>
 </div>
@@ -852,7 +993,7 @@ onChange={(e) => setWifi(e.target.checked)}
 <label htmlFor="water"
 >Water:</label>
 <input
-type="radio"
+type="checkbox"
 id="water"
 name="water"
 checked={water}
@@ -862,7 +1003,7 @@ onChange={(e) => setWater(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="lights" >Lights:</label>
 <input
-type="radio"
+type="checkbox"
 id="lights"
 name="lights"
 checked={lights}
@@ -873,7 +1014,7 @@ onChange={(e) => setLights(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="laundry" >laundry:</label>
 <input
-type="radio"
+type="checkbox"
 id="laundry"
 name="laundry"
 checked={laundry}
@@ -883,7 +1024,7 @@ onChange={(e) => setLaundry(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="airConditioning" >AC:</label>
 <input
-type="radio"
+type="checkbox"
 id="airConditioning"
 name="airConditioning"
 checked={airConditioning}
@@ -893,7 +1034,7 @@ onChange={(e) => setAirConditioning(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="elevator" >Elevator:</label>
 <input
-type="radio"
+type="checkbox"
 id="elevator"
 name="elevator"
 checked={elevator}
@@ -904,7 +1045,7 @@ onChange={(e) => setElevator(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="concierge" >Concierge:</label>
 <input
-type="radio"
+type="checkbox"
 id="concierge"
 name="concierge"
 checked={concierge}
@@ -915,7 +1056,7 @@ onChange={(e) => setConcierge(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="play" >Playground:</label>
 <input
-type="radio"
+type="checkbox"
 id="play"
 name="play"
 checked={play}
@@ -926,7 +1067,7 @@ onChange={(e) => setPlay(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="club" >Club House:</label>
 <input
-type="radio"
+type="checkbox"
 id="club"
 name="club"
 checked={club}
@@ -937,7 +1078,7 @@ onChange={(e) => setClub(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="pool" >Swimming Pool:</label>
 <input
-type="radio"
+type="checkbox"
 id="pool"
 name="pool"
 checked={pool}
@@ -949,7 +1090,7 @@ onChange={(e) => setPool(e.target.checked)}
 <div style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="gym" >Gym:</label>
   <input
-    type="radio"
+    type="checkbox"
     id="gym"
     name="gym"
     checked={gym}
@@ -966,41 +1107,31 @@ onChange={(e) => setPool(e.target.checked)}
 <div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
 
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="pool" >Swimming Pool:</label>
-<input
-type="radio"
-id="pool"
-name="pool"
-checked={pool}
-onChange={(e) => setPool(e.target.checked)}
-/>
-</div>
 
 
 <div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="gym" >Gym:</label>
+  <label htmlFor="pet" >Pet Friendly:</label>
   <input
-    type="radio"
-    id="gym"
-    name="gym"
-    checked={gym}
-    onChange={(e) => setGym(e.target.checked)}
+    type="checkbox"
+    id="pet"
+    name="pet"
+    checked={pet}
+    onChange={(e) => setPet(e.target.checked)}
+  />
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="manager" >On-Site Manager:</label>
+  <input
+    type="checkbox"
+    id="manager"
+    name="manager"
+    checked={manager}
+    onChange={(e) => setManager(e.target.checked)}
   />
 </div>
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
 <hr />
 {/* property images information starts here */}
 
@@ -1284,7 +1415,7 @@ onChange={(e) => setState(e.target.value)}
     <textarea
       rows="10"
       id="propertyDescription"
-      placeholder='E.g., A charming two-bedroom apartment with scenic views...'
+      placeholder='E.g., A charming two-bedroom with scenic views...'
       
       value={content}
       onChange={(e) => setContent(e.target.value)}
@@ -1299,13 +1430,14 @@ onChange={(e) => setState(e.target.value)}
     <textarea
       rows="10"
       id="aboutDescription"
-      placeholder='E.g., provide a brief description of yourself and your property...'
+      placeholder='E.g., provide a brief description of yourself and property...'
       
       value={aboutcontent}
       onChange={(e) => setAboutContent(e.target.value)}
     ></textarea>
   </div>
 </div>
+
 
 
 <button

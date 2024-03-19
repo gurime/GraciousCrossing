@@ -71,11 +71,11 @@ return (
 {/**block for img */}
 {post.cover_image && (
   <div className="imgbox">
-    <div className="scrolling-wrapper">
-      {post.cover_image && (
-        <img className="cover_image" src={post.cover_image} alt="Property Cover" />
-      )}
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12].map((index) => {
+   
+    <div className="scrolling-wrapper"> {post.cover_image && (
+      <img className="cover_image" src={post.cover_image} alt="Property Cover" />
+    )}
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((index) => {
         const showcase = post[`cover_showcase${index}`];
         return showcase && (
           <img
@@ -89,6 +89,7 @@ return (
     </div>
   </div>
 )}
+
 
 
 {!post.cover_image && <p>Error loading image</p>}
@@ -274,7 +275,7 @@ post.pet
 {post.pool && (
   <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3',padding:'1rem',width:'50%'}}>
     <span style={{fontSize:'4.0625rem'}}><MdOutlinePool /></span>
-    <span style={{fontSize:'1rem'}}> Pool</span>
+    <span style={{fontSize:'1rem'}}>Swimming Pool</span>
   </div>
 )}
 
