@@ -84,10 +84,10 @@ color: #000000;
 
 }
 
-.adminform input[type="radio"] {
-  width: 20px; /* Adjust the size as needed */
-  height: 20px; /* Adjust the size as needed */
-  border-radius: 50%;
+.adminform input[type="checkbox"] {
+  width: 20px; 
+  height: 20px;
+  
 }
 
 .adminform textarea {
@@ -988,7 +988,9 @@ margin: auto 0;
   display: flex;
   flex-wrap: nowrap;
 }
-
+.scrolling-wrapper::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
 .scrolling-wrapper img {
   margin-right: 10px; 
 }
@@ -999,7 +1001,6 @@ margin: auto 0;
   grid-auto-rows: 200px; 
   gap: 5px ; 
   overflow-x: auto;
-  scrollbar-width: none;
 }
 
 .cover_image { 

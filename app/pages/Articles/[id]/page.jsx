@@ -262,7 +262,7 @@ post.manager ||
 post.pet 
 ) && (
 <>
-<h1 style={{ padding: '0 1rem',color:'#646464' }}>Community Amenities</h1>
+<h2 className='sm-aboutspan' style={{ padding: '0 1rem',color:'#646464',fontSize:'1.875rem' }}>Community Amenities</h2>
 <div style={{borderBottom:'none'}} className='cards' >  
 {post.gym && (
   <div style={{display:'flex',flexDirection:'column',alignItems:'center',border:'solid 1px #c3c3c3',padding:'1rem',width:'50%'}}>
@@ -340,8 +340,8 @@ post.pet
 
 
 
-
-<div className="body-content" ><p>{post.content}</p></div>
+<h2 className='sm-aboutspan' style={{  margin: '1rem',fontSize:'1.875rem',color:'#5a5a5a' }}>Property Details</h2>
+<div className="body-content" style={{whiteSpace:'pre-line'}}><p>{post.content}</p></div>
 <h2 className='sm-aboutspan' style={{  margin: '1rem',fontSize:'1.875rem',color:'#5a5a5a' }}>About {post.title}</h2>
 <div className="body-content" ><p>{post.aboutcontent}</p></div>
 
