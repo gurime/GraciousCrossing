@@ -999,6 +999,7 @@ margin: auto 0;
   grid-auto-rows: 200px; 
   gap: 5px ; 
   overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .cover_image { 
