@@ -991,12 +991,11 @@ margin: auto 0;
   grid-column: 2 / -1; 
 }
 
-/* .scrolling-wrapper::-webkit-scrollbar {
-  display: none; 
-} */
+
 
 .scrolling-wrapper img {
   margin-right: 10px;
+  max-width: 100%; 
 }
 
 .imgbox {
