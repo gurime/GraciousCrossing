@@ -1003,6 +1003,11 @@ margin: auto 0;
   gap: 5px;
 }
 
+/* .cover_showcase{
+  display: flex;
+  place-items: center;
+  place-content: space-evenly;
+  } */
 
 
 .cover_image, .cover_showcase1, .cover_showcase2, .cover_showcase3, .cover_showcase4, .cover_showcase5, .cover_showcase6, .cover_showcase7, .cover_showcase8,.cover_showcase9,.cover_showcase10,.cover_showcase11,.cover_showcase12 {
@@ -1027,11 +1032,6 @@ letter-spacing: 1px;
 padding: 0 1rem;
 }
 
-.cover_showcase{
-  display: flex;
-  place-items: center;
-  place-content: space-evenly;
-  }
 
 .scheduletour{
   display: flex;
@@ -1152,7 +1152,9 @@ color: #09a5d5 !important;
       font-size: 13px;
     }
 
- 
+ .scrolling-wrapper img{
+  max-width: 50%;
+ }
 
   .sm-houlo{
     font-size: 10px !important;
