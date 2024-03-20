@@ -76,13 +76,13 @@ return (
       )}
       {[1, 2, 3, 4, 5, 6, 7, 8,9,10,11,12].map((index) => {
         const showcase = post[`cover_showcase${index}`];
-        return showcase && (
-          <img
+        return showcase && showcase !== '' && (
+        <img
             key={`cover_showcase${index}`}
             className={`cover_showcase${index}`}
             src={showcase}
             alt={`Cover Showcase ${index}`}
-          />
+        />
         );
       })}
     </div>
