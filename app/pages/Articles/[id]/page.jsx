@@ -74,7 +74,7 @@ return (
       {post.cover_image && (
         <img className="cover_image" src={post.cover_image} alt="Property Cover" />
       )}
-      {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => {
+      {[1, 2, 3, 4, 5, 6, 7, 8,9,10,11,12].map((index) => {
         const showcase = post[`cover_showcase${index}`];
         return showcase && (
           <img
