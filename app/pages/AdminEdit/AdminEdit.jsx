@@ -55,6 +55,8 @@ const [microwave, setMicrowave] = useState(comment ? comment.microwave : false);
 const [manager, setManager] = useState(comment ? comment.manager : false);
 const [pet, setPet] = useState(comment ? comment.pet : false);
 const [oven, setOven] = useState(comment ? comment.oven : false);
+const [play, setPlay] = useState(comment ? comment.play : false);
+const [club, setClub] = useState(comment ? comment.club : false);
 const [fridge, setFridge] = useState(comment ? comment.fridge : false);
 const [freezer, setFreezer] = useState(comment ? comment.freezer : false);
 const [sprink, setSprink] = useState(comment ? comment.sprink : false);
@@ -65,6 +67,9 @@ const [framme, setFramme] = useState(comment ? comment.framme :false);
 const [wheel, setWheel] = useState(comment ? comment.wheel :false);
 const [ceiling, setCeiling] = useState(comment ? comment.ceiling : false);
 const [walkin, setWalkin] = useState(comment ? comment.walkin : false);
+const [balcony, setBalcony] = useState(comment ? comment.balcony : false);
+const [elevator, setElevator] = useState(comment ? comment.elevator : false);
+const [concierge, setConcierge] = useState(comment ? comment.concierge : false);
 const [phone, setPhone] = useState(comment ? comment.phone : "");
 const [units, setUnits] = useState(comment ? comment.units : '');
 const [apartprice, setApartPrice] = useState(comment ? comment.apartprice : '');
@@ -301,6 +306,7 @@ const storage = getStorage();
           fridge,
           freezer,
           framme,
+          balcony,
           ceiling,
           wifi,
           address,
@@ -983,6 +989,29 @@ onChange={(e) => setWifi(e.target.checked)}
           />
         </div>
       </div>
+<hr />
+      <div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Floor Plan Details</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="balcony" >Balcony:</label>
+  <input
+    type="checkbox"
+    id="balcony"
+    name="balcony"
+    checked={balcony}
+    onChange={(e) => setBalcony(e.target.checked)}
+  />
+</div>
+
+
+
+</div>
 
 <hr />
 <div style={{ color: '#fff', textAlign: 'center' }}>
@@ -1133,6 +1162,7 @@ onChange={(e) => setPool(e.target.checked)}
 
 </div>
 <hr />
+
 {/* property images information starts here */}
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
@@ -1437,6 +1467,8 @@ onChange={(e) => setState(e.target.value)}
     ></textarea>
   </div>
 </div>
+
+
 
 
 

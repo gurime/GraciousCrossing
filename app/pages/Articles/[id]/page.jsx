@@ -69,13 +69,12 @@ return (
 </div>
 {/**block for goback btn and title */}
 {/**block for img */}
-{post.cover_image && (
   <div className="imgbox">
-   
-    <div className="scrolling-wrapper"> {post.cover_image && (
-      <img className="cover_image" src={post.cover_image} alt="Property Cover" />
-    )}
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((index) => {
+    <div className="scrolling-wrapper">
+      {post.cover_image && (
+        <img className="cover_image" src={post.cover_image} alt="Property Cover" />
+      )}
+      {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => {
         const showcase = post[`cover_showcase${index}`];
         return showcase && (
           <img
@@ -88,7 +87,8 @@ return (
       })}
     </div>
   </div>
-)}
+
+
 
 
 
@@ -254,6 +254,22 @@ width:'15rem'
   )}
 
 {
+(post.balcony
+
+) && (
+<>
+<div style={{ }} className="amenities-grid"> 
+<span style={{ padding: '0 1rem',fontWeight:'bold' }}>Floor Plans</span>
+<div className='sm-span' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+{post.balcony && <li>Balcony</li>}
+</div>
+</div>
+</>
+)}
+
+
+
+{
  (post.gym ||
 post.pool ||
 post.elevator ||
@@ -343,6 +359,7 @@ post.pet
 
 <h2 className='sm-aboutspan' style={{  margin: '1rem',fontSize:'1.875rem',color:'#5a5a5a' }}>Property Details</h2>
 <div className="body-content" style={{whiteSpace:'pre-line'}}><p>{post.content}</p></div>
+<hr />
 <h2 className='sm-aboutspan' style={{  margin: '1rem',fontSize:'1.875rem',color:'#5a5a5a' }}>About {post.title}</h2>
 <div className="body-content" ><p>{post.aboutcontent}</p></div>
 

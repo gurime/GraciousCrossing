@@ -75,7 +75,8 @@ const [manager, setManager] = useState(false);
 const [pet, setPet] = useState(false);
 const [oven, setOven] = useState(false);
 const [fridge, setFridge] = useState(false);
-const [freezer, setFreezer] = useState(false);//amenities
+const [freezer, setFreezer] = useState(false);
+const [balcony, setBalcony] = useState(false);
 const [ isLoading, setIsLoading] = useState(false)
 //pictures
 const [coverImageFile, setCoverImageFile] = useState(null);
@@ -313,6 +314,7 @@ const router = useRouter();
   parking,
   tourTime,
   opentime,
+  balcony,
   timestamp: new Date(),
   userEmail: user.email,
   authpic,
@@ -982,6 +984,29 @@ onChange={(e) => setWifi(e.target.checked)}
           />
         </div>
       </div>
+<hr />
+      <div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Floor Plan Details</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="balcony" >Balcony:</label>
+  <input
+    type="checkbox"
+    id="balcony"
+    name="balcony"
+    checked={balcony}
+    onChange={(e) => setBalcony(e.target.checked)}
+  />
+</div>
+
+
+
+</div>
 
 <hr />
 <div style={{ color: '#fff', textAlign: 'center' }}>
@@ -1132,6 +1157,7 @@ onChange={(e) => setPool(e.target.checked)}
 
 </div>
 <hr />
+
 {/* property images information starts here */}
 
 <div style={{ color: '#fff', textAlign: 'center' }}>

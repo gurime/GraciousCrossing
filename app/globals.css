@@ -933,8 +933,7 @@ padding: 10px;
 
 .artilceGoUpbtn{
 display: flex;
-justify-content: flex-end;
-place-items: center;
+justify-content: center;
 margin-bottom: 1rem;
 }
 
@@ -988,9 +987,13 @@ margin: auto 0;
   overflow-x: auto;
   display: flex;
   flex-wrap: nowrap;
-  align-items: center; /* Align items vertically */
-  grid-column: 2 / -1; /* Start from the second column to the end */
+  align-items: center; 
+  grid-column: 2 / -1; 
 }
+
+/* .scrolling-wrapper::-webkit-scrollbar {
+  display: none; 
+} */
 
 .scrolling-wrapper img {
   margin-right: 10px;
