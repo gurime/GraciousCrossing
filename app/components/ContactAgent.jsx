@@ -180,7 +180,7 @@ style={{marginBottom:'1rem',
 cursor: !names || !phone || !content || isLoading ?  'none' : 'pointer',
 backgroundColor: !names || !phone || !content || isLoading ? '#9e9e9e' : '#00a8ff',
 color: !names || !phone  || !content || isLoading ? 'grey' : '#fff',
-}} className='edit-btn' onClick={handleScheduleTour}>Schedule Tour</button>
+}} className='edit-btn' onClick={handleScheduleTour}>Contact</button>
 
 <button className='delete-btn' onClick={closeModal}>Close Modal</button>
 </div>
