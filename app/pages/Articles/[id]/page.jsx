@@ -9,7 +9,9 @@ import { MdOutlinePets, MdOutlinePool } from "react-icons/md";
 import { PiElevator } from "react-icons/pi";
 import { LuConciergeBell } from "react-icons/lu";
 import { GiKidSlide,GiFamilyHouse } from "react-icons/gi";
-import { FaUser } from "react-icons/fa";
+import { RiRuler2Line } from "react-icons/ri";
+
+import { FaUser,FaBed,FaBath  } from "react-icons/fa";
 import AdminHeader from '@/app/components/AdminHeader';
 import Schedule from '@/app/components/Schedule';
 import ContactAgent from '@/app/components/ContactAgent';
@@ -69,24 +71,24 @@ return (
 </div>
 {/**block for goback btn and title */}
 {/**block for img */}
-  <div className="imgbox">
-    <div className="scrolling-wrapper">
-      {post.cover_image && (
-        <img className="cover_image" src={post.cover_image} alt="Property Cover" />
-      )}
-      {[1, 2, 3, 4, 5, 6, 7, 8,9,10,11,12].map((index) => {
-        const showcase = post[`cover_showcase${index}`];
-        return showcase && showcase !== '' && (
-        <img
-            key={`cover_showcase${index}`}
-            className={`cover_showcase${index}`}
-            src={showcase}
-            alt={`Cover Showcase ${index}`}
-        />
-        );
-      })}
-    </div>
-  </div>
+<div className="imgbox">
+<div className="scrolling-wrapper">
+{post.cover_image && (
+<img className="cover_image" src={post.cover_image} alt="Property Cover" />
+)}
+{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((index) => {
+const showcase = post[`cover_showcase${index}`];
+return showcase && showcase !== '' && (
+<img
+key={`cover_showcase${index}`}
+className={`cover_showcase${index}`}
+src={showcase}
+alt={`Cover Showcase ${index}`}
+/>
+);
+})}
+</div>
+</div>
 
 
 
@@ -155,7 +157,7 @@ flexDirection:'column',
 
 <span style={{fontSize:'24px',fontWeight:'bold'}}>{post.price}</span>
 <span style={{fontSize:'24px',fontWeight:'bold'}}>{post.apartprice} </span>
-<span style={{fontWeight:'bold'}}>{post.bathrooms} {post.apartbathrooms} Bath | {post.bedrooms} {post.apartbedrooms} Beds | {post.square} {post.apartsquare} sqft</span> 
+<span style={{fontWeight:'bold'}}> <FaBath/> {post.bathrooms} {post.apartbathrooms} Bath | <FaBed />  {post.bedrooms} {post.apartbedrooms} Beds | <RiRuler2Line /> {post.square} {post.apartsquare}  sqft</span> 
 
 </div>
 

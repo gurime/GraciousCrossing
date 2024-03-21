@@ -13,7 +13,6 @@ import { BeatLoader } from 'react-spinners'
 export default function AdminForm() {
 const [isSignedIn, setIsSignedIn] = useState(false);
 
-  const [content, setContent] = useState("");
   const [aboutcontent, setAboutContent] = useState("");
   const [title, setTitle] = useState("");
   const [owner, setOwner] = useState("");
@@ -77,7 +76,10 @@ const [oven, setOven] = useState(false);
 const [fridge, setFridge] = useState(false);
 const [freezer, setFreezer] = useState(false);
 const [balcony, setBalcony] = useState(false);
-const [ isLoading, setIsLoading] = useState(false)
+const [primaryBedroom, setPrimaryBedroom] = useState(false);
+const [primaryBath, setPrimaryBath] = useState(false);
+const [garage, setGarage] = useState(false);
+
 //pictures
 const [coverImageFile, setCoverImageFile] = useState(null);
 const [showcase1File, setShowcase1File] = useState(null);  
@@ -96,6 +98,7 @@ const [authpicFile, setAuthPicFile] = useState(null);
 //pictures
 const [articleId, setArticleId] = useState("");  
 const [ selectedCollection, setSelectedCollection] = useState("Featured Houses")
+const [ isLoading, setIsLoading] = useState(false)
 
 const [names, setNames] = useState([]);
 const [errorMessage, setErrorMessage] = useState('');
@@ -310,6 +313,8 @@ const router = useRouter();
   zip,
   gym,
   pet,
+  primebed,
+  primebath,
   manager,
   parking,
   tourTime,
@@ -613,7 +618,53 @@ onChange={handleTourTimeChange}
 </div>
 {/* Housing property information stops here */}
 <hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Interior Features</h2>
+</div>
+<div className='sm-adminform' style={{display:'flex',alignItems:'center',justifyContent:'space-evenly'}}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="primaryBedroom">Primary Bedroom:</label>
+  <select id="primaryBedroom" value={primaryBedroom} onChange={(e) => setPrimaryBedroom(e.target.value)}>
+    <option value="">Select Primary Bedroom Type</option>
+    <option value="large">Master Bedroom - Large</option>
+    <option value="standard">Standard Size</option>
+    {/* Add more options as needed */}
+  </select>
+  {/* Additional checkboxes for primary bedroom features */}
+</div>
 
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="primaryBath">Primary Bath:</label>
+  <select id="primaryBath" value={primaryBath} onChange={(e) => setPrimaryBath(e.target.value)}>
+    <option value="">Select Primary Bath Type</option>
+    <option value="doubleVanity">Master Bath - Double Vanity</option>
+    <option value="singleVanity">Single Vanity</option>
+    <option value="jacuzziTub">Jacuzzi Tub</option>
+    {/* Add more options as needed */}
+  </select>
+  {/* Additional checkboxes for primary bath features */}
+</div>
+</div>
+<hr />
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Residental Features</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="garage">Garage:</label>
+    <input 
+    type="checkbox" 
+    id="garage" 
+    name="garage" 
+    checked={garage} onChange={(e) => setGarage(e.target.checked)} />
+  </div>
+
+</div>
+
+<hr />
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Apartment Listings</h2>
@@ -1432,21 +1483,7 @@ onChange={(e) => setState(e.target.value)}
 
 <hr />
 
-<div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Property Details</h2>
-</div>
-<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-  <div  style={{ display: 'grid', gap: '1rem', width: '100%' }}>
-    <textarea
-      rows="10"
-      id="propertyDescription"
-      placeholder='E.g., A charming two-bedroom with scenic views...'
-      
-      value={content}
-      onChange={(e) => setContent(e.target.value)}
-    ></textarea>
-  </div>
-</div>
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>About Your Property</h2>
 </div>
@@ -1466,11 +1503,11 @@ onChange={(e) => setState(e.target.value)}
 
 <button
 type="submit"
-disabled={!isSignedIn || !aboutcontent || !content || !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
+disabled={!isSignedIn || !aboutcontent ||  !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
 style={{
-cursor: !isSignedIn || !aboutcontent || !content || !selectedCollection || !address || !zip || !state || !city  || isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn || !aboutcontent || !content || !selectedCollection || !address || !zip || !state || !city  || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !aboutcontent || !content || !selectedCollection  || !address || !zip || !state || !city  || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn || !aboutcontent ||  !selectedCollection || !address || !zip || !state || !city  || isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !aboutcontent ||  !selectedCollection || !address || !zip || !state || !city  || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !aboutcontent ||  !selectedCollection  || !address || !zip || !state || !city  || isLoading ? 'grey' : '#fff',
 
 }}
   

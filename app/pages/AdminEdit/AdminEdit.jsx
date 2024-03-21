@@ -17,7 +17,6 @@ const [tourTime, setTourTime] = useState(comment ? comment.tourTime : "");
 const [opentime, setOpentime] = useState(comment ? comment.opentime : "");
 const [aboutcontent, setAboutContent] = useState(comment ? comment.aboutcontent : "");
 
-const [content, setContent] = useState(comment ? comment.content : "");
 const [title, setTitle] = useState(comment ? comment.title : "");
 const [owner, setOwner] = useState(comment ? comment.owner : "");
 const [price, setPrice] = useState(comment ? comment.price : "");
@@ -70,6 +69,8 @@ const [walkin, setWalkin] = useState(comment ? comment.walkin : false);
 const [balcony, setBalcony] = useState(comment ? comment.balcony : false);
 const [elevator, setElevator] = useState(comment ? comment.elevator : false);
 const [concierge, setConcierge] = useState(comment ? comment.concierge : false);
+const [primebed, setPrimebed] = useState(comment ? comment.primebed :false);
+const [primebath, setPrimebath] = useState(comment ? comment.primebath : false);
 const [phone, setPhone] = useState(comment ? comment.phone : "");
 const [units, setUnits] = useState(comment ? comment.units : '');
 const [apartprice, setApartPrice] = useState(comment ? comment.apartprice : '');
@@ -308,6 +309,7 @@ const storage = getStorage();
           framme,
           balcony,
           ceiling,
+          primebed,
           wifi,
           address,
           city,
@@ -619,7 +621,101 @@ onChange={handleTourTimeChange}
 {/* Housing property information stops here */}
 <hr />
 
+<div style={{ color: '#fff', textAlign: 'center' }}>
+  <h2>Residental Features</h2>
+</div>
+<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="primebed" >Primary Bedroom:</label>
+<input
+type="checkbox"
+id="primebed"
+name="primebed"
+checked={primebed}
+onChange={(e) => setPrimebed(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="primebath" >Primary Bath:</label>
+<input
+type="checkbox"
+id="primebath"
+name="primebath"
+checked={primebath}
+onChange={(e) => setPrimebath(e.target.value)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="tub" >Tub/Shower:</label>
+<input
+type="checkbox"
+id="tub"
+name="tub"
+checked={tub}
+onChange={(e) => setTub(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="smoke" >Smoke Free</label>
+<input
+type="checkbox"
+id="smoke"
+name="smoke"
+checked={smoke}
+onChange={(e) => setSmoke(e.target.checked)}
+/>
+</div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="framme" >Framed Windows:</label>
+<input
+type="checkbox"
+id="framme"
+name="framme"
+checked={framme}
+onChange={(e) => setFramme(e.target.checked)}
+/>
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="wifi" >Wifi:</label>
+<input
+type="checkbox"
+id="wifi"
+name="wifi"
+checked={wifi}
+onChange={(e) => setWifi(e.target.checked)}
+/>
+</div>
+
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="parking" >Parking:</label>
+  <input
+    type="checkbox"
+    id="parking"
+    name="parking"
+    checked={parking}
+    onChange={(e) => setParking(e.target.checked)}
+  />
+</div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="wheel" >Wheelchair Accessible:</label>
+  <input
+   type="checkbox"
+    id="wheel"
+    name="wheel"
+    checked={wheel}
+    onChange={(e) => setWheel(e.target.checked)}
+  />
+</div>
+
+
+
+</div>
+
+<hr />
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Apartment Listings</h2>
 </div>
@@ -1437,21 +1533,7 @@ onChange={(e) => setState(e.target.value)}
 
 <hr />
 
-<div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Property Details</h2>
-</div>
-<div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-  <div  style={{ display: 'grid', gap: '1rem', width: '100%' }}>
-    <textarea
-      rows="10"
-      id="propertyDescription"
-      placeholder='E.g., A charming two-bedroom with scenic views...'
-      
-      value={content}
-      onChange={(e) => setContent(e.target.value)}
-    ></textarea>
-  </div>
-</div>
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>About Your Property</h2>
 </div>
@@ -1474,11 +1556,11 @@ onChange={(e) => setState(e.target.value)}
 
 <button
 type="submit"
-disabled={!isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
+disabled={!isSignedIn ||  !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
 style={{
-cursor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city ||  isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn || !content || !selectedCollection || !address || !zip || !state || !city || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !content || !selectedCollection  || !address || !zip || !state || !city || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn ||  !selectedCollection || !address || !zip || !state || !city ||  isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn ||  !selectedCollection || !address || !zip || !state || !city || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn ||  !selectedCollection  || !address || !zip || !state || !city || isLoading ? 'grey' : '#fff',
 
 }}>
 

@@ -1003,18 +1003,16 @@ margin: auto 0;
   gap: 5px;
 }
 
-/* .cover_showcase{
-  display: flex;
-  place-items: center;
-  place-content: space-evenly;
-  } */
 
 
-.cover_image, .cover_showcase1, .cover_showcase2, .cover_showcase3, .cover_showcase4, .cover_showcase5, .cover_showcase6, .cover_showcase7, .cover_showcase8,.cover_showcase9,.cover_showcase10,.cover_showcase11,.cover_showcase12 {
+
+.cover_image, .cover_showcase1, .cover_showcase2, .cover_showcase3, .cover_showcase4, .cover_showcase5, .cover_showcase6, .cover_showcase7, .cover_showcase8,.cover_showcase9,.cover_showcase10,.cover_showcase11,.cover_showcase12,.cover_showcase13,.cover_showcase14,.cover_showcase15,.cover_showcase16,.cover_showcase17,.cover_showcase18,.cover_showcase19,.cover_showcase20 {
   width: 100%;
   height: 100%; 
   object-fit: cover;
 }
+
+
 
 
 .body-content {
