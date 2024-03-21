@@ -76,9 +76,11 @@ const [oven, setOven] = useState(false);
 const [fridge, setFridge] = useState(false);
 const [freezer, setFreezer] = useState(false);
 const [balcony, setBalcony] = useState(false);
+const [primaryBedroomFeatures, setPrimaryBedroomFeatures] = useState([]);
 const [primaryBedroom, setPrimaryBedroom] = useState(false);
 const [primaryBath, setPrimaryBath] = useState(false);
 const [garage, setGarage] = useState(false);
+const [basement, setBasement] = useState(false);
 
 //pictures
 const [coverImageFile, setCoverImageFile] = useState(null);
@@ -320,6 +322,8 @@ const router = useRouter();
   tourTime,
   opentime,
   balcony,
+  garage,
+  basement,
   timestamp: new Date(),
   userEmail: user.email,
   authpic,
@@ -624,13 +628,55 @@ onChange={handleTourTimeChange}
 <div className='sm-adminform' style={{display:'flex',alignItems:'center',justifyContent:'space-evenly'}}>
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
   <label htmlFor="primaryBedroom">Primary Bedroom:</label>
-  <select id="primaryBedroom" value={primaryBedroom} onChange={(e) => setPrimaryBedroom(e.target.value)}>
+  <select
+    id="primaryBedroom"
+    value={primaryBedroom}
+    onChange={(e) => setPrimaryBedroom(e.target.value)}
+  >
     <option value="">Select Primary Bedroom Type</option>
-    <option value="large">Master Bedroom - Large</option>
+    <option value="Large">Master Bedroom - Large</option>
+    <option value="Double Master Bedroom">Double Master Bedroom</option>
     <option value="standard">Standard Size</option>
     {/* Add more options as needed */}
   </select>
-  {/* Additional checkboxes for primary bedroom features */}
+
+<label>Primary Bedroom Features:</label>
+<div style={{display:'flex',flexWrap:'wrap'}}>
+<label>
+<input
+type="checkbox"
+checked={primaryBedroomFeatures.includes('ensuiteBathroom')}
+onChange={(e) => setPrimaryBedroomFeatures(e.target.checked ? [...primaryBedroomFeatures, 'ensuiteBathroom'] : primaryBedroomFeatures.filter((f) => f !== 'ensuiteBathroom')
+)
+}
+/>En-suite Bathroom
+</label>
+<label>
+<input
+type="checkbox"
+checked={primaryBedroomFeatures.includes('walkInCloset')}
+onChange={(e) =>setPrimaryBedroomFeatures (e.target.checked ? [...primaryBedroomFeatures, 'walkInCloset'] : primaryBedroomFeatures.filter((f) => f !== 'walkInCloset')
+)
+}
+/>
+Walk-in Closet
+</label>
+
+<label>
+<input
+type="checkbox"
+checked={primaryBedroomFeatures.includes('Split Bedroom Plan')}
+onChange={(e) =>setPrimaryBedroomFeatures (e.target.checked ? [...primaryBedroomFeatures, 'Split Bedroom Plan'] : primaryBedroomFeatures.filter((f) => f !== 'Split Bedroom Plan')
+)
+}
+/>
+Split Bedroom Plan
+</label>
+
+
+
+{/* Add more checkboxes as needed */}
+</div>
 </div>
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
@@ -660,6 +706,14 @@ onChange={handleTourTimeChange}
     id="garage" 
     name="garage" 
     checked={garage} onChange={(e) => setGarage(e.target.checked)} />
+  </div>
+<div style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="basement">Basement:</label>
+    <input 
+    type="checkbox" 
+    id="basement" 
+    name="basement" 
+    checked={basement} onChange={(e) => setBasement(e.target.checked)} />
   </div>
 
 </div>
