@@ -78,12 +78,14 @@ const [freezer, setFreezer] = useState(false);
 const [balcony, setBalcony] = useState(false);
 const [primaryBedroomFeatures, setPrimaryBedroomFeatures] = useState([]);
 const [primaryBedroom, setPrimaryBedroom] = useState('');
- const [primaryBath, setPrimaryBath] = useState('');
-  const [primaryBathFeatures, setPrimaryBathFeatures] = useState([]);
-  const [dining, setDining] = useState('');
-  const [diningFeatures, setDiningFeatures] = useState([]);
-const [garage, setGarage] = useState(false);
-const [basement, setBasement] = useState(false);
+const [primaryBath, setPrimaryBath] = useState('');
+const [primaryBathFeatures, setPrimaryBathFeatures] = useState([]);
+const [dining, setDining] = useState('');
+const [diningFeatures, setDiningFeatures] = useState([]);
+const [garage, setGarage] = useState('');
+const [garageFeatures, setGarageFeatures] = useState([]);
+const [basement, setBasement] = useState('');
+const [basementFeatures, setBasementFeatures] = useState([]);
 
 //pictures
 const [coverImageFile, setCoverImageFile] = useState(null);
@@ -329,7 +331,9 @@ const router = useRouter();
   opentime,
   balcony,
   garage,
+  garageFeatures,
   basement,
+  basementFeatures,
   timestamp: new Date(),
   userEmail: user.email,
   authpic,
@@ -633,18 +637,18 @@ onChange={handleTourTimeChange}
 </div>
 <div className='sm-adminform' style={{display:'flex',alignItems:'center',justifyContent:'space-evenly'}}>
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="primaryBedroom">Primary Bedroom:</label>
-  <select
-    id="primaryBedroom"
-    value={primaryBedroom}
-    onChange={(e) => setPrimaryBedroom(e.target.value)}
-  >
-    <option value="">Select Primary Bedroom Type</option>
-    <option value="Large">Master Bedroom - Large</option>
-    <option value="Double Master Bedroom">Double Master Bedroom</option>
-    <option value="standard">Standard Size</option>
-    {/* Add more options as needed */}
-  </select>
+<label htmlFor="primaryBedroom">Primary Bedroom:</label>
+<select
+id="primaryBedroom"
+value={primaryBedroom}
+onChange={(e) => setPrimaryBedroom(e.target.value)}>
+
+<option value="">Select Primary Bedroom Type</option>
+<option value="Large">Master Bedroom</option>
+<option value="Double Master Bedroom">Double Master Bedroom</option>
+<option value="standard">Standard Size</option>
+{/* Add more options as needed */}
+</select>
 
 <label>Primary Bedroom Features:</label>
 <div style={{display:'grid'}}>
@@ -691,13 +695,12 @@ Split Bedroom Plan
         id="primaryBath"
         value={primaryBath}
         onChange={(e) => setPrimaryBath(e.target.value)}
-      >
-        <option value="">Select Primary Bath Type</option>
-        <option value="doubleVanity">Double Vanity</option>
-        <option value="singleVanity">Single Vanity</option>
-        <option value="jacuzziTub">Jacuzzi Tub</option>
-        {/* Add more options as needed */}
-      </select>
+>
+<option value="">Select Primary Bath Type</option>
+<option value="doubleVanity">Double Vanity</option>
+<option value="singleVanity">Single Vanity</option>
+{/* Add more options as needed */}
+</select>
 
       {/* Additional checkboxes for primary bath features */}
 <label>Primary Bath Features:</label>
@@ -725,11 +728,24 @@ onChange={(e) =>setPrimaryBathFeatures(e.target.checked ? [...primaryBathFeature
 />
 Dual Sinks
 </label>
+
+<label>
+<input
+type="checkbox"
+checked={primaryBathFeatures.includes('jacuzzitub')}
+onChange={(e) =>setPrimaryBathFeatures(e.target.checked ? [...primaryBathFeatures, 'jacuzzitub']
+: primaryBathFeatures.filter((f) => f !== 'jacuzzitub')
+)
+}
+/>
+Jacuzzi Tub
+</label>
 {/* Add more checkboxes as needed */}
 </div>
 </div>
 
-    <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
       <label htmlFor="dining">Dining:</label>
       <select
         id="dining"
@@ -745,69 +761,240 @@ Dual Sinks
 
       {/* Additional checkboxes for dining features */}
       <label>Dining Features:</label>
-      <div style={{ display: 'grid' }}>
-        <label>
-          <input
-            type="checkbox"
-            checked={diningFeatures.includes('butlersPane')}
-            onChange={(e) =>
-              setDiningFeatures(
-                e.target.checked
-                  ? [...diningFeatures, 'butlersPane']
-                  : diningFeatures.filter((f) => f !== 'butlersPane')
-              )
-            }
-          />
-          Butler's Pane
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={diningFeatures.includes('builltInChina')}
-            onChange={(e) =>
-              setDiningFeatures(
-                e.target.checked
-                  ? [...diningFeatures, 'builltInChina']
-                  : diningFeatures.filter((f) => f !== 'builltInChina')
-              )
-            }
-          />
-          Built-in China Cabinet
-        </label>
-        {/* Add more checkboxes as needed */}
-      </div>
-    </div>
+<div style={{ display: 'grid' }}>
+<label>
+<input
+type="checkbox"
+checked={diningFeatures.includes('butlersPane')}
+onChange={(e) => setDiningFeatures(
+e.target.checked ? [...diningFeatures, 'butlersPane']
+: diningFeatures.filter((f) => f !== 'butlersPane')
+)
+}
+/>
+Butler's Pane
+</label>
+<label>
+<input
+type="checkbox"
+checked={diningFeatures.includes('builltInChina')}
+onChange={(e) => setDiningFeatures(
+e.target.checked ? [...diningFeatures, 'builltInChina']
+: diningFeatures.filter((f) => f !== 'builltInChina')
+)
+}
+/>
+Built-in China Cabinet
+</label>
+
+<label>
+<input
+type="checkbox"
+checked={diningFeatures.includes('winecellar')}
+onChange={(e) => setDiningFeatures(
+e.target.checked ? [...diningFeatures, 'winecellar']
+: diningFeatures.filter((f) => f !== 'winecellar')
+)
+}
+/>
+Wine Cellar
+</label>
+{/* Add more checkboxes as needed */}
+</div>
+</div>
 
 
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+      {/* Garage options */}
+      <label htmlFor="garage">Garage:</label>
+      <select
+        id="garage"
+        value={garage}
+        onChange={(e) => setGarage(e.target.value)}
+      >
+        <option value="">Select Garage Type</option>
+        <option value="attachedGarage">Attached Garage</option>
+        <option value="detachedGarage">Detached Garage</option>
+        {/* Add more options as needed */}
+      </select>
+
+      {/* Additional checkboxes for garage features */}
+      <label>Garage Features:</label>
+<div style={{ display: 'grid' }}>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('automaticDoor')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'automaticDoor']
+            : garageFeatures.filter((f) => f !== 'automaticDoor')
+        )
+      }
+    />
+    Automatic Garage Door
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('workbench')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'workbench']
+            : garageFeatures.filter((f) => f !== 'workbench')
+        )
+      }
+    />
+    Workbench
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('cabinetStorage')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'cabinetStorage']
+            : garageFeatures.filter((f) => f !== 'cabinetStorage')
+        )
+      }
+    />
+    Cabinet Storage
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('floorDrain')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'floorDrain']
+            : garageFeatures.filter((f) => f !== 'floorDrain')
+        )
+      }
+    />
+    Floor Drain
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('insulatedWalls')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'insulatedWalls']
+            : garageFeatures.filter((f) => f !== 'insulatedWalls')
+        )
+      }
+    />
+    Insulated Walls
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('heatedFloors')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'heatedFloors']
+            : garageFeatures.filter((f) => f !== 'heatedFloors')
+        )
+      }
+    />
+    Heated Floors
+  </label>
+</div>
+</div>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+{/* Basement options */}
+<label htmlFor="basement">Basement:</label>
+<select
+id="basement"
+value={basement}
+onChange={(e) => setBasement(e.target.value)}
+>
+<option value="">Select Basement Type</option>
+<option value="finished">Finished Basement</option>
+<option value="unfinished">Unfinished Basement</option>
+</select>
+
+<label>Basement Features:</label>
+<div style={{ display: 'grid' }}>
+<label>
+<input
+type="checkbox"
+checked={basementFeatures.includes('wetBar')}
+onChange={(e) => setBasementFeatures(
+e.target.checked ? [...basementFeatures, 'wetBar']
+: basementFeatures.filter((f) => f !== 'wetBar')
+)
+}
+/>
+Wet Bar
+</label>
+<label>
+<input
+type="checkbox"
+checked={basementFeatures.includes('homeTheater')}
+onChange={(e) =>setBasementFeatures(
+e.target.checked? [...basementFeatures, 'homeTheater']
+: basementFeatures.filter((f) => f !== 'homeTheater')
+)
+}
+/>
+Home Theater
+</label>
+
+<label>
+<input
+type="checkbox"
+checked={basementFeatures.includes('fininshedbath')}
+onChange={(e) =>setBasementFeatures(
+e.target.checked? [...basementFeatures, 'fininshedbath']
+: basementFeatures.filter((f) => f !== 'fininshedbath')
+)
+}
+/>
+Finished Bath
+</label>
+<label>
+<input
+type="checkbox"
+checked={basementFeatures.includes('exteriorentry')}
+onChange={(e) =>setBasementFeatures(
+e.target.checked? [...basementFeatures, 'exteriorentry']
+: basementFeatures.filter((f) => f !== 'exteriorentry')
+)
+}
+/>
+Exterior Entry
+</label>
+
+<label>
+<input
+type="checkbox"
+checked={basementFeatures.includes('daylight')}
+onChange={(e) =>setBasementFeatures(
+e.target.checked? [...basementFeatures, 'daylight']
+: basementFeatures.filter((f) => f !== 'daylight')
+)
+}
+/>
+Daylight
+</label>
+{/* Add more checkboxes as needed */}
+</div>
 
 
 </div>
-<hr />
-<div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Residental Features</h2>
-</div>
-<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
-
-
-<div style={{ display: 'grid', gap: '1rem' }}>
-    <label htmlFor="garage">Garage:</label>
-    <input 
-    type="checkbox" 
-    id="garage" 
-    name="garage" 
-    checked={garage} onChange={(e) => setGarage(e.target.checked)} />
-  </div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-    <label htmlFor="basement">Basement:</label>
-    <input 
-    type="checkbox" 
-    id="basement" 
-    name="basement" 
-    checked={basement} onChange={(e) => setBasement(e.target.checked)} />
-  </div>
 
 </div>
+
 
 <hr />
 

@@ -25,7 +25,16 @@ const [price, setPrice] = useState(comment ? comment.price : "");
 const [priceextra, setPriceextra] = useState(comment ? comment.priceextra : "");
 const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'Monthly');
 const [billingFrequency2, setBillingFrequency2] = useState(comment ? comment.billingFrequency2 : 'Monthly');
-
+const [primaryBedroomFeatures, setPrimaryBedroomFeatures] = useState(comment ? comment.primaryBedroomFeatures : []);
+const [primaryBedroom, setPrimaryBedroom] = useState(comment ? comment.primaryBedroom : '');
+const [primaryBath, setPrimaryBath] = useState(comment ? comment.primaryBath : '');
+const [primaryBathFeatures, setPrimaryBathFeatures] = useState(comment ? comment.primaryBathFeatures : []);
+const [dining, setDining] = useState(comment ? comment.dining : '');
+const [diningFeatures, setDiningFeatures] = useState(comment ? comment.diningFeatures : []);
+const [garage, setGarage] = useState(comment ? comment.garage : '');
+const [garageFeatures, setGarageFeatures] = useState(comment ? comment.garageFeatures : []);
+const [basement, setBasement] = useState(comment ? comment.basement : '');
+const [basementFeatures, setBasementFeatures] = useState(comment ? comment.basementFeatures : []);
 const [bedrooms, setBedrooms] = useState(comment ? comment.bedrooms : "1");
 const [bathrooms, setBathrooms] = useState(comment ? comment.bathrooms : "1");
 const [square, setSquare] = useState(comment ? comment.square : "");
@@ -258,84 +267,92 @@ const storage = getStorage();
         const docRef = doc(db, selectedCollection, comment.id);
         await updateDoc(docRef, {
           userId: user.uid,
-          aboutcontent,
-          content,
-          title,
-          owner,
-          phone,
-          price,
-          priceextra,
-          bedrooms,
-          bathrooms,
-          square,
-          billingFrequency,
-          billingFrequency2,
-          units,
-          apartavailability,
-          apartbillingFrequency2,
-          apartprice,
-          apartsquare,
-          apartbathrooms,
-          apartbedrooms,
-          aparttourTime,
-          water,
-          lights,
-          cable,
-          laundry,
-          elevator,
-          play,
-          concierge,
-          club,
-          fireplace,
-          airConditioning,
-          heating,
-          pool,
-          sprink,
-          tub,
-          walkin,
-          smoke,
-          stoorage,
-          wheel,
-          disposal,
-          dishwasher,
-          island,
-          kitchen,
-          microwave,
-          oven,
-          fridge,
-          freezer,
-          framme,
-          balcony,
-          ceiling,
-          primebed,
-          wifi,
-          address,
-          city,
-          state,
-          zip,
-          gym,
-          pet,
-          manager,
-          parking,
-          tourTime,
-          opentime,
-          timestamp: new Date(),
-          userEmail: user.email,
-          authpic,
-          cover_image,
-          cover_showcase1,
-          cover_showcase2,
-          cover_showcase3,
-          cover_showcase4,
-          cover_showcase5,
-          cover_showcase6,
-          cover_showcase7,
-          cover_showcase8,
-          cover_showcase9,
-          cover_showcase10,
-          cover_showcase11,
-          cover_showcase12,
-          propertyType: selectedCollection, 
+  aboutcontent,
+  title,
+  owner,
+  phone,
+  price,
+  priceextra,
+  bedrooms,
+  bathrooms,
+  square,
+  billingFrequency,
+  billingFrequency2,
+  units,
+  apartavailability,
+  apartbillingFrequency2,
+  apartprice,
+  apartsquare,
+  apartbathrooms,
+  apartbedrooms,
+  aparttourTime,
+  water,
+  lights,
+  cable,
+  laundry,
+  elevator,
+  play,
+  concierge,
+  club,
+  fireplace,
+  airConditioning,
+  heating,
+  pool,
+  sprink,
+  tub,
+  walkin,
+  smoke,
+  stoorage,
+  wheel,
+  disposal,
+  dishwasher,
+  island,
+  kitchen,
+  microwave,
+  oven,
+  fridge,
+  freezer,
+  framme,
+  ceiling,
+  wifi,
+  address,
+  city,
+  state,
+  zip,
+  gym,
+  pet,
+  primaryBedroomFeatures,
+  primaryBedroom,
+  primaryBath,
+  primaryBathFeatures,
+  dining,
+  diningFeatures,
+  manager,
+  parking,
+  tourTime,
+  opentime,
+  balcony,
+  garage,
+  garageFeatures,
+  basement,
+  basementFeatures,
+  timestamp: new Date(),
+  userEmail: user.email,
+  authpic,
+  cover_image,
+  cover_showcase1,
+  cover_showcase2,
+  cover_showcase3,
+  cover_showcase4,
+  cover_showcase5,
+  cover_showcase6,
+  cover_showcase7,
+  cover_showcase8,
+  cover_showcase9,
+  cover_showcase10,
+  cover_showcase11,
+  cover_showcase12,
+propertyType: selectedCollection, 
       });
         window.location.reload()
   
@@ -618,102 +635,372 @@ onChange={handleTourTimeChange}
 </div>
 {/* Housing property information stops here */}
 <hr />
-
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Residental Features</h2>
+  <h2>Interior Features</h2>
 </div>
-<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+<div className='sm-adminform' style={{display:'flex',alignItems:'center',justifyContent:'space-evenly'}}>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="primaryBedroom">Primary Bedroom:</label>
+<select
+id="primaryBedroom"
+value={primaryBedroom}
+onChange={(e) => setPrimaryBedroom(e.target.value)}>
 
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="primebed" >Primary Bedroom:</label>
+<option value="">Select Primary Bedroom Type</option>
+<option value="Large">Master Bedroom</option>
+<option value="Double Master Bedroom">Double Master Bedroom</option>
+<option value="standard">Standard Size</option>
+{/* Add more options as needed */}
+</select>
+
+<label>Primary Bedroom Features:</label>
+<div style={{display:'grid'}}>
+<label>
 <input
 type="checkbox"
-id="primebed"
-name="primebed"
-checked={primebed}
-onChange={(e) => setPrimebed(e.target.checked)}
-/>
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="primebath" >Primary Bath:</label>
+checked={primaryBedroomFeatures.includes('ensuiteBathroom')}
+onChange={(e) => setPrimaryBedroomFeatures(e.target.checked ? [...primaryBedroomFeatures, 'ensuiteBathroom'] : primaryBedroomFeatures.filter((f) => f !== 'ensuiteBathroom')
+)
+}
+/>En-suite Bathroom
+</label>
+<label>
 <input
 type="checkbox"
-id="primebath"
-name="primebath"
-checked={primebath}
-onChange={(e) => setPrimebath(e.target.value)}
+checked={primaryBedroomFeatures.includes('walkInCloset')}
+onChange={(e) =>setPrimaryBedroomFeatures (e.target.checked ? [...primaryBedroomFeatures, 'walkInCloset'] : primaryBedroomFeatures.filter((f) => f !== 'walkInCloset')
+)
+}
 />
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="tub" >Tub/Shower:</label>
+Walk-in Closet
+</label>
+
+<label>
 <input
 type="checkbox"
-id="tub"
-name="tub"
-checked={tub}
-onChange={(e) => setTub(e.target.checked)}
+checked={primaryBedroomFeatures.includes('Split Bedroom Plan')}
+onChange={(e) =>setPrimaryBedroomFeatures (e.target.checked ? [...primaryBedroomFeatures, 'Split Bedroom Plan'] : primaryBedroomFeatures.filter((f) => f !== 'Split Bedroom Plan')
+)
+}
 />
+Split Bedroom Plan
+</label>
+
+
+
+{/* Add more checkboxes as needed */}
 </div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="smoke" >Smoke Free</label>
+</div>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+      <label htmlFor="primaryBath">Primary Bath:</label>
+      <select
+        id="primaryBath"
+        value={primaryBath}
+        onChange={(e) => setPrimaryBath(e.target.value)}
+>
+<option value="">Select Primary Bath Type</option>
+<option value="doubleVanity">Double Vanity</option>
+<option value="singleVanity">Single Vanity</option>
+{/* Add more options as needed */}
+</select>
+
+      {/* Additional checkboxes for primary bath features */}
+<label>Primary Bath Features:</label>
+<div style={{display:'grid'}}>
+<label>
 <input
 type="checkbox"
-id="smoke"
-name="smoke"
-checked={smoke}
-onChange={(e) => setSmoke(e.target.checked)}
+checked={primaryBathFeatures.includes('separateShower')}
+onChange={(e) =>
+setPrimaryBathFeatures(e.target.checked ? [...primaryBathFeatures, 'separateShower']
+: primaryBathFeatures.filter((f) => f !== 'separateShower')
+)
+}
 />
-</div>
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="framme" >Framed Windows:</label>
+Separate Shower
+</label>
+<label>
 <input
 type="checkbox"
-id="framme"
-name="framme"
-checked={framme}
-onChange={(e) => setFramme(e.target.checked)}
+checked={primaryBathFeatures.includes('dualSinks')}
+onChange={(e) =>setPrimaryBathFeatures(e.target.checked ? [...primaryBathFeatures, 'dualSinks']
+: primaryBathFeatures.filter((f) => f !== 'dualSinks')
+)
+}
 />
-</div>
+Dual Sinks
+</label>
 
-<div style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="wifi" >Wifi:</label>
+<label>
 <input
 type="checkbox"
-id="wifi"
-name="wifi"
-checked={wifi}
-onChange={(e) => setWifi(e.target.checked)}
+checked={primaryBathFeatures.includes('jacuzzitub')}
+onChange={(e) =>setPrimaryBathFeatures(e.target.checked ? [...primaryBathFeatures, 'jacuzzitub']
+: primaryBathFeatures.filter((f) => f !== 'jacuzzitub')
+)
+}
 />
+Jacuzzi Tub
+</label>
+{/* Add more checkboxes as needed */}
+</div>
 </div>
 
 
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="parking" >Parking:</label>
-  <input
-    type="checkbox"
-    id="parking"
-    name="parking"
-    checked={parking}
-    onChange={(e) => setParking(e.target.checked)}
-  />
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+      <label htmlFor="dining">Dining:</label>
+      <select
+        id="dining"
+        value={dining}
+        onChange={(e) => setDining(e.target.value)}
+      >
+        <option value="">Select Dining Type</option>
+        <option value="formalDiningRoom">Formal Dining Room</option>
+        <option value="casualDiningArea">Casual Dining Area</option>
+        <option value="openConcept">Open Concept Dining</option>
+        {/* Add more options as needed */}
+      </select>
+
+      {/* Additional checkboxes for dining features */}
+      <label>Dining Features:</label>
+<div style={{ display: 'grid' }}>
+<label>
+<input
+type="checkbox"
+checked={diningFeatures.includes('butlersPane')}
+onChange={(e) => setDiningFeatures(
+e.target.checked ? [...diningFeatures, 'butlersPane']
+: diningFeatures.filter((f) => f !== 'butlersPane')
+)
+}
+/>
+Butler's Pane
+</label>
+<label>
+<input
+type="checkbox"
+checked={diningFeatures.includes('builltInChina')}
+onChange={(e) => setDiningFeatures(
+e.target.checked ? [...diningFeatures, 'builltInChina']
+: diningFeatures.filter((f) => f !== 'builltInChina')
+)
+}
+/>
+Built-in China Cabinet
+</label>
+
+<label>
+<input
+type="checkbox"
+checked={diningFeatures.includes('winecellar')}
+onChange={(e) => setDiningFeatures(
+e.target.checked ? [...diningFeatures, 'winecellar']
+: diningFeatures.filter((f) => f !== 'winecellar')
+)
+}
+/>
+Wine Cellar
+</label>
+{/* Add more checkboxes as needed */}
+</div>
 </div>
 
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="wheel" >Wheelchair Accessible:</label>
-  <input
-   type="checkbox"
-    id="wheel"
-    name="wheel"
-    checked={wheel}
-    onChange={(e) => setWheel(e.target.checked)}
-  />
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+      {/* Garage options */}
+      <label htmlFor="garage">Garage:</label>
+      <select
+        id="garage"
+        value={garage}
+        onChange={(e) => setGarage(e.target.value)}
+      >
+        <option value="">Select Garage Type</option>
+        <option value="attachedGarage">Attached Garage</option>
+        <option value="detachedGarage">Detached Garage</option>
+        {/* Add more options as needed */}
+      </select>
+
+      {/* Additional checkboxes for garage features */}
+      <label>Garage Features:</label>
+<div style={{ display: 'grid' }}>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('automaticDoor')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'automaticDoor']
+            : garageFeatures.filter((f) => f !== 'automaticDoor')
+        )
+      }
+    />
+    Automatic Garage Door
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('workbench')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'workbench']
+            : garageFeatures.filter((f) => f !== 'workbench')
+        )
+      }
+    />
+    Workbench
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('cabinetStorage')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'cabinetStorage']
+            : garageFeatures.filter((f) => f !== 'cabinetStorage')
+        )
+      }
+    />
+    Cabinet Storage
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('floorDrain')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'floorDrain']
+            : garageFeatures.filter((f) => f !== 'floorDrain')
+        )
+      }
+    />
+    Floor Drain
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('insulatedWalls')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'insulatedWalls']
+            : garageFeatures.filter((f) => f !== 'insulatedWalls')
+        )
+      }
+    />
+    Insulated Walls
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={garageFeatures.includes('heatedFloors')}
+      onChange={(e) =>
+        setGarageFeatures(
+          e.target.checked
+            ? [...garageFeatures, 'heatedFloors']
+            : garageFeatures.filter((f) => f !== 'heatedFloors')
+        )
+      }
+    />
+    Heated Floors
+  </label>
+</div>
+</div>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+
+{/* Basement options */}
+<label htmlFor="basement">Basement:</label>
+<select
+id="basement"
+value={basement}
+onChange={(e) => setBasement(e.target.value)}
+>
+<option value="">Select Basement Type</option>
+<option value="finished">Finished Basement</option>
+<option value="unfinished">Unfinished Basement</option>
+</select>
+
+<label>Basement Features:</label>
+<div style={{ display: 'grid' }}>
+<label>
+<input
+type="checkbox"
+checked={basementFeatures.includes('wetBar')}
+onChange={(e) => setBasementFeatures(
+e.target.checked ? [...basementFeatures, 'wetBar']
+: basementFeatures.filter((f) => f !== 'wetBar')
+)
+}
+/>
+Wet Bar
+</label>
+<label>
+<input
+type="checkbox"
+checked={basementFeatures.includes('homeTheater')}
+onChange={(e) =>setBasementFeatures(
+e.target.checked? [...basementFeatures, 'homeTheater']
+: basementFeatures.filter((f) => f !== 'homeTheater')
+)
+}
+/>
+Home Theater
+</label>
+
+<label>
+<input
+type="checkbox"
+checked={basementFeatures.includes('fininshedbath')}
+onChange={(e) =>setBasementFeatures(
+e.target.checked? [...basementFeatures, 'fininshedbath']
+: basementFeatures.filter((f) => f !== 'fininshedbath')
+)
+}
+/>
+Finished Bath
+</label>
+<label>
+<input
+type="checkbox"
+checked={basementFeatures.includes('exteriorentry')}
+onChange={(e) =>setBasementFeatures(
+e.target.checked? [...basementFeatures, 'exteriorentry']
+: basementFeatures.filter((f) => f !== 'exteriorentry')
+)
+}
+/>
+Exterior Entry
+</label>
+
+<label>
+<input
+type="checkbox"
+checked={basementFeatures.includes('daylight')}
+onChange={(e) =>setBasementFeatures(
+e.target.checked? [...basementFeatures, 'daylight']
+: basementFeatures.filter((f) => f !== 'daylight')
+)
+}
+/>
+Daylight
+</label>
+{/* Add more checkboxes as needed */}
 </div>
 
 
+</div>
+
 
 </div>
+
 
 <hr />
+
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Apartment Listings</h2>
 </div>
@@ -1547,6 +1834,8 @@ onChange={(e) => setState(e.target.value)}
     ></textarea>
   </div>
 </div>
+
+
 
 
 

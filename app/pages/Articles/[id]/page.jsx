@@ -71,8 +71,9 @@ return (
 </div>
 {/**block for goback btn and title */}
 {/**block for img */}
+
 <div className="imgbox">
-<div className="scrolling-wrapper">
+<div className='scrolling-wrapper'>
 {post.cover_image && (
 <img className="cover_image" src={post.cover_image} alt="Property Cover" />
 )}
@@ -204,29 +205,57 @@ width:'15rem'
 
 <div style={{  margin: '1rem',lineHeight:'6' }}>Listing By: {post.owner}</div>
 
-
 {post.primaryBedroomFeatures && (
-  <div style={{}} className="amenities-grid">
-    <span style={{ padding: '0 1rem', fontWeight: 'bold' }}>Interior</span>
-    <div className='sm-span' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
-      {post.primaryBedroom && <li>Double Master Bedroom</li>}
-      {post.garage && <li>Garage</li>}
-      {post.basement && <li>Basement</li>}
-      {post.primaryBedroomFeatures.includes("ensuiteBathroom") && <li>Ensuite Bathroom</li>}
-      {post.primaryBedroomFeatures.includes("walkInCloset") && <li>Walk-in Closet</li>}
-      {post.primaryBedroomFeatures.includes("Split Bedroom Plan") && <li>Split Bedroom Plan</li>}
-      
-      {post.primaryBathFeatures && (
-        <>
-          {post.primaryBathroom && <li>Double Vanity</li>}
-          {/* {post.primaryBathFeatures.includes("ensuiteBathroom") && <li>Ensuite Bathroom</li>}
-          {post.primaryBathFeatures.includes("walkInCloset") && <li>Walk-in Closet</li>}
-          {post.primaryBathFeatures.includes("Split Bedroom Plan") && <li>Split Bedroom Plan</li>} */}
-        </>
-      )}
-    </div>
-  </div>
+<div style={{}} className="amenities-grid">
+<span style={{ padding: '0 1rem', fontWeight: 'bold' }}>Interior</span>
+<div className='sm-span interior-li' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', alignItems: 'center' }}>
+{post.primaryBedroom && <li>Double Master Bedroom</li>}
+{post.primaryBedroomFeatures.includes("ensuiteBathroom") && <li>Ensuite Bathroom</li>}
+{post.primaryBedroomFeatures.includes("walkInCloset") && <li>Walk-in Closet</li>}
+{post.primaryBedroomFeatures.includes("Split Bedroom Plan") && <li>Split Bedroom Plan</li>}
+{post.primaryBathFeatures && (
+<>
+{post.primaryBath && <li>Double Vanity</li>}
+{post.primaryBathFeatures.includes("separateShower") && <li>Separate Shower</li>}
+{post.primaryBathFeatures.includes("dualSinks") && <li>Dual Sinks</li>}
+{post.primaryBathFeatures.includes("jacuzziTub") && <li>Jacuzzi Tub</li>}
+</>
 )}
+
+{post.garageFeatures && (
+<>
+{post.garage && <li>Attached Garage</li>}
+{post.garageFeatures.includes("automaticDoor") && <li>Automatic Door</li>}
+{post.garageFeatures.includes("workbench") && <li>Work Bench</li>}
+{post.garageFeatures.includes("cabinetStorage") && <li>Cabinet Storage</li>}
+{post.garageFeatures.includes("floorDrain") && <li>Floor Drain</li>}
+{post.garageFeatures.includes("insulatedWalls") && <li>Insulated Walls</li>}
+{post.garageFeatures.includes("heatedFloors") && <li>Heated Floors</li>}
+</>
+)}
+
+{post.basementFeatures && (
+<>        
+{post.basement && <li>Finished</li>}
+{post.basementFeatures.includes("wetBar") && <li>Wet Bar</li>}
+{post.basementFeatures.includes("homeTheater") && <li>Home Theater</li>}
+{post.basementFeatures.includes("fininshedbath") && <li>Fininshed Bath</li>}
+{post.basementFeatures.includes("daylight") && <li>Daylight</li>}
+</>
+)}
+
+{post.diningFeatures && (
+<>
+{post.dining && <li>Open Concept</li>}
+{post.diningFeatures.includes("butlersPane") && <li>Butlers Pane</li>}
+{post.diningFeatures.includes("builltInChina") && <li>Buillt-In China</li>}
+{post.diningFeatures.includes("winecellar") && <li>Wine Cellar</li>}
+</>
+)}
+</div>
+</div>
+)}
+
 
 
 
