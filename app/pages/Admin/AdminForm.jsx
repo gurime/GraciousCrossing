@@ -77,8 +77,11 @@ const [fridge, setFridge] = useState(false);
 const [freezer, setFreezer] = useState(false);
 const [balcony, setBalcony] = useState(false);
 const [primaryBedroomFeatures, setPrimaryBedroomFeatures] = useState([]);
-const [primaryBedroom, setPrimaryBedroom] = useState(false);
-const [primaryBath, setPrimaryBath] = useState(false);
+const [primaryBedroom, setPrimaryBedroom] = useState('');
+ const [primaryBath, setPrimaryBath] = useState('');
+  const [primaryBathFeatures, setPrimaryBathFeatures] = useState([]);
+  const [dining, setDining] = useState('');
+  const [diningFeatures, setDiningFeatures] = useState([]);
 const [garage, setGarage] = useState(false);
 const [basement, setBasement] = useState(false);
 
@@ -261,7 +264,6 @@ const router = useRouter();
   const docRef = await addDoc(collection(db, selectedCollection), {
   userId: user.uid,
   aboutcontent,
-  content,
   title,
   owner,
   phone,
@@ -315,8 +317,12 @@ const router = useRouter();
   zip,
   gym,
   pet,
-  primebed,
-  primebath,
+  primaryBedroomFeatures,
+  primaryBedroom,
+  primaryBath,
+  primaryBathFeatures,
+  dining,
+  diningFeatures,
   manager,
   parking,
   tourTime,
@@ -641,7 +647,7 @@ onChange={handleTourTimeChange}
   </select>
 
 <label>Primary Bedroom Features:</label>
-<div style={{display:'flex',flexWrap:'wrap'}}>
+<div style={{display:'grid'}}>
 <label>
 <input
 type="checkbox"
@@ -680,16 +686,101 @@ Split Bedroom Plan
 </div>
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="primaryBath">Primary Bath:</label>
-  <select id="primaryBath" value={primaryBath} onChange={(e) => setPrimaryBath(e.target.value)}>
-    <option value="">Select Primary Bath Type</option>
-    <option value="doubleVanity">Master Bath - Double Vanity</option>
-    <option value="singleVanity">Single Vanity</option>
-    <option value="jacuzziTub">Jacuzzi Tub</option>
-    {/* Add more options as needed */}
-  </select>
-  {/* Additional checkboxes for primary bath features */}
+      <label htmlFor="primaryBath">Primary Bath:</label>
+      <select
+        id="primaryBath"
+        value={primaryBath}
+        onChange={(e) => setPrimaryBath(e.target.value)}
+      >
+        <option value="">Select Primary Bath Type</option>
+        <option value="doubleVanity">Double Vanity</option>
+        <option value="singleVanity">Single Vanity</option>
+        <option value="jacuzziTub">Jacuzzi Tub</option>
+        {/* Add more options as needed */}
+      </select>
+
+      {/* Additional checkboxes for primary bath features */}
+<label>Primary Bath Features:</label>
+<div style={{display:'grid'}}>
+<label>
+<input
+type="checkbox"
+checked={primaryBathFeatures.includes('separateShower')}
+onChange={(e) =>
+setPrimaryBathFeatures(e.target.checked ? [...primaryBathFeatures, 'separateShower']
+: primaryBathFeatures.filter((f) => f !== 'separateShower')
+)
+}
+/>
+Separate Shower
+</label>
+<label>
+<input
+type="checkbox"
+checked={primaryBathFeatures.includes('dualSinks')}
+onChange={(e) =>setPrimaryBathFeatures(e.target.checked ? [...primaryBathFeatures, 'dualSinks']
+: primaryBathFeatures.filter((f) => f !== 'dualSinks')
+)
+}
+/>
+Dual Sinks
+</label>
+{/* Add more checkboxes as needed */}
 </div>
+</div>
+
+    <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+      <label htmlFor="dining">Dining:</label>
+      <select
+        id="dining"
+        value={dining}
+        onChange={(e) => setDining(e.target.value)}
+      >
+        <option value="">Select Dining Type</option>
+        <option value="formalDiningRoom">Formal Dining Room</option>
+        <option value="casualDiningArea">Casual Dining Area</option>
+        <option value="openConcept">Open Concept Dining</option>
+        {/* Add more options as needed */}
+      </select>
+
+      {/* Additional checkboxes for dining features */}
+      <label>Dining Features:</label>
+      <div style={{ display: 'grid' }}>
+        <label>
+          <input
+            type="checkbox"
+            checked={diningFeatures.includes('butlersPane')}
+            onChange={(e) =>
+              setDiningFeatures(
+                e.target.checked
+                  ? [...diningFeatures, 'butlersPane']
+                  : diningFeatures.filter((f) => f !== 'butlersPane')
+              )
+            }
+          />
+          Butler's Pane
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={diningFeatures.includes('builltInChina')}
+            onChange={(e) =>
+              setDiningFeatures(
+                e.target.checked
+                  ? [...diningFeatures, 'builltInChina']
+                  : diningFeatures.filter((f) => f !== 'builltInChina')
+              )
+            }
+          />
+          Built-in China Cabinet
+        </label>
+        {/* Add more checkboxes as needed */}
+      </div>
+    </div>
+
+
+
+
 </div>
 <hr />
 <div style={{ color: '#fff', textAlign: 'center' }}>

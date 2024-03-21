@@ -205,6 +205,29 @@ width:'15rem'
 <div style={{  margin: '1rem',lineHeight:'6' }}>Listing By: {post.owner}</div>
 
 
+{post.primaryBedroomFeatures && (
+  <div style={{}} className="amenities-grid">
+    <span style={{ padding: '0 1rem', fontWeight: 'bold' }}>Interior</span>
+    <div className='sm-span' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+      {post.primaryBedroom && <li>Double Master Bedroom</li>}
+      {post.garage && <li>Garage</li>}
+      {post.basement && <li>Basement</li>}
+      {post.primaryBedroomFeatures.includes("ensuiteBathroom") && <li>Ensuite Bathroom</li>}
+      {post.primaryBedroomFeatures.includes("walkInCloset") && <li>Walk-in Closet</li>}
+      {post.primaryBedroomFeatures.includes("Split Bedroom Plan") && <li>Split Bedroom Plan</li>}
+      
+      {post.primaryBathFeatures && (
+        <>
+          {post.primaryBathroom && <li>Double Vanity</li>}
+          {/* {post.primaryBathFeatures.includes("ensuiteBathroom") && <li>Ensuite Bathroom</li>}
+          {post.primaryBathFeatures.includes("walkInCloset") && <li>Walk-in Closet</li>}
+          {post.primaryBathFeatures.includes("Split Bedroom Plan") && <li>Split Bedroom Plan</li>} */}
+        </>
+      )}
+    </div>
+  </div>
+)}
+
 
 
 
@@ -359,17 +382,14 @@ post.pet
 
 
 
-<h2 className='sm-aboutspan' style={{  margin: '1rem',fontSize:'1.875rem',color:'#5a5a5a' }}>Property Details</h2>
-<div className="body-content" style={{whiteSpace:'pre-line'}}><p>{post.content}</p></div>
+
 <hr />
 <h2 className='sm-aboutspan' style={{  margin: '1rem',fontSize:'1.875rem',color:'#5a5a5a' }}>About {post.title}</h2>
 <div className="body-content" ><p>{post.aboutcontent}</p></div>
 
 
 
-<div className='artilceGoUpbtn'><Goup/>
-
-</div>
+<div className='artilceGoUpbtn'><Goup/></div>
 </div>
 <Footer/>
 </>
