@@ -7,110 +7,102 @@ letter-spacing: 2px;
 }
 
 .adminnav{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #3684fa;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: #3684fa;
 }
 
 .adminform{
-    margin: auto;
-    width: 100%;
-    padding: 1rem 0;
-    
+margin: auto;
+width: 100%;
+padding: 1rem 0;
 }
 
 .sm-adminform{
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
+flex-wrap: wrap;
+margin-bottom: 2rem;
 }
 
 .adminform_bg{
-
-  
-    background-color: #151516;
-    background-image: linear-gradient(43deg, #151516 0%, #443f3f 46%, #333333 100%);
-    width: 100%;
-  
+background-color: #151516;
+background-image: linear-gradient(43deg, #151516 0%, #443f3f 46%, #333333 100%);
+width: 100%;
 }
 
 .adminform label{
-  color: #fff;
-  line-height: 40px;
-
+color: #fff;
+line-height: 40px;
 }
+
 .admin_login{
-  display: flex;
-  flex-direction: column;
-  width: 20%;
-  padding: 0 1rem;
+display: flex;
+flex-direction: column;
+width: 20%;
+padding: 0 1rem;
 }
 
 .admin_login h1{
-  color: #fff;
-  text-align: center;
-  letter-spacing: 4px;
-    font-weight: 300;
+color: #fff;
+text-align: center;
+letter-spacing: 4px;
+font-weight: 300;
 }
 
 .adminform input{ 
-  
-    height: 46px;
-    font-size: 18px;
-    letter-spacing: 2px;
-    outline: none;
-    background: transparent;
-    border: none;
-    margin-bottom: 24px;
+height: 46px;
+font-size: 18px;
+letter-spacing: 2px;
+outline: none;
+background: transparent;
+border: none;
+margin-bottom: 24px;
 color: #fff;
- border-bottom: solid 1px #fff;
+border-bottom: solid 1px #fff;
 }
-.adminform select{ 
-  
-    height: 46px;
-    font-size: 18px;
-    letter-spacing: 2px;
-    outline: none;
-    background: transparent;
-    border: none;
-    margin-bottom: 24px;
-color: #fff;
- border-bottom: solid 1px #fff;
-}
-.adminform option{ 
-  
-  
-color: #000000;
 
+.adminform select{ 
+height: 46px;
+font-size: 18px;
+letter-spacing: 2px;
+outline: none;
+background: transparent;
+border: none;
+margin-bottom: 24px;
+color: #fff;
+border-bottom: solid 1px #fff;
+}
+
+.adminform option{ 
+color: #000000;
 }
 
 .adminform input[type="checkbox"] {
-  width: 20px; 
-  height: 20px;
-  
+width: 20px; 
+height: 20px;
 }
 
 .adminform textarea {
-  border: none;
-  width: 50%;
-  padding: 10px;
-  margin: auto;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #fff;
-  font-size: 16px;
-  resize: none;
-  letter-spacing: 1px;
-  outline: none;
-  background: transparent;
-  color: #fff;
+border: none;
+width: 50%;
+padding: 10px;
+margin: auto;
+margin-bottom: 20px;
+border-bottom: 1px solid #fff;
+font-size: 16px;
+resize: none;
+letter-spacing: 1px;
+outline: none;
+background: transparent;
+color: #fff;
 }
 
 .adminform button{
-  display: flex;
-  margin: 1rem auto;
-  justify-content: center;
-  background-color: #009fdd;
-  width: 50% !important;
+display: flex;
+margin: 1rem auto;
+justify-content: center;
+background-color: #009fdd;
+width: 50% !important;
 text-align: center;
 color: white;
 padding: 10px 20px;
@@ -124,80 +116,81 @@ width: 100%;
 
 
 @media(max-width:768px){
-  .sm-adminform{
-    flex-direction: column;
-    align-items: normal;
-  }
+.sm-adminform{
+flex-direction: column;
+align-items: normal;
+}
 
-  .admin_login{
-    width: 100%;
-  }
+.admin_login{
+width: 100%;
+}
 
-  .adminform textarea {
-    width: 100%;
-  }
-  .adminform button{
-    width: 100% !important;
-  }
+.adminform textarea {
+width: 100%;
+}
 
-  .sm-adminform-checkbox{
-    display: grid !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
+.adminform button{
+width: 100% !important;
+}
 
-  .sm-adminform-input{
-    width: 100%;
-  }
+.sm-adminform-checkbox{
+display: grid !important;
+justify-content: center !important;
+align-items: center !important;
+}
+
+.sm-adminform-input{
+width: 100%;
+}
 }
 
 .contribute-box {
-  display: flex;
-  margin: 3rem auto;
-  justify-content: space-evenly;
-  padding: 0 1rem;
-  place-items: center;
+display: flex;
+margin: 3rem auto;
+justify-content: space-evenly;
+padding: 0 1rem;
+place-items: center;
 }
 
 .contribute-leftbox {
-  height: auto;
-  padding: 2rem 0;
+height: auto;
+padding: 2rem 0;
 }
 
 .contribute-leftbox img {
-  width: auto;
-  display: flex;
-  height: 110px;
-  margin: auto;
+width: auto;
+display: flex;
+height: 110px;
+margin: auto;
 }
 
 .formbox input, .formbox textarea {
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #6d1ffa;
-  text-indent: 7px;
+width: 100%;
+border-radius: 5px;
+border: 1px solid #6d1ffa;
+text-indent: 7px;
 }
 
 .formbox input {
-  padding: 1rem 0;
-  outline: none;
-  font-size: 20px;
+padding: 1rem 0;
+outline: none;
+font-size: 20px;
 }
 
 .formbox input, .formbox label {
-  margin-bottom: 1rem;
-  letter-spacing: 1px;
+margin-bottom: 1rem;
+letter-spacing: 1px;
 }
 
 .formbox button {
-  background-color: #6d1ffa;
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  cursor: pointer;
-  outline: none;
-  padding: 20px;
-  width: 100%;
+background-color: #6d1ffa;
+border: none;
+border-radius: 10px;
+color: #fff;
+cursor: pointer;
+outline: none;
+padding: 20px;
+width: 100%;
 }
 
 .nav{
@@ -246,8 +239,8 @@ padding: 0 1rem;
 }
 
 .navlinks{
-  display: flex;
-  flex-wrap: wrap;
+display: flex;
+flex-wrap: wrap;
 margin-bottom: 1rem;
 }
       
@@ -268,15 +261,15 @@ font-size: 13px;
 }
 
 @media(max-width:500px){
-  .navlinks button{
-    margin-left: 30px;
-  }
+.navlinks button{
+margin-left: 30px;
+}
 }
 
 @media(max-width:768px){
-  .sm-navlinks12 a{
-    font-size: 11px;
-  }
+.sm-navlinks12 a{
+font-size: 11px;
+}
 }
 /* navbar stops here */
 
@@ -309,11 +302,11 @@ letter-spacing: 1px;
 
 
 .search-results-container {
-  background-color: #fff;
-  z-index: 999;
-  position: absolute;
-  width: 100%;
-  top: 230px;
+background-color: #fff;
+z-index: 999;
+position: absolute;
+width: 100%;
+top: 230px;
 }
 
 
@@ -334,9 +327,9 @@ font-weight: 300;
 }
 
 @media(max-width:768px){
-  .search-results-container p{
-    font-size: 12px;
-  }
+.search-results-container p{
+font-size: 12px;
+}
 }
 
 
@@ -458,59 +451,57 @@ cursor: pointer;
 
 @media(max-width:768px)
 {
-  .cards{
-    grid-template-columns: 1fr 1fr !important;
-  }
+.cards{
+grid-template-columns: 1fr 1fr !important;
+}
 }
 /* Define a base width for larger screens */
 
 
 /* Adjust width based on screen size */
 @media (max-width: 3440px) {
- .search-results-container {
-   width: 97%;
- }
+.search-results-container {
+width: 97%;
+}
 }
 
 @media (max-width: 3100px) {
- .search-results-container {
-   width: 96.7%;
- }
+.search-results-container {
+width: 96.7%;
+}
 }
 
 @media (max-width: 2800px) {
- .search-results-container {
-   width: 96%;
- }
+.search-results-container {
+width: 96%;
+}
 }
 
 @media (max-width: 2400px) {
- .search-results-container {
-   width: 95.5%;
- }
+.search-results-container {
+width: 95.5%;
+}
 }
 
 @media (max-width: 2100px) {
- .search-results-container {
-   width: 94.8%;
- }
+.search-results-container {
+width: 94.8%;
+}
 }
 
 @media (max-width: 1800px) {
- .search-results-container {
-   width: 94.1%;
- }
+.search-results-container {
+width: 94.1%;
+}
 }
 
 @media (max-width: 1500px) {
- .search-results-container {
-   width: 92.8%;
- }
+.search-results-container {
+width: 92.8%;
+}
 }
 
-/* Add more media queries as needed */
 
-/* Define a minimum width for smaller screens */
 
 
 @media(max-width:768px){
@@ -523,44 +514,43 @@ font-size:15px;
 }
 /* CSS for medium screens */
 @media only screen and (max-width: 1300px) {
-  .heroform {
-    width: 75%;
-  }
-
-  .search-results-container {
-    width: calc(97% - 1%);
-  }
-
-  .search-result-item {
-    width: 100%;
-  }
+.heroform {
+width: 75%;
 }
-@media only screen and (max-width: 768px) {
+
+.search-results-container {
+width: calc(97% - 1%);
+}
+
+.search-result-item {
+width: 100%;
+}
+}
+@media(max-width: 768px) {
   
+.search-results-container {
+width: calc(97% - 2.4%);
+}
 
-  .search-results-container {
-    width: calc(97% - 2.4%);
-  }
-
-  .search-result-item {
-    width: 100%;
-  }
+.search-result-item {
+width: 100%;
+}
 }
 
 /* CSS for small screens */
 
 @media(max-width: 540px) {
-  .heroform {
-    width: 100%;
-  }
+.heroform {
+width: 100%;
+}
 
-  .search-results-container {
-    width: calc(97% - 5.7%);
-  }
+.search-results-container {
+width: calc(97% - 5.7%);
+}
 
-  .search-result-item {
-    width: 100%;
-  }
+.search-result-item {
+width: 100%;
+}
 }
 
 
@@ -717,10 +707,10 @@ max-height: 1000px;
 }
 
 @media(max-width:768px){
-  .faqimg{
-    width: 300px;
-    height: auto;
-  }
+.faqimg{
+width: 300px;
+height: auto;
+}
 }
 /* faq css stos here */
 .mortage-hero{
@@ -789,13 +779,13 @@ background-color: #3e8e41;
 }
 
 @media(max-width:768px){
-  .mortage-hero h1{
-    font-size: 20px;
-  }
+.mortage-hero h1{
+font-size: 20px;
+}
 
-  .mortage-form{
-    width: auto;
-  }
+.mortage-form{
+width: auto;
+}
 }
 /* mortage calculator css stops here */
 
@@ -812,8 +802,8 @@ padding: 4rem;
 }
 
 .reg_header{
-  margin: auto;
-  border-bottom: 1rem;
+margin: auto;
+border-bottom: 1rem;
 }
 
 
@@ -851,13 +841,14 @@ width: 100%;
 }
 
 @media(max-width:768px){
-  .registerwall form{
-    width: 100%;
-  }
-  .reg_header img{
-    width: 250px;
-    height: auto;
-  }
+.registerwall form{
+width: 100%;
+}
+
+.reg_header img{
+width: 250px;
+height: auto;
+}
 }
 /* register css stops here */
 .ArticleHero{
@@ -1033,44 +1024,45 @@ padding: 0 1rem;
 
 
 .scheduletour{
-  display: flex;
-  align-items: center;
+display: flex;
+align-items: center;
 }
 
 .schedulecontact{
-  display: grid;
-  align-items: center;
+display: grid;
+align-items: center;
 }
 
-  .scheduletour img{
+.scheduletour img{
 width: 120px;
 border-radius: 8px;
-  }
+}
 
 
 .flexboximage{
-  display: flex;
-    align-items: center;
-    padding: 2rem;
+display: flex;
+align-items: center;
+padding: 2rem;
 }
 
- .confirmation-container {
-            max-width: 600px;
-            margin: auto;
-            text-align: center;
-        }
+.confirmation-container {
+max-width: 600px;
+margin: auto;
+text-align: center;
+}
 
-        .confirmation-message {
-          font-size: 1.2em;
-          margin-bottom: 20px;
-      }
-      .property-details {
-          text-align: left;
-          margin-bottom: 20px;
-      }
-      .next-steps {
-          margin-top: 20px;
-      }
+.confirmation-message {
+font-size: 1.2em;
+margin-bottom: 20px;
+}
+
+.property-details {
+text-align: left;
+margin-bottom: 20px;
+}
+.next-steps {
+margin-top: 20px;
+}
 
 
 
@@ -1082,114 +1074,98 @@ color: #09a5d5 !important;
 }
 
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+0% {
+opacity: 0;
+}
+100% {
+opacity: 1;
+}
 }
 
 @media(max-width:500px){
-     .flexboximage{
-      flex-direction: column;
-    }  .scheduletour img{
-      width: 100%;
-    }
-     .sm-span{
-      font-size: 11px !important;
-     }
-     .sm-aboutspan{
-      font-size: 1rem!important;
-     }
+.flexboximage{
+flex-direction: column;
+}  
 
-  .sm-schedule input{
-    width: 90% !important;
-  }
+.scheduletour img{
+width: 100%;
+}
 
-  .sc-contacttextarea{
-   
-    height: 80px;
-    }
+.sm-span{
+font-size: 11px !important;
+}
+
+.sm-aboutspan{
+font-size: 1rem!important;
+}
+
+.sm-schedule input{
+width: 90% !important;
+}
+
+.sc-contacttextarea{
+height: 80px;
+}
 
 
 .schedulecontact button{
-  width: 100% !important;
+width: 100% !important;
 }
 .schedulecontact textarea{
-  width: 100% !important;
+width: 100% !important;
 }
 
-  .formatdate{
-    font-size: 14px;
-  } .sm-ba p{
-    font-size: 10px;
-  }
+.formatdate{
+font-size: 14px;
+} 
+
+.sm-ba p{
+font-size: 10px;
+}
 }
 
 
-  @media(max-width:768px){
+@media(max-width:768px){
+.details_header_title h3{
+font-size: 11px;
+}
 
- 
+.details_header_title h2{
+font-size: 13px;
+}
 
-  
- 
-    .cover_showcase{
-      flex-direction: column;
-    }
+.scrolling-wrapper img{
+max-width: 50%;
+}
 
-    .cover_showcase img{
-      width: 350px !important;
-      padding: 1rem 0;
-      height: auto !important;
-    }
-
-    .details_header_title h3{
-      font-size: 11px;
-    }
-    .details_header_title h2{
-      font-size: 13px;
-    }
-
- .scrolling-wrapper img{
-  max-width: 50%;
- }
-
-  .sm-houlo{
-    font-size: 10px !important;
-  }
+.sm-houlo{
+font-size: 10px !important;
+}
 
 .interior-li{
-  grid-template-columns: 1fr 1fr !important;
+grid-template-columns: 1fr 1fr !important;
 }
+}
+
+  
  
-
-  }
-
   
-  .cover_showcase img{
-  width: 200px;
-  height: 150px;
-  }
-  
-  .details_header_title{
-  padding: 0 1rem;
-  line-height: 4;
-  }
-  
-  .amenities-grid{
+.details_header_title{
+padding: 0 1rem;
+line-height: 4;
+}
 
-  line-height: 6;
-  padding: 0 0 0 1rem;
-  border: solid 1px #c3c3c3;
-  width: 100%;
-  }
-
-  .ameities-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 20px;
+.amenities-grid{
+line-height: 6;
+padding: 0 0 0 1rem;
+border: solid 1px #c3c3c3;
+width: 100%;
+}
+.ameities-flex {
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-radius: 20px;
 }
 .PropertyArticleHero{
 background-image: linear-gradient(to bottom, #3535354d, #2626267d), url('./img/property_listings_home.jpg');
@@ -1434,25 +1410,24 @@ font-weight: 400;
 }
 
 .postform {
-  background-image: linear-gradient(to right,var(--gradient-stops));
-  --gradient-from: #2365c3;
-  --gradient-stops: var(--gradient-from),var(--gradient-to);
-  --gradient-to: #2a347b;  max-width: 600px;
- 
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #fff;
+background-image: linear-gradient(to right,var(--gradient-stops));
+--gradient-from: #2365c3;
+--gradient-stops: var(--gradient-from),var(--gradient-to);
+--gradient-to: #2a347b;  max-width: 600px;
+padding: 20px;
+border-radius: 5px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+color: #fff;
 }
 
 .postform select{
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 30px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  outline: none;
+width: 100%;
+padding: 8px;
+margin-bottom: 30px;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+outline: none;
 }
     
 .navinfo-box{
