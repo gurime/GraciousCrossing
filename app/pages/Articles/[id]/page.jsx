@@ -73,7 +73,7 @@ return (
 {/**block for img */}
 
 <div className="imgbox">
-<div className='scrolling-wrapper'>
+<div className='scrolling-wrapper' >
 {post.cover_image && (
 <img className="cover_image" src={post.cover_image} alt="Property Cover" />
 )}
@@ -236,7 +236,7 @@ width:'15rem'
 
 {post.basementFeatures && (
 <>        
-{post.basement && <li>Finished</li>}
+{post.basement && <li>Finished Basement</li>}
 {post.basementFeatures.includes("wetBar") && <li>Wet Bar</li>}
 {post.basementFeatures.includes("homeTheater") && <li>Home Theater</li>}
 {post.basementFeatures.includes("fininshedbath") && <li>Fininshed Bath</li>}

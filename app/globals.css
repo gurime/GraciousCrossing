@@ -7,25 +7,26 @@ letter-spacing: 2px;
 }
 
 .adminnav{
-display: flex;
-align-items: center;
-justify-content: center;
-background-color: #3684fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3684fa;
 }
 
 .adminform{
-margin: auto;
-width: 100%;
-padding: 1rem 0;
+    margin: auto;
+    width: 100%;
+    padding: 1rem 0;
+    
 }
 
 .sm-adminform{
-flex-wrap: wrap;
-margin-bottom: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
 }
 
 .adminform_bg{
-background-color: #151516;
+  background-color: #151516;
 background-image: linear-gradient(43deg, #151516 0%, #443f3f 46%, #333333 100%);
 width: 100%;
 }
