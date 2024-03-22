@@ -62,15 +62,14 @@ return (
   <div className="footer-headline">Global Real Estate</div>
 
   <ul className="footer-navlink">
-    <li><Link href='#!'>International Listings</Link></li>
-    <li><Link href='#!'>Property Investment</Link></li>
-    <li><Link href='#!'>Global Market Trends</Link></li>
-    <li><Link href='#!'>Real Estate News</Link></li>
-    <li><Link href='#!'>Architectural Designs</Link></li>
-    <li><Link href='#!'>Urban Development</Link></li>
-    <li><Link href='#!'>European Homes</Link></li>
-    <li><Link href='#!'>Asian Properties</Link></li>
-    <li><Link href='#!'>African Real Estate</Link></li>
+    <li><Link href='#!'>Luxury Villas in Europe</Link></li>
+    <li><Link href='#!'>Modern Apartments in Asian Cities</Link></li>
+    <li><Link href='#!'>Beachfront Properties in Africa</Link></li>
+    <li><Link href="#!">Luxury Villas in Bali</Link></li>
+    <li><Link href="#!">Chateau Living in France</Link></li>
+    <li><Link href="#!">Beachfront Condos in Mexico</Link></li>
+    <li><Link href="#!">Ski Chalets in Switzerland</Link></li>
+    <li><Link href="#!">Historic Homes in Italy</Link></li>
   </ul>
 </div>
 
