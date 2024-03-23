@@ -62,14 +62,15 @@ return (
   <div className="footer-headline">Global Real Estate</div>
 
   <ul className="footer-navlink">
-    <li><Link href='#!'>Luxury Villas in Europe</Link></li>
-    <li><Link href='#!'>Modern Apartments in Asian Cities</Link></li>
-    <li><Link href='#!'>Beachfront Properties in Africa</Link></li>
-    <li><Link href="#!">Luxury Villas in Bali</Link></li>
-    <li><Link href="#!">Chateau Living in France</Link></li>
-    <li><Link href="#!">Beachfront Condos in Mexico</Link></li>
-    <li><Link href="#!">Ski Chalets in Switzerland</Link></li>
-    <li><Link href="#!">Historic Homes in Italy</Link></li>
+    <li><Link href='#!'>Canada</Link></li>
+    <li><Link href='#!'>Mexico</Link></li>
+    <li><Link href='#!'>South America</Link></li>
+    <li><Link href='#!'>Africa</Link></li>
+    <li><Link href='#!'>Egypt</Link></li>
+    <li><Link href='#!'>Europe</Link></li>
+    <li><Link href='#!'>Asia</Link></li>
+    <li><Link href='#!'>Australia</Link></li>
+
   </ul>
 </div>
 
