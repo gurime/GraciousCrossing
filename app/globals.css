@@ -119,7 +119,7 @@ width: 100%;
 @media(max-width:768px){
 .sm-adminform{
 flex-direction: column;
-align-items: normal;
+align-items: normal !important;
 }
 
 .admin_login{
