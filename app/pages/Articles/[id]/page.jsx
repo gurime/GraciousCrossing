@@ -73,24 +73,27 @@ return (
 {/**block for img */}
 
 <div className="imgbox">
-<div className='scrolling-wrapper' >
-{post.cover_image && (
-<img className="cover_image" src={post.cover_image} alt="Property Cover" />
-)}
-{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((index) => {
-const showcase = post[`cover_showcase${index}`];
-return showcase && showcase !== '' && (
-<img
-key={`cover_showcase${index}`}
-className={`cover_showcase${index}`}
-src={showcase}
-alt={`Cover Showcase ${index}`}
-/>
-);
-})}
-</div>
-</div>
+ 
+      {post.cover_image && (
+        <img className="cover_image" src={post.cover_image} alt="Property Cover" />
+      )}
 
+      {[...Array(20).keys()].map((index) => {
+        const showcaseIndex = index + 1;
+        const showcase = post[`cover_showcase${showcaseIndex}`];
+        return (
+          showcase && showcase !== '' && (
+        
+            <img
+              key={`cover_showcase${showcaseIndex}`}
+              src={showcase}
+              alt={`Cover Showcase ${showcaseIndex}`}
+            />
+      
+          )
+        );
+      })}
+    </div>
 
 
 
