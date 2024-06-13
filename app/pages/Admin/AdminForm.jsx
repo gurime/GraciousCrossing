@@ -37,6 +37,7 @@ const [isSignedIn, setIsSignedIn] = useState(false);
   const [square, setSquare] = useState( "");
   const [city, setCity] = useState( "");
   const [state, setState] = useState( "");
+  const [canadaState, setcanadaState] = useState( "");
   const [zip, setZip] = useState( "");
   const [address, setAddress] = useState("");
 
@@ -316,6 +317,7 @@ const router = useRouter();
   address,
   city,
   state,
+  canadaState,
   zip,
   gym,
   pet,
@@ -536,7 +538,7 @@ required
   </div>
 
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-    <label htmlFor="billingFrequency">Payment Frequency:</label>
+    <label htmlFor="billingFrequency">Payment:</label>
     <select
       name="billingFrequency"
       value={billingFrequency}
@@ -544,12 +546,9 @@ required
       
       className='billingselect'
     >
-            <option value="">Select Payment Frequency</option>
-
-      <option value="Monthly">Monthly</option>
-      <option value="Weekly">Weekly</option>
-      <option value="Rent">Rent</option>
       <option value="For Sale">For Sale</option>
+
+ 
     </select>
   </div>
 
@@ -1368,30 +1367,7 @@ onChange={(e) => setWifi(e.target.checked)}
         </div>
       </div>
 <hr />
-      <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Floor Plan Details</h2>
-</div>
-<div className='sm-adminform sm-adminform-checkbox' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
-
-
-
-<div style={{ display: 'grid', gap: '1rem' }}>
-  <label htmlFor="balcony" >Balcony:</label>
-  <input
-    type="checkbox"
-    id="balcony"
-    name="balcony"
-    checked={balcony}
-    onChange={(e) => setBalcony(e.target.checked)}
-  />
-</div>
-
-
-
-</div>
-
-<hr />
 <div style={{ color: '#fff', textAlign: 'center' }}>
   <h2>Select Amenties</h2>
 </div>
@@ -1537,6 +1513,16 @@ onChange={(e) => setPool(e.target.checked)}
   />
 </div>
 
+<div style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="balcony" >Balcony:</label>
+  <input
+    type="checkbox"
+    id="balcony"
+    name="balcony"
+    checked={balcony}
+    onChange={(e) => setBalcony(e.target.checked)}
+  />
+</div>
 
 </div>
 <hr />
@@ -1737,14 +1723,14 @@ onChange={handleCoverImageChange}
   </div>
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-<label htmlFor="state">State:</label>
+<label htmlFor="state">United States:</label>
 <select
 id="state"
 name="state"
 value={state}
 onChange={(e) => setState(e.target.value)}
 >
-<option value="">Select a state</option> 
+<option value="">Select State</option> 
 <option value="Alabama">Alabama</option> 
 <option value="Alaska">Alaska</option> 
 <option value="Arizona">Arizona</option> 
@@ -1796,6 +1782,26 @@ onChange={(e) => setState(e.target.value)}
 <option value="Wisconsin">Wisconsin</option> 
 <option value="Wyoming">Wyoming</option>
 </select>
+</div>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="province">Canada:</label>
+  <select id="province" name="province" value={canadaState} onChange={(e) => setcanadaState(e.target.value)}>
+    <option value="">Province/Territory</option>
+    <option value="Alberta">Alberta</option>
+    <option value="British Columbia">British Columbia</option>
+    <option value="Manitoba">Manitoba</option>
+    <option value="New Brunswick">New Brunswick</option>
+    <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+    <option value="Northwest Territories">Northwest Territories</option>
+    <option value="Nova Scotia">Nova Scotia</option>
+    <option value="Nunavut">Nunavut</option>
+    <option value="Ontario">Ontario</option>
+    <option value="Prince Edward Island">Prince Edward Island</option>
+    <option value="Quebec">Quebec</option>
+    <option value="Saskatchewan">Saskatchewan</option>
+    <option value="Yukon">Yukon</option>
+  </select>
 </div>
 
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
