@@ -972,7 +972,7 @@ margin: auto 0;
 
 .imgbox {
   display: grid;
-  gap: 10px;
+  gap: 5px;
   max-width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));}
 
