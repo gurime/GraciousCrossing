@@ -970,25 +970,27 @@ margin: auto 0;
 }
 
 
-
 .imgbox {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 5px;
+  gap: 10px;
   max-width: 100%;
-}
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));}
 
 .cover_image {
-  grid-area: 1 / 1 / 3 / 3;
-}
-
-.imgbox img {
+  grid-area: 1/1/3/3;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  margin: auto;
 }
 
-
+.showcase-img {
+  width: 100%;
+  height: max-content;
+  padding-top: 75%; /* 4:3 Aspect Ratio */
+  background-position: center;
+  background-size: cover;
+  border-radius: 8px; /* Optional: add some border radius for a nicer look */
+}
 
 
 .body-content {
