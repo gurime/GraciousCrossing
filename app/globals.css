@@ -974,6 +974,7 @@ margin: auto 0;
   display: grid;
   gap: 5px;
   max-width: 100%;
+  padding:0 10px;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));}
 
 .cover_image {
