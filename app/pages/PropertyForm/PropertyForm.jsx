@@ -34,6 +34,8 @@ const [isSignedIn, setIsSignedIn] = useState(false);
   const [city, setCity] = useState( "");
   const [state, setState] = useState( "");
   const [canadaState, setcanadaState] = useState( "");
+  const [mexicoState, setMexicoState] = useState( "");
+
   const [zip, setZip] = useState( "");
   const [address, setAddress] = useState("");
 
@@ -74,7 +76,6 @@ const [primaryBedroomFeatures, setPrimaryBedroomFeatures] = useState([]);
 const [primaryBedroom, setPrimaryBedroom] = useState('');
 const [primaryBath, setPrimaryBath] = useState('');
 const [primaryBathFeatures, setPrimaryBathFeatures] = useState([]);
-const [dining, setDining] = useState('');
 const [garage, setGarage] = useState('');
 const [garageFeatures, setGarageFeatures] = useState([]);
 const [basement, setBasement] = useState('');
@@ -271,16 +272,15 @@ const router = useRouter();
   city:city,
   state:state,
   canadaState:canadaState,
+  mexicoState:mexicoState,
   zip:zip,
   pet:pet,
   primaryBedroomFeatures:primaryBathFeatures,
   primaryBedroom:primaryBedroom,
   primaryBath:primaryBath,
   primaryBathFeatures:primaryBathFeatures,
-  dining:dining,
   manager:manager,
   parking:parking,
-  opentime:opentime,
   balcony:balcony,
   garage:garage,
   garageFeatures:garageFeatures,
@@ -359,9 +359,9 @@ return (
       <option value="Houses">Houses</option>
       <option value="Apartments">Apartments</option>
       <option value="Motel">Motel</option>
-      <option value="NewConstruction">New Construction</option>
-      <option value="GreenHomes">Green Homes</option>
-      <option value="HistoricHomes">Historic Homes</option>
+      <option value="New Construction">New Construction</option>
+      <option value="Green Homes">Green Homes</option>
+      <option value="Historic Homes">Historic Homes</option>
     </select>
   </div>
 </div>
@@ -574,29 +574,6 @@ Dual Sinks
 </div>
 
 
-<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-      <label htmlFor="dining">Dining:</label>
-      <select
-        id="dining"
-        value={dining}
-        onChange={(e) => setDining(e.target.value)}
-      >
-        <option value="">Select Dining Type</option>
-        <option value="formalDiningRoom">Formal Dining Room</option>
-        <option value="casualDiningArea">Casual Dining Area</option>
-        <option value="openConcept">Open Concept Dining</option>
-        {/* Add more options as needed */}
-      </select>
-
-      {/* Additional checkboxes for dining features */}
-      <label>Dining Features:</label>
-<div style={{ display: 'grid' }}>
-
-
-
-{/* Add more checkboxes as needed */}
-</div>
-</div>
 
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
@@ -1319,6 +1296,18 @@ onChange={handleCoverImageChange}
     />
   </div>
 
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="zip">ZIP Code:</label>
+    <input
+      type="text"
+      id="zip"
+      name="zip"
+      value={zip}
+      onChange={(e) => setZip(e.target.value)}
+      
+    />
+  </div>
+
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="state">United States:</label>
 <select
@@ -1401,17 +1390,45 @@ onChange={(e) => setState(e.target.value)}
   </select>
 </div>
 
-  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-    <label htmlFor="zip">ZIP Code:</label>
-    <input
-      type="text"
-      id="zip"
-      name="zip"
-      value={zip}
-      onChange={(e) => setZip(e.target.value)}
-      
-    />
-  </div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="state">México:</label>
+  <select id="state" name="state" value={mexicoState} onChange={(e) => setMexicoState(e.target.value)}>
+    <option value="">Estado</option>
+    <option value="Aguascalientes">Aguascalientes</option>
+    <option value="Baja California">Baja California</option>
+    <option value="Baja California Sur">Baja California Sur</option>
+    <option value="Campeche">Campeche</option>
+    <option value="Cancun">Cancun</option>
+    <option value="Chiapas">Chiapas</option>
+    <option value="Chihuahua">Chihuahua</option>
+    <option value="Coahuila">Coahuila</option>
+    <option value="Colima">Colima</option>
+    <option value="Durango">Durango</option>
+    <option value="Guanajuato">Guanajuato</option>
+    <option value="Guerrero">Guerrero</option>
+    <option value="Hidalgo">Hidalgo</option>
+    <option value="Jalisco">Jalisco</option>
+    <option value="México">México</option>
+    <option value="Michoacán">Michoacán</option>
+    <option value="Morelos">Morelos</option>
+    <option value="Nayarit">Nayarit</option>
+    <option value="Nuevo León">Nuevo León</option>
+    <option value="Oaxaca">Oaxaca</option>
+    <option value="Puebla">Puebla</option>
+    <option value="Querétaro">Querétaro</option>
+    <option value="Quintana Roo">Quintana Roo</option>
+    <option value="San Luis Potosí">San Luis Potosí</option>
+    <option value="Sinaloa">Sinaloa</option>
+    <option value="Sonora">Sonora</option>
+    <option value="Tabasco">Tabasco</option>
+    <option value="Tamaulipas">Tamaulipas</option>
+    <option value="Tlaxcala">Tlaxcala</option>
+    <option value="Veracruz">Veracruz</option>
+    <option value="Yucatán">Yucatán</option>
+    <option value="Zacatecas">Zacatecas</option>
+    <option value="Ciudad de México">Ciudad de México</option>
+  </select>
+</div>
 
 </div>
 {/* property location information starts here */}
@@ -1440,9 +1457,9 @@ onChange={(e) => setState(e.target.value)}
 type="submit"
 disabled={!isSignedIn || !aboutcontent ||  !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
 style={{
-cursor: !isSignedIn || !aboutcontent ||  !selectedCollection || !address || !zip || !state || !city  || isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn || !aboutcontent ||  !selectedCollection || !address || !zip || !state || !city  || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !aboutcontent ||  !selectedCollection  || !address || !zip || !state || !city  || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn || !aboutcontent ||  !selectedCollection || !address  || isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !aboutcontent ||  !selectedCollection || !address || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !aboutcontent ||  !selectedCollection  || !address || isLoading ? 'grey' : '#fff',
 
 }}
   

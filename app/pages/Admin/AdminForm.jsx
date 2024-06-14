@@ -38,6 +38,7 @@ const [isSignedIn, setIsSignedIn] = useState(false);
   const [city, setCity] = useState( "");
   const [state, setState] = useState( "");
   const [canadaState, setcanadaState] = useState( "");
+  const [mexicoState, setMexicoState] = useState( "");
   const [zip, setZip] = useState( "");
   const [address, setAddress] = useState("");
 
@@ -267,91 +268,91 @@ const router = useRouter();
   const docRef = await addDoc(collection(db, selectedCollection), {
   userId: user.uid,
   aboutcontent,
-  title,
-  owner,
-  phone,
-  price,
-  priceextra,
-  bedrooms,
-  bathrooms,
-  square,
-  billingFrequency,
+  title:title,
+  owner:owner,
+  phone:phone,
+  price:price,
+  priceextra:priceextra,
+  bedrooms:bedrooms,
+  bathrooms:bathrooms,
+  square:square,
+  billingFrequency:billingFrequency,
   billingFrequency2,
-  units,
-  apartavailability,
-  apartbillingFrequency2,
-  apartprice,
-  apartsquare,
-  apartbathrooms,
-  apartbedrooms,
-  aparttourTime,
-  water,
-  lights,
-  cable,
-  laundry,
-  elevator,
-  play,
-  concierge,
-  club,
-  fireplace,
-  airConditioning,
-  heating,
-  pool,
-  sprink,
-  tub,
-  walkin,
-  smoke,
-  stoorage,
-  wheel,
-  disposal,
-  dishwasher,
-  island,
-  kitchen,
-  microwave,
-  oven,
-  fridge,
-  freezer,
-  framme,
-  ceiling,
-  wifi,
-  address,
-  city,
-  state,
-  canadaState,
-  zip,
-  gym,
-  pet,
-  primaryBedroomFeatures,
-  primaryBedroom,
-  primaryBath,
-  primaryBathFeatures,
-  dining,
-  diningFeatures,
-  manager,
-  parking,
-  tourTime,
-  opentime,
-  balcony,
-  garage,
-  garageFeatures,
-  basement,
-  basementFeatures,
+  units:units,
+  apartavailability:apartavailability,
+  apartbillingFrequency2:apartbillingFrequency2,
+  apartprice:apartprice,
+  apartsquare:apartsquare,
+  apartbathrooms:apartbathrooms,
+  apartbedrooms:apartbedrooms,
+  aparttourTime:aparttourTime,
+  water:water,
+  lights:lights,
+  cable:cable,
+  laundry:laundry,
+  elevator:elevator,
+  play:play,
+  concierge:concierge,
+  club:club,
+  fireplace:fireplace,
+  airConditioning:airConditioning,
+  heating:heating,
+  sprink:sprink,
+  tub:tub,
+  walkin:walkin,
+  smoke:smoke,
+  stoorage:stoorage,
+  wheel:wheel,
+  disposal:disposal,
+  dishwasher:dishwasher,
+  island:island,
+  kitchen:kitchen,
+  microwave:microwave,
+  oven:oven,
+  fridge:fridge,
+  freezer:freezer,
+  framme:framme,
+  ceiling:ceiling,
+  wifi:wifi,
+  address:address,
+  city:city,
+  state:state,
+  canadaState:canadaState,
+  mexicoState:mexicoState,
+  gym:gym,
+  zip:zip,
+  pet:pet,
+  primaryBedroomFeatures:primaryBathFeatures,
+  primaryBedroom:primaryBedroom,
+  primaryBath:primaryBath,
+  primaryBathFeatures:primaryBathFeatures,
+  manager:manager,
+  parking:parking,
+  dining:dining,
+  diningFeatures:diningFeatures,
+  tourTime:tourTime,
+  opentime:opentime,
+  balcony:balcony,
+  garage:garage,
+  garageFeatures:garageFeatures,
+  basement:basement,
+  basementFeatures:basementFeatures,
   timestamp: new Date(),
   userEmail: user.email,
-  authpic,
-  cover_image,
-  cover_showcase1,
-  cover_showcase2,
-  cover_showcase3,
-  cover_showcase4,
-  cover_showcase5,
-  cover_showcase6,
-  cover_showcase7,
-  cover_showcase8,
-  cover_showcase9,
-  cover_showcase10,
-  cover_showcase11,
-  cover_showcase12,
+  authpic:authpic,
+  cover_image:cover_image,
+  cover_showcase1:cover_showcase1,
+  cover_showcase2:cover_showcase2,
+  cover_showcase3:cover_showcase3,
+  cover_showcase4:cover_showcase4,
+  cover_showcase5:cover_showcase5,
+  cover_showcase6:cover_showcase6,
+  cover_showcase7:cover_showcase7,
+  cover_showcase8:cover_showcase8,
+  cover_showcase9:cover_showcase9,
+  cover_showcase10:cover_showcase10,
+  cover_showcase11:cover_showcase11,
+  cover_showcase12:cover_showcase12,
   propertyType: selectedCollection,  
   });
 
@@ -449,14 +450,14 @@ return (
       required
       className='billingselect'
     >
-      <option value="FeaturedHouse">Featured Houses</option>
+      <option value="Featured House">Featured Houses</option>
       <option value="Featured Apartments">Featured Apartments</option>
       <option value="Houses">Houses</option>
       <option value="Apartments">Apartments</option>
       <option value="Motel">Motel</option>
-      <option value="NewConstruction">New Construction</option>
-      <option value="GreenHomes">Green Homes</option>
-      <option value="HistoricHomes">Historic Homes</option>
+      <option value="New Construction">New Construction</option>
+      <option value="Green Homes">Green Homes</option>
+      <option value="Historic Homes">Historic Homes</option>
     </select>
   </div>
 </div>
@@ -1722,6 +1723,18 @@ onChange={handleCoverImageChange}
     />
   </div>
 
+  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+    <label htmlFor="zip">ZIP Code:</label>
+    <input
+      type="text"
+      id="zip"
+      name="zip"
+      value={zip}
+      onChange={(e) => setZip(e.target.value)}
+      
+    />
+  </div>
+
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 <label htmlFor="state">United States:</label>
 <select
@@ -1804,17 +1817,45 @@ onChange={(e) => setState(e.target.value)}
   </select>
 </div>
 
-  <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-    <label htmlFor="zip">ZIP Code:</label>
-    <input
-      type="text"
-      id="zip"
-      name="zip"
-      value={zip}
-      onChange={(e) => setZip(e.target.value)}
-      
-    />
-  </div>
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="state">México:</label>
+  <select id="state" name="state" value={mexicoState} onChange={(e) => setMexicoState(e.target.value)}>
+    <option value="">Estado</option>
+    <option value="Aguascalientes">Aguascalientes</option>
+    <option value="Baja California">Baja California</option>
+    <option value="Baja California Sur">Baja California Sur</option>
+    <option value="Campeche">Campeche</option>
+    <option value="Cancun">Cancun</option>
+    <option value="Chiapas">Chiapas</option>
+    <option value="Chihuahua">Chihuahua</option>
+    <option value="Coahuila">Coahuila</option>
+    <option value="Colima">Colima</option>
+    <option value="Durango">Durango</option>
+    <option value="Guanajuato">Guanajuato</option>
+    <option value="Guerrero">Guerrero</option>
+    <option value="Hidalgo">Hidalgo</option>
+    <option value="Jalisco">Jalisco</option>
+    <option value="México">México</option>
+    <option value="Michoacán">Michoacán</option>
+    <option value="Morelos">Morelos</option>
+    <option value="Nayarit">Nayarit</option>
+    <option value="Nuevo León">Nuevo León</option>
+    <option value="Oaxaca">Oaxaca</option>
+    <option value="Puebla">Puebla</option>
+    <option value="Querétaro">Querétaro</option>
+    <option value="Quintana Roo">Quintana Roo</option>
+    <option value="San Luis Potosí">San Luis Potosí</option>
+    <option value="Sinaloa">Sinaloa</option>
+    <option value="Sonora">Sonora</option>
+    <option value="Tabasco">Tabasco</option>
+    <option value="Tamaulipas">Tamaulipas</option>
+    <option value="Tlaxcala">Tlaxcala</option>
+    <option value="Veracruz">Veracruz</option>
+    <option value="Yucatán">Yucatán</option>
+    <option value="Zacatecas">Zacatecas</option>
+    <option value="Ciudad de México">Ciudad de México</option>
+  </select>
+</div>
 
 </div>
 {/* property location information starts here */}
@@ -1843,9 +1884,9 @@ onChange={(e) => setState(e.target.value)}
 type="submit"
 disabled={!isSignedIn || !aboutcontent ||  !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
 style={{
-cursor: !isSignedIn || !aboutcontent ||  !selectedCollection || !address || !zip || !state || !city  || isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn || !aboutcontent ||  !selectedCollection || !address || !zip || !state || !city  || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn || !aboutcontent ||  !selectedCollection  || !address || !zip || !state || !city  || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn || !aboutcontent ||  !selectedCollection || !address  || isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn || !aboutcontent ||  !selectedCollection || !address || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn || !aboutcontent ||  !selectedCollection  || !address || isLoading ? 'grey' : '#fff',
 
 }}
   
