@@ -55,15 +55,15 @@ return (
 {/**block for goback btn and title */}
 {/**block for img */}
 {post.cover_image ? (
-  <div className="imgbox">
-    <img src={post.cover_image} alt="..." />
+  <div style={{margin:'auto',maxWidth:'80rem'}} className="imgbox">
+    <img style={{width:'100%'}} src={post.cover_image} alt="..." />
   </div>
 ) : (
   <p>Error loading image</p>
 )}
 {/**block for img */}
 {/**block for category and author */}
-<div className="authflex" style={{padding:'0 1rem'}}>
+<div className="authflex" style={{padding:'0 1rem',margin:'auto',maxWidth:'80rem'}}>
 <p>{post.catogory}</p>
 <h3
 style={{
@@ -90,8 +90,8 @@ alt="..."
 </h3>
 </div>
 {/**block for category and author */}
-<div className="flexdate">{post.date}</div>
-<div className="body-content">
+<div style={{margin:'auto',maxWidth:'80rem'}} className="flexdate">{post.date}</div>
+<div style={{margin:'auto',maxWidth:'80rem'}}  className="body-content">
 
 <p>{post.content}</p>
 <p>{post.content1}</p>

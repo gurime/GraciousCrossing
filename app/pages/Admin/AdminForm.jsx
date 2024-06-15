@@ -458,6 +458,23 @@ return (
       <option value="New Construction">New Construction</option>
       <option value="Green Homes">Green Homes</option>
       <option value="Historic Homes">Historic Homes</option>
+      <option value="Luxury Homes">Luxury Homes</option>
+      <option value="Vacation Rentals">Vacation Rentals</option>
+      <option value="Condominiums">Condominiums</option>
+      <option value="Fore closures">Fore closures</option>
+      <option value="Senior Housing">Senior Housing</option>
+      <option value="Canada">Canada</option>
+      <option value="Mexico">Mexico</option>
+      <option value="Caribbean">Caribbean</option>
+      <option value="Iceland">Iceland</option>
+      <option value="Green Land">Green Land</option>
+      <option value="Europe">Europe</option>
+      <option value="United Kingdom">United Kingdom</option>
+      <option value="Australia">Australia</option>
+      <option value="Asia">Asia</option>
+      <option value="Middle East">Middle East</option>
+      <option value="South America">South America</option>
+      <option value="Africa">Africa</option>
     </select>
   </div>
 </div>

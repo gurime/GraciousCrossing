@@ -26,14 +26,14 @@ const [priceextra, setPriceextra] = useState(comment ? comment.priceextra : "");
 const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'Monthly');
 const [billingFrequency2, setBillingFrequency2] = useState(comment ? comment.billingFrequency2 : 'Monthly');
 const [primaryBedroomFeatures, setPrimaryBedroomFeatures] = useState(comment ? comment.primaryBedroomFeatures : []);
-const [primaryBedroom, setPrimaryBedroom] = useState(comment ? comment.primaryBedroom : '');
-const [primaryBath, setPrimaryBath] = useState(comment ? comment.primaryBath : '');
+const [primaryBedroom, setPrimaryBedroom] = useState(comment ? comment.primaryBedroom : []);
+const [primaryBath, setPrimaryBath] = useState(comment ? comment.primaryBath : []);
 const [primaryBathFeatures, setPrimaryBathFeatures] = useState(comment ? comment.primaryBathFeatures : []);
-const [dining, setDining] = useState(comment ? comment.dining : '');
+const [dining, setDining] = useState(comment ? comment.dining : []);
 const [diningFeatures, setDiningFeatures] = useState(comment ? comment.diningFeatures : []);
-const [garage, setGarage] = useState(comment ? comment.garage : '');
+const [garage, setGarage] = useState(comment ? comment.garage : []);
 const [garageFeatures, setGarageFeatures] = useState(comment ? comment.garageFeatures : []);
-const [basement, setBasement] = useState(comment ? comment.basement : '');
+const [basement, setBasement] = useState(comment ? comment.basement : []);
 const [basementFeatures, setBasementFeatures] = useState(comment ? comment.basementFeatures : []);
 const [bedrooms, setBedrooms] = useState(comment ? comment.bedrooms : "1");
 const [bathrooms, setBathrooms] = useState(comment ? comment.bathrooms : "1");
@@ -676,15 +676,19 @@ Walk-in Closet
 </label>
 
 <label>
-<input
-type="checkbox"
-checked={primaryBedroomFeatures.includes('Split Bedroom Plan')}
-onChange={(e) =>setPrimaryBedroomFeatures (e.target.checked ? [...primaryBedroomFeatures, 'Split Bedroom Plan'] : primaryBedroomFeatures.filter((f) => f !== 'Split Bedroom Plan')
-)
-}
-/>
-Split Bedroom Plan
-</label>
+      <input
+        type="checkbox"
+        checked={primaryBedroomFeatures.includes('ensuiteBathroom')}
+        onChange={(e) => 
+          setPrimaryBedroomFeatures(
+            e.target.checked 
+              ? [...primaryBedroomFeatures, 'ensuiteBathroom'] 
+              : primaryBedroomFeatures.filter((f) => f !== 'ensuiteBathroom')
+          )
+        }
+      />
+      En-suite Bathroom
+    </label>
 
 
 

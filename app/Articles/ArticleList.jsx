@@ -54,7 +54,7 @@ return (
 
 <div className='ArticleHero'>
     <div style={{padding:'5rem 0'}}>
-      <h1>Home Shopping Guide</h1>
+      <h1>Buying Guide</h1>
     <p></p>
     <p>Explore tips and tricks for a successful home-buying experience.</p></div>
     
