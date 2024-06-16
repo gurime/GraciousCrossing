@@ -9,6 +9,8 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, updateDoc, where } from 'firebase/firestore';
 import EditModalForm from '../EditModalForm';
 import { BeatLoader } from 'react-spinners';
+import { IoCloseSharp } from 'react-icons/io5';
+import AdminEdit from '../AdminEdit/AdminEdit';
 
 
 async function getArticles(orderBy) {
@@ -32,6 +34,8 @@ export default function Condominiums() {
     const [successMessage, setSuccessMessage] = useState();
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [editingComment, setEditingComment] = useState(null);
+    const [unauthorizedModalOpen, setUnauthorizedModalOpen ] = useState(false)
+
     const router = useRouter()
     const commentsRef = useRef(null);
     
@@ -62,22 +66,23 @@ export default function Condominiums() {
     });
     };
     // userIsAuthenticated stops here
-    
-    const editPost = (postId, userId) => {
+    const editPost = (postId) => {
       const listingToEdit = useArticle.find((listing) => listing.id === postId);
-    
       if (listingToEdit) {
         const auth = getAuth();
         const currentUser = auth.currentUser;
-    
-        if (currentUser && currentUser.uid === listingToEdit.userId) {
-          setEditingComment(listingToEdit);
-          setEditModalOpen(true);
+        if (currentUser) {
+          if (currentUser.uid === listingToEdit.userId) {
+            setEditingComment(listingToEdit);
+            setEditModalOpen(true);
+          } else {
+            // Show modal or error message for unauthorized access
+            setUnauthorizedModalOpen(true);
+          }
         } else {
-          setErrorMessage('Unauthorized to edit this Listing.');
-          setTimeout(() => {
-            setErrorMessage('');
-          }, 3000);
+          // User is not authenticated
+          // Show modal or error message for unauthorized access
+          setUnauthorizedModalOpen(true);
         }
       } else {
         setErrorMessage('Listing not found');
@@ -86,6 +91,8 @@ export default function Condominiums() {
         }, 3000);
       }
     };
+    
+    
     
     // EditPost stops here
     
@@ -282,7 +289,32 @@ export default function Condominiums() {
     )}
     
     
-    {editModalOpen && (<AdminEdit comment={editingComment} onSave={handleEditModalSave} onCancel={() => setEditModalOpen(false)}/>)}
+
+    {unauthorizedModalOpen && (
+  <div className="modal">
+    <div className="modal-content" style={{width:'30%'}}>
+      <span className="close" onClick={() => setUnauthorizedModalOpen(false)}>
+      <IoCloseSharp style={{cursor:'pointer'}} />
+
+      </span>
+      <p>Unable to Edit Post.</p>
+    </div>
+  </div>
+)}
+{editModalOpen && (
+  userIsAuthenticated  ? (
+    <AdminEdit comment={editingComment}
+    onSave={handleEditModalSave}
+    onCancel={() => setEditModalOpen(false)}/>
+  ) : (
+    <EditModalForm
+      comment={editingComment}
+      onSave={handleEditModalSave}
+      onCancel={() => setEditModalOpen(false)}
+    />
+  )
+)}
+
     
     
     

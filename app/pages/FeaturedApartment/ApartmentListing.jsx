@@ -8,6 +8,8 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, where } from 'firebase/firestore';
 import AdminEdit from '../AdminEdit/AdminEdit';
 import { BeatLoader } from 'react-spinners';
+import { IoCloseSharp } from 'react-icons/io5';
+import EditModalForm from '../EditModalForm';
 
 
 async function getArticles(orderBy) {
@@ -31,8 +33,7 @@ const [errorMessage, setErrorMessage] = useState('');
 const [successMessage, setSuccessMessage] = useState();
 const [editModalOpen, setEditModalOpen] = useState(false);
 const [editingComment, setEditingComment] = useState(null);
-
-const router = useRouter()
+const [unauthorizedModalOpen, setUnauthorizedModalOpen ] = useState(false)
 const commentsRef = useRef(null);
 
 const fetchComments = async (articleId) => {
@@ -64,26 +65,30 @@ resolve(isAuthenticated);
 // userIsAuthenticated stops here
 
 
-
 const editPost = (postId) => {
-const listingToEdit = useArticle.find((listing) => listing.id === postId);
-if (!listingToEdit) {
-setErrorMessage('Listing not found');
-setTimeout(() => {
-setErrorMessage('');
-}, 3000);
-return;
-}
-const auth = getAuth();
-const currentUser = auth.currentUser;
-if (!currentUser || currentUser.uid !== listingToEdit.userId) {
-setTimeout(() => {
-setErrorMessage('');
-}, 3000);
-return;
-}
-setEditingComment(listingToEdit);
-setEditModalOpen(true);
+  const listingToEdit = useArticle.find((listing) => listing.id === postId);
+  if (listingToEdit) {
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      if (currentUser.uid === listingToEdit.userId) {
+        setEditingComment(listingToEdit);
+        setEditModalOpen(true);
+      } else {
+        // Show modal or error message for unauthorized access
+        setUnauthorizedModalOpen(true);
+      }
+    } else {
+      // User is not authenticated
+      // Show modal or error message for unauthorized access
+      setUnauthorizedModalOpen(true);
+    }
+  } else {
+    setErrorMessage('Listing not found');
+    setTimeout(() => {
+      setErrorMessage('');
+    }, 3000);
+  }
 };
 
 
@@ -231,7 +236,30 @@ Delete
 )}
 
 
-{editModalOpen && (<AdminEdit comment={editingComment} onSave={handleEditModalSave} onCancel={() => setEditModalOpen(false)}/>)}
+{unauthorizedModalOpen && (
+  <div className="modal">
+    <div className="modal-content" style={{width:'30%'}}>
+      <span className="close" onClick={() => setUnauthorizedModalOpen(false)}>
+      <IoCloseSharp style={{cursor:'pointer'}} />
+
+      </span>
+      <p>Unable to Edit Post.</p>
+    </div>
+  </div>
+)}
+{editModalOpen && (
+  userIsAuthenticated  ? (
+    <AdminEdit comment={editingComment}
+    onSave={handleEditModalSave}
+    onCancel={() => setEditModalOpen(false)}/>
+  ) : (
+    <EditModalForm
+      comment={editingComment}
+      onSave={handleEditModalSave}
+      onCancel={() => setEditModalOpen(false)}
+    />
+  )
+)}
 
 
 

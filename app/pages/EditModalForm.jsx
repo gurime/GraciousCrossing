@@ -389,17 +389,6 @@ required
 />
 </div>
 
-<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
-      <label htmlFor="phone-number">Phone Number:</label>
-      <input
-        type="tel"
-        id="phone-number"
-        name="phone"
-        value={phone}
-        onChange={handlePhoneChange}
-        required
-      />
-    </div>
 
 
 
