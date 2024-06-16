@@ -1,48 +1,44 @@
 'use client'
 import { getAuth } from 'firebase/auth';
 import { doc, getFirestore, updateDoc } from 'firebase/firestore';
-import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import {getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 import React, { useEffect, useRef, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
 import { auth } from '../../Config/firebase';
 
-export default function AdminEdit({ comment,  onCancel }) {
-
-  const [articleId, setArticleId] = useState("");  
-
+export default function AdminEdit({ comment,   onCancel }) {
+const [articleId, setArticleId] = useState("");  
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [tourTime, setTourTime] = useState(comment ? comment.tourTime : "");
 const [opentime, setOpentime] = useState(comment ? comment.opentime : "");
 const [aboutcontent, setAboutContent] = useState(comment ? comment.aboutcontent : "");
-
 const [title, setTitle] = useState(comment ? comment.title : "");
 const [owner, setOwner] = useState(comment ? comment.owner : "");
 const [price, setPrice] = useState(comment ? comment.price : "");
-
-
 const [priceextra, setPriceextra] = useState(comment ? comment.priceextra : "");
 const [billingFrequency, setBillingFrequency] = useState(comment ? comment.billingFrequency : 'Monthly');
 const [billingFrequency2, setBillingFrequency2] = useState(comment ? comment.billingFrequency2 : 'Monthly');
-const [primaryBedroomFeatures, setPrimaryBedroomFeatures] = useState(comment ? comment.primaryBedroomFeatures : []);
+const [primaryBedroomFeatures, setPrimaryBedroomFeatures] = useState(comment ?. primaryBedroomFeatures || []);
 const [primaryBedroom, setPrimaryBedroom] = useState(comment ? comment.primaryBedroom : []);
 const [primaryBath, setPrimaryBath] = useState(comment ? comment.primaryBath : []);
-const [primaryBathFeatures, setPrimaryBathFeatures] = useState(comment ? comment.primaryBathFeatures : []);
+const [primaryBathFeatures, setPrimaryBathFeatures] = useState(comment ?. primaryBathFeatures || []);
 const [dining, setDining] = useState(comment ? comment.dining : []);
-const [diningFeatures, setDiningFeatures] = useState(comment ? comment.diningFeatures : []);
+const [diningFeatures, setDiningFeatures] = useState(comment ?. diningFeatures || []);
 const [garage, setGarage] = useState(comment ? comment.garage : []);
-const [garageFeatures, setGarageFeatures] = useState(comment ? comment.garageFeatures : []);
+const [garageFeatures, setGarageFeatures] = useState(comment ?. garageFeatures || []);
 const [basement, setBasement] = useState(comment ? comment.basement : []);
-const [basementFeatures, setBasementFeatures] = useState(comment ? comment.basementFeatures : []);
+const [basementFeatures, setBasementFeatures] = useState(comment ?. basementFeatures || []);
 const [bedrooms, setBedrooms] = useState(comment ? comment.bedrooms : "1");
 const [bathrooms, setBathrooms] = useState(comment ? comment.bathrooms : "1");
 const [square, setSquare] = useState(comment ? comment.square : "");
-
 const [address, setAddress] = useState(comment ? comment.address : "");
 const [city, setCity] = useState(comment ? comment.city : "");
-  const [state, setState] = useState(comment ? comment.state : "");
-  const [zip, setZip] = useState(comment ? comment.zip : "");
+const [state, setState] = useState(comment ? comment.state : "");
+const [canadaState, setcanadaState] = useState(comment ? comment.canadaState : "");
+const [mexicoState, setMexicoState] = useState(comment ? comment.mexicoState : "");
+const [zip, setZip] = useState(comment ? comment.zip : "");
 const [isLoading, setIsLoading] = useState(false);
 const [cable, setCable] = useState(comment ? comment.cable :false);
 const [laundry, setLaundry] = useState(comment ? comment.laundry :false);
@@ -86,7 +82,7 @@ const [apartsquare, setApartSquare] = useState(comment ? comment.apartsquare : '
 const [apartbillingFrequency2, setApartBillingFrequency2] = useState(comment ? comment.apartbillingFrequency2 : '');
 const [aparttourTime, setApartTourTime] = useState(comment ? comment.aparttourTime : "");
 const [apartbathrooms, setApartBathrooms] = useState(comment ? comment.apartbathrooms : '');
-  const [apartbedrooms, setApartBedrooms] = useState(comment ? comment.apartbedrooms : "");
+const [apartbedrooms, setApartBedrooms] = useState(comment ? comment.apartbedrooms : "");
 const [authpicFile, setAuthPicFile] = useState(comment ? comment.authpic : "" );  
 const [coverImageFile, setCoverImageFile] = useState(comment ? comment.cover_image   : "" );
 const [showcase1File, setShowcase1File] = useState(comment ? comment.cover_showcase1 : ""  );
@@ -102,7 +98,6 @@ const [showcase10File, setShowcase10File] = useState(comment ? comment.cover_sho
 const [showcase11File, setShowcase11File] = useState(comment ? comment.cover_showcase11 : ""   );   
 const [showcase12File, setShowcase12File] = useState(comment ? comment.cover_showcase12 : ""   );   
 const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "Featured Houses");
-
 const [errorMessage, setErrorMessage] = useState('');
 
 
@@ -154,6 +149,8 @@ useEffect(() => {
 const handleCancel = () => {
   onCancel();
 };
+
+
 
 
 const storage = getStorage(); 
@@ -243,16 +240,14 @@ const storage = getStorage();
       setIsLoading(true);
       const uniqueArticleId = uuidv4();
       setArticleId(uniqueArticleId);
-      const isUpdate = !!comment.id;  
-      const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
-  
-  
-      const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
+      const isUpdate = !!comment.id;
       
+      const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
+      const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
       const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
       const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
       const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
-      const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null; 
+      const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null;
       const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
       const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
       const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}cover_showcase7.jpg`) : null;
@@ -261,119 +256,119 @@ const storage = getStorage();
       const cover_showcase10 = showcase10File ? await handleFileUpload(showcase10File, `images/${uniqueArticleId}cover_showcase10.jpg`) : null;
       const cover_showcase11 = showcase11File ? await handleFileUpload(showcase11File, `images/${uniqueArticleId}cover_showcase11.jpg`) : null;
       const cover_showcase12 = showcase12File ? await handleFileUpload(showcase12File, `images/${uniqueArticleId}cover_showcase12.jpg`) : null;
-      
+  
       const db = getFirestore();
+  
+      const updateData = {
+        userId: user.uid,
+        aboutcontent: aboutcontent ?? "",
+        title: title ?? "",
+        owner: owner ?? "",
+        phone: phone ?? "",
+        price: price ?? "",
+        priceextra: priceextra ?? "",
+        bedrooms: bedrooms ?? "",
+        bathrooms: bathrooms ?? "",
+        square: square ?? "",
+        billingFrequency: billingFrequency ?? "",
+        billingFrequency2: billingFrequency2 ?? "",
+        units: units ?? "",
+        apartavailability: apartavailability ?? "",
+        apartbillingFrequency2: apartbillingFrequency2 ?? "",
+        apartprice: apartprice ?? "",
+        apartsquare: apartsquare ?? "",
+        apartbathrooms: apartbathrooms ?? "",
+        apartbedrooms: apartbedrooms ?? "",
+        aparttourTime: aparttourTime ?? "",
+        water: water ?? "",
+        lights: lights ?? "",
+        cable: cable ?? "",
+        laundry: laundry ?? "",
+        elevator: elevator ?? "",
+        play: play ?? "",
+        concierge: concierge ?? "",
+        club: club ?? "",
+        fireplace: fireplace ?? "",
+        airConditioning: airConditioning ?? "",
+        heating: heating ?? "",
+        sprink: sprink ?? "",
+        tub: tub ?? "",
+        walkin: walkin ?? "",
+        smoke: smoke ?? "",
+        stoorage: stoorage ?? "",
+        wheel: wheel ?? "",
+        disposal: disposal ?? "",
+        dishwasher: dishwasher ?? "",
+        island: island ?? "",
+        kitchen: kitchen ?? "",
+        microwave: microwave ?? "",
+        oven: oven ?? "",
+        fridge: fridge ?? "",
+        freezer: freezer ?? "",
+        framme: framme ?? "",
+        ceiling: ceiling ?? "",
+        wifi: wifi ?? "",
+        address: address ?? "",
+        city: city ?? "",
+        state: state ?? "",
+        canadaState: canadaState ?? "",
+        mexicoState: mexicoState ?? "",
+        gym: gym ?? "",
+        zip: zip ?? "",
+        pet: pet ?? "",
+        primaryBedroomFeatures: primaryBedroomFeatures ?? "",
+        primaryBedroom: primaryBedroom ?? "",
+        primaryBath: primaryBath ?? "",
+        primaryBathFeatures: primaryBathFeatures ?? "",
+        manager: manager ?? "",
+        parking: parking ?? "",
+        dining: dining ?? "",
+        diningFeatures: diningFeatures ?? "",
+        tourTime: tourTime ?? "",
+        opentime: opentime ?? "",
+        balcony: balcony ?? "",
+        garage: garage ?? "",
+        garageFeatures: garageFeatures ?? "",
+        basement: basement ?? "",
+        basementFeatures: basementFeatures ?? "",
+        timestamp: new Date(),
+        userEmail: user.email,
+        authpic: authpic ?? null,
+        cover_image: cover_image ?? null,
+        cover_showcase1: cover_showcase1 ?? null,
+        cover_showcase2: cover_showcase2 ?? null,
+        cover_showcase3: cover_showcase3 ?? null,
+        cover_showcase4: cover_showcase4 ?? null,
+        cover_showcase5: cover_showcase5 ?? null,
+        cover_showcase6: cover_showcase6 ?? null,
+        cover_showcase7: cover_showcase7 ?? null,
+        cover_showcase8: cover_showcase8 ?? null,
+        cover_showcase9: cover_showcase9 ?? null,
+        cover_showcase10: cover_showcase10 ?? null,
+        cover_showcase11: cover_showcase11 ?? null,
+        cover_showcase12: cover_showcase12 ?? null,
+        propertyType: selectedCollection ?? "",
+      };
+  
       if (isUpdate && comment.id && selectedCollection) {
         const docRef = doc(db, selectedCollection, comment.id);
-        await updateDoc(docRef, {
-          userId: user.uid,
-  aboutcontent,
-  title,
-  owner,
-  phone,
-  price,
-  priceextra,
-  bedrooms,
-  bathrooms,
-  square,
-  billingFrequency,
-  billingFrequency2,
-  units,
-  apartavailability,
-  apartbillingFrequency2,
-  apartprice,
-  apartsquare,
-  apartbathrooms,
-  apartbedrooms,
-  aparttourTime,
-  water,
-  lights,
-  cable,
-  laundry,
-  elevator,
-  play,
-  concierge,
-  club,
-  fireplace,
-  airConditioning,
-  heating,
-  pool,
-  sprink,
-  tub,
-  walkin,
-  smoke,
-  stoorage,
-  wheel,
-  disposal,
-  dishwasher,
-  island,
-  kitchen,
-  microwave,
-  oven,
-  fridge,
-  freezer,
-  framme,
-  ceiling,
-  wifi,
-  address,
-  city,
-  state,
-  zip,
-  gym,
-  pet,
-  primaryBedroomFeatures,
-  primaryBedroom,
-  primaryBath,
-  primaryBathFeatures,
-  dining,
-  diningFeatures,
-  manager,
-  parking,
-  tourTime,
-  opentime,
-  balcony,
-  garage,
-  garageFeatures,
-  basement,
-  basementFeatures,
-  timestamp: new Date(),
-  userEmail: user.email,
-  authpic,
-  cover_image,
-  cover_showcase1,
-  cover_showcase2,
-  cover_showcase3,
-  cover_showcase4,
-  cover_showcase5,
-  cover_showcase6,
-  cover_showcase7,
-  cover_showcase8,
-  cover_showcase9,
-  cover_showcase10,
-  cover_showcase11,
-  cover_showcase12,
-propertyType: selectedCollection, 
-      });
-        window.location.reload()
-  
-        window.scrollTo(0, 0); 
+        await updateDoc(docRef, updateData);
+        window.location.reload();
+        window.scrollTo(0, 0);
       } else {
         setErrorMessage('Error: Cannot add a new document without articleId.');
       }
     } catch (error) {
-     
-  console.log(error)
+      console.log(error);
       if (error.code === 'permission-denied') {
         setErrorMessage('Permission denied: You may not have the necessary permissions.');
       } else if (error.code === 'not-found') {
         setErrorMessage('Document not found: The specified document does not exist.');
-      } 
+      }
     } finally {
       setIsLoading(false); // Reset loading state
     }
   };
-
-    
 
   
   
@@ -676,19 +671,19 @@ Walk-in Closet
 </label>
 
 <label>
-      <input
-        type="checkbox"
-        checked={primaryBedroomFeatures.includes('ensuiteBathroom')}
-        onChange={(e) => 
-          setPrimaryBedroomFeatures(
-            e.target.checked 
-              ? [...primaryBedroomFeatures, 'ensuiteBathroom'] 
-              : primaryBedroomFeatures.filter((f) => f !== 'ensuiteBathroom')
-          )
-        }
-      />
-      En-suite Bathroom
-    </label>
+  <input
+    type="checkbox"
+    checked={primaryBedroomFeatures.includes('ensuiteBathroom')}
+    onChange={(e) => 
+      setPrimaryBedroomFeatures(
+        e.target.checked 
+          ? [...primaryBedroomFeatures, 'ensuiteBathroom'] 
+          : primaryBedroomFeatures.filter((f) => f !== 'ensuiteBathroom')
+      )
+    }
+  />
+  En-suite Bathroom
+</label>
 
 
 
@@ -1805,6 +1800,70 @@ onChange={(e) => setState(e.target.value)}
 </select>
 </div>
 
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="province">Canada:</label>
+  <select 
+  id="province" 
+  name="province" 
+  value={canadaState} 
+  onChange={(e) => setcanadaState(e.target.value)}>
+    <option value="">Province/Territory</option>
+    <option value="Alberta">Alberta</option>
+    <option value="British Columbia">British Columbia</option>
+    <option value="Manitoba">Manitoba</option>
+    <option value="New Brunswick">New Brunswick</option>
+    <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+    <option value="Northwest Territories">Northwest Territories</option>
+    <option value="Nova Scotia">Nova Scotia</option>
+    <option value="Nunavut">Nunavut</option>
+    <option value="Ontario">Ontario</option>
+    <option value="Prince Edward Island">Prince Edward Island</option>
+    <option value="Quebec">Quebec</option>
+    <option value="Saskatchewan">Saskatchewan</option>
+    <option value="Yukon">Yukon</option>
+  </select>
+</div>
+
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+  <label htmlFor="state">México:</label>
+  <select id="state" name="state" value={mexicoState} onChange={(e) => setMexicoState(e.target.value)}>
+    <option value="">Estado</option>
+    <option value="Aguascalientes">Aguascalientes</option>
+    <option value="Baja California">Baja California</option>
+    <option value="Baja California Sur">Baja California Sur</option>
+    <option value="Campeche">Campeche</option>
+    <option value="Cancun">Cancun</option>
+    <option value="Chiapas">Chiapas</option>
+    <option value="Chihuahua">Chihuahua</option>
+    <option value="Coahuila">Coahuila</option>
+    <option value="Colima">Colima</option>
+    <option value="Durango">Durango</option>
+    <option value="Guanajuato">Guanajuato</option>
+    <option value="Guerrero">Guerrero</option>
+    <option value="Hidalgo">Hidalgo</option>
+    <option value="Jalisco">Jalisco</option>
+    <option value="México">México</option>
+    <option value="Michoacán">Michoacán</option>
+    <option value="Morelos">Morelos</option>
+    <option value="Nayarit">Nayarit</option>
+    <option value="Nuevo León">Nuevo León</option>
+    <option value="Oaxaca">Oaxaca</option>
+    <option value="Puebla">Puebla</option>
+    <option value="Querétaro">Querétaro</option>
+    <option value="Quintana Roo">Quintana Roo</option>
+    <option value="San Luis Potosí">San Luis Potosí</option>
+    <option value="Sinaloa">Sinaloa</option>
+    <option value="Sonora">Sonora</option>
+    <option value="Tabasco">Tabasco</option>
+    <option value="Tamaulipas">Tamaulipas</option>
+    <option value="Tlaxcala">Tlaxcala</option>
+    <option value="Veracruz">Veracruz</option>
+    <option value="Yucatán">Yucatán</option>
+    <option value="Zacatecas">Zacatecas</option>
+    <option value="Ciudad de México">Ciudad de México</option>
+  </select>
+</div>
+
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
     <label htmlFor="zip">ZIP Code:</label>
     <input
@@ -1847,18 +1906,18 @@ onChange={(e) => setState(e.target.value)}
 
 <button
 type="submit"
-disabled={!isSignedIn ||  !selectedCollection || !address || !zip || !state || !city   ||  isLoading}
+disabled={!isSignedIn ||  !selectedCollection ||  isLoading}
 style={{
-cursor: !isSignedIn ||  !selectedCollection || !address || !zip || !state || !city ||  isLoading ?  'none' : 'pointer',
-backgroundColor: !isSignedIn ||  !selectedCollection || !address || !zip || !state || !city || isLoading ? '#9e9e9e' : '#00a8ff',
-color: !isSignedIn ||  !selectedCollection  || !address || !zip || !state || !city || isLoading ? 'grey' : '#fff',
+cursor: !isSignedIn ||  !selectedCollection  ||  isLoading ?  'none' : 'pointer',
+backgroundColor: !isSignedIn ||  !selectedCollection  || isLoading ? '#9e9e9e' : '#00a8ff',
+color: !isSignedIn ||  !selectedCollection   || isLoading ? 'grey' : '#fff',
 
-}}>
+}} >
 
-{isLoading ? <BeatLoader color='blue' /> : 'update'}
+{isLoading ? <BeatLoader color='blue' /> : 'Update'}
 </button> 
  <button style={{backgroundColor:'red'}} onClick={handleCancel}>Cancel</button>
-
+{errorMessage}
 </form>
 </div>
 
