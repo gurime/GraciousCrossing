@@ -36,6 +36,7 @@ export default function ApartmentList() {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editingComment, setEditingComment] = useState(null);
   const [unauthorizedModalOpen, setUnauthorizedModalOpen ] = useState(false)
+  const [isAdminUser, setIsAdminUser] = useState(false);
 
   const router = useRouter()
 
@@ -67,15 +68,20 @@ resolve(isAuthenticated);
 };
 // userIsAuthenticated stops here
 
-const editPost = (postId) => {
+const editPost = async (postId) => {
   const listingToEdit = useArticle.find((listing) => listing.id === postId);
   if (listingToEdit) {
     const auth = getAuth();
     const currentUser = auth.currentUser;
     if (currentUser) {
       if (currentUser.uid === listingToEdit.userId) {
+        // Check if the user is an admin user
+        const adminUserDoc = await getDoc(doc(db, 'adminusers', currentUser.uid));
+        const isAdminUser = adminUserDoc.exists();
+
         setEditingComment(listingToEdit);
         setEditModalOpen(true);
+        setIsAdminUser(isAdminUser); // Set the isAdminUser state
       } else {
         // Show modal or error message for unauthorized access
         setUnauthorizedModalOpen(true);
@@ -92,8 +98,6 @@ const editPost = (postId) => {
     }, 3000);
   }
 };
-
-
 // EditPost stops here
 
 const handleEditModalSave = async (postId, editedContent) => {
@@ -260,8 +264,15 @@ width: '100%'
 {blog.price} <small>{blog.billingFrequency}</small>
 </div>
 <div className='property-type'>
-<div className='sm-houlo' style={{fontSize:'13px' }}>{blog.bathrooms}ba | {blog.bedrooms}bds |</div>
-<div className='sm-houlo' style={{fontSize:'13px' }}> {blog.square} sqft |</div>
+<div className='sm-houlo' style={{ fontSize: '13px' }}>
+  {blog.bathrooms || blog.apartbathrooms ? `${blog.bathrooms || blog.apartbathrooms}ba` : ''}
+  {blog.bathrooms || blog.apartbathrooms ? ' | ' : ''}
+  {blog.bedrooms || blog.apartbedrooms ? `${blog.bedrooms || blog.apartbedrooms}bds` : ''}
+  {blog.bathrooms || blog.apartbathrooms || blog.bedrooms || blog.apartbedrooms ? ' | ' : ''}
+</div>
+<div className='sm-houlo' style={{ fontSize: '13px' }}>
+  {blog.square ? `${blog.square} sqft` : ''}
+</div>
 
 <div className='sm-houlo' style={{fontSize:'13px' }}>{blog.propertyType}</div>
 
@@ -313,10 +324,12 @@ Delete
   </div>
 )}
 {editModalOpen && (
-  userIsAuthenticated  ? (
-    <AdminEdit comment={editingComment}
-    onSave={handleEditModalSave}
-    onCancel={() => setEditModalOpen(false)}/>
+  isAdminUser ? (
+    <AdminEdit
+      comment={editingComment}
+      onSave={handleEditModalSave}
+      onCancel={() => setEditModalOpen(false)}
+    />
   ) : (
     <EditModalForm
       comment={editingComment}
@@ -325,8 +338,6 @@ Delete
     />
   )
 )}
-
-
 
 </>
 )

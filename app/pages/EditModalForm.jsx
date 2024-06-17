@@ -82,7 +82,8 @@ const [showcase4File, setShowcase4File] = useState(comment ? comment.cover_showc
 const [showcase5File, setShowcase5File] = useState(comment ? comment.cover_showcase5 : ""   );  
 const [showcase6File, setShowcase6File] = useState(comment ? comment.cover_showcase6 : ""   );    
 const [selectedCollection, setSelectedCollection] = useState(comment ? comment.propertyType : "");
-
+const [errorMessage, setErrorMessage] = useState('');
+const [successMessage, setSuccessMessage] = useState();
 
 useEffect(() => {
 const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -312,7 +313,21 @@ const handleSubmit = async (e) => {
 };
 
 
+const formatPhoneNumber = (input) => {
+  // Remove all non-digit characters
+  const cleaned = input.replace(/\D/g, '');
   
+  // Apply formatting: (XXX) XXX-XXXX
+  const formatted = cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+  
+  return formatted;
+};
+
+const handlePhoneChange = (e) => {
+  const inputPhone = e.target.value;
+  const formattedPhone = formatPhoneNumber(inputPhone);
+  setPhone(formattedPhone);
+};
   
 return (
 <>
@@ -389,7 +404,28 @@ required
 />
 </div>
 
+<div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
+      <label htmlFor="phone-number">Phone Number:</label>
+      <input
+        type="tel"
+        id="phone-number"
+        name="phone"
+        value={phone}
+        onChange={handlePhoneChange}
+        required
+      />
+    </div>
 
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="authpic">Property Logo/Personal Picture:</label>
+<input
+type="file"
+id="authpic"
+name="authpic"
+accept="image/*"
+onChange={handleAuthPicChange}
+/>
+</div> 
 
 
 </div>
@@ -664,25 +700,23 @@ Daylight
 <hr />
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Apartment Listings</h2>
+  <h2>Apartment/Motel</h2>
 </div>
+
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 
-<label htmlFor="unitnumbers">Unit:</label>
-    <select
+<label htmlFor="unitnumbers">Unit#:</label>
+
+
+    <input
+      type="text"
+      id="unitnumbers"
       name="unitnumbers"
       value={units}
       onChange={(e) => setUnits(e.target.value)}
-      className='billingselect'
-    >
-      <option value="">Select Unit#</option>
-
-      <option value="BUC-1018">BUC-1018</option>
-      <option value="BUC-1818">BUC-1818</option>
-     
-    </select>
+    />
   </div>
 
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
@@ -1152,18 +1186,9 @@ onChange={(e) => setPlay(e.target.checked)}
   <h2>Property Images</h2>
 </div>
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
-<label htmlFor="authpic">Property Logo/Personal Picture:</label>
-<input
-type="file"
-id="authpic"
-name="authpic"
-accept="image/*"
-onChange={handleAuthPicChange}
-/>
-</div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="cover_image">Property Featured Image:</label>
 <input
 type="file"
@@ -1175,7 +1200,7 @@ accept="image/*"
 onChange={handleCoverImageChange}
 />
 </div> 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase1">Property Showcase Image 1: </label>
 <input
   type="file"
@@ -1186,7 +1211,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase2">Property Showcase Image 2: </label>
 <input
   type="file"
@@ -1197,7 +1222,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase3">Property Showcase Image 3: </label>
 <input
   type="file"
@@ -1208,7 +1233,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase4">Property Showcase Image 4: </label>
 <input
   type="file"
@@ -1219,7 +1244,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase5">Property Showcase Image 5: </label>
 <input
   type="file"
@@ -1230,7 +1255,7 @@ onChange={handleCoverImageChange}
 />
 </div>
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase6">Property Showcase Image 6: </label>
 <input
   type="file"

@@ -510,6 +510,18 @@ required
     <option value="Sunday Closed">Sunday, Closed</option>
   </select>
 </div>
+
+<div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="authpic">Property Logo/Personal Picture:</label>
+<input
+type="file"
+id="authpic"
+name="authpic"
+accept="image/*"
+onChange={handleAuthPicChange}
+/>
+</div> 
+
 </div>
 {/* property contact information stops here */}
 
@@ -1001,25 +1013,22 @@ Daylight
 <hr />
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Apartment Listings</h2>
+  <h2>Apartment/Motel</h2>
 </div>
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 
-<label htmlFor="unitnumbers">Unit:</label>
-    <select
+<label htmlFor="unitnumbers">Unit#:</label>
+
+
+    <input
+      type="text"
+      id="unitnumbers"
       name="unitnumbers"
       value={units}
       onChange={(e) => setUnits(e.target.value)}
-      className='billingselect'
-    >
-      <option value="">Select Unit#</option>
-
-      <option value="BUC-1018">BUC-1018</option>
-      <option value="BUC-1818">BUC-1818</option>
-     
-    </select>
+    />
   </div>
 
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
@@ -1549,18 +1558,8 @@ onChange={(e) => setPool(e.target.checked)}
   <h2>Property Images</h2>
 </div>
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
-<label htmlFor="authpic">Property Logo/Personal Picture:</label>
-<input
-type="file"
-id="authpic"
-name="authpic"
-accept="image/*"
-onChange={handleAuthPicChange}
-/>
-</div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="cover_image">Property Featured Image:</label>
 <input
 type="file"
@@ -1572,7 +1571,7 @@ accept="image/*"
 onChange={handleCoverImageChange}
 />
 </div> 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase1">Property Showcase Image 1: </label>
 <input
   type="file"
@@ -1583,7 +1582,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase2">Property Showcase Image 2: </label>
 <input
   type="file"
@@ -1594,7 +1593,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase3">Property Showcase Image 3: </label>
 <input
   type="file"
@@ -1605,7 +1604,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase4">Property Showcase Image 4: </label>
 <input
   type="file"
@@ -1616,7 +1615,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase5">Property Showcase Image 5: </label>
 <input
   type="file"
@@ -1627,7 +1626,7 @@ onChange={handleCoverImageChange}
 />
 </div>
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase6">Property Showcase Image 6: </label>
 <input
   type="file"
@@ -1638,7 +1637,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase7">Property Showcase Image 7: </label>
 <input
   type="file"
@@ -1649,7 +1648,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase8">Property Showcase Image 8: </label>
 <input
   type="file"
@@ -1660,7 +1659,7 @@ onChange={handleCoverImageChange}
 />
 </div>
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase9">Property Showcase Image 9: </label>
 <input
   type="file"
@@ -1671,7 +1670,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase10">Property Showcase Image 10: </label>
 <input
   type="file"
@@ -1682,7 +1681,7 @@ onChange={handleCoverImageChange}
 />
 </div> 
 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase11">Property Showcase Image 11: </label>
 <input
   type="file"
@@ -1692,7 +1691,7 @@ onChange={handleCoverImageChange}
   onChange={handleShowcase11Change}
 />
 </div> 
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
+<div style={{ display: 'grid', gap: '1rem',marginBottom:'5rem' }}>
 <label htmlFor="showcase12">Property Showcase Image 12: </label>
 <input
   type="file"

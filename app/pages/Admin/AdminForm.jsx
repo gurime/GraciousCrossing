@@ -111,6 +111,7 @@ const [ isLoading, setIsLoading] = useState(false)
 
 const [names, setNames] = useState([]);
 const [errorMessage, setErrorMessage] = useState('');
+const [successMessage, setSuccessMessage] = useState();
 const router = useRouter();
     
   useEffect(() => {
@@ -521,6 +522,17 @@ required
         required
       />
     </div>
+
+    <div style={{ display: 'grid', gap: '1rem' }}>
+<label htmlFor="authpic">Property Logo/Personal Picture:</label>
+<input
+type="file"
+id="authpic"
+name="authpic"
+accept="image/*"
+onChange={handleAuthPicChange}
+/>
+</div> 
 
 
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
