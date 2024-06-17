@@ -462,6 +462,7 @@ return (
       <option value="Luxury Homes">Luxury Homes</option>
       <option value="Vacation Rentals">Vacation Rentals</option>
       <option value="Condominiums">Condominiums</option>
+      <option value="Student Housing">Student Housing</option>
       <option value="Fore closures">Fore closures</option>
       <option value="Senior Housing">Senior Housing</option>
       <option value="Canada">Canada</option>

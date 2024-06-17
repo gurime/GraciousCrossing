@@ -1299,6 +1299,45 @@ color: #fff;
 padding: 1rem;
 height: 1000px;
 }
+.StudentHero{
+background-image: linear-gradient(to bottom, #3535354d, #2626267d), url('./img/studenthouse.jpg');
+background-size: cover;
+background-position: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+place-items: center;
+text-align: center;
+color: #fff;
+padding: 1rem;
+height: 1000px;
+}
+.SeniorHero{
+background-image: linear-gradient(to bottom, #3535354d, #2626267d), url('./img/senior.webp');
+background-size: cover;
+background-position: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+place-items: center;
+text-align: center;
+color: #fff;
+padding: 1rem;
+height: 1000px;
+}
+.ForecloseHero{
+background-image: linear-gradient(to bottom, #3535354d, #2626267d), url('./img/forclose.jpeg');
+background-size: cover;
+background-position: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+place-items: center;
+text-align: center;
+color: #fff;
+padding: 1rem;
+height: 1000px;
+}
 
 .property-hero{
 background-image: linear-gradient(180deg, #3535354d, #2626267d), url('./img/bg-property.jpg');
@@ -1418,6 +1457,45 @@ font-size: 17px;
 cursor: pointer;
 }
 .CondominiumsHero button{
+background-color: #17a2f6;
+color: #fff;
+padding: 10px 20px;
+text-decoration: none;
+display: inline-block;
+border-radius: 5px;
+transition: .5s;
+border: none;
+margin-bottom: 5rem;
+font-size: 17px;
+cursor: pointer;
+}
+.StudentHero button{
+background-color: #17a2f6;
+color: #fff;
+padding: 10px 20px;
+text-decoration: none;
+display: inline-block;
+border-radius: 5px;
+transition: .5s;
+border: none;
+margin-bottom: 5rem;
+font-size: 17px;
+cursor: pointer;
+}
+.SeniorHero button{
+background-color: #17a2f6;
+color: #fff;
+padding: 10px 20px;
+text-decoration: none;
+display: inline-block;
+border-radius: 5px;
+transition: .5s;
+border: none;
+margin-bottom: 5rem;
+font-size: 17px;
+cursor: pointer;
+}
+.ForecloseHero button{
 background-color: #17a2f6;
 color: #fff;
 padding: 10px 20px;

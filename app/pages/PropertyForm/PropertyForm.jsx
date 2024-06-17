@@ -357,7 +357,7 @@ return (
     >
  
 
-      <option value="Houses">Houses</option>
+ <option value="Houses">Houses</option>
       <option value="Apartments">Apartments</option>
       <option value="Motel">Motel</option>
       <option value="New Construction">New Construction</option>
@@ -366,11 +366,14 @@ return (
       <option value="Luxury Homes">Luxury Homes</option>
       <option value="Vacation Rentals">Vacation Rentals</option>
       <option value="Condominiums">Condominiums</option>
+      <option value="Student Housing">Student Housing</option>
       <option value="Fore closures">Fore closures</option>
       <option value="Senior Housing">Senior Housing</option>
       <option value="Canada">Canada</option>
       <option value="Mexico">Mexico</option>
       <option value="Caribbean">Caribbean</option>
+      <option value="Iceland">Iceland</option>
+      <option value="Green Land">Green Land</option>
       <option value="Europe">Europe</option>
       <option value="United Kingdom">United Kingdom</option>
       <option value="Australia">Australia</option>
