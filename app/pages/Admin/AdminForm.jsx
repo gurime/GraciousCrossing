@@ -1560,16 +1560,7 @@ onChange={(e) => setPool(e.target.checked)}
   <h2>Property Images</h2>
 </div>
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-<div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
-<label htmlFor="authpic">Property Logo/Personal Picture:</label>
-<input
-type="file"
-id="authpic"
-name="authpic"
-accept="image/*"
-onChange={handleAuthPicChange}
-/>
-</div> 
+
 
 <div style={{ display: 'grid', gap: '1rem',marginBottom:'10rem' }}>
 <label htmlFor="cover_image">Property Featured Image:</label>

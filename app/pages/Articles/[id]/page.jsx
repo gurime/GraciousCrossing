@@ -74,22 +74,26 @@ return (
 
 <div className="imgbox">
   {post.cover_image && (
-    <img className="cover_image" src={post.cover_image} alt="Property Cover" />
+    <div className="cover-image-container">
+      <img className="cover-image" src={post.cover_image} alt="Property Cover" />
+    </div>
   )}
-  {[...Array(20).keys()].map((index) => {
-    const showcaseIndex = index + 1;
-    const showcase = post[`cover_showcase${showcaseIndex}`];
-    return (
-      showcase && showcase !== '' && (
-        <div
-          className="showcase-img"
-          style={{ backgroundImage: `url(${showcase})` }}
-          key={`cover_showcase${showcaseIndex}`}
-          alt={`Cover Showcase ${showcaseIndex}`}
-        ></div>
-      )
-    );
-  })}
+  <div className="showcase-images">
+    {[...Array(20).keys()].map((index) => {
+      const showcaseIndex = index + 1;
+      const showcase = post[`cover_showcase${showcaseIndex}`];
+      return (
+        showcase && showcase !== '' && (
+          <div
+            className="showcase-img"
+            style={{ backgroundImage: `url(${showcase})` }}
+            key={`cover_showcase${showcaseIndex}`}
+            alt={`Cover Showcase ${showcaseIndex}`}
+          ></div>
+        )
+      );
+    })}
+  </div>
 </div>
 
 
