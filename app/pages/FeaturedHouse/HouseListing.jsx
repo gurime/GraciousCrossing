@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react'
 import { auth, db } from '@/app/Config/firebase';
 
-import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, where } from 'firebase/firestore';
 import AdminEdit from '../AdminEdit/AdminEdit';
@@ -158,20 +157,29 @@ setErrorMessage('');
 
 
 useEffect(() => {
-const fetchData = async () => {
-try {
-const data = await getArticles();
-setUseArticle(data);
-} catch (error) {
-console.error('Error fetching articles:', error);
-setFetchError('Error fetching articles. Please try again later.');
-} finally {
-setLoading(false); 
-}
-};
-  
-fetchData();
-}, []);
+  const fetchData = async () => {
+    try {
+      const data = await getArticles();
+      setUseArticle(data);
+    } catch (error) {
+      setFetchError('Error fetching data. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const checkAuthState = async (user) => {
+    setIsSignedIn(!!user);
+  };
+
+  const unsubscribe = auth.onAuthStateChanged(checkAuthState);
+
+  fetchData(); // Always fetch the listings
+
+  return () => {
+    unsubscribe();
+  };
+}, [auth]);
 return (
 <>
 

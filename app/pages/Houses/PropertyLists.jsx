@@ -165,19 +165,11 @@ setErrorMessage('');
 
 
 
-
     useEffect(() => {
       const fetchData = async () => {
         try {
           const data = await getArticles();
-          const user = auth.currentUser; // Retrieve the current user
-          // Filter the listings to show only those belonging to the current user
-          const userArticles = data.filter(article => article.userId === user.uid);
-          // Combine the user's listings with other listings
-          const combinedListings = userArticles.concat(data.filter(article => article.userId !== user.uid));
-          setUseArticle(combinedListings);
-          // Store user's listings separately if needed
-          setUserListings(userArticles);
+          setUseArticle(data);
         } catch (error) {
           setFetchError('Error fetching data. Please try again later.');
         } finally {
@@ -187,12 +179,11 @@ setErrorMessage('');
     
       const checkAuthState = async (user) => {
         setIsSignedIn(!!user);
-        if (user) {
-          fetchData();
-        }
       };
     
       const unsubscribe = auth.onAuthStateChanged(checkAuthState);
+    
+      fetchData(); // Always fetch the listings
     
       return () => {
         unsubscribe();
