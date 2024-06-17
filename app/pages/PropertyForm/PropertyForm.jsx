@@ -699,25 +699,22 @@ Daylight
 <hr />
 
 <div style={{ color: '#fff', textAlign: 'center' }}>
-  <h2>Apartment Listings</h2>
+  <h2>Apartment/Motel</h2>
 </div>
 
 <div className='sm-adminform' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
 <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
 
-<label htmlFor="unitnumbers">Unit:</label>
-    <select
+<label htmlFor="unitnumbers">Unit#:</label>
+
+
+    <input
+      type="text"
+      id="unitnumbers"
       name="unitnumbers"
       value={units}
       onChange={(e) => setUnits(e.target.value)}
-      className='billingselect'
-    >
-      <option value="">Select Unit#</option>
-
-      <option value="BUC-1018">BUC-1018</option>
-      <option value="BUC-1818">BUC-1818</option>
-     
-    </select>
+    />
   </div>
 
   <div className='sm-adminform-input' style={{ display: 'grid', gap: '1rem' }}>
