@@ -144,7 +144,7 @@ display:'grid'
 }}>
 
 
-<Schedule post={sanitizedPost}/>
+{sanitizedPost && <Schedule post={sanitizedPost} />}
 <ContactAgent post={sanitiPost} />
 
 </div>
