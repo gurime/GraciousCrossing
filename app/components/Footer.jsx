@@ -29,13 +29,12 @@ return (
 <li><Link href='/pages/About'>About Gracious Crossing</Link></li>
 <li><Link href='#!'>Investor Relations </Link></li>
 <li><Link href='#!' >Advertise</Link></li>
+<li><Link href='/pages/Press'>Press Releases</Link></li>
 <li><Link href="/pages/Faq">Faq</Link></li>
 <li><Link href='/pages/Mission'>Our Mission & Values</Link></li>
-<li><Link href='/pages/Team'>Our Team</Link></li>
 <li><Link href='/pages/Sustainability'>Sustainability Initiatives</Link></li>
 <li><Link href='/pages/Diversity'>Diversity & Inclusion</Link></li>
 <li><Link href='/pages/Testimonials'>Customer Testimonials</Link></li>
-<li><Link href='/pages/Press'>Press Releases</Link></li>
 <li><Link href='/pages/Community'>Community Engagement</Link></li>
 </ul>
 </div>
@@ -90,8 +89,8 @@ return (
 <li><Link href="/pages/NeighborhoodGuides">Neighborhood Guides</Link></li>
 <li><Link href="/pages/HomeValuation">Home Valuation</Link></li>
 <li><Link href="/RealEstateNews">Real Estate News</Link></li>
-<li><Link href='#!'>Home Decor</Link></li>
-<li><Link href='#!'>Pets & Tips</Link></li>
+<li><Link href='/pages/HomeDecor'>Home Decor</Link></li>
+<li><Link href='/pages/PetTips'>Pets & Tips</Link></li>
 <li><Link href='/pages/Health'>Health & Fitness</Link></li>
 <li><Link href='/pages/Family'>Family & Friends</Link></li>
 
@@ -99,23 +98,7 @@ return (
 </ul>
 </div>
 
-{/*fourth tablebox stops here*/}
-<div className="footer-tablebox" style={{ borderRight: 'none' }}>
-<div className="footer-headline">Health</div>
-<ul className="footer-navlink" style={{ borderBottom: 'none' }}>
-<li><Link href="/pages/MentalHealth">Mental Health</Link></li>
-<li><Link href="/pages/ChildrensHealth">Children's Health</Link></li>
-<li><Link href="/pages/HeartHealth">Heart Health</Link></li>
-<li><Link href="/pages/PetHealth">Pet Health</Link></li>
-<li><Link href="/pages/EyeHealth">Eye Health</Link></li>
-<li><Link href="/pages/HealthyLiving">Healthy Living</Link></li>
-<li><Link href="/pages/MedicalResearch">Medical Research</Link></li>
-<li><Link href="/pages/Cancer">Cancer</Link></li>
-</ul>
-</div>
 
-
-{/*fourth tablebox stops here*/}
 
 
 </div>
