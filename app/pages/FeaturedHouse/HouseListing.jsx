@@ -170,16 +170,21 @@ useEffect(() => {
 
   const checkAuthState = async (user) => {
     setIsSignedIn(!!user);
+    if (user) {
+      await fetchData(); // Fetch data when the user is authenticated
+    }
   };
 
   const unsubscribe = auth.onAuthStateChanged(checkAuthState);
 
-  fetchData(); // Always fetch the listings
+  // Fetch data initially
+  fetchData();
 
   return () => {
     unsubscribe();
   };
-}, [auth]);
+}, [auth]); // Ensure auth or user object is in the dependency array if needed
+
 return (
 <>
 
