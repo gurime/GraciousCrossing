@@ -95,12 +95,15 @@ return (
 >
   Schedule a Tour
   {(post.tourTime || post.aparttourTime) && (
-    <br />
-    <small style={{ letterSpacing: '1px', fontSize: '9px' }}>
-      as early as {post.tourTime} {post.aparttourTime}
-    </small>
+    <>
+      <br />
+      <small style={{ letterSpacing: '1px', fontSize: '9px' }}>
+        as early as {post.tourTime} {post.aparttourTime}
+      </small>
+    </>
   )}
 </button>
+
 
 {isModalOpen && (
 <div
