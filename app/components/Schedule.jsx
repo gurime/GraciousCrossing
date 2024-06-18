@@ -80,22 +80,26 @@ const handleScheduleTour = async (e) => {
 return (
 <>
 <button
-className='openmodal'
-style={{
-padding: '1rem',
-outline: 'none',
-border: 'none',
-background: '#0059e0',
-color: '#fff',
-cursor:'pointer',
-fontWeight: '600',
-margin: '0 0 1rem 0',}}
-onClick={openModal}
+  className='openmodal'
+  style={{
+    padding: '1rem',
+    outline: 'none',
+    border: 'none',
+    background: '#0059e0',
+    color: '#fff',
+    cursor: 'pointer',
+    fontWeight: '600',
+    margin: '0 0 1rem 0',
+  }}
+  onClick={openModal}
 >
-Schedule a Tour <br />
-<small style={{letterSpacing:'1px',fontSize:'9px'}}>as early as {post.tourTime} {post.aparttourTime}</small>
-
-
+  Schedule a Tour
+  {(post.tourTime || post.aparttourTime) && (
+    <br />
+    <small style={{ letterSpacing: '1px', fontSize: '9px' }}>
+      as early as {post.tourTime} {post.aparttourTime}
+    </small>
+  )}
 </button>
 
 {isModalOpen && (
