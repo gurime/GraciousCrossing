@@ -63,18 +63,18 @@ return (
   <div className="footer-headline">Global Real Estate</div>
 
 <ul className="footer-navlink">
-<li><Link href='#!'>Canada</Link></li>
-<li><Link href='#!'>Mexico</Link></li>
-<li><Link href='#!'>Caribbean</Link></li>
-<li><Link href='#!'>Europe</Link></li>
-<li><Link href='#!'>Iceland</Link></li>
-<li><Link href='#!'>Greenland</Link></li>
-<li><Link href='#!'>United Kingdom</Link></li>
-<li><Link href='#!'>Australia</Link></li>
-<li><Link href='#!'>Asia</Link></li>
-<li><Link href='#!'>Middle East</Link></li>
-<li><Link href='#!'>South America</Link></li>
-<li><Link href='#!'>Africa</Link></li>
+<li><Link href='/pages/Canada'>Canada</Link></li>
+<li><Link href='/pages/Mexico'>Mexico</Link></li>
+<li><Link href='/pages/Caribbean'>Caribbean</Link></li>
+<li><Link href='/pages/Europe'>Europe</Link></li>
+<li><Link href='/pages/Iceland'>Iceland</Link></li>
+<li><Link href='/pages/Greenland'>Greenland</Link></li>
+<li><Link href='/pages/UnitedKingdom'>United Kingdom</Link></li>
+<li><Link href='/pages/Australia'>Australia</Link></li>
+<li><Link href='/pages/Asia'>Asia</Link></li>
+<li><Link href='/pages/MiddleEast'>Middle East</Link></li>
+<li><Link href='/pages/SouthAmerica'>South America</Link></li>
+<li><Link href='/pages/Africa'>Africa</Link></li>
 </ul>
 </div>
 

@@ -242,8 +242,8 @@ export default function LuxuryLisiting() {
     ></div>
     <div className='property-details'>
     <div className='property-price'>
-    {blog.price} <small>{blog.billingFrequency}</small>
-    </div>
+{blog.apartprice || blog.price} <small>{blog.apartbillingFrequency2 || blog.billingFrequency}</small>
+</div>
     <div className='property-type'>
     <div className='sm-houlo' style={{ fontSize: '11px' }}>
   {blog.bathrooms || blog.apartbathrooms ? `${blog.bathrooms || blog.apartbathrooms}ba` : ''}

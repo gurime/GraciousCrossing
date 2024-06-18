@@ -12,7 +12,7 @@ import { IoCloseSharp } from 'react-icons/io5';
 
 
 async function getArticles(orderBy) {
-const querySnapshot = await getDocs(collection(db, "NewConstruction"));
+const querySnapshot = await getDocs(collection(db, "Mexico"));
 const data = [];
 
 querySnapshot.forEach((doc) => {
@@ -25,7 +25,7 @@ data.push({ id: doc.id, ...doc.data() });
   }
 
 
-export default function NewConstructionList() {
+export default function MexicoListings() {
   const [fetchError, setFetchError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [useArticle, setUseArticle] = useState([]);
@@ -43,7 +43,7 @@ export default function NewConstructionList() {
 const fetchComments = async (articleId) => {
 try {
 const db = getFirestore();
-const commentsRef = collection(db, 'New Construction');
+const commentsRef = collection(db, 'Mexico');
 const queryRef = query(commentsRef, where('articleId', '==', articleId),   orderBy('timestamp', 'desc'));
 const querySnapshot = await getDocs(queryRef);
 const newComments = querySnapshot.docs.map((doc) => {
@@ -67,6 +67,7 @@ resolve(isAuthenticated);
 });
 };
 // userIsAuthenticated stops here
+
 const editPost = async (postId) => {
   const listingToEdit = useArticle.find((listing) => listing.id === postId);
   if (listingToEdit) {
@@ -97,9 +98,6 @@ const editPost = async (postId) => {
     }, 3000);
   }
 };
-
-
-
 // EditPost stops here
 
 const handleEditModalSave = async (postId, editedContent) => {
@@ -130,9 +128,9 @@ const isAuthenticated = await userIsAuthenticated();
 if (currentUser) {
 if (currentUser.uid === UserId) {
 const db = getFirestore();
-const commentDoc = await getDoc(doc(db, 'NewConstruction', postId));
+const commentDoc = await getDoc(doc(db, 'Mexico', postId));
 if (commentDoc.exists()) {
-await deleteDoc(doc(db, 'NewConstruction', postId));
+await deleteDoc(doc(db, 'Mexico', postId));
 setUseArticle((prevArticles) =>prevArticles.filter((article) => article.id !== postId)
 );
 setSuccessMessage('Listing deleted successfully');
@@ -163,6 +161,11 @@ setErrorMessage('');
     // deletepost stops here
 
 
+
+
+
+
+
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -187,15 +190,14 @@ setErrorMessage('');
         unsubscribe();
       };
     }, [auth]);
-    
 return (
 <>
 
 
 
-<div className='NewConstructionHero'>
+<div className='MexicoHero'>
 <div>
-  <h1>New Construction Homes For Sale & Rent</h1>
+  <h1>Mexico Homes & Apartments</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>
@@ -217,6 +219,14 @@ return (
 
 </div>
 
+
+{editModalOpen && (
+  <EditModalForm
+    comment={editingComment}
+    onSave={handleEditModalSave}
+    onCancel={() => setEditModalOpen(false)}
+  />
+)}
 
 {loading && useArticle.length === 0 && isSignedIn ? (
   <div style={{ textAlign: 'center' }}>
@@ -245,13 +255,13 @@ width: '100%'
 {blog.apartprice || blog.price} <small>{blog.apartbillingFrequency2 || blog.billingFrequency}</small>
 </div>
 <div className='property-type'>
-<div className='sm-houlo' style={{ fontSize: '13px' }}>
+<div className='sm-houlo' style={{ fontSize: '11px' }}>
   {blog.bathrooms || blog.apartbathrooms ? `${blog.bathrooms || blog.apartbathrooms}ba` : ''}
   {blog.bathrooms || blog.apartbathrooms ? ' | ' : ''}
   {blog.bedrooms || blog.apartbedrooms ? `${blog.bedrooms || blog.apartbedrooms}bds` : ''}
   {blog.bathrooms || blog.apartbathrooms || blog.bedrooms || blog.apartbedrooms ? ' | ' : ''}
 </div>
-<div className='sm-houlo' style={{ fontSize: '13px' }}>
+<div className='sm-houlo' style={{ fontSize: '11px' }}>
   {blog.square ? `${blog.square} sqft |` : ''}
 </div>
 
@@ -260,7 +270,7 @@ width: '100%'
 </div>
 
 </div>
-<address className='property-address'>{blog.address}, {blog.city}, {blog.state[0]}{blog.state.slice(-1)}, {blog.zip}</address>
+<address className='property-address'>{blog.address}, {blog.city}, {blog.state.slice(0,2)}, {blog.zip}</address>
 <address className='property-owner_name'>Listing by {blog.owner}</address>
 <div className="edit-delBlock">
 <button
@@ -292,6 +302,7 @@ Delete
 )}
 
 
+
 {unauthorizedModalOpen && (
   <div className="modal">
     <div className="modal-content" style={{width:'30%'}}>
@@ -318,8 +329,6 @@ Delete
     />
   )
 )}
-
-
 
 </>
 )
