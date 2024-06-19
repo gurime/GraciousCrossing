@@ -225,7 +225,7 @@ width: '100%'
   {blog.bathrooms || blog.apartbathrooms || blog.bedrooms || blog.apartbedrooms ? ' | ' : ''}
 </div>
 <div className='sm-houlo' style={{ fontSize: '11px' }}>
-  {blog.square ? `${blog.square} sqft |` : ''}
+  {blog.square || blog.apartsquare ? `${blog.square || blog.apartsquare}sqft | ` : ''}
 </div>
 
 <div className='sm-houlo' style={{fontSize:'13px' }}>{blog.propertyType}</div>
