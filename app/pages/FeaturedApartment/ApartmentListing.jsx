@@ -218,10 +218,7 @@ width: '100%'
 </div>
 <div className='sm-houlo' style={{ fontSize: '11px' }}>
   {blog.square || blog.apartsquare ? `${blog.square || blog.apartsquare}sqft | ` : ''}
-  
-
 </div>
-
 
 <div className='sm-houlo' style={{fontSize:'13px' }}>{blog.propertyType}</div>
 
