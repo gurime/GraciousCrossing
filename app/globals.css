@@ -1627,7 +1627,7 @@ text-decoration: none;
 }
   
 .property-card {
-min-width: 330px;
+min-width: 450px;
 color: #000;
 height: 100%;
 max-width: 395px;
@@ -1635,7 +1635,6 @@ margin: 1rem 0;
 border: 0px solid rgb(209, 209, 213);
 border-radius: 8px;
 overflow: hidden;
-box-shadow: rgba(0, 0, 0, 60%) 0px 2px 4px 0px;
 transition: transform 0.2s ease-in-out;
 &:hover {
 transform: scale(1.05);
@@ -1660,7 +1659,7 @@ padding: 0 20px;
   
 .property-price {
 color: #333;
-font-weight: 600;
+font-weight: 900;
 font-size: 20px;
 line-height: 24px;
 margin-bottom: 1rem;
@@ -1670,6 +1669,18 @@ margin-bottom: 1rem;
 display: flex;
 place-items: center;
 }
+
+.sm-houlo{
+  font-size: 14px;
+}
+
+.sm-houlo::first-line{
+  
+  font-weight: bold;
+}
+
+
+
   
 .property-address {
 font-weight: 400;

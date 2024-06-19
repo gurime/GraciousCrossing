@@ -241,17 +241,19 @@ width: '100%'
 {blog.apartprice || blog.price} <small>{blog.apartbillingFrequency2 || blog.billingFrequency}</small>
 </div>
 <div className='property-type'>
-<div className='sm-houlo' style={{ fontSize: '11px' }}>
+<div className='sm-houlo' >
   {blog.bathrooms || blog.apartbathrooms ? `${blog.bathrooms || blog.apartbathrooms}ba` : ''}
   {blog.bathrooms || blog.apartbathrooms ? ' | ' : ''}
   {blog.bedrooms || blog.apartbedrooms ? `${blog.bedrooms || blog.apartbedrooms}bds` : ''}
   {blog.bathrooms || blog.apartbathrooms || blog.bedrooms || blog.apartbedrooms ? ' | ' : ''}
 </div>
-<div className='sm-houlo' style={{ fontSize: '11px' }}>
-  {blog.square ? `${blog.square} sqft |` : ''}
+<div className='sm-houlo' >
+  {blog.square || blog.apartsquare ? `${blog.square || blog.apartsquare} sqft  ` : ''}
+  {blog.square || blog.apartsquare || blog.square || blog.apartsquare ? ' | ' : ''}
+
 </div>
 
-<div className='sm-houlo' style={{fontSize:'13px' }}>{blog.propertyType}</div>
+<div className='sm-houlo' >{blog.propertyType}</div>
 
 </div>
 
