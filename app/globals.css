@@ -1627,10 +1627,9 @@ text-decoration: none;
 }
   
 .property-card {
-min-width: 450px;
 color: #000;
 height: 100%;
-max-width: 395px;
+max-width: 100%;
 margin: 1rem 0;
 border: 0px solid rgb(209, 209, 213);
 border-radius: 8px;
