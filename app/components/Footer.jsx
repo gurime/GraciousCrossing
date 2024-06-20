@@ -87,7 +87,6 @@ return (
 <li><Link href="/pages/SellingGuide">Selling Guide</Link></li>
 <li><Link href="/pages/RentingGuide">Renting Guide</Link></li>
 <li><Link href="/pages/NeighborhoodGuides">Neighborhood Guides</Link></li>
-<li><Link href="/pages/HomeValuation">Home Valuation</Link></li>
 <li><Link href="/RealEstateNews">Real Estate News</Link></li>
 <li><Link href='/pages/HomeDecor'>Home Decor</Link></li>
 <li><Link href='/pages/PetTips'>Pets & Tips</Link></li>

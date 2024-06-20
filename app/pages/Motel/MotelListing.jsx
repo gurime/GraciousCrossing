@@ -198,7 +198,7 @@ return (
 
 <div className='MotelArticleHero'>
 <div>
-  <h1>Motels For Rent</h1>
+  <h1>Motel & Extended Stay For Rent</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>
