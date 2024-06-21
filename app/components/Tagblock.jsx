@@ -77,7 +77,7 @@ quality homes.</p>
 <div className="tagline-header">
 <h1>Tips for new House owners</h1>
 <p>Check out our guides for tips on owning your first home.</p>
-<Link href='/Articles'>Articles</Link>
+<Link href='/Articles'>Buying Guide</Link>
 </div>
 <Image height={300} src={cardimg3} alt="" priority/>
 </div>

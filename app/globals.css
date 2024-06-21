@@ -1847,6 +1847,44 @@ font-size: 14px;
 }
 /* terms css stops here */
 
+
+.diversity-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.diversity-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+.diversity-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.diversity-section {
+  margin: 20px 0;
+}
+
+.diversity-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.diversity-section p, .diversity-section ul {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.diversity-section ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
 .edit-btn {
 margin-left: 10px;
 border: none;
