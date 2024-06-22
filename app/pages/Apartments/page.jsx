@@ -2,6 +2,7 @@ import React from 'react'
 import ApartmentList from './AprtmentList'
 import Navbar from '@/app/components/Navbar'
 import Footer from '@/app/components/Footer'
+import AdminHeader from '@/app/components/AdminHeader';
 
 
 export const metadata = {
@@ -16,6 +17,7 @@ export const metadata = {
 export default function page() {
   return (
 <>
+<AdminHeader/>
 <Navbar/>
 <ApartmentList/>
 <Footer/>
