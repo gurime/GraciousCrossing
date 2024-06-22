@@ -197,7 +197,7 @@ return (
 
 <div className='CaribbeanHero'>
 <div>
-  <h1>Caribbean Homes & Apartments</h1>
+  <h1>Explore The Caribbean's Homes, Apartments, Motels, & Hotels</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>

@@ -197,7 +197,7 @@ return (
 
 <div className='MexicoHero'>
 <div>
-  <h1>Mexico Homes & Apartments</h1>
+  <h1>Explore Mexico's Homes, Apartments, Motels, & Hotels</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>

@@ -42,20 +42,21 @@ return (
 <div className="footer-tablebox"> 
   <div className="footer-headline">Home Shopping</div>
 
-  <ul className="footer-navlink">
-    <li><Link href='/pages/Houses'>Homes For Sale & Rent</Link></li>
-    <li><Link href='/pages/Apartments'>Apartments for Rent</Link></li>
-    <li><Link href='/pages/NewConstruction'>New Construction For Sale</Link></li>
-    <li><Link href='/pages/Motel'>Motels For Rent</Link></li>
-    <li><Link href='/pages/GreenHomes'>Green Homes For Sale & Rent</Link></li>
-    <li><Link href='/pages/HistoricHomes'>Historic Homes For Sale & Rent</Link></li>
-    <li><Link href='/pages/LuxuryHomes'>Luxury Homes For Sale & Rent</Link></li>
-    <li><Link href='/pages/VacationRentals'>Vacation Rentals For Rent</Link></li>
-    <li><Link href='/pages/Conodominiums'>Conodominiums For Sale & Rent</Link></li>
-    <li><Link href='/pages/StudentHousing'>Student Housing For Rent</Link></li>
-    <li><Link href='/pages/Foreclosures'>Foreclosures For Sale</Link></li>
-    <li><Link href='/pages/SeniorHousing'>Senior Housing For Sale & Rent</Link></li>
-  </ul>
+<ul className="footer-navlink">
+<li><Link href='/pages/Houses'>Homes For Sale & Rent</Link></li>
+<li><Link href='/pages/Apartments'>Apartments for Rent</Link></li>
+<li><Link href='/pages/NewConstruction'>New Construction For Sale</Link></li>    
+<li><Link href='/pages/Hotel'>Hotels For Rent</Link></li>
+<li><Link href='/pages/Motel'>Motels & Extended Stay For Rent</Link></li>
+<li><Link href='/pages/GreenHomes'>Green Homes For Sale & Rent</Link></li>
+<li><Link href='/pages/HistoricHomes'>Historic Homes For Sale & Rent</Link></li>
+<li><Link href='/pages/LuxuryHomes'>Luxury Homes For Sale & Rent</Link></li>
+<li><Link href='/pages/VacationRentals'>Vacation Rentals For Rent</Link></li>
+<li><Link href='/pages/Conodominiums'>Conodominiums For Sale & Rent</Link></li>
+<li><Link href='/pages/StudentHousing'>Student Housing For Rent</Link></li>
+<li><Link href='/pages/Foreclosures'>Foreclosures For Sale</Link></li>
+<li><Link href='/pages/SeniorHousing'>Senior Housing For Sale & Rent</Link></li>
+</ul>
 </div>
 
 {/*seconds tablebox stops here*/}
@@ -71,7 +72,8 @@ return (
 <li><Link href='/pages/Greenland'>Greenland</Link></li>
 <li><Link href='/pages/UnitedKingdom'>United Kingdom</Link></li>
 <li><Link href='/pages/Australia'>Australia</Link></li>
-<li><Link href='/pages/Asia'>Asia</Link></li>
+<li><Link href='/pages/China'>China</Link></li>
+<li><Link href='/pages/Indonesia'>Indonesia</Link></li>
 <li><Link href='/pages/MiddleEast'>Middle East</Link></li>
 <li><Link href='/pages/SouthAmerica'>South America</Link></li>
 <li><Link href='/pages/Africa'>Africa</Link></li>

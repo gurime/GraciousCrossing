@@ -12,7 +12,7 @@ import { IoCloseSharp } from 'react-icons/io5';
 
 
 async function getArticles(orderBy) {
-const querySnapshot = await getDocs(collection(db, "Europe"));
+const querySnapshot = await getDocs(collection(db, "Australia"));
 const data = [];
 
 querySnapshot.forEach((doc) => {
@@ -25,7 +25,7 @@ data.push({ id: doc.id, ...doc.data() });
   }
 
 
-export default function EuropeanListings() {
+export default function AustraliaListings() {
   const [fetchError, setFetchError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [useArticle, setUseArticle] = useState([]);
@@ -43,7 +43,7 @@ export default function EuropeanListings() {
 const fetchComments = async (articleId) => {
 try {
 const db = getFirestore();
-const commentsRef = collection(db, 'Europe');
+const commentsRef = collection(db, 'Australia');
 const queryRef = query(commentsRef, where('articleId', '==', articleId),   orderBy('timestamp', 'desc'));
 const querySnapshot = await getDocs(queryRef);
 const newComments = querySnapshot.docs.map((doc) => {
@@ -128,9 +128,9 @@ const isAuthenticated = await userIsAuthenticated();
 if (currentUser) {
 if (currentUser.uid === UserId) {
 const db = getFirestore();
-const commentDoc = await getDoc(doc(db, 'Europe', postId));
+const commentDoc = await getDoc(doc(db, 'Australia', postId));
 if (commentDoc.exists()) {
-await deleteDoc(doc(db, 'Europe', postId));
+await deleteDoc(doc(db, 'Australia', postId));
 setUseArticle((prevArticles) =>prevArticles.filter((article) => article.id !== postId)
 );
 setSuccessMessage('Listing deleted successfully');
@@ -195,9 +195,9 @@ return (
 
 
 
-<div className='EuroHero'>
+<div className='AustraliaHero'>
 <div>
-  <h1>Explore Europe's Homes, Apartments, Motels, & Hotels</h1>
+  <h1>Explore Australia's Homes, Apartments, Motels, & Hotels</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>
@@ -267,7 +267,7 @@ width: '100%'
 
 </div>
 
-<div className='sm-houlo'>{blog.propertyType}</div>
+<div className='sm-houlo' >{blog.propertyType}</div>
 
 </div>
 

@@ -358,8 +358,10 @@ return (
  
 
  <option value="Houses">Houses</option>
+ <option value="Houses">Houses</option>
       <option value="Apartments">Apartments</option>
-      <option value="Motel">Motel</option>
+      <option value="Hotel">Hotel</option>
+      <option value="Motel">Motels & Extended Stay</option>
       <option value="New Construction">New Construction</option>
       <option value="Green Homes">Green Homes</option>
       <option value="Historic Homes">Historic Homes</option>
@@ -377,7 +379,8 @@ return (
       <option value="Europe">Europe</option>
       <option value="United Kingdom">United Kingdom</option>
       <option value="Australia">Australia</option>
-      <option value="Asia">Asia</option>
+      <option value="China">China</option>
+      <option value="Indonesia">Indonesia</option>      
       <option value="Middle East">Middle East</option>
       <option value="South America">South America</option>
       <option value="Africa">Africa</option>

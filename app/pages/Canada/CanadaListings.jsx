@@ -197,7 +197,7 @@ return (
 
 <div className='CanadaHero'>
 <div>
-  <h1>Canada Homes & Apartments</h1>
+  <h1>Explore Canada's Homes, Apartments, Motels, & Hotels</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>
