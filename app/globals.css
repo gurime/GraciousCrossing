@@ -1191,7 +1191,7 @@ justify-content: space-between;
 align-items: center;
 border-radius: 20px;
 }
-[class$="Hero"], .property-hero {
+[class$="Hero"] {
   background-size: cover;
   background-position: center;
   display: flex;
@@ -1244,8 +1244,6 @@ border-radius: 20px;
 .SouthAmericaHero { background-image: linear-gradient(to bottom, #3535354d, #2626267d), url('./img/braz.jpg'); }
 .AfricaHero { background-image: linear-gradient(to bottom, #3535354d, #2626267d), url('./img/afri.jpg'); }
 
-/* Special case for property-hero */
-.property-hero { background-image: linear-gradient(180deg, #3535354d, #2626267d), url('./img/bg-property.jpg'); }
 
 
 

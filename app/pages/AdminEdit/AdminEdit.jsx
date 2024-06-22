@@ -155,279 +155,271 @@ const handleCancel = () => {
 
 const storage = getStorage(); 
 
-  const handleAuthPicChange = (e) => {
-  // Set the selected cover image file to state
-  const file = e.target.files[0];
-  setAuthPicFile(file);
-  };
-  const handleCoverImageChange = (e) => {
-  // Set the selected cover image file to state
-  const file = e.target.files[0];
-  setCoverImageFile(file);
-  };
+const handleAuthPicChange = (e) => {
+// Set the selected cover image file to state
+const file = e.target.files[0];
+setAuthPicFile(file);
+};
+const handleCoverImageChange = (e) => {
+// Set the selected cover image file to state
+const file = e.target.files[0];
+setCoverImageFile(file);
+};
     
   
-  const handleShowcase1Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase1File(file);
-  };
+const handleShowcase1Change = (e) => {
+const file = e.target.files[0];
+setShowcase1File(file);
+};
+
+const handleShowcase2Change = (e) => {
+const file = e.target.files[0];
+setShowcase2File(file);
+};
+
+const handleShowcase3Change = (e) => {
+const file = e.target.files[0];
+setShowcase3File(file);
+};
+const handleShowcase4Change = (e) => {
+const file = e.target.files[0];
+setShowcase4File(file);
+};
+const handleShowcase5Change = (e) => {
+const file = e.target.files[0];
+setShowcase5File(file);
+};
+const handleShowcase6Change = (e) => {
+const file = e.target.files[0];
+setShowcase6File(file);
+};
+const handleShowcase7Change = (e) => {
+const file = e.target.files[0];
+setShowcase7File(file);
+};
+const handleShowcase8Change = (e) => {
+const file = e.target.files[0];
+setShowcase8File(file);
+};
+const handleShowcase9Change = (e) => {
+const file = e.target.files[0];
+setShowcase9File(file);
+};
+const handleShowcase10Change = (e) => {
+const file = e.target.files[0];
+setShowcase10File(file);
+};
+const handleShowcase11Change = (e) => {
+const file = e.target.files[0];
+setShowcase11File(file);
+};
+const handleShowcase12Change = (e) => {
+const file = e.target.files[0];
+setShowcase12File(file);
+};
   
-  const handleShowcase2Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase2File(file);
-  };
-  
-  const handleShowcase3Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase3File(file);
-  };
-  const handleShowcase4Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase4File(file);
-  };
-  const handleShowcase5Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase5File(file);
-  };
-  const handleShowcase6Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase6File(file);
-  };
-  const handleShowcase7Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase7File(file);
-  };
-  const handleShowcase8Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase8File(file);
-  };
-  const handleShowcase9Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase9File(file);
-  };
-  const handleShowcase10Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase10File(file);
-  };
-  const handleShowcase11Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase11File(file);
-  };
-  const handleShowcase12Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase12File(file);
-  };
-  
-  const handleFileUpload = async (file, storagePath, uniqueId) => {
-    try {
-      const storageRef = ref(storage, `${storagePath}${uniqueId}`);
-      await uploadBytesResumable(storageRef, file);
-      const downloadURL = await getDownloadURL(storageRef);
-      return downloadURL;
-    } catch (error) {
-      handleError(error);
-      throw error; // Rethrow the error for the caller to handle
-    }
-  };
+const handleFileUpload = async (file, storagePath, uniqueId) => {
+try {
+const storageRef = ref(storage, `${storagePath}${uniqueId}`);
+await uploadBytesResumable(storageRef, file);
+const downloadURL = await getDownloadURL(storageRef);
+return downloadURL;
+} catch (error) {
+handleError(error);
+throw error; // Rethrow the error for the caller to handle
+}
+};
   
   // Log relevant information for debugging
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const auth = getAuth();
-      const user = auth.currentUser;
-      setIsLoading(true);
-      const uniqueArticleId = uuidv4();
-      setArticleId(uniqueArticleId);
-      const isUpdate = !!comment.id;
-      
-      const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
-      const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
-      const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
-      const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
-      const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
-      const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null;
-      const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
-      const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
-      const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}cover_showcase7.jpg`) : null;
-      const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${uniqueArticleId}cover_showcase8.jpg`) : null;
-      const cover_showcase9 = showcase9File ? await handleFileUpload(showcase9File, `images/${uniqueArticleId}cover_showcase9.jpg`) : null;
-      const cover_showcase10 = showcase10File ? await handleFileUpload(showcase10File, `images/${uniqueArticleId}cover_showcase10.jpg`) : null;
-      const cover_showcase11 = showcase11File ? await handleFileUpload(showcase11File, `images/${uniqueArticleId}cover_showcase11.jpg`) : null;
-      const cover_showcase12 = showcase12File ? await handleFileUpload(showcase12File, `images/${uniqueArticleId}cover_showcase12.jpg`) : null;
+const auth = getAuth();
+const user = auth.currentUser;
+setIsLoading(true);
+const uniqueArticleId = uuidv4();
+setArticleId(uniqueArticleId);
+const isUpdate = !!comment.id;
+
+const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
+const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
+const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
+const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
+const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
+const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null;
+const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
+const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
+const cover_showcase7 = showcase7File ? await handleFileUpload(showcase7File, `images/${uniqueArticleId}cover_showcase7.jpg`) : null;
+const cover_showcase8 = showcase8File ? await handleFileUpload(showcase8File, `images/${uniqueArticleId}cover_showcase8.jpg`) : null;
+const cover_showcase9 = showcase9File ? await handleFileUpload(showcase9File, `images/${uniqueArticleId}cover_showcase9.jpg`) : null;
+const cover_showcase10 = showcase10File ? await handleFileUpload(showcase10File, `images/${uniqueArticleId}cover_showcase10.jpg`) :null;
+const cover_showcase11 = showcase11File ? await handleFileUpload(showcase11File, `images/${uniqueArticleId}cover_showcase11.jpg`) :null;
+const cover_showcase12 = showcase12File ? await handleFileUpload(showcase12File, `images/${uniqueArticleId}cover_showcase12.jpg`) :null;
+const db = getFirestore();
+const updateData = {
+userId: user.uid,
+aboutcontent: aboutcontent ?? "",
+title: title ?? "",
+owner: owner ?? "",
+phone: phone ?? "",
+price: price ?? "",
+priceextra: priceextra ?? "",
+bedrooms: bedrooms ?? "",
+bathrooms: bathrooms ?? "",
+square: square ?? "",
+billingFrequency: billingFrequency ?? "",
+billingFrequency2: billingFrequency2 ?? "",
+units: units ?? "",
+apartavailability: apartavailability ?? "",
+apartbillingFrequency2: apartbillingFrequency2 ?? "",
+apartprice: apartprice ?? "",
+apartsquare: apartsquare ?? "",
+apartbathrooms: apartbathrooms ?? "",
+apartbedrooms: apartbedrooms ?? "",
+aparttourTime: aparttourTime ?? "",
+water: water ?? "",
+lights: lights ?? "",
+cable: cable ?? "",
+laundry: laundry ?? "",
+elevator: elevator ?? "",
+play: play ?? "",
+concierge: concierge ?? "",
+club: club ?? "",
+fireplace: fireplace ?? "",
+airConditioning: airConditioning ?? "",
+heating: heating ?? "",
+sprink: sprink ?? "",
+tub: tub ?? "",
+walkin: walkin ?? "",
+smoke: smoke ?? "",
+stoorage: stoorage ?? "",
+wheel: wheel ?? "",
+disposal: disposal ?? "",
+dishwasher: dishwasher ?? "",
+island: island ?? "",
+kitchen: kitchen ?? "",
+microwave: microwave ?? "",
+oven: oven ?? "",
+fridge: fridge ?? "",
+freezer: freezer ?? "",
+framme: framme ?? "",
+ceiling: ceiling ?? "",
+wifi: wifi ?? "",
+address: address ?? "",
+city: city ?? "",
+state: state ?? "",
+canadaState: canadaState ?? "",
+mexicoState: mexicoState ?? "",
+gym: gym ?? "",
+zip: zip ?? "",
+pet: pet ?? "",
+primaryBedroomFeatures: primaryBedroomFeatures ?? "",
+primaryBedroom: primaryBedroom ?? "",
+primaryBath: primaryBath ?? "",
+primaryBathFeatures: primaryBathFeatures ?? "",
+manager: manager ?? "",
+parking: parking ?? "",
+dining: dining ?? "",
+diningFeatures: diningFeatures ?? "",
+tourTime: tourTime ?? "",
+opentime: opentime ?? "",
+balcony: balcony ?? "",
+garage: garage ?? "",
+garageFeatures: garageFeatures ?? "",
+basement: basement ?? "",
+basementFeatures: basementFeatures ?? "",
+timestamp: new Date(),
+userEmail: user.email,
+authpic: authpic ?? null,
+cover_image: cover_image ?? null,
+cover_showcase1: cover_showcase1 ?? null,
+cover_showcase2: cover_showcase2 ?? null,
+cover_showcase3: cover_showcase3 ?? null,
+cover_showcase4: cover_showcase4 ?? null,
+cover_showcase5: cover_showcase5 ?? null,
+cover_showcase6: cover_showcase6 ?? null,
+cover_showcase7: cover_showcase7 ?? null,
+cover_showcase8: cover_showcase8 ?? null,
+cover_showcase9: cover_showcase9 ?? null,
+cover_showcase10: cover_showcase10 ?? null,
+cover_showcase11: cover_showcase11 ?? null,
+cover_showcase12: cover_showcase12 ?? null,
+propertyType: selectedCollection ?? "",
+};
   
-      const db = getFirestore();
-  
-      const updateData = {
-        userId: user.uid,
-        aboutcontent: aboutcontent ?? "",
-        title: title ?? "",
-        owner: owner ?? "",
-        phone: phone ?? "",
-        price: price ?? "",
-        priceextra: priceextra ?? "",
-        bedrooms: bedrooms ?? "",
-        bathrooms: bathrooms ?? "",
-        square: square ?? "",
-        billingFrequency: billingFrequency ?? "",
-        billingFrequency2: billingFrequency2 ?? "",
-        units: units ?? "",
-        apartavailability: apartavailability ?? "",
-        apartbillingFrequency2: apartbillingFrequency2 ?? "",
-        apartprice: apartprice ?? "",
-        apartsquare: apartsquare ?? "",
-        apartbathrooms: apartbathrooms ?? "",
-        apartbedrooms: apartbedrooms ?? "",
-        aparttourTime: aparttourTime ?? "",
-        water: water ?? "",
-        lights: lights ?? "",
-        cable: cable ?? "",
-        laundry: laundry ?? "",
-        elevator: elevator ?? "",
-        play: play ?? "",
-        concierge: concierge ?? "",
-        club: club ?? "",
-        fireplace: fireplace ?? "",
-        airConditioning: airConditioning ?? "",
-        heating: heating ?? "",
-        sprink: sprink ?? "",
-        tub: tub ?? "",
-        walkin: walkin ?? "",
-        smoke: smoke ?? "",
-        stoorage: stoorage ?? "",
-        wheel: wheel ?? "",
-        disposal: disposal ?? "",
-        dishwasher: dishwasher ?? "",
-        island: island ?? "",
-        kitchen: kitchen ?? "",
-        microwave: microwave ?? "",
-        oven: oven ?? "",
-        fridge: fridge ?? "",
-        freezer: freezer ?? "",
-        framme: framme ?? "",
-        ceiling: ceiling ?? "",
-        wifi: wifi ?? "",
-        address: address ?? "",
-        city: city ?? "",
-        state: state ?? "",
-        canadaState: canadaState ?? "",
-        mexicoState: mexicoState ?? "",
-        gym: gym ?? "",
-        zip: zip ?? "",
-        pet: pet ?? "",
-        primaryBedroomFeatures: primaryBedroomFeatures ?? "",
-        primaryBedroom: primaryBedroom ?? "",
-        primaryBath: primaryBath ?? "",
-        primaryBathFeatures: primaryBathFeatures ?? "",
-        manager: manager ?? "",
-        parking: parking ?? "",
-        dining: dining ?? "",
-        diningFeatures: diningFeatures ?? "",
-        tourTime: tourTime ?? "",
-        opentime: opentime ?? "",
-        balcony: balcony ?? "",
-        garage: garage ?? "",
-        garageFeatures: garageFeatures ?? "",
-        basement: basement ?? "",
-        basementFeatures: basementFeatures ?? "",
-        timestamp: new Date(),
-        userEmail: user.email,
-        authpic: authpic ?? null,
-        cover_image: cover_image ?? null,
-        cover_showcase1: cover_showcase1 ?? null,
-        cover_showcase2: cover_showcase2 ?? null,
-        cover_showcase3: cover_showcase3 ?? null,
-        cover_showcase4: cover_showcase4 ?? null,
-        cover_showcase5: cover_showcase5 ?? null,
-        cover_showcase6: cover_showcase6 ?? null,
-        cover_showcase7: cover_showcase7 ?? null,
-        cover_showcase8: cover_showcase8 ?? null,
-        cover_showcase9: cover_showcase9 ?? null,
-        cover_showcase10: cover_showcase10 ?? null,
-        cover_showcase11: cover_showcase11 ?? null,
-        cover_showcase12: cover_showcase12 ?? null,
-        propertyType: selectedCollection ?? "",
-      };
-  
-      if (isUpdate && comment.id && selectedCollection) {
-        const docRef = doc(db, selectedCollection, comment.id);
-        await updateDoc(docRef, updateData);
-        window.location.reload();
-        window.scrollTo(0, 0);
-      } else {
-        setErrorMessage('Error: Cannot add a new document without articleId.');
-      }
-    } catch (error) {
-      console.log(error);
-      if (error.code === 'permission-denied') {
-        setErrorMessage('Permission denied: You may not have the necessary permissions.');
-      } else if (error.code === 'not-found') {
-        setErrorMessage('Document not found: The specified document does not exist.');
-      }
-    } finally {
-      setIsLoading(false); // Reset loading state
-    }
-  };
+if (isUpdate && comment.id && selectedCollection) {
+const docRef = doc(db, selectedCollection, comment.id);
+await updateDoc(docRef, updateData);
+window.location.reload();
+window.scrollTo(0, 0);
+} else {
+setErrorMessage('Error: Cannot add a new document without articleId.');
+}
+} catch (error) {
+console.log(error);
+if (error.code === 'permission-denied') {
+setErrorMessage('Permission denied: You may not have the necessary permissions.');
+} else if (error.code === 'not-found') {
+setErrorMessage('Document not found: The specified document does not exist.');
+}
+} finally {
+setIsLoading(false); // Reset loading state
+}
+};
 
   
   
-  const handleTourTimeChange = (e) => {
-    setTourTime(e.target.value);
-  };
+const handleTourTimeChange = (e) => {
+setTourTime(e.target.value);
+};
   
  
-  const timeOptions = [
-    { day: 'Tour', time: '9:00 AM - 9:30 AM' },
-    { day: 'Tour', time: '11:00 AM - 11:30 AM' },
-    { day: 'Tour', time: '12:30 PM - 1:00 PM' },
-    { day: 'Tour', time: '2:00 PM - 2:30 PM' },
-    { day: 'Tour', time: '2:30 PM - 3:00 PM' },
-    { day: 'Tour', time: '3:00 PM - 3:30 PM' },
-    { day: 'Tour', time: '3:30 PM - 4:00 PM' },
-    { day: 'Tour', time: '4:00 PM - 4:30 PM' },
- 
-    
-  ];
+const timeOptions = [
+{ day: 'Tour', time: '9:00 AM - 9:30 AM' },
+{ day: 'Tour', time: '11:00 AM - 11:30 AM' },
+{ day: 'Tour', time: '12:30 PM - 1:00 PM' },
+{ day: 'Tour', time: '2:00 PM - 2:30 PM' },
+{ day: 'Tour', time: '2:30 PM - 3:00 PM' },
+{ day: 'Tour', time: '3:00 PM - 3:30 PM' },
+{ day: 'Tour', time: '3:30 PM - 4:00 PM' },
+{ day: 'Tour', time: '4:00 PM - 4:30 PM' },
+];
 
-  const handleApartTourTimeChange = (e) => {
-    setApartTourTime(e.target.value);
-  };
+const handleApartTourTimeChange = (e) => {
+setApartTourTime(e.target.value);
+};
   
-  const aparttimeOptions = [
+const aparttimeOptions = [
   
-    { day: 'Tour', time: '9:00 AM - 9:30 AM' },
-    { day: 'Tour', time: '11:00 AM - 11:30 AM' },
-    { day: 'Tour', time: '12:30 PM - 1:00 PM' },
-    { day: 'Tour', time: '2:00 PM - 2:30 PM' },
-    { day: 'Tour', time: '2:30 PM - 3:00 PM' },
-    { day: 'Tour', time: '3:00 PM - 3:30 PM' },
-    { day: 'Tour', time: '3:30 PM - 4:00 PM' },
-    { day: 'Tour', time: '4:00 PM - 4:30 PM' },
- 
-    
-  ];
+{ day: 'Tour', time: '9:00 AM - 9:30 AM' },
+{ day: 'Tour', time: '11:00 AM - 11:30 AM' },
+{ day: 'Tour', time: '12:30 PM - 1:00 PM' },
+{ day: 'Tour', time: '2:00 PM - 2:30 PM' },
+{ day: 'Tour', time: '2:30 PM - 3:00 PM' },
+{ day: 'Tour', time: '3:00 PM - 3:30 PM' },
+{ day: 'Tour', time: '3:30 PM - 4:00 PM' },
+{ day: 'Tour', time: '4:00 PM - 4:30 PM' },
+];
 
-  const handleOpenTimeChange = (e) => {
-    setOpentime(e.target.value);
-  };
+const handleOpenTimeChange = (e) => {
+setOpentime(e.target.value);
+};
 
   
-  const formatPhoneNumber = (input) => {
-    // Remove all non-digit characters
-    const cleaned = input.replace(/\D/g, '');
-    
-    // Apply formatting: (XXX) XXX-XXXX
-    const formatted = cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
-    
-    return formatted;
-  };
+const formatPhoneNumber = (input) => {
+// Remove all non-digit characters
+const cleaned = input.replace(/\D/g, '');
+// Apply formatting: (XXX) XXX-XXXX
+const formatted = cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+return formatted;
+};
 
-  const handlePhoneChange = (e) => {
-    const inputPhone = e.target.value;
-    const formattedPhone = formatPhoneNumber(inputPhone);
-    setPhone(formattedPhone);
-  };
+const handlePhoneChange = (e) => {
+const inputPhone = e.target.value;
+const formattedPhone = formatPhoneNumber(inputPhone);
+setPhone(formattedPhone);
+};
 return (
 <>
 <div className='adminform_bg'>

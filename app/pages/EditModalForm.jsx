@@ -51,7 +51,6 @@ const [manager, setManager] = useState(comment ? comment.manager : false);
 const [pet, setPet] = useState(comment ? comment.pet : false);
 const [oven, setOven] = useState(comment ? comment.oven : false);
 const [play, setPlay] = useState(comment ? comment.play : false);
-const [club, setClub] = useState(comment ? comment.club : false);
 const [fridge, setFridge] = useState(comment ? comment.fridge : false);
 const [freezer, setFreezer] = useState(comment ? comment.freezer : false);
 const [sprink, setSprink] = useState(comment ? comment.sprink : false);
@@ -138,195 +137,184 @@ const handleCancel = () => {
 
 const storage = getStorage(); 
 const handleAuthPicChange = (e) => {
-  // Set the selected cover image file to state
-  const file = e.target.files[0];
-  setAuthPicFile(file);
-  };
-  const handleCoverImageChange = (e) => {
-  // Set the selected cover image file to state
-  const file = e.target.files[0];
-  setCoverImageFile(file);
-  };
-    
+// Set the selected cover image file to state
+const file = e.target.files[0];
+setAuthPicFile(file);
+};
+const handleCoverImageChange = (e) => {
+// Set the selected cover image file to state
+const file = e.target.files[0];
+setCoverImageFile(file);
+};
   
-  const handleShowcase1Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase1File(file);
-  };
-  
-  const handleShowcase2Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase2File(file);
-  };
-  
-  const handleShowcase3Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase3File(file);
-  };
-  const handleShowcase4Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase4File(file);
-  };
-  const handleShowcase5Change = (e) => {
-  const file = e.target.files[0];
-  setShowcase5File(file);
-  };
 
-  const handleShowcase6Change = (e) => {
-    const file = e.target.files[0];
-    setShowcase6File(file);
-    };
-  const handleFileUpload = async (file, storagePath, uniqueId) => {
-    try {
-      const storageRef = ref(storage, `${storagePath}${uniqueId}`);
-      await uploadBytes(storageRef, file);
-      const downloadURL = await getDownloadURL(storageRef);
-      return downloadURL;
-    } catch (error) {
-      handleError(error);
-      throw error; // Rethrow the error for the caller to handle
-    }
-  };
+const handleShowcase1Change = (e) => {
+const file = e.target.files[0];
+setShowcase1File(file);
+};
+
+const handleShowcase2Change = (e) => {
+const file = e.target.files[0];
+setShowcase2File(file);
+};
+
+const handleShowcase3Change = (e) => {
+const file = e.target.files[0];
+setShowcase3File(file);
+};
+const handleShowcase4Change = (e) => {
+const file = e.target.files[0];
+setShowcase4File(file);
+};
+const handleShowcase5Change = (e) => {
+const file = e.target.files[0];
+setShowcase5File(file);
+};
+const handleShowcase6Change = (e) => {
+const file = e.target.files[0];
+setShowcase6File(file);
+};
+const handleFileUpload = async (file, storagePath, uniqueId) => {
+try {
+const storageRef = ref(storage, `${storagePath}${uniqueId}`);
+await uploadBytes(storageRef, file);
+const downloadURL = await getDownloadURL(storageRef);
+return downloadURL;
+} catch (error) {
+handleError(error);
+throw error; // Rethrow the error for the caller to handle
+}
+};
   
 
 
 // Log relevant information for debugging
 const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    setIsLoading(true);
-    const uniqueArticleId = uuidv4();
-    setArticleId(uniqueArticleId);
-    const isUpdate = !!comment.id;
-    
-    const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
-    const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
-    const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
-    const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
-    const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
-    const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null;
-    const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
-    const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
-   
-
-    const db = getFirestore();
-
-    const updateData = {
-      userId: user.uid,
-      aboutcontent: aboutcontent ?? "",
-      title: title ?? "",
-      owner: owner ?? "",
-      phone: phone ?? "",
-      price: price ?? "",
-      priceextra: priceextra ?? "",
-      bedrooms: bedrooms ?? "",
-      bathrooms: bathrooms ?? "",
-      square: square ?? "",
-      billingFrequency: billingFrequency ?? "",
-      units: units ?? "",
-      apartavailability: apartavailability ?? "",
-      apartbillingFrequency2: apartbillingFrequency2 ?? "",
-      apartprice: apartprice ?? "",
-      apartsquare: apartsquare ?? "",
-      apartbathrooms: apartbathrooms ?? "",
-      apartbedrooms: apartbedrooms ?? "",
-      water: water ?? "",
-      lights: lights ?? "",
-      cable: cable ?? "",
-      laundry: laundry ?? "",
-      elevator: elevator ?? "",
-      play: play ?? "",
-      concierge: concierge ?? "",
-      club: club ?? "",
-      fireplace: fireplace ?? "",
-      airConditioning: airConditioning ?? "",
-      heating: heating ?? "",
-      sprink: sprink ?? "",
-      tub: tub ?? "",
-      walkin: walkin ?? "",
-      smoke: smoke ?? "",
-      stoorage: stoorage ?? "",
-      wheel: wheel ?? "",
-      disposal: disposal ?? "",
-      dishwasher: dishwasher ?? "",
-      island: island ?? "",
-      kitchen: kitchen ?? "",
-      microwave: microwave ?? "",
-      oven: oven ?? "",
-      fridge: fridge ?? "",
-      freezer: freezer ?? "",
-      framme: framme ?? "",
-      ceiling: ceiling ?? "",
-      wifi: wifi ?? "",
-      address: address ?? "",
-      city: city ?? "",
-      state: state ?? "",
-      canadaState: canadaState ?? "",
-      mexicoState: mexicoState ?? "",
-  
-      zip: zip ?? "",
-      pet: pet ?? "",
-      primaryBedroomFeatures: primaryBedroomFeatures ?? "",
-      primaryBedroom: primaryBedroom ?? "",
-      primaryBath: primaryBath ?? "",
-      primaryBathFeatures: primaryBathFeatures ?? "",
-      manager: manager ?? "",
-      parking: parking ?? "",
-      balcony: balcony ?? "",
-      garage: garage ?? "",
-      garageFeatures: garageFeatures ?? "",
-      basement: basement ?? "",
-      basementFeatures: basementFeatures ?? "",
-      timestamp: new Date(),
-      userEmail: user.email,
-      authpic: authpic ?? null,
-      cover_image: cover_image ?? null,
-      cover_showcase1: cover_showcase1 ?? null,
-      cover_showcase2: cover_showcase2 ?? null,
-      cover_showcase3: cover_showcase3 ?? null,
-      cover_showcase4: cover_showcase4 ?? null,
-      cover_showcase5: cover_showcase5 ?? null,
-      cover_showcase6: cover_showcase6 ?? null,
-      propertyType: selectedCollection ?? "",
-    };
-
-    if (isUpdate && comment.id && selectedCollection) {
-      const docRef = doc(db, selectedCollection, comment.id);
-      await updateDoc(docRef, updateData);
-      window.location.reload();
-      window.scrollTo(0, 0);
-    } else {
-      setErrorMessage('Error: Cannot add a new document without articleId.');
-    }
-  } catch (error) {
-    console.log(error);
-    if (error.code === 'permission-denied') {
-      setErrorMessage('Permission denied: You may not have the necessary permissions.');
-    } else if (error.code === 'not-found') {
-      setErrorMessage('Document not found: The specified document does not exist.');
-    }
-  } finally {
-    setIsLoading(false); // Reset loading state
-  }
+e.preventDefault();
+try {
+const auth = getAuth();
+const user = auth.currentUser;
+setIsLoading(true);
+const uniqueArticleId = uuidv4();
+setArticleId(uniqueArticleId);
+const isUpdate = !!comment.id;
+const authpic = authpicFile ? await handleFileUpload(authpicFile, `images/${uniqueArticleId}authpic.jpg`, uniqueArticleId) : null;
+const cover_image = coverImageFile ? await handleFileUpload(coverImageFile, `images/${uniqueArticleId}cover_image.jpg`) : null;
+const cover_showcase1 = showcase1File ? await handleFileUpload(showcase1File, `images/${uniqueArticleId}cover_showcase1.jpg`) : null;
+const cover_showcase2 = showcase2File ? await handleFileUpload(showcase2File, `images/${uniqueArticleId}cover_showcase2.jpg`) : null;
+const cover_showcase3 = showcase3File ? await handleFileUpload(showcase3File, `images/${uniqueArticleId}cover_showcase3.jpg`) : null;
+const cover_showcase4 = showcase4File ? await handleFileUpload(showcase4File, `images/${uniqueArticleId}cover_showcase4.jpg`) : null;
+const cover_showcase5 = showcase5File ? await handleFileUpload(showcase5File, `images/${uniqueArticleId}cover_showcase5.jpg`) : null;
+const cover_showcase6 = showcase6File ? await handleFileUpload(showcase6File, `images/${uniqueArticleId}cover_showcase6.jpg`) : null;
+const db = getFirestore();
+const updateData = {
+userId: user.uid,
+aboutcontent: aboutcontent ?? "",
+title: title ?? "",
+owner: owner ?? "",
+phone: phone ?? "",
+price: price ?? "",
+bedrooms: bedrooms ?? "",
+bathrooms: bathrooms ?? "",
+square: square ?? "",
+billingFrequency: billingFrequency ?? "",
+units: units ?? "",
+apartavailability: apartavailability ?? "",
+apartbillingFrequency2: apartbillingFrequency2 ?? "",
+apartprice: apartprice ?? "",
+apartsquare: apartsquare ?? "",
+apartbathrooms: apartbathrooms ?? "",
+apartbedrooms: apartbedrooms ?? "",
+water: water ?? "",
+lights: lights ?? "",
+cable: cable ?? "",
+laundry: laundry ?? "",
+elevator: elevator ?? "",
+play: play ?? "",
+concierge: concierge ?? "",
+fireplace: fireplace ?? "",
+airConditioning: airConditioning ?? "",
+heating: heating ?? "",
+sprink: sprink ?? "",
+tub: tub ?? "",
+walkin: walkin ?? "",
+smoke: smoke ?? "",
+stoorage: stoorage ?? "",
+wheel: wheel ?? "",
+disposal: disposal ?? "",
+dishwasher: dishwasher ?? "",
+island: island ?? "",
+kitchen: kitchen ?? "",
+microwave: microwave ?? "",
+oven: oven ?? "",
+fridge: fridge ?? "",
+freezer: freezer ?? "",
+framme: framme ?? "",
+ceiling: ceiling ?? "",
+wifi: wifi ?? "",
+address: address ?? "",
+city: city ?? "",
+state: state ?? "",
+canadaState: canadaState ?? "",
+mexicoState: mexicoState ?? "",
+zip: zip ?? "",
+pet: pet ?? "",
+primaryBedroomFeatures: primaryBedroomFeatures ?? "",
+primaryBedroom: primaryBedroom ?? "",
+primaryBath: primaryBath ?? "",
+primaryBathFeatures: primaryBathFeatures ?? "",
+manager: manager ?? "",
+parking: parking ?? "",
+balcony: balcony ?? "",
+garage: garage ?? "",
+garageFeatures: garageFeatures ?? "",
+basement: basement ?? "",
+basementFeatures: basementFeatures ?? "",
+timestamp: new Date(),
+userEmail: user.email,
+authpic: authpic ?? null,
+cover_image: cover_image ?? null,
+cover_showcase1: cover_showcase1 ?? null,
+cover_showcase2: cover_showcase2 ?? null,
+cover_showcase3: cover_showcase3 ?? null,
+cover_showcase4: cover_showcase4 ?? null,
+cover_showcase5: cover_showcase5 ?? null,
+cover_showcase6: cover_showcase6 ?? null,
+propertyType: selectedCollection ?? "",
+};
+if (isUpdate && comment.id && selectedCollection) {
+const docRef = doc(db, selectedCollection, comment.id);
+await updateDoc(docRef, updateData);
+window.location.reload();
+window.scrollTo(0, 0);
+} else {
+setErrorMessage('Error: Cannot add a new document without articleId.');
+}
+} catch (error) {
+console.log(error);
+if (error.code === 'permission-denied') {
+setErrorMessage('Permission denied: You may not have the necessary permissions.');
+} else if (error.code === 'not-found') {
+setErrorMessage('Document not found: The specified document does not exist.');
+}
+} finally {
+setIsLoading(false); // Reset loading state
+}
 };
 
 
 const formatPhoneNumber = (input) => {
-  // Remove all non-digit characters
-  const cleaned = input.replace(/\D/g, '');
-  
-  // Apply formatting: (XXX) XXX-XXXX
-  const formatted = cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
-  
-  return formatted;
+// Remove all non-digit characters
+const cleaned = input.replace(/\D/g, '');
+// Apply formatting: (XXX) XXX-XXXX
+const formatted = cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+return formatted;
 };
 
 const handlePhoneChange = (e) => {
-  const inputPhone = e.target.value;
-  const formattedPhone = formatPhoneNumber(inputPhone);
-  setPhone(formattedPhone);
+const inputPhone = e.target.value;
+const formattedPhone = formatPhoneNumber(inputPhone);
+setPhone(formattedPhone);
 };
   
 return (
