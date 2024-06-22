@@ -37,6 +37,7 @@ export default function NewConstructionList() {
   const [editingComment, setEditingComment] = useState(null);
   const [unauthorizedModalOpen, setUnauthorizedModalOpen ] = useState(false)
   const [isAdminUser, setIsAdminUser] = useState(false);
+  const commentsRef = useRef(null);
 
   const router = useRouter()
 

@@ -220,13 +220,7 @@ return (
 </div>
 
 
-{editModalOpen && (
-  <EditModalForm
-    comment={editingComment}
-    onSave={handleEditModalSave}
-    onCancel={() => setEditModalOpen(false)}
-  />
-)}
+
 
 {loading && useArticle.length === 0 && isSignedIn ? (
   <div style={{ textAlign: 'center' }}>

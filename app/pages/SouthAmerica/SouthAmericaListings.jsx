@@ -7,12 +7,12 @@ import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, que
 import { useRouter } from 'next/navigation';
 import EditModalForm from '../EditModalForm';
 import { BeatLoader } from 'react-spinners';
-import { IoCloseSharp } from 'react-icons/io5';
 import AdminEdit from '../AdminEdit/AdminEdit';
+import { IoCloseSharp } from 'react-icons/io5';
 
 
 async function getArticles(orderBy) {
-const querySnapshot = await getDocs(collection(db, "Historic Homes"));
+const querySnapshot = await getDocs(collection(db, "South America"));
 const data = [];
 
 querySnapshot.forEach((doc) => {
@@ -25,7 +25,7 @@ data.push({ id: doc.id, ...doc.data() });
   }
 
 
-export default function HistoricLisitngs() {
+export default function SouthAmericaListings() {
   const [fetchError, setFetchError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [useArticle, setUseArticle] = useState([]);
@@ -44,7 +44,7 @@ export default function HistoricLisitngs() {
 const fetchComments = async (articleId) => {
 try {
 const db = getFirestore();
-const commentsRef = collection(db, 'Historic Homes');
+const commentsRef = collection(db, 'South America');
 const queryRef = query(commentsRef, where('articleId', '==', articleId),   orderBy('timestamp', 'desc'));
 const querySnapshot = await getDocs(queryRef);
 const newComments = querySnapshot.docs.map((doc) => {
@@ -68,6 +68,7 @@ resolve(isAuthenticated);
 });
 };
 // userIsAuthenticated stops here
+
 const editPost = async (postId) => {
   const listingToEdit = useArticle.find((listing) => listing.id === postId);
   if (listingToEdit) {
@@ -98,7 +99,6 @@ const editPost = async (postId) => {
     }, 3000);
   }
 };
-
 // EditPost stops here
 
 const handleEditModalSave = async (postId, editedContent) => {
@@ -129,9 +129,9 @@ const isAuthenticated = await userIsAuthenticated();
 if (currentUser) {
 if (currentUser.uid === UserId) {
 const db = getFirestore();
-const commentDoc = await getDoc(doc(db, 'Historic Homes', postId));
+const commentDoc = await getDoc(doc(db, 'South America', postId));
 if (commentDoc.exists()) {
-await deleteDoc(doc(db, 'Apartments', postId));
+await deleteDoc(doc(db, 'South America', postId));
 setUseArticle((prevArticles) =>prevArticles.filter((article) => article.id !== postId)
 );
 setSuccessMessage('Listing deleted successfully');
@@ -191,51 +191,46 @@ setErrorMessage('');
         unsubscribe();
       };
     }, [auth]);
-    
 return (
 <>
 
 
 
-<div className='HistoricArticleHero'>
+<div className='SouthAmericaHero'>
 <div>
-  <h1>Historic Homes for Sale & Rent</h1>
+<h1>Explore South America's Homes, Apartments, Motels, & Hotels</h1>
 
-  {!isSignedIn && (
-    <p>Please sign in or register to add listings.</p>
-  )}
+{!isSignedIn && (
+<p>Please sign in or register to add listings.</p>
+)}
 
-  <button
-    onClick={() => router.push('/pages/PropertyForm')}
-    disabled={!isSignedIn}
-    style={{
-      cursor: !isSignedIn ? 'not-allowed' : 'pointer',
-      backgroundColor: !isSignedIn ? '#d3d3d3' : '#007bff',
-      color: !isSignedIn ? '#a9a9a9' : '#fff',
-    }}
-  >
-    Add a Listing
-  </button>
-  
+<button
+onClick={() => router.push('/pages/PropertyForm')} 
+disabled={!isSignedIn} 
+style={{
+cursor: !isSignedIn ? 'not-allowed' : 'pointer',
+backgroundColor: !isSignedIn ? '#d3d3d3' : '#007bff',
+color: !isSignedIn ? '#a9a9a9' : '#fff',
+}}
+>
+Add a Listing
+</button>
 </div>
-
 </div>
 
 
 
 
 {loading && useArticle.length === 0 && isSignedIn ? (
-  <div style={{ textAlign: 'center' }}>
-    <BeatLoader color='blue' />
-  </div>
+<div style={{ textAlign: 'center' }}><BeatLoader color='blue' /></div>
 ) : (
-  <div className='property-grid' style={{ borderBottom: 'solid 1px' }}>
-    {useArticle.length === 0 ? (
-      <p>No listings available.</p>
-    ) : (
-      useArticle.map((blog) => (
-        <Link key={blog.id} href={`/pages/Articles/${blog.id}`}>
-          <div ref={commentsRef} className='property-card'>
+<div className='property-grid' style={{ borderBottom: 'solid 1px' }}>
+{useArticle.length === 0 ? (
+<p>No listings available.</p>
+) : (
+useArticle.map((blog) => (
+<Link key={blog.id} href={`/pages/Articles/${blog.id}`}>
+<div ref={commentsRef}  className='property-card'>
 <div
 style={{
 backgroundImage: `url(${blog.cover_image})`,
@@ -252,21 +247,21 @@ width: '100%'
 </div>
 <div className='property-type'>
 <div className='sm-houlo' >
-  {blog.bathrooms || blog.apartbathrooms ? `${blog.bathrooms || blog.apartbathrooms}ba` : ''}
-  {blog.bathrooms || blog.apartbathrooms ? ' | ' : ''}
-  {blog.bedrooms || blog.apartbedrooms ? `${blog.bedrooms || blog.apartbedrooms}bds` : ''}
-  {blog.bathrooms || blog.apartbathrooms || blog.bedrooms || blog.apartbedrooms ? ' | ' : ''}
+{blog.bathrooms || blog.apartbathrooms ? `${blog.bathrooms || blog.apartbathrooms}ba` : ''}
+{blog.bathrooms || blog.apartbathrooms ? ' | ' : ''}
+{blog.bedrooms || blog.apartbedrooms ? `${blog.bedrooms || blog.apartbedrooms}bds` : ''}
+{blog.bathrooms || blog.apartbathrooms || blog.bedrooms || blog.apartbedrooms ? ' | ' : ''}
 </div>
 <div className='sm-houlo' >
-  {blog.square || blog.apartsquare ? `${blog.square || blog.apartsquare} sqft  ` : ''}
-  {blog.square || blog.apartsquare || blog.square || blog.apartsquare ? ' | ' : ''}
+{blog.square || blog.apartsquare ? `${blog.square || blog.apartsquare} sqft  ` : ''}
+{blog.square || blog.apartsquare || blog.square || blog.apartsquare ? ' | ' : ''}
+</div>
+
+<div className='sm-houlo'>{blog.propertyType}</div>
+</div>
 
 </div>
-<div className='sm-houlo' >{blog.propertyType}</div>
-
-</div>
-</div>
-<address className='property-address'>{blog.address}, {blog.city}, {blog.state[0]}{blog.state.slice(-1)}, {blog.zip}</address>
+<address className='property-address'>{blog.address}, {blog.city}, {blog.state.slice(0,2)}, {blog.zip}</address>
 <address className='property-owner_name'>Listing by {blog.owner}</address>
 <div className="edit-delBlock">
 <button
@@ -291,11 +286,12 @@ Delete
 </button>
 </div>
 </div>
-        </Link>
-      ))
-    )}
-  </div>
+</Link>
+))
 )}
+</div>
+)}
+
 
 
 {unauthorizedModalOpen && (
@@ -324,9 +320,6 @@ Delete
     />
   )
 )}
-
-
-
 
 </>
 )

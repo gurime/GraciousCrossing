@@ -39,6 +39,7 @@ export default function IcelandListings() {
   const [isAdminUser, setIsAdminUser] = useState(false);
 
   const router = useRouter()
+  const commentsRef = useRef(null);
 
 const fetchComments = async (articleId) => {
 try {
@@ -218,15 +219,6 @@ return (
 </div>
 
 </div>
-
-
-{editModalOpen && (
-  <EditModalForm
-    comment={editingComment}
-    onSave={handleEditModalSave}
-    onCancel={() => setEditModalOpen(false)}
-  />
-)}
 
 {loading && useArticle.length === 0 && isSignedIn ? (
   <div style={{ textAlign: 'center' }}>

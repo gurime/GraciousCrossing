@@ -37,6 +37,7 @@ export default function GreenlandListings() {
   const [editingComment, setEditingComment] = useState(null);
   const [unauthorizedModalOpen, setUnauthorizedModalOpen ] = useState(false)
   const [isAdminUser, setIsAdminUser] = useState(false);
+  const commentsRef = useRef(null);
 
   const router = useRouter()
 
@@ -220,13 +221,7 @@ return (
 </div>
 
 
-{editModalOpen && (
-  <EditModalForm
-    comment={editingComment}
-    onSave={handleEditModalSave}
-    onCancel={() => setEditModalOpen(false)}
-  />
-)}
+
 
 {loading && useArticle.length === 0 && isSignedIn ? (
   <div style={{ textAlign: 'center' }}>

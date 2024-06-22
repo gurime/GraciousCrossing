@@ -7,12 +7,12 @@ import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, que
 import { useRouter } from 'next/navigation';
 import EditModalForm from '../EditModalForm';
 import { BeatLoader } from 'react-spinners';
-import { IoCloseSharp } from 'react-icons/io5';
 import AdminEdit from '../AdminEdit/AdminEdit';
+import { IoCloseSharp } from 'react-icons/io5';
 
 
 async function getArticles(orderBy) {
-const querySnapshot = await getDocs(collection(db, "Historic Homes"));
+const querySnapshot = await getDocs(collection(db, "Middle East"));
 const data = [];
 
 querySnapshot.forEach((doc) => {
@@ -25,7 +25,7 @@ data.push({ id: doc.id, ...doc.data() });
   }
 
 
-export default function HistoricLisitngs() {
+export default function MiddleEastListings() {
   const [fetchError, setFetchError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [useArticle, setUseArticle] = useState([]);
@@ -44,7 +44,7 @@ export default function HistoricLisitngs() {
 const fetchComments = async (articleId) => {
 try {
 const db = getFirestore();
-const commentsRef = collection(db, 'Historic Homes');
+const commentsRef = collection(db, 'Middle East');
 const queryRef = query(commentsRef, where('articleId', '==', articleId),   orderBy('timestamp', 'desc'));
 const querySnapshot = await getDocs(queryRef);
 const newComments = querySnapshot.docs.map((doc) => {
@@ -68,6 +68,7 @@ resolve(isAuthenticated);
 });
 };
 // userIsAuthenticated stops here
+
 const editPost = async (postId) => {
   const listingToEdit = useArticle.find((listing) => listing.id === postId);
   if (listingToEdit) {
@@ -98,7 +99,6 @@ const editPost = async (postId) => {
     }, 3000);
   }
 };
-
 // EditPost stops here
 
 const handleEditModalSave = async (postId, editedContent) => {
@@ -129,9 +129,9 @@ const isAuthenticated = await userIsAuthenticated();
 if (currentUser) {
 if (currentUser.uid === UserId) {
 const db = getFirestore();
-const commentDoc = await getDoc(doc(db, 'Historic Homes', postId));
+const commentDoc = await getDoc(doc(db, 'Middle East', postId));
 if (commentDoc.exists()) {
-await deleteDoc(doc(db, 'Apartments', postId));
+await deleteDoc(doc(db, 'Middle East', postId));
 setUseArticle((prevArticles) =>prevArticles.filter((article) => article.id !== postId)
 );
 setSuccessMessage('Listing deleted successfully');
@@ -191,15 +191,14 @@ setErrorMessage('');
         unsubscribe();
       };
     }, [auth]);
-    
 return (
 <>
 
 
 
-<div className='HistoricArticleHero'>
+<div className='MiddleEastHero'>
 <div>
-  <h1>Historic Homes for Sale & Rent</h1>
+  <h1>Explore The Middle East's Homes, Apartments, Motels, & Hotels</h1>
 
   {!isSignedIn && (
     <p>Please sign in or register to add listings.</p>
@@ -262,11 +261,13 @@ width: '100%'
   {blog.square || blog.apartsquare || blog.square || blog.apartsquare ? ' | ' : ''}
 
 </div>
-<div className='sm-houlo' >{blog.propertyType}</div>
+
+<div className='sm-houlo'>{blog.propertyType}</div>
 
 </div>
+
 </div>
-<address className='property-address'>{blog.address}, {blog.city}, {blog.state[0]}{blog.state.slice(-1)}, {blog.zip}</address>
+<address className='property-address'>{blog.address}, {blog.city}, {blog.state.slice(0,2)}, {blog.zip}</address>
 <address className='property-owner_name'>Listing by {blog.owner}</address>
 <div className="edit-delBlock">
 <button
@@ -298,6 +299,7 @@ Delete
 )}
 
 
+
 {unauthorizedModalOpen && (
   <div className="modal">
     <div className="modal-content" style={{width:'30%'}}>
@@ -324,9 +326,6 @@ Delete
     />
   )
 )}
-
-
-
 
 </>
 )
