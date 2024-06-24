@@ -12,15 +12,14 @@ const [result, setResult] = useState('');
 const [resultColor, setResultColor] = useState('');
 
 function calculateMortgagePayment() {
-const monthlyInterestRate = parseFloat(interestRate) / 1200;
-const numPayments = parseInt(loanTerm) * 12;
-const principal = parseFloat(loanAmount.replace('$', '')) - parseFloat(downPayment.replace('$', ''));
-if (isNaN(principal) || isNaN(monthlyInterestRate) || isNaN(numPayments)) {
-  // Handle the case where inputs are not valid for calculations
-  return 'Invalid input. Please enter valid numeric values.';
-}
-const monthlyPayment = (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numPayments)) / (Math.pow(1 + monthlyInterestRate, numPayments) - 1);
-return monthlyPayment.toFixed(2);
+  const monthlyInterestRate = parseFloat(interestRate.replace('%', '')) / 1200;
+  const numPayments = parseInt(loanTerm) * 12;
+  const principal = parseFloat(loanAmount.replace(/[$,]/g, '')) - parseFloat(downPayment.replace(/[$,]/g, ''));
+  if (isNaN(principal) || isNaN(monthlyInterestRate) || isNaN(numPayments)) {
+    return 'Invalid input. Please enter valid numeric values.';
+  }
+  const monthlyPayment = (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numPayments)) / (Math.pow(1 + monthlyInterestRate, numPayments) - 1);
+  return monthlyPayment.toFixed(2);
 }
 
 function handleLoanAmountChange(event) {
@@ -49,7 +48,14 @@ function handleInterestRateChange(event) {
   }
   
   
-      
+  function handleReset() {
+    setLoanAmount('');
+    setInterestRate('');
+    setLoanTerm('');
+    setDownPayment('');
+    setResult('');
+    setResultColor('');
+  }
     
   function handleSubmit(event) {
     event.preventDefault();
@@ -102,8 +108,20 @@ return (
 
 </div>
 
-<button type="submit">Calculate Your Mortgage</button>
-<p style={{ textAlign: 'center', color: resultColor || 'black' }}>{result}</p>
+<div className="button-group">
+  <button type="submit">Calculate Your Mortgage</button>
+  <button type="button" onClick={handleReset}>Reset</button>
+</div><p style={{ textAlign: 'center', color: resultColor || 'black' }}>{result}</p>
+<style jsx>{`
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .button-group button {
+      flex: 1;
+    }
+  `}</style>
 </form>
 
 </div>
