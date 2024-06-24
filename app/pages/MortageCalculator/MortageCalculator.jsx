@@ -1,7 +1,7 @@
 'use client'
 import Footer from '@/app/components/Footer';
 import Navbar from '@/app/components/Navbar';
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 
 export default function MortageCalculator() {
     const [loanAmount, setLoanAmount] = useState('');
