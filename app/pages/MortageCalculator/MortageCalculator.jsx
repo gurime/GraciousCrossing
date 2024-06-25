@@ -4,13 +4,22 @@ import Navbar from '@/app/components/Navbar';
 import React, {useState } from 'react'
 
 export default function MortageCalculator() {
+  const [selectedRegion, setSelectedRegion] = useState('United States');
+
     const [loanAmount, setLoanAmount] = useState('');
 const [interestRate, setInterestRate] = useState('');
 const [loanTerm, setLoanTerm] = useState('');
 const [downPayment, setDownPayment] = useState('');
 const [result, setResult] = useState('');
 const [resultColor, setResultColor] = useState('');
-
+  function handleReset() {
+    setLoanAmount('');
+    setInterestRate('');
+    setLoanTerm('');
+    setDownPayment('');
+    setResult('');
+    setResultColor('');
+  }
 function calculateMortgagePayment() {
   const monthlyInterestRate = parseFloat(interestRate.replace('%', '')) / 1200;
   const numPayments = parseInt(loanTerm) * 12;
@@ -48,30 +57,39 @@ function handleInterestRateChange(event) {
   }
   
   
-  function handleReset() {
-    setLoanAmount('');
-    setInterestRate('');
-    setLoanTerm('');
-    setDownPayment('');
-    setResult('');
-    setResultColor('');
-  }
+
     
   function handleSubmit(event) {
     event.preventDefault();
   
     if (!loanAmount || !interestRate || !loanTerm || !downPayment) {
-      // Handle the case where any of the required fields is empty
       setResult('Please fill in all the required fields.');
       setResultColor('red');
       return;
     }
   
     const monthlyPayment = calculateMortgagePayment();
+    const threshold = thresholds[selectedRegion];
     setResult(`Monthly Payment: $${monthlyPayment}`);
-    setResultColor(monthlyPayment <= 800 ? 'green' : 'red');
+    setResultColor(monthlyPayment <= threshold ? 'green' : 'red');
   }
-  
+
+  const thresholds = {
+    'United States': 1500,
+    'Canada': 1600,
+    'Mexico': 800,
+    'Caribbean': 1000,
+    'Europe': 1200,
+    'Iceland': 1300,
+    'Greenland': 1100,
+    'United Kingdom': 1400,
+    'Australia': 1700,
+    'China': 900,
+    'Indonesia': 600,
+    'Middle East': 1000,
+    'South America': 700,
+    'Africa': 500
+  };
 
 return (
 <>
@@ -107,6 +125,19 @@ return (
 <small>Enter the initial payment made when purchasing the home.</small>
 
 </div>
+
+<label htmlFor="region">Region:</label>
+<select 
+  id="region" 
+  name="region" 
+  value={selectedRegion} 
+  onChange={(e) => setSelectedRegion(e.target.value)}
+>
+  {Object.keys(thresholds).map((region) => (
+    <option key={region} value={region}>{region}</option>
+  ))}
+</select>
+<p>Threshold for {selectedRegion}: ${thresholds[selectedRegion]}</p>
 
 <div className="button-group">
   <button type="submit">Calculate Your Mortgage</button>
