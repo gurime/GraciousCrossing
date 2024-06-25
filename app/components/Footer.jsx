@@ -40,7 +40,7 @@ return (
 </div>
 {/*first tablebox stops here*/}
 <div className="footer-tablebox"> 
-  <div className="footer-headline">Home Shopping</div>
+  <div className="footer-headline">United States</div>
 
 <ul className="footer-navlink">
 <li><Link href='/pages/Houses'>Homes For Sale & Rent</Link></li>
