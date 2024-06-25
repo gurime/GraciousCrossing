@@ -4,6 +4,7 @@ import { db } from '../Config/firebase';
 export async function getArticle(id) {
 const collectionRefs = [
 doc(db, 'article', id),
+doc(db, 'sell article', id),
 
 
 ];

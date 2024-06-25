@@ -1,30 +1,30 @@
 'use client'
+import { db } from '@/app/Config/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 import Link from 'next/link';
 import { useEffect, useState } from 'react'
-import { db } from '../Config/firebase';
-import { collection, getDocs } from 'firebase/firestore';
 
 
 async function getArticles(orderBy) {
-  const querySnapshot = await getDocs(collection(db, "article"));
-  const data = [];
+const querySnapshot = await getDocs(collection(db, "sell article"));
+const data = [];
 
-  querySnapshot.forEach((doc) => {
-    data.push({ id: doc.id, ...doc.data() });
-  });
+querySnapshot.forEach((doc) => {
+data.push({ id: doc.id, ...doc.data() });
+});
 
-  // Sort the data based on the selected orderBy criteria
-  if (orderBy === 'date') {
-    data.sort((a, b) => (a.date?.localeCompare(b.date)) || 0);
-  } else if (orderBy === 'title') {
-    data.sort((a, b) => (a.title?.localeCompare(b.title)) || 0);
+// Sort the data based on the selected orderBy criteria
+if (orderBy === 'date') {
+data.sort((a, b) => a.date.localeCompare(b.date));
+} else if (orderBy === 'title') {
+data.sort((a, b) => a.title.localeCompare(b.title));
+}
+  
+    return data;
   }
 
-  return data;
-}
 
-
-export default function ArtilceList() {
+export default function SellingList() {
 const [fetchError, setFetchError] = useState(null);
 const [loading, setLoading] = useState(true);
 const [useArticle, setUseArticle] = useState([]);
@@ -53,9 +53,9 @@ return (
 
 <div className='ArticleHero'>
     <div style={{padding:'5rem 0'}}>
-      <h1>Buying Guide</h1>
+      <h1>Selling Guide</h1>
     <p></p>
-    <p>Explore tips and tricks for a successful home-buying experience.</p></div>
+    <p>Explore tips and tricks for a successful home-selling experience.</p></div>
     
 </div>
 

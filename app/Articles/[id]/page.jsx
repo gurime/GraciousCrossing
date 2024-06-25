@@ -103,7 +103,7 @@ alt="..."
 <p>{post.content7}</p>
 <p>{post.content8}</p>
 <p>{post.content9}</p>
-<p>{post.content10}</p>
+
 
 </div>
 
