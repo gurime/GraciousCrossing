@@ -440,17 +440,20 @@ padding: .8rem 1rem;
 border-bottom: 1px solid #6d6df8;
 }
 
-.card{
-overflow: hidden;
-border-radius: .5rem;
-max-width: 30rem;
-margin: 1rem 0;
-min-height: 500px;
+.card {
+  background-color: #fff;
+  border-radius: 1rem;
+  max-width: 30rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, .3);
 }
 
 .card img{
-width: 100%;
-height: auto;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
 }
 
 .card h2{
@@ -949,15 +952,15 @@ justify-content: center;
 margin-bottom: 1rem;
 }
 
-.card-title{
-font-weight: 300;
-font-size: 1.5rem;
-line-height: 2rem;
+.card-title {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 400;
 }
 
 .card-content{
-line-height: 1.625;
-font-weight: 400;
+line-height:2;
+
 }
 
 .article-container{
